@@ -1,0 +1,14 @@
+How do I install the mod ?
+
+1) First make sure that your colonization game is patched to official patch 1.01f.
+(Everything else will cause heavy problems.)
+
+2) Like any other mod, copy this folder to your MODS folder.
+
+Regarding mod name:
+Multiplayer requires all players to call the mod the same thing.
+
+Savegames can only be loaded using the same mod name as when they were saved. We can however change the mod name in a savegame.
+https://we-the-people-civ4col-mod.github.io/DeveloperNotes/SavegameModRenamingTool/index.html
+
+Enjoy!
