@@ -339,6 +339,8 @@ public:
 	void changeRiverPlotYield(YieldTypes eIndex, int iChange);
 	int getBaseRawYieldProduced(YieldTypes eIndex) const;
 	int getRawYieldProduced(YieldTypes eIndex) const;
+	int getWages(ProfessionTypes eProfession) const; // Ramstormp, PTSD, Wages
+	void changeWages(ProfessionTypes eProfession, int iChange); // Ramstormp, PTSD, Wages
 	int getRawYieldConsumed(YieldTypes eIndex) const;
 	int getBaseYieldRateModifier(YieldTypes eIndex, int iExtra = 0) const;
 	int getYieldRate(YieldTypes eIndex) const;

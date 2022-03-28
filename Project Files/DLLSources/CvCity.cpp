@@ -4290,7 +4290,85 @@ int CvCity::getRawYieldProduced(YieldTypes eYieldType) const
 	}
 	// R&R, ray, safety check for negative Yield Modifiers from Health - END
 }
+// Ramstorm, PTSD, Wages - start
+ int CvCity::getWages(ProfessionTypes eProfession) const
+{
+	PROFILE_FUNC();
 
+	if (isOccupation())
+	{
+		return 0;
+	}
+
+	int iWages = 0;
+	/*
+	if (eYieldType == YIELD_FOOD)
+	{
+		if (isHuman())
+		{
+			iWages = getPopulation() * GC.getFOOD_CONSUMPTION_PER_POPULATION() + plot()->getNumDefenders(getOwnerINLINE()) * GC.getFOOD_CONSUMPTION_PER_CITY_DEFENDER(); // Ramstormp, PTSD, Guards eat food too
+		}
+		else
+		{
+			iWages = getPopulation() * GC.getFOOD_CONSUMPTION_PER_POPULATION(); // Ramstormp, PTSD, Guards eat food too
+		}
+	}
+	*/
+	FAssert(eProfession != NO_PROFESSION);
+	FAssert(GC.getProfessionInfo(eProfession).isCitizen());
+
+	CvProfessionInfo& kProfession = GC.getProfessionInfo(eProfession);
+
+	//int iOutput = 0;
+
+	if (kProfession.isWorkPlot())
+	{
+		for (int iI = 0; iI < NUM_CITY_PLOTS; iI++)
+		{
+			if (iI != CITY_HOME_PLOT)
+			{
+				CvPlot* pLoopPlot = plotCity(getX_INLINE(), getY_INLINE(), iI);
+				if ((pLoopPlot != NULL) && (pLoopPlot->getWorkingCity() == this))
+				{
+					iWages += AI_professionBasicOutput(eProfession, NO_UNIT, pLoopPlot) / 3;
+				}
+			}
+		}
+	}
+	else
+	{
+		iWages = AI_professionBasicOutput(eProfession, NO_UNIT, NULL) / 3;
+	}
+
+	/*return iOutput;
+	for (int i = 0; i < getPopulation(); ++i)
+	{
+		CvUnit* pUnit = getPopulationUnitByIndex(i);
+		if (NULL != pUnit)
+		{
+			ProfessionTypes eProfession = pUnit->getProfession();
+			if (NO_PROFESSION != eProfession)
+			{
+				CvProfessionInfo& kProfessionInfo = GC.getProfessionInfo(eProfession);
+				// R&R, ray , MYCP partially based on code of Aymerick - START
+				for (int j = 0; j < kProfessionInfo.getNumYieldsConsumed(); j++)
+				{
+					if (kProfessionInfo.getYieldsConsumed(j) == eYieldType)
+					{
+						int iProfessionYield = getProfessionInput(eProfession, pUnit);
+						if (iProfessionYield != 0)
+						{
+							iWages += iProfessionYield;
+						}
+					}
+				}
+				// R&R, ray , MYCP partially based on code of Aymerick - END
+			}
+		}
+	}*/
+	return iWages;
+}
+// Ramstormp - end
 int CvCity::getRawYieldConsumed(YieldTypes eYieldType) const
 {
 	PROFILE_FUNC();
