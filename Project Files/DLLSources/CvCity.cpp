@@ -1802,8 +1802,31 @@ bool CvCity::canConvince(FatherPointTypes eFatherPoint, bool bContinue, bool bTe
 
 	return true;
 }
+// Ramstormp, PTSD, Growth from food consumption - start
 
+int CvCity::getHeartsTurnsLeft() const
+{
+	int iGrowthLeft;
+	int iTurnsLeft;
 
+	iGrowthLeft = (growthThreshold() - getHearts());
+
+	//if (foodDifference() <= 0)
+	if (getRawYieldConsumed(YIELD_FOOD) <= 0)
+	{
+		return iGrowthLeft;
+	}
+
+	iTurnsLeft = (iGrowthLeft / getRawYieldConsumed(YIELD_FOOD));
+
+	if ((iTurnsLeft * getRawYieldConsumed(YIELD_FOOD)) < iGrowthLeft)
+	{
+		iTurnsLeft++;
+	}
+
+	return std::max(1, iTurnsLeft);
+}
+// Ramstormp - end
 int CvCity::getFoodTurnsLeft() const
 {
 	int iFoodLeft;
@@ -2821,7 +2844,17 @@ int CvCity::foodConsumption(int iExtra) const
 	// Ramstormp - END
 	return ((getPopulation() + iExtra) * GC.getFOOD_CONSUMPTION_PER_POPULATION());
 }
+//Ramstormp, PTSD, Growth from food consumption - start 
+int CvCity::heartsDifference() const
+{
+	if (isDisorder())
+	{
+		return 0;
+	}
 
+	return calculateNetYield(YIELD_HEARTS);
+}
+// Ramstormp - end
 int CvCity::foodDifference() const
 {
 	if (isDisorder())
@@ -2834,7 +2867,8 @@ int CvCity::foodDifference() const
 
 int CvCity::growthThreshold() const
 {
-	return (GET_PLAYER(getOwnerINLINE()).getGrowthThreshold(getPopulation()) * (100 - getCityHealth() - getCityHappiness() + getCityUnHappiness() - (getPopulation() - getBaseRawYieldProduced(YIELD_EDUCATION)) / 3) / 100); // R&R, ray, Health // WTP, ray, Happiness - START // Ramstormp, PTSD, Large Population Growth
+	return (GET_PLAYER(getOwnerINLINE()).getGrowthThreshold(getPopulation()) * (100 - getCityHealth() - getCityHappiness() + getCityUnHappiness() + (getPopulation() - getBaseRawYieldProduced(YIELD_EDUCATION)) / 3) / 100); // R&R, ray, Health // WTP, ray, Happiness - START // Ramstormp, PTSD, Large Population Growth
+	//return (GET_PLAYER(getOwnerINLINE()).getGrowthThreshold(getPopulation()) * (100 - getCityHealth() - getCityHappiness() + getRawYieldConsumed(YIELD_FOOD))
 }
 
 int CvCity::productionLeft() const
@@ -3462,7 +3496,55 @@ void CvCity::changeHealRate(int iChange)
 	m_iHealRate = (m_iHealRate + iChange);
 	FAssert(getHealRate() >= 0);
 }
+// Ramstormp,PTSD, Growth from food consumption
+int CvCity::getHearts() const
+{
+	return getYieldStored(YIELD_HEARTS);
+}
 
+
+void CvCity::setHearts(int iNewValue)
+{
+	setYieldStored(YIELD_HEARTS, iNewValue);
+}
+
+
+void CvCity::changeHearts(int iChange)
+{
+	setHearts(getHearts() + iChange);
+}
+
+int CvCity::getHeartsKept() const
+{
+	return m_iHeartsKept;
+}
+
+
+void CvCity::setHeartsKept(int iNewValue)
+{
+	m_iHeartsKept = iNewValue;
+}
+
+
+void CvCity::changeHeartsKept(int iChange)
+{
+	setHeartsKept(getHeartsKept() + iChange);
+}
+
+
+int CvCity::getMaxHeartsKeptPercent() const
+{
+	return m_iMaxHeartsKeptPercent;
+}
+
+
+void CvCity::changeMaxHeartsKeptPercent(int iChange)
+{
+	m_iMaxHeartsKeptPercent = (m_iMaxHeartsKeptPercent + iChange);
+	FAssert(getMaxHeartsKeptPercent() >= 0);
+}
+
+ //Ramstormp - END
 int CvCity::getFood() const
 {
 	return getYieldStored(YIELD_FOOD);
@@ -4797,7 +4879,6 @@ void CvCity::setYieldStored(YieldTypes eYield, int iValue)
 			{changeTotalYieldStored(iChange);}
 //VET NewCapacity - end 3/9
 		m_em_iYieldStored.set(eYield, iValue);
-
 		if (!AI_isWorkforceHack())
 		{
 			checkCompletedBuilds(eYield, iChange);
@@ -6952,8 +7033,10 @@ const std::vector< std::pair<float, float> >& CvCity::getWallOverridePoints() co
 
 void CvCity::doGrowth()
 {
-	int iDiff;
-
+	int iFoodDiff;
+	int iHeartsDiff;
+	int iFoodConsumed;
+	
 	if (GC.getUSE_DO_GROWTH_CALLBACK()) // K-Mod. block unused python callbacks
 	{		
 		CyCity* pyCity = new CyCity(this);
@@ -6967,20 +7050,45 @@ void CvCity::doGrowth()
 			return;
 		}
 	}
+	// Ramstormp, PTSD, Growth based on food consumption - start
 
-	iDiff = foodDifference();
+	iFoodDiff = foodDifference();
+	iHeartsDiff = heartsDifference();
+	iFoodConsumed = getRawYieldConsumed(YIELD_FOOD);
+	// Ramstormp, PTSD, Population Growth from demands fulfilled - START
+	if (isHuman())
+	{
+		for (int iYield = 0; iYield < NUM_YIELD_TYPES; ++iYield)
+		{
+			YieldTypes eYield = (YieldTypes)iYield;
+			if (GC.getYieldInfo(eYield).isCargo())
+			{
+				if (getYieldDemand(eYield) > 0 && (getYieldStored(eYield) < getYieldDemand(eYield)))
+				{
+					changeHearts(-2);
+				}
+			}
+		}
+	}
+	// Ramstormp - end
+	changeHearts(iFoodConsumed);
+	//changeFoodKept(iFoodDiff);
+	// Ramstormp, PTSD, Growth from food consumption
+	changeFood(iFoodDiff);
+	//changeFoodKept(iFoodDiff);
+	//changeHearts(iHeartsDiff);
+	changeHeartsKept(iHeartsDiff);
 
-	changeFood(iDiff);
-	changeFoodKept(iDiff);
+	//setFoodKept(range(getFoodKept(), 0, ((growthThreshold() * getMaxFoodKeptPercent()) / 100)));
+	//setHeartsKept(range(getHeartsKept(), 0, ((growthThreshold() * getMaxHeartsKeptPercent()) / 100)));
 
-	setFoodKept(range(getFoodKept(), 0, ((growthThreshold() * getMaxFoodKeptPercent()) / 100)));
-
-	if (getFood() >= growthThreshold())
+	if (getHearts() >= growthThreshold())
 	{
 		if (AI_isEmphasizeAvoidGrowth())
 		{
-			setFood(growthThreshold());
+			setHearts(growthThreshold());
 		}
+// Ramstormp - end
 		else
 		{
 			// Ramstormp, PTSD, Racially Diverse Growth
@@ -7023,10 +7131,12 @@ void CvCity::doGrowth()
 			{
 				CvUnit* pUnit = GET_PLAYER(getOwnerINLINE()).initUnit(eUnit, GC.getCivilizationInfo(GET_PLAYER(getOwnerINLINE()).getCivilizationType()).getDefaultProfession(), getX_INLINE(), getY_INLINE());
 
-				changeFood(-(std::max(0, (growthThreshold() - getFoodKept()))));
+				//changeHearts(-(std::max(0, (growthThreshold() - getHeartsKept())))); // Ramstormp, PTSD, Growth based on food consumption
+				changeHearts(-growthThreshold());
+				//setHearts(0); // Ramstormp, PTSD, Growth based on food consumption
 			}
 
-			gDLL->getInterfaceIFace()->addMessage(getOwnerINLINE(), false, GC.getEVENT_MESSAGE_TIME(), gDLL->getText("TXT_KEY_CITY_GROWTH", getNameKey()), "AS2D_POSITIVE_DINK", MESSAGE_TYPE_INFO, GC.getYieldInfo(YIELD_FOOD).getButton(), (ColorTypes)GC.getInfoTypeForString("COLOR_GREEN"), getX_INLINE(), getY_INLINE(), true, true);
+			gDLL->getInterfaceIFace()->addMessage(getOwnerINLINE(), false, GC.getEVENT_MESSAGE_TIME(), gDLL->getText("TXT_KEY_CITY_GROWTH", getNameKey()), "AS2D_POSITIVE_DINK", MESSAGE_TYPE_INFO, GC.getYieldInfo(YIELD_HEARTS).getButton(), (ColorTypes)GC.getInfoTypeForString("COLOR_GREEN"), getX_INLINE(), getY_INLINE(), true, true);
 
 
 			// ONEVENT - City growth
@@ -7093,7 +7203,7 @@ void CvCity::doYields()
 	int iTotalYields = getTotalYieldStored();
 //VET NewCapacity - end 4/9
 	int iMaxCapacity = getMaxYieldCapacity();
-	
+	int iMaxFoodCapacity = getMaxFoodCapacity(); // Ramstormp, PTSD, Food Storage Separated
 	
 	// R&R, ray, adjustment Domestic Markets
 	int iTotalProfitFromDomesticMarket = 0;
@@ -7133,10 +7243,8 @@ void CvCity::doYields()
 			{
 				break;
 			}
-		}
-		// Ramstormp, PTSD, Less messages
-			/*
-			if (iTotalProfitFromDomesticMarket != 0 && GC.getDOMESTIC_SALES_MESSAGES() == 1)
+		}	
+			/*if (iTotalProfitFromDomesticMarket != 0 && GC.getDOMESTIC_SALES_MESSAGES() == 1)
 			{
 				CvWString szBuffer = gDLL->getText("TXT_KEY_GOODS_DOMESTIC_SOLD", getNameKey(), iTotalProfitFromDomesticMarket);
 				gDLL->getInterfaceIFace()->addMessage(getOwnerINLINE(), false, GC.getEVENT_MESSAGE_TIME(), szBuffer, NULL, MESSAGE_TYPE_MINOR_EVENT, NULL, (ColorTypes)GC.getInfoTypeForString("COLOR_WHITE"), getX_INLINE(), getY_INLINE(), true, true);
@@ -7153,6 +7261,32 @@ void CvCity::doYields()
 		{
 		case YIELD_FOOD:
 			// handled in doGrowth
+			// Ramstormp, PTSD, Food Storage - start
+			
+			changeYieldStored(eYield, aiYields[eYield]);
+			if (GC.getYieldInfo(eYield).isCargo()) 
+			{
+				int iFoodStored = getYieldStored(eYield);
+				int iFoodExcess = 0;
+				if (iFoodStored > 0 && iFoodStored > iMaxFoodCapacity)
+				{
+					iFoodExcess = iFoodStored - iMaxFoodCapacity;
+					if (iFoodExcess == 0)
+					{
+						iFoodExcess = 1;
+					}
+					if (iFoodExcess > 0)
+					{
+						int iLoss = std::max(GC.getCITY_YIELD_DECAY_PERCENT() * 3 * iFoodExcess / 100, GC.getMIN_CITY_YIELD_DECAY());
+						iLoss = std::min(iLoss, iFoodExcess);
+						changeYieldStored(eYield, -iLoss);
+						CvWString szBuffer = gDLL->getText("TXT_KEY_GOODS_LOST", iLoss, GC.getYieldInfo(eYield).getChar(), getNameKey());
+						gDLL->getInterfaceIFace()->addMessage(getOwnerINLINE(), false, GC.getEVENT_MESSAGE_TIME(), szBuffer, "AS2D_DEAL_CANCELLED", MESSAGE_TYPE_MINOR_EVENT, GC.getYieldInfo(eYield).getButton(), (ColorTypes)GC.getInfoTypeForString("COLOR_RED"), getX_INLINE(), getY_INLINE(), true, true);
+
+					}
+				}
+			}
+			// Ramstormp - end
 			break;
 		case YIELD_HAMMERS:
 			// temporary storage for hammers. Production handled in doProduction
@@ -7895,7 +8029,8 @@ void CvCity::getCityBillboardSizeIconColors(NiColorA& kDotColor, NiColorA& kText
 
 	if ((getTeam() == GC.getGameINLINE().getActiveTeam()))
 	{
-		if (foodDifference() < 0)
+// Ramstormp, PTSD, Growth from food consumption - start
+		if (foodDifference() < 0 && heartsDifference() < 0)
 		{
 			if ((foodDifference() == -1) && (getFood() >= ((75 * growthThreshold()) / 100)))
 			{
@@ -7908,16 +8043,17 @@ void CvCity::getCityBillboardSizeIconColors(NiColorA& kDotColor, NiColorA& kText
 				kTextColor = kBlack;
 			}
 		}
-		else if (foodDifference() > 0)
+		else if (heartsDifference() > 0)
 		{
 			kDotColor = kGrowing;
 			kTextColor = kBlack;
 		}
-		else if (foodDifference() == 0)
+		else if (heartsDifference() == 0)
 		{
 			kDotColor = kStagnant;
 			kTextColor = kBlack;
 		}
+// Ramstormp - end
 	}
 	else
 	{
@@ -9129,6 +9265,40 @@ int CvCity::getMaxYieldCapacityUncached() const
 	return iCapacity;
 }
 
+// cache getMaxYieldCapacity - function namechange - Nightinggale
+// Ramstormp, PTSD, Food Storage - start
+int CvCity::getMaxFoodCapacityUncached() const
+{
+	int iCapacity = GC.getGameINLINE().getCargoYieldCapacity() / 2; // Ramstormp, PTSD, added '/ 2'
+
+	for (int iBuildingClass = 0; iBuildingClass < GC.getNumBuildingClassInfos(); ++iBuildingClass)
+	{
+		BuildingTypes eBuilding = (BuildingTypes)GC.getCivilizationInfo(getCivilizationType()).getCivilizationBuildings(iBuildingClass);
+		if (eBuilding != NO_BUILDING)
+		{
+			if (isHasBuilding(eBuilding))
+			{
+				iCapacity += GC.getBuildingInfo(eBuilding).getFoodStorage() * GC.getGameSpeedInfo(GC.getGameINLINE().getGameSpeedType()).getStoragePercent() / 100;
+			}
+		}
+	}
+	for (int iTrait = 0; iTrait < GC.getNumTraitInfos(); ++iTrait)
+	{
+		TraitTypes eTrait = (TraitTypes)iTrait;
+		if (eTrait != NO_TRAIT)
+		{
+			if (hasTrait(eTrait))
+			{
+				iCapacity *= 100 + GC.getTraitInfo(eTrait).getStorageCapacityModifier();
+				iCapacity /= 100;
+			}
+		}
+	}
+
+	return iCapacity;
+}
+// Ramstormp - end
+
 bool CvCity::isAutoRaze() const
 {
 	if (getPopulation() == 0)
@@ -10121,6 +10291,27 @@ int CvCity::getHappinessFromDomesticDemandsFulfilled() const
 
 	return iHapDomesticDemand;
 }
+// Ramstormp, PTSD, Growth from food consumption minus lacking demands
+int CvCity::getDomesticDemandLack() const
+{
+	int iDemandsLacking = 0;
+
+	// loop the Yields and find demand fulfilled
+	for (int iYield = 0; iYield < NUM_YIELD_TYPES; ++iYield)
+	{
+		YieldTypes eYield = (YieldTypes)iYield;
+		if (GC.getYieldInfo(eYield).isCargo())
+		{
+			if (getYieldDemand(eYield) > 0 && getYieldStored(eYield) < getYieldDemand(eYield))
+			{
+				iDemandsLacking += getYieldDemand(eYield) - getYieldStored(eYield);
+			}	
+		}
+	}
+
+	return iDemandsLacking;
+}
+// Ramstormp - END
 
 int CvCity::getHappinessFromTreaties() const
 {
@@ -12492,6 +12683,7 @@ void CvCity::UpdateBuildingAffectedCache()
 {
 	NBMOD_SetCityTeachLevelCache(); // NBMOD EDU cache - Nightinggale
 	m_cache_MaxYieldCapacity = getMaxYieldCapacityUncached(); // cache getMaxYieldCapacity - Nightinggale
+	m_cache_MaxFoodCapacity = getMaxFoodCapacityUncached(); // Ramstormp, PTSD, Food Storage Separated
 
 	// CvPlot::hasYield cache - start - Nightinggale
 	for (int iI = 0; iI < NUM_CITY_PLOTS; iI++)
@@ -12559,6 +12751,7 @@ void CvCity::writeDesyncLog(FILE *f) const
 	}
 
 	fprintf(f, "\t\tWarehouse capacity: %d\n", getMaxYieldCapacity());
+	fprintf(f, "\t\tFood storage capacity: %d\n", getMaxFoodCapacity());
 
 	for (YieldTypes eYield = FIRST_YIELD; eYield < NUM_YIELD_TYPES; ++eYield)
 	{

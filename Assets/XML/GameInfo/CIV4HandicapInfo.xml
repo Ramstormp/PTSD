@@ -994,6 +994,12 @@
                 <GoodyType>GOODY_HOSTILE_STRONG</GoodyType>
                 <GoodyType>GOODY_WAR</GoodyType>
                 <GoodyType>GOODY_WAR</GoodyType>
+                <GoodyType>GOODY_EMPTY</GoodyType>
+                <GoodyType>GOODY_EMPTY</GoodyType>
+                <GoodyType>GOODY_EMPTY</GoodyType>
+                <GoodyType>GOODY_EMPTY</GoodyType>
+                <GoodyType>GOODY_EMPTY</GoodyType>
+                <GoodyType>GOODY_EMPTY</GoodyType>
             </Goodies>
         </HandicapInfo>
         <HandicapInfo>

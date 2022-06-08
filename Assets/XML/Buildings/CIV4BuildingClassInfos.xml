@@ -624,5 +624,71 @@
             <DefaultBuilding>BUILDING_BONUS_BANANA</DefaultBuilding>
             <VictoryThresholds/>
         </BuildingClassInfo>
+        <BuildingClassInfo>
+            <Type>BUILDINGCLASS_COLONIAL_CUISINE</Type>
+            <Description>Colonial Cuisine</Description>
+            <DefaultBuilding>BUILDING_COLONIAL_CUISINE</DefaultBuilding>
+            <VictoryThresholds>
+			        <VictoryThreshold>
+				        <VictoryType>VICTORY_CULTURAL</VictoryType>
+				        <iThreshold>1</iThreshold>
+			        </VictoryThreshold>
+		        </VictoryThresholds>
+        </BuildingClassInfo>
+	      <BuildingClassInfo>
+            <Type>BUILDINGCLASS_CROSS_CULTURAL_FELLOWSHIP</Type>
+            <Description>Cross-cultural Fellowship</Description>
+            <DefaultBuilding>BUILDING_CROSS_CULTURAL_FELLOWSHIP</DefaultBuilding>
+            <VictoryThresholds>
+			        <VictoryThreshold>
+				        <VictoryType>VICTORY_CULTURAL</VictoryType>
+				        <iThreshold>1</iThreshold>
+			        </VictoryThreshold>
+		      </VictoryThresholds>
+        </BuildingClassInfo>
+        <BuildingClassInfo>
+            <Type>BUILDINGCLASS_NEW_WORLD_RECREATION</Type>
+            <Description>New World Recreation</Description>
+            <DefaultBuilding>BUILDING_NEW_WORLD_RECREATION</DefaultBuilding>
+            <VictoryThresholds>
+			        <VictoryThreshold>
+				        <VictoryType>VICTORY_CULTURAL</VictoryType>
+				         <iThreshold>1</iThreshold>
+			      </VictoryThreshold>
+		      </VictoryThresholds>
+        </BuildingClassInfo>
+        <BuildingClassInfo>
+            <Type>BUILDINGCLASS_WITTY_DRINKING_DITTIES</Type>
+            <Description>Witty Drinking Ditties</Description>
+            <DefaultBuilding>BUILDING_WITTY_DRINKING_DITTIES</DefaultBuilding>
+            <VictoryThresholds>
+			        <VictoryThreshold>
+				        <VictoryType>VICTORY_CULTURAL</VictoryType>
+				        <iThreshold>1</iThreshold>
+			        </VictoryThreshold>
+		      </VictoryThresholds>
+        </BuildingClassInfo>
+        <BuildingClassInfo>
+            <Type>BUILDINGCLASS_AMERICAN_LITERATURE</Type>
+            <Description>American Literature</Description>
+            <DefaultBuilding>BUILDING_AMERICAN_LITERATURE</DefaultBuilding>
+            <VictoryThresholds>
+			        <VictoryThreshold>
+				        <VictoryType>VICTORY_CULTURAL</VictoryType>
+				        <iThreshold>1</iThreshold>
+			        </VictoryThreshold>
+		        </VictoryThresholds>
+        </BuildingClassInfo>
+        <BuildingClassInfo>
+            <Type>BUILDINGCLASS_SATIRICAL_PROPAGANDA</Type>
+            <Description>Satirical Propaganda</Description>
+            <DefaultBuilding>BUILDING_SATIRICAL_PROPAGANDA</DefaultBuilding>
+            <VictoryThresholds>
+			        <VictoryThreshold>
+				        <VictoryType>VICTORY_CULTURAL</VictoryType>
+				        <iThreshold>1</iThreshold>
+			        </VictoryThreshold>
+		        </VictoryThresholds>
+        </BuildingClassInfo>
     </BuildingClassInfos>
 </Civ4BuildingClassInfos>

@@ -1205,8 +1205,8 @@ class CvMainInterface:
 		self.appendtoHideState(screen, "CityExitText", HIDE_TYPE_CITY, HIDE_LEVEL_HIDE)
 
 	# GROWTH EMPHASIZE/DEMPHASIZE
-		screen.setImageButton("AvoidGrowth", ArtFileMgr.getInterfaceArtInfo("INTERFACE_BUTTONS_CANCEL").getPath(), xResolution * 1 / 100, CITY_TITLE_BAR_HEIGHT / 10, ScrollButtonSize, ScrollButtonSize, WidgetTypes.WIDGET_EMPHASIZE, -1, AVOID_GROWTH)
-		self.appendtoHideState(screen, "AvoidGrowth", HIDE_TYPE_CITY, HIDE_LEVEL_HIDE)
+		#screen.setImageButton("AvoidGrowth", ArtFileMgr.getInterfaceArtInfo("INTERFACE_BUTTONS_CANCEL").getPath(), xResolution * 1 / 100, CITY_TITLE_BAR_HEIGHT / 10, ScrollButtonSize, ScrollButtonSize, WidgetTypes.WIDGET_EMPHASIZE, -1, AVOID_GROWTH)
+		#self.appendtoHideState(screen, "AvoidGrowth", HIDE_TYPE_CITY, HIDE_LEVEL_HIDE)
 		
 	# Garrison and Transport Panel
 		screen.addScrollPanel("CityGarrisonPanel", u"", CITIZEN_BAR_WIDTH + (SMALL_BUTTON_SIZE / 8), yResolution - BOTTOM_CENTER_HUD_HEIGHT - TRANSPORT_AREA_HEIGHT * 9 / 8 - 2, xResolution - CITIZEN_BAR_WIDTH - TRANSPORT_AREA_WIDTH + STACK_BAR_HEIGHT * 4 / 8, TRANSPORT_AREA_HEIGHT - (STACK_BAR_HEIGHT / 3), PanelStyles.PANEL_STYLE_EMPTY, false, WidgetTypes.WIDGET_EJECT_CITIZEN, -1, -1 )	
@@ -2563,7 +2563,9 @@ class CvMainInterface:
 			if (gc.getPlayer(ePlayer).isAlive()):
 				szText = CyGameTextMgr().getGoldStr(ePlayer)
 				screen.setLabel("GoldText", "Background", self.setFontSize(szText, 1), CvUtil.FONT_LEFT_JUSTIFY, 17, 17, -0.3, FontTypes.GAME_FONT, WidgetTypes.WIDGET_GENERAL, TIMETEXT_ID, -1 )
-
+				#szPinkyTimer = CyGameTextMgr().setPinkyTimerStr(ePlayer)
+				#screen.setLabel("GoldText", "Background", self.setFontSize(szPinkyTimer, 1), CvUtil.FONT_LEFT_JUSTIFY, 20, 17, -0.3, FontTypes.GAME_FONT, WidgetTypes.WIDGET_GENERAL, TIMETEXT_ID, -1 )
+				
 		return 0
 
 
@@ -2649,18 +2651,20 @@ class CvMainInterface:
 				screen.setText("CityNameText", "Background", szBuffer, CvUtil.FONT_CENTER_JUSTIFY, xResolution / 2 , CITY_TITLE_BAR_HEIGHT / 12, -0.3, FontTypes.GAME_FONT, WidgetTypes.WIDGET_CITY_NAME, -1, -1 )
 
 			# POPULATION GROWTH/STARVATION TEXT
-				iFoodDifference = pHeadSelectedCity.foodDifference()
+				iFoodDifference = pHeadSelectedCity.foodDifference() #PTSD
+				iFood = pHeadSelectedCity.getFood()
+				iHeartsDifference = pHeadSelectedCity.heartsDifference()
 				iProductionDiffNoFood = pHeadSelectedCity.getCurrentProductionDifference(True)
 				iProductionDiffJustFood = 0
 				szBuffer = u"<font=4>"
-				if (iFoodDifference > 0):
-					szBuffer = localText.getText("INTERFACE_CITY_GROWING", (pHeadSelectedCity.getFoodTurnsLeft(), ))
-				elif (iFoodDifference < 0):
+				if (iFoodDifference >= 0):
+					szBuffer = localText.getText("INTERFACE_CITY_GROWING", (pHeadSelectedCity.getHeartsTurnsLeft(), ))
+				elif (iFoodDifference < 0 and iFood < 20):
 					szBuffer = localText.getText("INTERFACE_CITY_STARVING", ())
 				else:
 					szBuffer = localText.getText("INTERFACE_CITY_STAGNANT", ())
 				szBuffer += u"</font>"
-				screen.setText("PopulationText", "Background", szBuffer, CvUtil.FONT_LEFT_JUSTIFY, xResolution * 5 / 100, CITY_TITLE_BAR_HEIGHT / 8, -0.3, FontTypes.GAME_FONT, WidgetTypes.WIDGET_HELP_POPULATION, -1, -1 )
+				screen.setText("PopulationText", "Background", szBuffer, CvUtil.FONT_LEFT_JUSTIFY, xResolution * 7 / 100, CITY_TITLE_BAR_HEIGHT / 8, -0.3, FontTypes.SMALL_FONT, WidgetTypes.WIDGET_HELP_POPULATION, -1, -1 )
 				screen.setStyle("PopulationText", "Button_Stone_Style")					
 					
 			# CURRENT PRODUCTION BAR FILL
@@ -2866,9 +2870,12 @@ class CvMainInterface:
 					for iYield in range(YieldTypes.NUM_YIELD_TYPES):
 						if iYield != YieldTypes.YIELD_FOOD and gc.getYieldInfo(iYield).isCargo():
 							iProdusedYield += aiProducedYields[iYield]
+	
 
 					szBuffer += u" <color="
 					iMaxYield = pHeadSelectedCity.getMaxYieldCapacity()
+					iMaxFood = pHeadSelectedCity.getMaxFoodCapacity()
+
 					iTotalYield = pHeadSelectedCity.getTotalYieldStored()
 					if iTotalYield + iProdusedYield > iMaxYield:
 						szBuffer += u"255,0,0"
@@ -2889,6 +2896,23 @@ class CvMainInterface:
 					#screen.setLabel("StorageCapacityText", "Background", szBuffer, CvUtil.FONT_CENTER_JUSTIFY, xResolution * 83 / 100, CITY_TITLE_BAR_HEIGHT / 12, -0.3, FontTypes.SMALL_FONT, WidgetTypes.WIDGET_CITY_NAME, -1, -1 )
 					screen.setLabel("StorageCapacityText", "Background", szBuffer, CvUtil.FONT_CENTER_JUSTIFY, xResolution * 86 / 100 , CITY_TITLE_BAR_HEIGHT / 12, -0.3, FontTypes.SMALL_FONT, WidgetTypes.WIDGET_GENERAL, VET_NEW_CAPACITY, -1 )
 					#screen.setLabel("StorageCapacityText", "Background", szBuffer, CvUtil.FONT_CENTER_JUSTIFY, xResolution * 84 / 100 , CITY_TITLE_BAR_HEIGHT / 12, -0.3, FontTypes.SMALL_FONT, WidgetTypes.WIDGET_GENERAL, -1, -1 )
+# PTSD Food Storage
+
+					iFoodProduced = pHeadSelectedCity.calculateNetYield(YieldTypes.YIELD_FOOD)
+					iFoodStored = pHeadSelectedCity.getFood()
+					szFoodBuffer = u"<font=3>"
+					szFoodBuffer += u" <color="
+					
+					if iFoodStored + iFoodProduced > iMaxFood:
+						szFoodBuffer += u"255,0,0"
+					elif iFoodStored + (2 * iFoodProduced) > iMaxFood:
+						szFoodBuffer += u"255,255,0"
+					else:
+						szFoodBuffer += u"255,155,0"
+					szFoodBuffer +=  u">"
+					szFoodBuffer +=  str(iFoodStored)
+					szFoodBuffer += u"/" + str(iMaxFood) + localText.getText("[ICON_FOOD]", ())
+					screen.setLabel("FoodStorageCapacityText", "Background", szFoodBuffer, CvUtil.FONT_CENTER_JUSTIFY, xResolution * 3 / 100 , CITY_TITLE_BAR_HEIGHT / 12, -0.3, FontTypes.SMALL_FONT, WidgetTypes.WIDGET_GENERAL, VET_NEW_CAPACITY, -1 )
 					
 				# R&R, Robert Surcouf VET NewCapacity - End
 			screen.hide("TimeText")
@@ -2922,6 +2946,8 @@ class CvMainInterface:
 				screen.hide("CultureText")
 				# R&R, Robert Surcouf,START
 				screen.hide("StorageCapacityText")
+				screen.hide("FoodStorageCapacityText")
+						
 				# R&R, Robert Surcouf,END
 
 			for iSpecial in range(gc.getNumSpecialBuildingInfos()):
@@ -3046,10 +3072,10 @@ class CvMainInterface:
 					screen.hide("BonusPanePos" + str(i))
 					screen.hide("BonusPaneNeg" + str(i))
 
-			if pCity.AI_isEmphasize(AVOID_GROWTH):
-				screen.overlayButtonGFC("AvoidGrowth", ArtFileMgr.getInterfaceArtInfo("INTERFACE_HIGHLIGHTED_BUTTON").getPath())
-			else:
-				screen.overlayButtonGFC("AvoidGrowth", None)
+			#if pCity.AI_isEmphasize(AVOID_GROWTH):
+				#screen.overlayButtonGFC("AvoidGrowth", ArtFileMgr.getInterfaceArtInfo("INTERFACE_HIGHLIGHTED_BUTTON").getPath())
+			#else:
+				#screen.overlayButtonGFC("AvoidGrowth", None)
 
 	# Will update the info pane strings
 	def updateInfoPaneStrings( self ):

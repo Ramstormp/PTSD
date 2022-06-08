@@ -4192,7 +4192,7 @@ int CvPlayerAI::AI_yieldTradeVal(YieldTypes eYield, const IDInfo& kTransport, Pl
 				// Ramstormp, PTSD, What in all the world is the point of desired yields if they are not lucrative?! - START
 				if (eYield == pCity->AI_getDesiredYield())// || eYield == YIELD_MUSKETS || eYield == YIELD_HORSES)
 				{
-					iBuyPrice *= 150; // ptsd, was 125
+					iBuyPrice *= 130; // ptsd, was 125
 					iBuyPrice /= 100;
 				}
 				// Ramstormp - END
@@ -6275,7 +6275,12 @@ void CvPlayerAI::AI_changeContactTimer(PlayerTypes eIndex1, ContactTypes eIndex2
 	m_em_iContactTimer.add(eIndex1, eIndex2, iChange);
 	FAssert(AI_getContactTimer(eIndex1, eIndex2) >= 0);
 }
-
+// Ramstormp, PTSD, No alarms and no surprises - start
+//int CvPlayerAI::getKissPinkyTimer(PlayerTypes ePlayer)
+//{
+//	return AI_getContactTimer((ePlayer), CONTACT_DEMAND_TRIBUTE);
+//}
+// Ramstormp - end
 
 int CvPlayerAI::AI_getMemoryCount(PlayerTypes eIndex1, MemoryTypes eIndex2)
 {
@@ -8667,6 +8672,7 @@ bool CvPlayerAI::AI_isYieldForSale(YieldTypes eYield) const
 		case YIELD_EDUCATION:
 		case YIELD_HAPPINESS: // WTP, ray, Happiness - START
 		case YIELD_UNHAPPINESS: // WTP, ray, Happiness - START
+		case YIELD_HEARTS: //Ramstormp, PTSD, Growth based on food consumption
 			FAssertMsg(false, "Selling intangibles?");
 			break;
 		default:
@@ -8882,6 +8888,7 @@ bool CvPlayerAI::AI_isYieldFinalProduct(YieldTypes eYield) const
 		case YIELD_EDUCATION:
 		case YIELD_HAPPINESS: // WTP, ray, Happiness - START
 		case YIELD_UNHAPPINESS: // WTP, ray, Happiness - START
+		case YIELD_HEARTS: //Ramstormp, PTSD, Growth based on food consumption
 			bFinal = false;
 			FAssertMsg(false, "Selling intangibles?");
 			break;
@@ -8969,6 +8976,7 @@ bool CvPlayerAI::AI_shouldBuyFromEurope(YieldTypes eYield) const
 		case YIELD_EDUCATION:
 		case YIELD_HAPPINESS: // WTP, ray, Happiness - START
 		case YIELD_UNHAPPINESS: // WTP, ray, Happiness - START
+		case YIELD_HEARTS: //Ramstormp, PTSD, Growth based on food consumption
 			bBuy = false;
 			FAssertMsg(false, "Selling intangibles?");
 			break;
@@ -9172,6 +9180,7 @@ int CvPlayerAI::AI_yieldValue(YieldTypes eYield, bool bProduce, int iAmount, boo
 			case YIELD_CULTURE:
 			case YIELD_HEALTH: // R&R, ray, Health - START
 			case YIELD_EDUCATION:
+			case YIELD_HEARTS: //Ramstormp, PTSD, Growth based on food consumption
 			case YIELD_HAPPINESS: // WTP, ray, Happiness - START
 				iValue *= 100;
 				iValue /= iWeaponsMultiplier;
@@ -9289,6 +9298,7 @@ void CvPlayerAI::AI_updateYieldValues()
 			case YIELD_EDUCATION:
 			case YIELD_HAPPINESS: // WTP, ray, Happiness - START
 			case YIELD_UNHAPPINESS: // WTP, ray, Happiness - START
+			case YIELD_HEARTS: //Ramstormp, PTSD, Growth based on food consumption
 				break;
 			default:
 				FAssert(false);
@@ -9422,7 +9432,9 @@ int CvPlayerAI::AI_transferYieldValue(const IDInfo target, YieldTypes eYield, in
 	{
 		int iStored = pCity->getYieldStored(eYield);
 	
-		int iMaxCapacity = (eYield == YIELD_FOOD) ? pCity->growthThreshold() : pCity->getMaxYieldCapacity();
+//		int iMaxCapacity = (eYield == YIELD_FOOD) ? pCity->growthThreshold() : pCity->getMaxYieldCapacity();
+		int iMaxCapacity = (eYield == YIELD_FOOD) ? pCity->getMaxFoodCapacity() : pCity->getMaxYieldCapacity(); // Ramstormp, Food Storage Separated
+
 		// transport feeder - start - Nightinggale
 		//int iMaintainLevel = pCity->getMaintainLevel(eYield);
 		int iMaintainLevel = pCity->getAutoMaintainThreshold(eYield);

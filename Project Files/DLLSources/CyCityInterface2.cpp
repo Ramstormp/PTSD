@@ -26,6 +26,7 @@ void CyCityPythonInterface2(python::class_<CyCity>& x)
 		.def("isDisorder", &CyCity::isDisorder, "bool () - is the city in disorder?")
 		.def("extraPopulation", &CyCity::extraPopulation, "int () - # of extra/available citizens")
 		.def("foodConsumption", &CyCity::foodConsumption, "int (int iExtra)")
+		.def("heartsDifference", &CyCity::heartsDifference, "int () - result of foodConsumption()") // Ramstormp, PTSD, growth from food consumption
 		.def("foodDifference", &CyCity::foodDifference, "int () - result of getYieldRate(Food) - foodConsumption()")
 		.def("growthThreshold", &CyCity::growthThreshold, "int () - value needed for growth")
 		.def("productionLeft", &CyCity::productionLeft, "int ()")

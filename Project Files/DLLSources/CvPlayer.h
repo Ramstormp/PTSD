@@ -119,6 +119,8 @@ public:
 
 	void checkForEuropeanPeace(); // R&R, ray, European Peace - START
 
+	int getKissPinkyTimer(PlayerTypes ePlayer); // Ramstormp, PTSD, No alarms and no surprises
+
 	// R&R, ray, Church Favours - START
 	int getNumChurchFavoursReceived();
 	void increaseNumChurchFavoursReceived();

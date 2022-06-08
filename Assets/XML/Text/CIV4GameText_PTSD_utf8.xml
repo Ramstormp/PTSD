@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by lcollins (Firaxis Games) -->
+<!-- Sid Meier's Civilization 4 -->
+<!-- Copyright Firaxis Games 2005 -->
+<!-- -->
+<!-- Game Text Infos -->
+<Civ4GameText xmlns="http://www.firaxis.com">
+    <TEXT>
+        <Tag>TXT_KEY_CITY_BAR_HEARTS_GROWTH</Tag>
+        <English>Growth : %d1/%d2[ICON_GOLDENAGE] (%d3 [NUM3:turn:turns])</English>
+    </TEXT>
+    <TEXT>
+      <Tag>TXT_KEY_CITY_BAR_NO_GROWTH</Tag>
+      <English>Growth : %d1/%d2[ICON_GOLDENAGE])</English>
+    </TEXT>
+  <TEXT>
+    <Tag>TXT_KEY_MISC_HEARTS_HEADER</Tag>
+    <English>[COLOR_HIGHLIGHT_TEXT]Hearts[COLOR_REVERT]</English>
+  </TEXT>
+  <TEXT>
+    <Tag>TXT_KEY_MISC_HEARTS_PER_TURN</Tag>
+    <English>%d1[ICON_GOLDENAGE] from food consumption</English>
+  </TEXT>
+  <TEXT>
+    <Tag>TXT_KEY_MISC_DOMESTIC_DEMANDS_LACKING</Tag>
+    <English> -%d1 from unfulfilled demands</English>
+  </TEXT>
+  <TEXT>
+    <Tag>TXT_KEY_MISC_HEARTS_GROWTH</Tag>
+    <English>%d1/%d2[ICON_GOLDENAGE] (%d3 [NUM3:turn:turns])</English>
+  </TEXT>
+  <TEXT>
+    <Tag>TXT_KEY_PLAYEROPTION_AUTO_LEAVE_YIELDS</Tag>
+    <English>Auto Leave Yields</English>
+  </TEXT>
+  <TEXT>
+    <Tag>TXT_KEY_PLAYEROPTION_AUTO_LEAVE_YIELDS_HELP</Tag>
+    <English>Automatically leave yields demanded by domestic market at the first load</English>
+  </TEXT>
+  <TEXT>
+    <Tag>TXT_KEY_GOODY_EMPTY</Tag>
+    <English>Empty</English>
+  </TEXT>
+  <TEXT>
+    <Tag>>TXT_KEY_GOODY_EMPTY</Tag>
+    <English>After a thourough search, nothing of value was found</English>
+  </TEXT>
+  <TEXT>
+    <Tag>TXT_KEY_CHIEF_GOODY_EMPTY</Tag>
+    <English>All we have to offer as a parting gift is the air that you already have taken for yourself</English>
+  </TEXT>
+</Civ4GameText>

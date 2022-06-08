@@ -228,6 +228,8 @@ public:
 	int AI_getContactTimer(PlayerTypes eIndex1, ContactTypes eIndex2);
 	void AI_changeContactTimer(PlayerTypes eIndex1, ContactTypes eIndex2, int iChange);
 
+	//int getKissPinkyTimer(PlayerTypes ePlayer); // Ramstormp, PTSD, No alarms and no surprises
+
 	int AI_getMemoryCount(PlayerTypes eIndex1, MemoryTypes eIndex2);
 	void AI_changeMemoryCount(PlayerTypes eIndex1, MemoryTypes eIndex2, int iChange);
 

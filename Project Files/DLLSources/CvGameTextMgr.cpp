@@ -266,7 +266,19 @@ void CvGameTextMgr::setGoldStr(CvWString& szString, PlayerTypes ePlayer)
 		szString.Format(L"%d", GET_PLAYER(ePlayer).getGold());
 	}
 }
-
+// Ramstormp, PTSD, No alarms & no Surprises - start
+void CvGameTextMgr::setPinkyTimerStr(CvWString& szString, PlayerTypes ePlayer)
+{
+	if (GET_PLAYER(ePlayer).getKissPinkyTimer(ePlayer) <= 0)
+	{
+		szString.Format(SETCOLR L"%d" SETCOLR, TEXT_COLOR("COLOR_NEGATIVE_TEXT"), GET_PLAYER(ePlayer).getKissPinkyTimer(ePlayer));
+	}
+	else
+	{
+		szString.Format(L"%d", GET_PLAYER(ePlayer).getKissPinkyTimer(ePlayer));
+	}
+}
+// Ramstormp - end
 void CvGameTextMgr::setOOSSeeds(CvWString& szString, PlayerTypes ePlayer)
 {
 	if (GET_PLAYER(ePlayer).isHuman())
@@ -1296,7 +1308,7 @@ void CvGameTextMgr::setProfessionHelp(CvWStringBuffer &szBuffer, ProfessionTypes
 	for (int iYield = 0; iYield < NUM_YIELD_TYPES; iYield++)
 	{
 		int iYieldAmount = GC.getGameINLINE().getActivePlayer() != NO_PLAYER ? GET_PLAYER(GC.getGameINLINE().getActivePlayer()).getYieldEquipmentAmount(eProfession, (YieldTypes) iYield) : kProfession.getYieldEquipmentAmount((YieldTypes) iYield);
-		if (iYieldAmount != 0)
+		if (iYieldAmount != 0 && iYield != YIELD_HEARTS) //Ramstormp, PTSD, Growth based on food consumption 
 		{
 			szTempBuffer.Format(gDLL->getText("TXT_KEY_UNIT_REQUIRES_YIELD_QUANTITY_STRING", iYieldAmount, GC.getYieldInfo((YieldTypes) iYield).getChar()));
 			szBuffer.append(NEWLINE);
@@ -3060,16 +3072,19 @@ void CvGameTextMgr::setCityBarHelp(CvWStringBuffer &szString, CvCity* pCity)
 	}
 
 	szString.append(NEWLINE);
+	// Ramstormp, PTSD, Population growth based on food consumption - START
 	int iFoodDifference = aiYields[YIELD_FOOD];
 	if (iFoodDifference <= 0)
 	{
-		szString.append(gDLL->getText("TXT_KEY_CITY_BAR_GROWTH", pCity->getFood(), pCity->growthThreshold()));
+		//szString.append(gDLL->getText("TXT_KEY_CITY_BAR_GROWTH", pCity->getFood(), pCity->growthThreshold()));
+		szString.append(gDLL->getText("TXT_KEY_CITY_BAR_NO_GROWTH", pCity->getHearts(), pCity->growthThreshold()));
 	}
 	else
 	{
-		szString.append(gDLL->getText("TXT_KEY_CITY_BAR_FOOD_GROWTH", pCity->getFood(), pCity->growthThreshold(), pCity->getFoodTurnsLeft()));
+		//szString.append(gDLL->getText("TXT_KEY_CITY_BAR_FOOD_GROWTH", pCity->getFood(), pCity->growthThreshold(), pCity->getFoodTurnsLeft()));
+		szString.append(gDLL->getText("TXT_KEY_CITY_BAR_HEARTS_GROWTH", pCity->getHearts(), pCity->growthThreshold(), pCity->getHeartsTurnsLeft())); // Ramstormp, PTSD, Population growth based on food consumption
 	}
-
+	// Ramstormp - end
 	if (pCity->getProductionNeeded(YIELD_HAMMERS) != MAX_INT)
 	{
 		szString.append(NEWLINE);
@@ -3849,7 +3864,7 @@ void CvGameTextMgr::parseTraits(CvWStringBuffer &szHelpString, TraitTypes eTrait
 			{
 				szHelpString.append(L"  ");
 			}
-			szHelpString.append(gDLL->getText("TXT_KEY_FATHER_GROWTH_THRESHOLD_MODIFIER", kTrait.getPopGrowthThresholdModifier(), GC.getYieldInfo(YIELD_FOOD).getChar()));
+			szHelpString.append(gDLL->getText("TXT_KEY_FATHER_GROWTH_THRESHOLD_MODIFIER", kTrait.getPopGrowthThresholdModifier(), GC.getYieldInfo(YIELD_HEARTS).getChar()));
 		}
 
 		if (kTrait.getCultureLevelModifier() != 0)
@@ -8143,7 +8158,7 @@ void CvGameTextMgr::buildCityBillboardIconString( CvWStringBuffer& szBuffer, CvC
 					int iYieldEquipment = GET_PLAYER(pCity->getOwnerINLINE()).getYieldEquipmentAmount(eProfession, eYield);
 					if (iYieldEquipment > 0 && pCity->getYieldStored(eYield) >= iYieldEquipment)
 					{
-						if (aYieldShown[iYield] == 0)
+						if (aYieldShown[iYield] == 0 && eYield != YIELD_HEARTS) // Ramstormp, PTSD, Growth from food consumption
 						{
 							aYieldShown[iYield] = 1;
 							szTemp.append(CvWString::format(L"%c", GC.getYieldInfo(eYield).getChar()));

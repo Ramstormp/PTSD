@@ -103,6 +103,7 @@ DisplayXMLhardcodingError(strcmp("PLAYEROPTION_NO_UNIT_CYCLING", GC.getPlayerOpt
 DisplayXMLhardcodingError(strcmp("PLAYEROPTION_NO_UNIT_RECOMMENDATIONS", GC.getPlayerOptionInfo(PLAYEROPTION_NO_UNIT_RECOMMENDATIONS).getType()) == 0, "PLAYEROPTION_NO_UNIT_RECOMMENDATIONS", true);
 DisplayXMLhardcodingError(strcmp("PLAYEROPTION_RIGHT_CLICK_MENU", GC.getPlayerOptionInfo(PLAYEROPTION_RIGHT_CLICK_MENU).getType()) == 0, "PLAYEROPTION_RIGHT_CLICK_MENU", true);
 DisplayXMLhardcodingError(strcmp("PLAYEROPTION_LEAVE_FORESTS", GC.getPlayerOptionInfo(PLAYEROPTION_LEAVE_FORESTS).getType()) == 0, "PLAYEROPTION_LEAVE_FORESTS", true);
+DisplayXMLhardcodingError(strcmp("PLAYEROPTION_AUTO_LEAVE_YIELDS", GC.getPlayerOptionInfo(PLAYEROPTION_AUTO_LEAVE_YIELDS).getType()) == 0, "PLAYEROPTION_AUTO_LEAVE_YIELDS", true);
 DisplayXMLhardcodingError(strcmp("PLAYEROPTION_MODDER_1", GC.getPlayerOptionInfo(PLAYEROPTION_MODDER_1).getType()) == 0, "PLAYEROPTION_MODDER_1", true);
 DisplayXMLhardcodingError(strcmp("PLAYEROPTION_MODDER_2", GC.getPlayerOptionInfo(PLAYEROPTION_MODDER_2).getType()) == 0, "PLAYEROPTION_MODDER_2", true);
 DisplayXMLhardcodingError(strcmp("PLAYEROPTION_MODDER_3", GC.getPlayerOptionInfo(PLAYEROPTION_MODDER_3).getType()) == 0, "PLAYEROPTION_MODDER_3", true);
@@ -199,6 +200,7 @@ DisplayXMLhardcodingError(strcmp("YIELD_HEALTH", GC.getYieldInfo(YIELD_HEALTH).g
 DisplayXMLhardcodingError(strcmp("YIELD_EDUCATION", GC.getYieldInfo(YIELD_EDUCATION).getType()) == 0, "YIELD_EDUCATION", true);
 DisplayXMLhardcodingError(strcmp("YIELD_HAPPINESS", GC.getYieldInfo(YIELD_HAPPINESS).getType()) == 0, "YIELD_HAPPINESS", true);
 DisplayXMLhardcodingError(strcmp("YIELD_UNHAPPINESS", GC.getYieldInfo(YIELD_UNHAPPINESS).getType()) == 0, "YIELD_UNHAPPINESS", true);
+DisplayXMLhardcodingError(strcmp("YIELD_HEARTS", GC.getYieldInfo(YIELD_HEARTS).getType()) == 0, "YIELD_HEARTS", true);
 DisplayXMLhardcodingError(NUM_YIELD_TYPES == (YieldTypes)m_paYieldInfo.size(), "NUM_YIELD_TYPES", true);
 DisplayXMLhardcodingError(strcmp("AUTOMATE_BUILD", GC.getAutomateInfo(AUTOMATE_BUILD).getType()) == 0, "AUTOMATE_BUILD", true);
 DisplayXMLhardcodingError(strcmp("AUTOMATE_CITY", GC.getAutomateInfo(AUTOMATE_CITY).getType()) == 0, "AUTOMATE_CITY", true);

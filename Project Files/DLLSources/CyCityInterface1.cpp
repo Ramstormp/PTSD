@@ -41,6 +41,7 @@ void CyCityPythonInterface1(python::class_<CyCity>& x)
 		.def("canTrain", &CyCity::canTrain, "bool (int eUnit, bool bContinue, bool bTestVisible)")
 		.def("canConstruct", &CyCity::canConstruct, "bool (int eBuilding, bool bContinue, bool bTestVisible, bool bIgnoreCost)")
 		.def("canConvince", &CyCity::canConvince, "bool (int eFatherPointType, bool bContinue, bool bTestVisible)")
+		.def("getHeartsTurnsLeft", &CyCity::getHeartsTurnsLeft, "int () - how many hearts turns remain?") // Ramstormp, PTSD, Growth from food consumption
 		.def("getFoodTurnsLeft", &CyCity::getFoodTurnsLeft, "int () - how many food turns remain?")
 		.def("isProduction", &CyCity::isProduction, "bool () - is city producing?")
 		.def("isProductionUnit", &CyCity::isProductionUnit, "bool () - is city training a unit?")

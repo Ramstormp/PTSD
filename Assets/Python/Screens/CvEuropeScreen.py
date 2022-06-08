@@ -625,12 +625,18 @@ class CvEuropeScreen:
 			kYield = gc.getYieldInfo(iYield)
 			iStock = self.playerEurope.getEuropeWarehouseYield(iYield) #PTSD, Ramstormp, EuropeStock #was: getYieldBuyPrice(iYield)
 			iSellPrice = self.playerEurope.getYieldSellPrice(iYield)
+			iBuyPrice = self.playerEurope.getYieldBuyPrice(iYield)
 			#player.setYieldEuropeTradable(iYield, false)
 			#screen.addDDSGFC(self.getNextWidgetName(), ArtFileMgr.getInterfaceArtInfo("INTERFACE_EUROPE_SHADOW_BOX").getPath(), iX, self.BOX_Y, self.BOX_W, self.BOX_H, WidgetTypes.WIDGET_MOVE_CARGO_TO_TRANSPORT, iYield, -1)
 			#screen.addDDSGFC(self.getNextWidgetName(), ArtFileMgr.getInterfaceArtInfo("INTERFACE_EUROPE_BOX_PRICE").getPath(), iX, self.BOX_Y, self.BOX_W, self.BOX_H, WidgetTypes.WIDGET_MOVE_CARGO_TO_TRANSPORT, iYield, -1)
 			screen.addDDSGFC(self.getNextWidgetName(), ArtFileMgr.getInterfaceArtInfo("INTERFACE_EUROPE_SHADOW_BOX").getPath(), iX,iY, self.BOX_W, self.BOX_H, WidgetTypes.WIDGET_MOVE_CARGO_TO_TRANSPORT, iYield, -1)
 			screen.addDDSGFC(self.getNextWidgetName(), ArtFileMgr.getInterfaceArtInfo("INTERFACE_EUROPE_BOX_PRICE").getPath(), iX, iY, self.BOX_W, self.BOX_H, WidgetTypes.WIDGET_MOVE_CARGO_TO_TRANSPORT, iYield, -1)
-			szPrices = u"<font=2>%d/%d</font>" % (iSellPrice, iStock)
+			szPrices = u"<font=2>%d/%d</font>" % (iSellPrice, iBuyPrice)
+			szStock = u"<font=3>%d</font>" % (iStock)
+			szStockShadow = u"<font=3>%d</font>" % (iStock)
+			szStock = u"<color=109,255,255>" + szStock + u"</color>"
+			szStockShadow = u"<color=60,50,50>" + szStockShadow + u"</color>"
+	
 			szIcons = self.getNextWidgetName()
 			if not player.isYieldEuropeTradable(iYield) and self.iBoycott > 0:
 				szPrices = u"<color=255,0,0>" + szPrices + u"</color>"
@@ -641,8 +647,12 @@ class CvEuropeScreen:
 				#screen.addDragableButton(szIcons, gc.getYieldInfo(iYield).getIcon(), "", iX + self.BOX_W / 12, self.BOX_Y + self.BOX_H / 3, self.BOX_W * 5 / 6, self.BOX_W * 5 / 6, WidgetTypes.WIDGET_MOVE_CARGO_TO_TRANSPORT, iYield, -1, ButtonStyles.BUTTON_STYLE_IMAGE )
 			#screen.setLabel("EuropePrices" + str(iYield), "Background", szPrices, CvUtil.FONT_CENTER_JUSTIFY, iX + self.BOX_W / 2, self.BOX_Y + self.BOX_H / 12, 0, FontTypes.GAME_FONT, WidgetTypes.WIDGET_MOVE_CARGO_TO_TRANSPORT, iYield, -1)
 			screen.setLabel("EuropePrices" + str(iYield), "Background", szPrices, CvUtil.FONT_CENTER_JUSTIFY, iX + self.BOX_W / 2, iY + self.BOX_H / 12, 0, FontTypes.GAME_FONT, WidgetTypes.WIDGET_MOVE_CARGO_TO_TRANSPORT, iYield, -1)
+			screen.setLabel("EuropeStockShadow" + str(iYield), "Background", szStockShadow, CvUtil.FONT_CENTER_JUSTIFY, iX + self.BOX_W / 2 - 1, iY + self.BOX_H * 9/ 12 - 1, 0, FontTypes.GAME_FONT, WidgetTypes.WIDGET_MOVE_CARGO_TO_TRANSPORT, iYield, -1)
+			screen.setLabel("EuropeStock" + str(iYield), "Background", szStock, CvUtil.FONT_CENTER_JUSTIFY, iX + self.BOX_W / 2, iY + self.BOX_H * 9 / 12, 0, FontTypes.GAME_FONT, WidgetTypes.WIDGET_MOVE_CARGO_TO_TRANSPORT, iYield, -1)
 			screen.moveBackward("EuropePrices" + str(iYield))
-	
+			#screen.moveBackward("EuropeStockShadow" + str(iYield))
+			#screen.moveBackward("EuropeStock" + str(iYield))
+		
 			iX += self.BOX_W
 			#iY += (iX / (self.XResolution -5) ) * self.BOX_H
 			iY += (iX / (self.BOX_X + self.NUM_YIELDS_IN_A_ROW * self.BOX_W -1) ) * self.BOX_H

@@ -43,6 +43,7 @@ std::wstring CyGameTextMgr::getGoldStr(int /*PlayerTypes*/ iPlayer)
 	GAMETEXT.setGoldStr(szBuffer, ((PlayerTypes)iPlayer));
 	return szBuffer;
 }
+
 std::wstring CyGameTextMgr::getOOSSeeds(int /*PlayerTypes*/ iPlayer)
 {
 	CvWString szBuffer;

@@ -114,6 +114,12 @@
             <Help>TXT_KEY_PLAYEROPTION_LEAVE_FORESTS_HELP</Help>
             <bDefault>0</bDefault>
         </PlayerOptionInfo>
+      <PlayerOptionInfo>
+            <Type>PLAYEROPTION_AUTO_LEAVE_YIELDS</Type>
+            <Description>TXT_KEY_PLAYEROPTION_AUTO_LEAVE_YIELDS</Description>
+            <Help>TXT_KEY_PLAYEROPTION_AUTO_LEAVE_YIELDS_HELP</Help>
+            <bDefault>0</bDefault>
+      </PlayerOptionInfo>
         <PlayerOptionInfo>
             <Type>PLAYEROPTION_MODDER_1</Type>
             <Description>TXT_KEY_PLAYEROPTION_MODDER_1</Description>

@@ -799,6 +799,7 @@ enum FontSymbols
 	UNHAPPY_CHAR,
 	HEALTHY_CHAR,
 	UNHEALTHY_CHAR,
+	//HEARTS_CHAR, // Ramstormp, PTSD, growth from food consumption
 	BULLET_CHAR,
 	STRENGTH_CHAR,
 	MOVES_CHAR,

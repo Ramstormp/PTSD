@@ -20,6 +20,7 @@ public:
 	std::wstring getDateStr(int iGameTurn, bool bSave, int /*CalendarTypes*/ eCalendar, int iStartYear, int /*GameSpeedTypes*/ eSpeed);
 	std::wstring getInterfaceTimeStr(int /*PlayerTypes*/ iPlayer);
 	std::wstring getGoldStr(int /*PlayerTypes*/ iPlayer);
+	std::wstring getPinkyTimerStr(int /*PlayerTypes*/ iPlayer); // Ramstormp, PTSD, No Alarms & No Surprises
 	std::wstring getOOSSeeds(int /*PlayerTypes*/ iPlayer);
 	std::wstring getNetStats(int /*PlayerTypes*/ iPlayer);
 	std::wstring getUnitHelp(int iUnit, bool bCivilopediaText, bool bStrategyText, CyCity* pCity);

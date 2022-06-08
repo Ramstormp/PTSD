@@ -49,6 +49,8 @@ public:
 	DllExport void setDateStr(CvWString& szString, int iGameTurn, bool bSave, CalendarTypes eCalendar, int iStartYear, GameSpeedTypes eSpeed);
 	DllExport void setInterfaceTime(CvWString& szString, PlayerTypes ePlayer);
 	DllExport void setGoldStr(CvWString& szString, PlayerTypes ePlayer);
+	void setPinkyTimerStr(CvWString& szString, PlayerTypes ePlayer); // Ramstormp, PTSD, No Alarms & No Surprises
+
 	DllExport void setOOSSeeds(CvWString& szString, PlayerTypes ePlayer);
 	DllExport void setNetStats(CvWString& szString, PlayerTypes ePlayer);
 	DllExport void setMinimizePopupHelp(CvWString& szString, const CvPopupInfo & info);

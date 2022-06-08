@@ -44787,7 +44787,7 @@
             <Special>NONE</Special>
             <Capture>UNITCLASS_TREASURE</Capture>
             <Combat>NONE</Combat>
-            <Domain>DOMAIN_LAND</Domain>
+            <Domain>DOMAIN_IMMOBILE</Domain>
             <DefaultUnitAI>UNITAI_TREASURE</DefaultUnitAI>
             <DefaultProfession>NONE</DefaultProfession>
             <Invisible>NONE</Invisible>
@@ -44889,8 +44889,8 @@
             <SpecialCargo>NONE</SpecialCargo>
             <DomainCargo>NONE</DomainCargo>
             <iCargo>0</iCargo>
-            <iRequiredTransportSize>6</iRequiredTransportSize>
-            <iBerthSize>3</iBerthSize>
+            <iRequiredTransportSize>2</iRequiredTransportSize>
+            <iBerthSize>2</iBerthSize>
             <iAsset>50</iAsset>
             <iPower>0</iPower>
             <iNativeLearnTime>-1</iNativeLearnTime>

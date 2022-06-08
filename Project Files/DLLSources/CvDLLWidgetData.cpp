@@ -2783,14 +2783,24 @@ void CvDLLWidgetData::parseFlagHelp(CvWidgetDataStruct &widgetDataStruct, CvWStr
 void CvDLLWidgetData::parsePopulationHelp(CvWidgetDataStruct &widgetDataStruct, CvWStringBuffer &szBuffer)
 {
 	CvCity* pHeadSelectedCity;
+	CvYieldInfo& info = GC.getYieldInfo(YIELD_HEARTS);
 
 	pHeadSelectedCity = gDLL->getInterfaceIFace()->getHeadSelectedCity();
 
 	if (pHeadSelectedCity != NULL)
-	{
-		szBuffer.assign(gDLL->getText("TXT_KEY_MISC_FOOD_THRESHOLD", pHeadSelectedCity->getFood(), pHeadSelectedCity->growthThreshold()));
+	{// Ramstormp, PTSD, Growth from food consumption - start
+//		szBuffer.assign(gDLL->getText("TXT_KEY_MISC_FOOD_THRESHOLD", pHeadSelectedCity->getFood(), pHeadSelectedCity->growthThreshold()));
+		szBuffer.assign(gDLL->getText("TXT_KEY_MISC_HEARTS_HEADER"));
+		szBuffer.append(NEWLINE);
+		szBuffer.append(gDLL->getText("TXT_KEY_MISC_HEARTS_PER_TURN", pHeadSelectedCity->foodConsumption()));
+		szBuffer.append(NEWLINE);
+		szBuffer.append(gDLL->getText("TXT_KEY_MISC_DOMESTIC_DEMANDS_LACKING", pHeadSelectedCity->getDomesticDemandLack()));
+		szBuffer.append(NEWLINE);
+		szBuffer.append(gDLL->getText("TXT_KEY_MISC_HEARTS_GROWTH", pHeadSelectedCity->getHearts(), pHeadSelectedCity->growthThreshold(), pHeadSelectedCity->getHeartsTurnsLeft())); // Ramstormp, PTSD, Growth from food consumption
+		szBuffer.append(NEWLINE); 
 	}
 }
+// Ramstormp - end
 
 void CvDLLWidgetData::parseRebelHelp(CvWidgetDataStruct &widgetDataStruct, CvWStringBuffer &szBuffer)
 {
@@ -2807,7 +2817,6 @@ void CvDLLWidgetData::parseRebelHelp(CvWidgetDataStruct &widgetDataStruct, CvWSt
 		szBuffer.assign(gDLL->getText("TXT_KEY_MISC_REBEL_HELP", GET_TEAM(GC.getGameINLINE().getActiveTeam()).getRebelPercent()));
 	}
 }
-
 
 void CvDLLWidgetData::parseGreatGeneralHelp(CvWidgetDataStruct &widgetDataStruct, CvWStringBuffer &szBuffer)
 {
@@ -3048,7 +3057,7 @@ void CvDLLWidgetData::parseCityYieldHelp(CvWidgetDataStruct &widgetDataStruct, C
 		if (GET_PLAYER(eActivePlayer).isProfessionValid(eProfession, NO_UNIT))
 		{
 			int iNumRequired = GET_PLAYER(eActivePlayer).getYieldEquipmentAmount(eProfession, eYield);
-			if (iNumRequired > 0)
+			if (iNumRequired > 0 && eYield != YIELD_HEARTS) // Ramstormp, PTSD, Growth based on Food Consumption
 			{
 				szBuffer.append(NEWLINE);
 				szBuffer.append(gDLL->getText("TXT_KEY_YIELD_NEEDED_FOR_PROFESSION", iNumRequired, GC.getProfessionInfo(eProfession).getTextKeyWide()));
@@ -3076,7 +3085,7 @@ void CvDLLWidgetData::parseTwoCityYieldsHelp(CvWidgetDataStruct &widgetDataStruc
 		if (GET_PLAYER(eActivePlayer).isProfessionValid(eProfession, NO_UNIT))
 		{
 			int iNumRequired = GET_PLAYER(eActivePlayer).getYieldEquipmentAmount(eProfession, eYield);
-			if (iNumRequired > 0)
+			if (iNumRequired > 0 && eYield != YIELD_HEARTS)
 			{
 				szBuffer.append(NEWLINE);
 				szBuffer.append(gDLL->getText("TXT_KEY_YIELD_NEEDED_FOR_PROFESSION", iNumRequired, GC.getProfessionInfo(eProfession).getTextKeyWide()));

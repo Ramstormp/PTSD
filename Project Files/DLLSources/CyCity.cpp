@@ -122,7 +122,12 @@ bool CyCity::canConvince( int /*FatherPointTypes*/ iFatherPointType, bool bConti
 {
 	return m_pCity ? m_pCity->canConvince((FatherPointTypes)iFatherPointType, bContinue, bTestVisible) : false;
 }
-
+// Ramstormp, PTSD, Growth from food consumption - start
+int CyCity::getHeartsTurnsLeft()
+{
+	return m_pCity ? m_pCity->getHeartsTurnsLeft() : 0;
+}
+// Ramstormp - end
 int CyCity::getFoodTurnsLeft()
 {
 	return m_pCity ? m_pCity->getFoodTurnsLeft() : 0;
@@ -336,7 +341,12 @@ int CyCity::foodConsumption(int iExtra)
 {
 	return m_pCity ? m_pCity->foodConsumption(iExtra) : -1;
 }
-
+// Ramstormp, PTSD, growth from food consumption - start
+int CyCity::heartsDifference()
+{
+	return m_pCity ? m_pCity->heartsDifference() : -1;
+}
+// Ramstormp - end
 int CyCity::foodDifference()
 {
 	return m_pCity ? m_pCity->foodDifference() : -1;
@@ -1133,7 +1143,12 @@ int CyCity::getMaxYieldCapacity()
 {
 	return (m_pCity ? m_pCity->getMaxYieldCapacity() : -1);
 }
-
+// Ramstormp, PTSD, Food Storage - start
+int CyCity::getMaxFoodCapacity()
+{
+	return (m_pCity ? m_pCity->getMaxFoodCapacity() : -1);
+}
+// Ramstormp - end
 bool CyCity::isScoutVisited(int /*TeamTypes*/ eTeam) const
 {
 	return (m_pCity ? m_pCity->isScoutVisited((TeamTypes) eTeam) : false);
@@ -1294,7 +1309,12 @@ int CyCity::getHappinessFromDomesticDemandsFulfilled() const
 {
 	return m_pCity ? m_pCity->getHappinessFromDomesticDemandsFulfilled() : -1;
 }
-
+// Ramstormp, PTSD, Growth from food consumption etc. - start
+int CyCity::getDomesticDemandLack() const
+{
+	return m_pCity ? m_pCity->getDomesticDemandLack() : -1;
+}
+// Ramstormp - end
 int CyCity::getHappinessFromTreaties() const
 {
 	return m_pCity ? m_pCity->getHappinessFromTreaties() : -1;

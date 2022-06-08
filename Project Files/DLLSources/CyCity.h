@@ -47,6 +47,7 @@ public:
 	bool canTrain( int iUnit, bool bContinue, bool bTestVisible);
 	bool canConstruct( int iBuilding, bool bContinue, bool bTestVisible, bool bIgnoreCost);
 	bool canConvince( int iFatherPointType, bool bContinue, bool bTestVisible);
+	int getHeartsTurnsLeft(); // Ramstormp, PTSD, Growth from food consumption
 	int getFoodTurnsLeft();
 	bool isProduction();
 	bool isProductionUnit();
@@ -94,6 +95,7 @@ public:
 	bool isDisorder();
 	int extraPopulation();
 	int foodConsumption(int iExtra);												 
+	int heartsDifference(); // Ramstormp, PTSD, growth from food consumption
 	int foodDifference();
 	int growthThreshold();
 	int productionLeft();
@@ -253,6 +255,7 @@ public:
 
 	bool isScoutVisited(int /*TeamTypes*/ eTeam) const;
 	int getMaxYieldCapacity();
+	int getMaxFoodCapacity(); // Ramstormp, PTSD, Food Storage
 
 	int AI_getEmphasizeYieldCount(int /*YieldTypes*/ eYield) const;
 	bool AI_avoidGrowth();
@@ -298,6 +301,7 @@ public:
 	int getHappinessFromCulture() const;
 	int getHappinessFromEducation() const;
 	int getHappinessFromDomesticDemandsFulfilled() const;
+	int getDomesticDemandLack() const; // Ramstormp, PTSD, Growth from food consumption etc.
 	int getHappinessFromTreaties() const;
 
 	int getUnhappinessFromPopulation() const;

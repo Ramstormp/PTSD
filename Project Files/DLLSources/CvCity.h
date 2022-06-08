@@ -32,6 +32,8 @@ public:
 protected:
 	int getMaxYieldCapacityUncached() const;
 	int m_cache_MaxYieldCapacity; // nosave cache
+	int getMaxFoodCapacityUncached() const;
+	int m_cache_MaxFoodCapacity; // nosave cache
 public:
 // cache getMaxYieldCapacity - end - Nightinggale
 
@@ -169,6 +171,7 @@ public:
 	int extraPopulation() const;
 
 	int foodConsumption(int iExtra = 0) const;
+	int heartsDifference() const; // Ramstormp, PTSD, Growth from food consumption
 	int foodDifference() const;
 	int growthThreshold() const;
 
@@ -244,6 +247,18 @@ public:
 
 	int getHealRate() const;
 	void changeHealRate(int iChange);
+	// Ramstormp, PTSD - Growth based on food consumption -start
+	int getHearts() const;
+	void setHearts(int iNewValue);
+	void changeHearts(int iChange);
+	int getHeartsTurnsLeft() const;
+	int getHeartsKept() const;
+	void setHeartsKept(int iNewValue);
+	void changeHeartsKept(int iChange);
+	int getMaxHeartsKeptPercent() const;
+	void changeMaxHeartsKeptPercent(int iChange);
+
+	// Ramstormp - end
 	int getFood() const;
 	void setFood(int iNewValue);
 	void changeFood(int iChange);
@@ -486,6 +501,7 @@ public:
 	void liberate(bool bConquest);
 
 	int getMaxYieldCapacity() const;
+	int getMaxFoodCapacity() const; // Ramstormp, PTSD, Food Storage
 	bool isAutoRaze() const;
 	void setScoutVisited(TeamTypes eTeam, bool bVisited);
 	bool isScoutVisited(TeamTypes eTeam) const;
@@ -541,6 +557,7 @@ public:
 	int getHappinessFromCulture() const;
 	int getHappinessFromEducation() const;
 	int getHappinessFromDomesticDemandsFulfilled() const;
+	int getDomesticDemandLack() const; // Ramstormp, PTSD, Growth from food consumption etc.
 	int getHappinessFromTreaties() const;
 	int getUnhappinessFromTaxRate() const;
 
@@ -725,6 +742,10 @@ protected:
 	int m_iNumBuildings;
 	int m_iWorksWaterCount;
 	int m_iHealRate;
+	// Ramstormp, PTSD, Growth from food consumption - start
+	int m_iHeartsKept;
+	int m_iMaxHeartsKeptPercent;
+	// Ramstormp - end
 	int m_iFoodKept;
 	int m_iMaxFoodKeptPercent;
 	int m_iOverflowProduction;
@@ -946,6 +967,13 @@ inline int CvCity::getMaxYieldCapacity() const
 	return m_cache_MaxYieldCapacity;
 };
 // cache getMaxYieldCapacity - end - Nightinggale
+// Ramstormp, PTSD, Food Storage - start
+inline int CvCity::getMaxFoodCapacity() const
+{
+	return m_cache_MaxFoodCapacity;
+};
+
+// Ramstormp - end
 
 // transport feeder - start - Nightinggale
 inline bool CvCity::getImportsMaintain(YieldTypes eYield) const

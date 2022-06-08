@@ -28,6 +28,7 @@ void CyCityPythonInterface5(python::class_<CyCity>& x)
 
 		.def("isScoutVisited", &CyCity::isScoutVisited, "bool isScoutVisited(int /*TeamTypes*/ eTeam)")
 		.def("getMaxYieldCapacity", &CyCity::getMaxYieldCapacity, "int ()")
+		.def("getMaxFoodCapacity", &CyCity::getMaxFoodCapacity, "int ()") // Ramstormp, PTSD, Food Storage
 
 		.def("getPopulationUnitByIndex", &CyCity::getPopulationUnitByIndex, python::return_value_policy<python::manage_new_object>(), "CyUnit* getPopulationUnitByIndex(int)")
 		.def("getPopulationUnitById", &CyCity::getPopulationUnitById, python::return_value_policy<python::manage_new_object>(), "CyUnit* getPopulationUnitById(int)")
@@ -59,6 +60,7 @@ void CyCityPythonInterface5(python::class_<CyCity>& x)
 		.def("getHappinessFromCulture", &CyCity::getHappinessFromCulture, "int ()")
 		.def("getHappinessFromEducation", &CyCity::getHappinessFromEducation, "int ()")
 		.def("getHappinessFromDomesticDemandsFulfilled", &CyCity::getHappinessFromDomesticDemandsFulfilled, "int ()")
+		.def("getDomesticDemandLack", &CyCity::getDomesticDemandLack, "int ()") // Ramstormp, PTSD, Growth from food consumption etc.
 		.def("getHappinessFromTreaties", &CyCity::getHappinessFromTreaties, "int ()")
 
 		.def("getUnhappinessFromPopulation", &CyCity::getUnhappinessFromPopulation, "int ()")

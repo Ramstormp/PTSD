@@ -1279,6 +1279,7 @@ public:
 	int getAssetValue() const;
 	int getPowerValue() const;
 	int getYieldStorage() const;
+	int getFoodStorage() const; // Ramstormp, PTSD, Food Storage
 	int getSpecialBuildingType() const;
 	inline int getIndexOf_NextBuildingType_In_SpecialBuilding() const		{ return m_iIndexOf_NextBuildingType_In_SpecialBuilding; }
 	int getConquestProbability() const;
@@ -1381,6 +1382,7 @@ protected:
 	int m_iAssetValue;
 	int m_iPowerValue;
 	int m_iYieldStorage;
+	int m_iFoodStorage; // Ramstormp, PTSD, Food Storage
 	int m_iSpecialBuildingType;
 	int m_iIndexOf_NextBuildingType_In_SpecialBuilding;
 	int m_iConquestProbability;

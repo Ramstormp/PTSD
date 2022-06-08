@@ -45,8 +45,8 @@ class CvDiplomacy:
 			self.addUserComment("USER_DIPLOCOMMENT_PEACE", -1, -1)
 
 			# if you are on different teams and NOT at war, give the user the option to declare war
-			#if (gc.getTeam(gc.getGame().getActiveTeam()).canDeclareWar(gc.getPlayer(self.diploScreen.getWhoTradingWith()).getTeam())):
-			#	self.addUserComment("USER_DIPLOCOMMENT_WAR", -1, -1)
+			if (gc.getTeam(gc.getGame().getActiveTeam()).canDeclareWar(gc.getPlayer(self.diploScreen.getWhoTradingWith()).getTeam())):
+				self.addUserComment("USER_DIPLOCOMMENT_WAR", -1, -1)
 
 			self.diploScreen.endTrade()
 

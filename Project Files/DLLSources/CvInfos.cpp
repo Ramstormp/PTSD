@@ -4891,6 +4891,7 @@ m_iMilitaryProductionModifier(0),
 m_iAssetValue(0),
 m_iPowerValue(0),
 m_iYieldStorage(0),
+m_iFoodStorage(0), // Ramstormp, PTSD, Food Storage
 m_iSpecialBuildingType(NO_SPECIALBUILDING),
 m_iIndexOf_NextBuildingType_In_SpecialBuilding(NO_BUILDING),
 m_iConquestProbability(0),
@@ -5039,6 +5040,12 @@ int CvBuildingInfo::getYieldStorage() const
 {
 	return m_iYieldStorage;
 }
+// Ramstormp, PTSD, Food Storage - start
+int CvBuildingInfo::getFoodStorage() const
+{
+	return m_iFoodStorage;
+}
+// Ramstormp - end
 int CvBuildingInfo::getSpecialBuildingType() const
 {
 	return m_iSpecialBuildingType;
@@ -5331,6 +5338,7 @@ void CvBuildingInfo::read(FDataStreamBase* stream)
 	stream->Read(&m_iAssetValue);
 	stream->Read(&m_iPowerValue);
 	stream->Read(&m_iYieldStorage);
+	stream->Read(&m_iFoodStorage); // Ramstormp, PTSD, Food Storage
 	stream->Read(&m_iSpecialBuildingType);
 	stream->Read(&m_iIndexOf_NextBuildingType_In_SpecialBuilding);
 	stream->Read(&m_iConquestProbability);
@@ -5425,6 +5433,7 @@ void CvBuildingInfo::write(FDataStreamBase* stream)
 	stream->Write(m_iAssetValue);
 	stream->Write(m_iPowerValue);
 	stream->Write(m_iYieldStorage);
+	stream->Write(m_iFoodStorage); // Ramstormp, PTSD, Food Storage
 	stream->Write(m_iSpecialBuildingType);
 	stream->Write(m_iIndexOf_NextBuildingType_In_SpecialBuilding);
 	stream->Write(m_iConquestProbability);
@@ -5537,6 +5546,7 @@ bool CvBuildingInfo::read(CvXMLLoadUtility* pXML)
 	pXML->GetChildXmlValByName(&m_iAssetValue, "iAsset");
 	pXML->GetChildXmlValByName(&m_iPowerValue, "iPower");
 	pXML->GetChildXmlValByName(&m_iYieldStorage, "iYieldStorage");
+	pXML->GetChildXmlValByName(&m_iFoodStorage, "iFoodStorage"); // Ramstormp, PTSD, Food Storage
 	pXML->GetChildXmlValByName(&m_fVisibilityPriority, "fVisibilityPriority");
 	pXML->SetVariableListTagPair(&m_aiLandPlotYieldChange, "LandPlotYieldChanges", NUM_YIELD_TYPES, 0); // R&R, ray, Landplot Yields
 	pXML->SetVariableListTagPair(&m_aiSeaPlotYieldChange, "SeaPlotYieldChanges", NUM_YIELD_TYPES, 0);

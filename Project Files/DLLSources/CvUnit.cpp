@@ -4008,32 +4008,35 @@ int CvUnit::loadYieldAmount(YieldTypes eYield, int iAmount, bool bTrade)
 	}
 	//Ramstormp, Auto-Leave Yields for Domestic Demand and Happiness - Start
 	int iGameSpeedModifier = GC.getGameSpeedInfo(GC.getGameINLINE().getGameSpeedType()).getStoragePercent() / 100;
-	//if (GET_PLAYER(getOwnerINLINE()).isOption(PLAYEROPTION_AUTO_LEAVE_YIELDS))
-	//{
 	CvCity* pCity = plot()->getPlotCity();
+	if (GET_PLAYER(getOwnerINLINE()).isOption(PLAYEROPTION_AUTO_LEAVE_YIELDS))
+	{
+		if (isHuman())
+		{
+			int iDemandAmount = pCity->getYieldDemand(eYield);
+			if (iDemandAmount > 0 && iAmount > iDemandAmount && iAmount == pCity->getYieldStored(eYield))
+			{
+				iAmount -= iDemandAmount;
+			}
+			if (iAmount > 1 && iAmount == iDemandAmount && iAmount == pCity->getYieldStored(eYield))
+			{
+				iAmount = iDemandAmount - 1;
+			}
+		}
+	}
 	if (isHuman())
 	{
-		int iDemandAmount = pCity->getYieldDemand(eYield);
-		if (iDemandAmount > 0 && iAmount > iDemandAmount && iAmount == pCity->getYieldStored(eYield))
-		{
-			iAmount -= iDemandAmount;
-		}
-		if (iAmount > 1 && iAmount == iDemandAmount && iAmount == pCity->getYieldStored(eYield))
-		{
-			iAmount = iDemandAmount - 1;
-		}
-	/*	const PlayerTypes eNativePlayer = pCity->getOwnerINLINE();
+		const PlayerTypes eNativePlayer = pCity->getOwnerINLINE();
 		CvPlayerAI& nativePlayer = GET_PLAYER(eNativePlayer);
-
 		if (nativePlayer.isNative())
 		{
-			if (iAmount > 30)
+			if (GET_PLAYER(getOwnerINLINE()).getGold() < GC.getYieldInfo(eYield).getNativeSellPrice() * iAmount)
 			{
-				iAmount = 30;
+				iAmount = GET_PLAYER(getOwnerINLINE()).getTradeYieldAmount(eYield, this);// GET_PLAYER(getOwnerINLINE()).getGold() / GC.getYieldInfo(eYield).getNativeSellPrice();
 			}
-		}*/
+		}
 	}
-	//}
+	
 	// Ramstormp - END
 	CvUnit* pUnit = plot()->getPlotCity()->createYieldUnit(eYield, getOwnerINLINE(), iAmount);
 	FAssert(pUnit != NULL);
@@ -6818,7 +6821,10 @@ bool CvUnit::doFound(bool bBuyLand)
 			//consuming YIELDS when Founding a City
 			for (YieldTypes eYield = FIRST_YIELD; eYield < NUM_YIELD_TYPES; ++eYield)
 			{
-				pCity->setYieldStored(eYield, 0);
+				if (eYield != YIELD_HEARTS && eYield != NO_YIELD) // Ramstormp, PTSD, New Cities get a head start on growth
+				{
+					pCity->setYieldStored(eYield, 0);
+				}
 			}
 			//WTP, ray, Settler Professsion - END
 		}
@@ -6922,7 +6928,7 @@ bool CvUnit::canJoinCity(const CvPlot* pPlot, bool bTestVisible, bool bIgnoreFoo
 
 	if (!bTestVisible)
 	{
-		if (pCity->getRawYieldProduced(YIELD_FOOD) < pCity->getPopulation() * GC.getFOOD_CONSUMPTION_PER_POPULATION())
+		if (!isHuman() && pCity->getRawYieldProduced(YIELD_FOOD) < pCity->getPopulation() * GC.getFOOD_CONSUMPTION_PER_POPULATION()) // Ramstormp, PTSD, why is it necessary?
 		{
 			// TAC - Clear Specialty Fix - koma13 - START
 			//if (!canJoinStarvingCity(*pCity))
@@ -6943,7 +6949,11 @@ bool CvUnit::canJoinCity(const CvPlot* pPlot, bool bTestVisible, bool bIgnoreFoo
 		}
 		else
 		{
-			if (hasMoved())
+			if (!isHuman() && hasMoved())
+			{
+				return false;
+			}
+			else if (movesLeft() == 0)
 			{
 				return false;
 			}
@@ -15354,8 +15364,132 @@ void CvUnit::createTreasures(int overallAmount, int maxTreasureGold)
 		pTreasure->setMoves(maxMoves());
 	}
 }
-// WTP, merge Treasures, of Raubwuerger - END
+// WTP, merge Treasure, of Raubwuerger - END
+// Ramstormp, PTSD, Merge Soldiers - start
+/*
+bool CvUnit::canMergeSoldiers() const
+{
+	// WTP, ray, small improvements
+	// merge only available for treasures
+	if (getUnitInfo().canAttack() == false)
+	{
+		return false;
+	}
 
+	// only in Cities or Native Villages
+	//if (plot()->isCity() == false)
+	//{
+	//	return false;
+	//}
+
+	// we can only merge if we are still smaller than max gold amount
+	int maxHitPoints = GC.getMAX_HIT_POINTS();
+	//int iGameSpeedModifier = GC.getGameSpeedInfo(GC.getGameINLINE().getGameSpeedType()).getStoragePercent() / 100;
+	//maxTreasureGold = maxTreasureGold * iGameSpeedModifier;
+
+	if (currHitPoints() >= maxHitPoints)
+	{
+		return false;
+	}
+
+	// we need to check if we have at least 2 valid treasures
+	CLLNode<IDInfo>* pUnitNode = plot()->headUnitNode();
+	CvUnit* pLoopUnit;
+	int validSoldierTypeCounter = 0;
+
+	while (pUnitNode != NULL)
+	{
+		pLoopUnit = ::getUnit(pUnitNode->m_data);
+		pUnitNode = plot()->nextUnitNode(pUnitNode);
+
+		// we only count our own treasuers and only the ones that are smaller than max gold amount
+		if (pLoopUnit->getUnitInfo().isTreasure() && pLoopUnit->getOwner() == getOwner() && pLoopUnit->currHitPoints() < maxHitPoints/(validSoldierTypeCounter + 2)
+		{
+			validSoldierTypeCounter++;
+		}
+	}
+
+	return validSoldierTypeCounter >= 2;
+}
+
+void CvUnit::mergeTreasures()
+{
+	// probably not needed because merge is only called after caMerge - but for safety, let us keep it
+	if (canMergeTreasures() == false)
+	{
+		return;
+	}
+
+	// this stores the total gold we find in valid treasures to merge
+	int overallAmount = 0;
+
+	CLLNode<IDInfo>* pUnitNode = plot()->headUnitNode();
+	CvUnit* pLoopUnit;
+	int maxTreasureGold = GC.getMAX_TREASURE_AMOUNT();
+	int iGameSpeedModifier = GC.getGameSpeedInfo(GC.getGameINLINE().getGameSpeedType()).getStoragePercent() / 100;
+	maxTreasureGold = maxTreasureGold * iGameSpeedModifier;
+
+	// first we count the gold of these treasures
+	while (pUnitNode != NULL)
+	{
+		pLoopUnit = ::getUnit(pUnitNode->m_data);
+		pUnitNode = plot()->nextUnitNode(pUnitNode);
+
+		// WTP, ray, small improvements
+		// we only count gold of our own treasuers and those that are not yet at max
+		// after that we can directly kill them, so no extra loop is needed
+		if (pLoopUnit->getUnitInfo().isTreasure() && pLoopUnit->getOwner() == getOwner() && pLoopUnit->getYieldStored() < maxTreasureGold)
+		{
+			overallAmount += pLoopUnit->getYieldStored();
+			pLoopUnit->kill(true);
+		}
+	}
+
+	createTreasures(overallAmount, maxTreasureGold);
+
+	return;
+}
+
+void CvUnit::createTreasures(int overallAmount, int maxTreasureGold)
+{
+
+	FAssert(overallAmount > 0);
+	FAssert(maxTreasureGold > 0);
+	int treasureCount_MaxAmount = overallAmount / maxTreasureGold;
+
+	int restAmount = overallAmount - (treasureCount_MaxAmount * maxTreasureGold);
+
+	UnitClassTypes eUnitClass = (UnitClassTypes)GC.getDefineINT("TREASURE_UNITCLASS");
+	if (eUnitClass == NO_UNITCLASS)
+	{
+		FAssertMsg(eUnitClass != NO_UNITCLASS, "Failed to find treasure unitclass while merging");
+		return; //Something went wrong
+	}
+	UnitTypes eUnit = (UnitTypes)GC.getCivilizationInfo(getCivilizationType()).getCivilizationUnits(eUnitClass);
+
+	if (eUnit == NO_UNIT)
+	{
+		FAssertMsg(eUnit != NO_UNIT, "Failed to find treasure unit while merging");
+		return;
+	}
+
+	FAssert(GC.getUnitInfo(eUnit).isTreasure());
+
+	for (int treasures = 0; treasures < treasureCount_MaxAmount; treasures++)
+	{
+		CvUnit* pTreasure = GET_PLAYER(getOwnerINLINE()).initUnit(eUnit, GC.getUnitInfo(eUnit).getDefaultProfession(), plot()->getX_INLINE(), plot()->getY_INLINE(), NO_UNITAI, NO_DIRECTION, maxTreasureGold);
+		// set Movement Points to 0, to prevent cheating
+		pTreasure->setMoves(maxMoves());
+	}
+	if (restAmount > 0)
+	{
+		CvUnit* pTreasure = GET_PLAYER(getOwnerINLINE()).initUnit(eUnit, GC.getUnitInfo(eUnit).getDefaultProfession(), plot()->getX_INLINE(), plot()->getY_INLINE(), NO_UNITAI, NO_DIRECTION, restAmount);
+		// set Movement Points to 0, to prevent cheating
+		pTreasure->setMoves(maxMoves());
+	}
+}
+// Ramstormp - END
+*/
 
 // Erik: We should come up with a XML tag (e.g. bJoin vs. bFound) so that we don't need to hard-code this
 bool CvUnit::isPrisonerOrSlave() const

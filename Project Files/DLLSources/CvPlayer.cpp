@@ -17560,10 +17560,29 @@ int CvPlayer::getTradeYieldAmount(YieldTypes eYield, CvUnit* pTransport) const
 			{
 				if (pLoopUnit->getTransportUnit() == pTransport)
 				{
-					if (pLoopUnit->getYield() == eYield)
+			// Ramstormp, PTSD, Natives Trade Affordable Amounts - start
+				/*	if (pLoopUnit->getYield() == eYield)
+					{
+						CvPlayer& kPlayer = GET_PLAYER(pPlot->getOwnerINLINE());
+						
+						if (pLoopUnit->getYieldStored() > GC.getGameINLINE().getCargoYieldCapacity()) //cargoSpace())
+						{
+							iAmount += GC.getGameINLINE().getCargoYieldCapacity();
+						}
+						else
+						{
+							iAmount += pLoopUnit->getYieldStored();
+						}
+						if (kPlayer.getGold() > GC.getYieldInfo(eYield).getNativeSellPrice() * iAmount)
+						{
+							iAmount = kPlayer.getGold() / GC.getYieldInfo(eYield).getNativeSellPrice();
+						}
+					}*/
+					if (pLoopUnit->getYield() == eYield) // Ramstormp, this is the original
 					{
 						iAmount += pLoopUnit->getYieldStored();
 					}
+				// Ramstormp - end
 				}
 			}
 		}
@@ -17576,10 +17595,23 @@ int CvPlayer::getTradeYieldAmount(YieldTypes eYield, CvUnit* pTransport) const
 		{
 			return 0;
 		}
-
+		// Ramstormp, PTSD, Natives Trade Affordable amounts - start
+		CvPlayer& kPlayer = GET_PLAYER(pTransport->getOwnerINLINE());
 		int iCityAmount = pCity->getYieldStored(eYield);
 		int iAmountAvailable = pTransport->getLoadYieldAmount(eYield);
-		iAmount = std::min(iCityAmount, iAmountAvailable);
+		//int iFullPrice = GC.getYieldInfo(eYield).getNativeSellPrice() * iCityAmount;
+		int iAffordablePrice = std::max(kPlayer.getGold(), 50);
+		int iNativeSellPrice = GC.getYieldInfo(eYield).getNativeSellPrice();
+		int iAffordableAmount = 0;
+		if (iNativeSellPrice > 0)
+		{
+			iAffordableAmount = (iAffordablePrice) / iNativeSellPrice;
+		}
+		iAffordableAmount = std::min(iCityAmount, iAffordableAmount);
+		iAmount = std::min(iAffordableAmount, iAmountAvailable);
+
+		//iAmount = std::min(iCityAmount, iAmountAvailable);
+		// Ramstormp - end
 	}
 
 	return iAmount;
@@ -20688,7 +20720,13 @@ void CvPlayer::checkForBishop()
 	return;
 }
 // R&R, ray, BISHOP - END
-
+// Ramstormp, PTSD, No alarms and no surprises - start
+int CvPlayer::getKissPinkyTimer(PlayerTypes ePlayer)
+{
+	CvPlayerAI& kPlayerAi = GET_PLAYER((PlayerTypes)getID());
+	return kPlayerAi.AI_getContactTimer((ePlayer), CONTACT_DEMAND_TRIBUTE);
+}
+// Ramstormp - end
 
 void CvPlayer::buyNativeMercs(PlayerTypes sellingPlayer, int price, bool mightbeangry)
 {

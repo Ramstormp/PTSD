@@ -14,6 +14,10 @@
 	const int defaultWorkingPopulation = 0 ;
 	const int defaultNumBuildings = 0 ;
 	const int defaultHealRate = 0 ;
+	// Ramstormp, PTSD, growth from food consumption - start
+	const int defaultHeartsKept = 0; 
+	const int defaultMaxHeartsKeptPercent = 0;
+	// Ramstormp - end
 	const int defaultFoodKept = 0 ;
 	const int defaultMaxFoodKeptPercent = 0 ;
 	const int defaultOverflowProduction = 0 ;
@@ -73,6 +77,10 @@ enum SavegameVariableTypes
 	CitySave_WorkingPopulation,
 	CitySave_NumBuildings,
 	CitySave_HealRate,
+	// Ramstormp, PTSD, growth from food consumption - start
+	CitySave_HeartsKept,
+	CitySave_MaxHeartsKeptPercent,
+	// Ramstormp - end
 	CitySave_FoodKept,
 	CitySave_MaxFoodKeptPercent,
 	CitySave_OverflowProduction,
@@ -193,6 +201,10 @@ const char* getSavedEnumNameCity(SavegameVariableTypes eType)
 		case CitySave_WorkingPopulation: return "CitySave_WorkingPopulation";
 		case CitySave_NumBuildings: return "CitySave_NumBuildings";
 		case CitySave_HealRate: return "CitySave_HealRate";
+// Ramstormp, PTSD, Growth from food consumption - start
+		case CitySave_HeartsKept: return "CitySave_HeartsKept";
+		case CitySave_MaxHeartsKeptPercent: return "CitySave_MaxHeartsKeptPercent";
+// Ramstormp - end
 		case CitySave_FoodKept: return "CitySave_FoodKept";
 		case CitySave_MaxFoodKeptPercent: return "CitySave_MaxFoodKeptPercent";
 		case CitySave_OverflowProduction: return "CitySave_OverflowProduction";
@@ -313,6 +325,7 @@ void CvCity::resetSavedData(int iID, PlayerTypes eOwner, int iX, int iY, bool bC
 	m_iWorkingPopulation = defaultWorkingPopulation;
 	m_iNumBuildings = defaultNumBuildings;
 	m_iHealRate = defaultHealRate;
+	m_iHeartsKept = defaultHeartsKept; // Ramstormp, PTSD, Growth from food consumption
 	m_iFoodKept = defaultFoodKept;
 	m_iMaxFoodKeptPercent = defaultMaxFoodKeptPercent;
 	m_iOverflowProduction = defaultOverflowProduction;
@@ -447,6 +460,10 @@ void CvCity::read(CvSavegameReader reader)
 		case CitySave_WorkingPopulation: reader.Read(m_iWorkingPopulation); break;
 		case CitySave_NumBuildings: reader.Read(m_iNumBuildings); break;
 		case CitySave_HealRate: reader.Read(m_iHealRate); break;
+// Ramstormp, PTSD, Growth from food consumption - start
+		case CitySave_HeartsKept: reader.Read(m_iHeartsKept); break;
+		case CitySave_MaxHeartsKeptPercent: reader.Read(m_iMaxHeartsKeptPercent); break;
+// Ramstormp - end
 		case CitySave_FoodKept: reader.Read(m_iFoodKept); break;
 		case CitySave_MaxFoodKeptPercent: reader.Read(m_iMaxFoodKeptPercent); break;
 		case CitySave_OverflowProduction: reader.Read(m_iOverflowProduction); break;
@@ -591,8 +608,10 @@ void CvCity::write(CvSavegameWriter writer)
 	writer.Write(CitySave_WorkingPopulation, m_iWorkingPopulation, defaultWorkingPopulation);
 	writer.Write(CitySave_NumBuildings, m_iNumBuildings, defaultNumBuildings);
 	writer.Write(CitySave_HealRate, m_iHealRate, defaultHealRate);
-	writer.Write(CitySave_FoodKept, m_iFoodKept, defaultFoodKept);
-	writer.Write(CitySave_MaxFoodKeptPercent, m_iMaxFoodKeptPercent, defaultMaxFoodKeptPercent);
+	// Ramstormp, PTSD, Growth from food consumption - start
+	writer.Write(CitySave_HeartsKept, m_iHeartsKept, defaultHeartsKept);
+	writer.Write(CitySave_MaxHeartsKeptPercent, m_iMaxHeartsKeptPercent, defaultMaxHeartsKeptPercent);
+	// Ramstormp - end
 	writer.Write(CitySave_OverflowProduction, m_iOverflowProduction, defaultOverflowProduction);
 	writer.Write(CitySave_MilitaryProductionModifier, m_iMilitaryProductionModifier, defaultMilitaryProductionModifier);
 	writer.Write(CitySave_BuildingDefense, m_iBuildingDefense, defaultBuildingDefense);

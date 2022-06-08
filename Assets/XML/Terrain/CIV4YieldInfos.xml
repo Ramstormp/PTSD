@@ -2643,6 +2643,49 @@
             <HighlightIcon>,Art/Interface/Screens/City_Management/Colonization_Yield_Highlight_Icon_Atlas.dds.dds,3,16</HighlightIcon>
             <Button>,Art/colonization_atlas_resources.dds,3,7</Button>
         </YieldInfo>
+      <YieldInfo>
+        <Type>YIELD_HEARTS</Type>
+        <Description>TXT_KEY_YIELD_HEARTS</Description>
+        <Civilopedia>TXT_KEY_YIELD_HEARTS_PEDIA</Civilopedia>
+        <bCargo>0</bCargo>
+        <iBuyPriceLow>0</iBuyPriceLow>
+        <iBuyPriceHigh>0</iBuyPriceHigh>
+        <iBuyPriceMin>0</iBuyPriceMin>
+        <iSellPriceDifference>0</iSellPriceDifference>
+        <iPriceChangeThreshold>0</iPriceChangeThreshold>
+        <iPriceCorrectionPercent>0</iPriceCorrectionPercent>
+        <iEuropeVolumeAttrition>0</iEuropeVolumeAttrition>
+        <iAfricaBuyPriceLow>0</iAfricaBuyPriceLow>
+        <iAfricaBuyPriceHigh>0</iAfricaBuyPriceHigh>
+        <iAfricaSellPriceDifference>0</iAfricaSellPriceDifference>
+        <iPortRoyalBuyPriceLow>0</iPortRoyalBuyPriceLow>
+        <iPortRoyalBuyPriceHigh>0</iPortRoyalBuyPriceHigh>
+        <iPortRoyalSellPriceDifference>0</iPortRoyalSellPriceDifference>
+        <iEuropeStock>0</iEuropeStock>
+        <iAfricaStock>0</iAfricaStock>
+        <iPortRoyalStock>0</iPortRoyalStock>
+        <iNativeBuyPrice>-1</iNativeBuyPrice>
+        <iNativeSellPrice>-1</iNativeSellPrice>
+        <iNativeConsumptionPercent>-1</iNativeConsumptionPercent>
+        <iNativeHappy>0</iNativeHappy>
+        <iHillsChange>0</iHillsChange>
+        <iPeakChange>0</iPeakChange>
+        <iLakeChange>0</iLakeChange>
+        <iCityChange>0</iCityChange>
+        <iMinCity>0</iMinCity>
+        <iAIWeightPercent>100</iAIWeightPercent>
+        <iAIBaseValue>0</iAIBaseValue>
+        <iNativeBaseValue>0</iNativeBaseValue>
+        <iPower>0</iPower>
+        <iAsset>0</iAsset>
+        <ColorType>COLOR_YIELD_FOOD</ColorType>
+        <UnitClass>NONE</UnitClass>
+        <iTextureIndex>-1</iTextureIndex>
+        <iWaterTextureIndex>-1</iWaterTextureIndex>
+        <Icon>,Art/colonization_atlas_resources.dds,4,16</Icon>
+        <HighlightIcon>,Art/Interface/Screens/City_Management/Colonization_Yield_Highlight_Icon_Atlas.dds.dds,4,16</HighlightIcon>
+        <Button>,Art/colonization_atlas_resources.dds,4,7</Button>
+      </YieldInfo>
     </YieldInfos>
 </Civ4YieldInfos>
 

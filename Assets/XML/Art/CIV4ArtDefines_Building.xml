@@ -1770,7 +1770,7 @@
             <KFM/>
             <Button>,Art/colonization_atlas_buildings.dds,4,15</Button>
         </BuildingArtInfo>
-<BuildingArtInfo>
+        <BuildingArtInfo>
             <Type>ART_DEF_BUILDING_FIKA_BREAK</Type>
             <LSystem/>
             <bAnimated>0</bAnimated>
@@ -1782,7 +1782,7 @@
             <KFM/>
             <Button>,Art/colonization_atlas_units.dds,1,16</Button>
         </BuildingArtInfo>
-		<BuildingArtInfo>
+		    <BuildingArtInfo>
             <Type>ART_DEF_BUILDING_LOVE_FOR_THE_WOODS</Type>
             <LSystem/>
             <bAnimated>0</bAnimated>
@@ -1794,7 +1794,7 @@
             <KFM/>
             <Button>,Art/colonization_atlas_units.dds,3,12</Button>
         </BuildingArtInfo>
-<BuildingArtInfo>
+        <BuildingArtInfo>
             <Type>ART_DEF_BUILDING_WINTER_BATHHOUSE</Type>
             <LSystem/>
             <bAnimated>0</bAnimated>
@@ -1806,7 +1806,7 @@
             <KFM/>
             <Button>,Art/colonization_atlas_units.dds,2,16</Button>
         </BuildingArtInfo>
-<BuildingArtInfo>
+        <BuildingArtInfo>
             <Type>ART_DEF_BUILDING_NYCKELHARPA</Type>
             <LSystem/>
             <bAnimated>0</bAnimated>
@@ -1818,7 +1818,7 @@
             <KFM/>
             <Button>,Art/colonization_atlas_units.dds,3,16</Button>
         </BuildingArtInfo>
-<BuildingArtInfo>
+        <BuildingArtInfo>
             <Type>ART_DEF_BUILDING_KAROLEAN_PSALMBOOK</Type>
             <LSystem/>
             <bAnimated>0</bAnimated>
@@ -1829,8 +1829,8 @@
             <NIF/>
             <KFM/>
             <Button>,Art/colonization_atlas_units.dds,4,16</Button>
-	</BuildingArtInfo>
-	<BuildingArtInfo>
+	      </BuildingArtInfo>
+	      <BuildingArtInfo>
             <Type>ART_DEF_BUILDING_CAPS_AFFILIATIONS</Type>
             <LSystem/>
             <bAnimated>0</bAnimated>
@@ -1842,5 +1842,77 @@
             <KFM/>
             <Button>,Art/colonization_atlas_units.dds,5,16</Button>
         </BuildingArtInfo>
+      <BuildingArtInfo>
+        <Type>ART_DEF_BUILDING_COLONIAL_CUISINE</Type>
+        <LSystem/>
+        <bAnimated>0</bAnimated>
+        <CityTexture/>
+        <CitySelectedTexture>,IS,FILLER,TEXT</CitySelectedTexture>
+        <fScale>0</fScale>
+        <fInterfaceScale>0</fInterfaceScale>
+        <NIF/>
+        <KFM/>
+        <Button>,Art/colonization_atlas_units.dds,1,13</Button>
+      </BuildingArtInfo>
+      <BuildingArtInfo>
+        <Type>ART_DEF_BUILDING_CROSS_CULTURAL_FELLOWSHIP</Type>
+        <LSystem/>
+        <bAnimated>0</bAnimated>
+        <CityTexture/>
+        <CitySelectedTexture>,IS,FILLER,TEXT</CitySelectedTexture>
+        <fScale>0</fScale>
+        <fInterfaceScale>0</fInterfaceScale>
+        <NIF/>
+        <KFM/>
+        <Button>,Art/colonization_atlas_units.dds,3,12</Button>
+      </BuildingArtInfo>
+      <BuildingArtInfo>
+        <Type>ART_DEF_BUILDING_NEW_WORLD_RECREATION</Type>
+        <LSystem/>
+        <bAnimated>0</bAnimated>
+        <CityTexture/>
+        <CitySelectedTexture>,IS,FILLER,TEXT</CitySelectedTexture>
+        <fScale>0</fScale>
+        <fInterfaceScale>0</fInterfaceScale>
+        <NIF/>
+        <KFM/>
+        <Button>,Art/colonization_atlas_units.dds,12,5</Button>
+      </BuildingArtInfo>
+      <BuildingArtInfo>
+        <Type>ART_DEF_BUILDING_WITTY_DRINKING_DITTIES</Type>
+        <LSystem/>
+        <bAnimated>0</bAnimated>
+        <CityTexture/>
+        <CitySelectedTexture>,IS,FILLER,TEXT</CitySelectedTexture>
+        <fScale>0</fScale>
+        <fInterfaceScale>0</fInterfaceScale>
+        <NIF/>
+        <KFM/>
+        <Button>,Art/colonization_atlas_units.dds,3,13</Button>
+      </BuildingArtInfo>
+      <BuildingArtInfo>
+        <Type>ART_DEF_BUILDING_SATIRICAL_PROPAGANDA</Type>
+        <LSystem/>
+        <bAnimated>0</bAnimated>
+        <CityTexture/>
+        <CitySelectedTexture>,IS,FILLER,TEXT</CitySelectedTexture>
+        <fScale>0</fScale>
+        <fInterfaceScale>0</fInterfaceScale>
+        <NIF/>
+        <KFM/>
+        <Button>,Art/colonization_atlas_units.dds,2,13</Button>
+      </BuildingArtInfo>
+      <BuildingArtInfo>
+        <Type>ART_DEF_BUILDING_AMERICAN_LITERATURE</Type>
+        <LSystem/>
+        <bAnimated>0</bAnimated>
+        <CityTexture/>
+        <CitySelectedTexture>,IS,FILLER,TEXT</CitySelectedTexture>
+        <fScale>0</fScale>
+        <fInterfaceScale>0</fInterfaceScale>
+        <NIF/>
+        <KFM/>
+        <Button>,Art/colonization_atlas_units.dds,4,12</Button>
+      </BuildingArtInfo>
     </BuildingArtInfos>
 </Civ4ArtDefines>
