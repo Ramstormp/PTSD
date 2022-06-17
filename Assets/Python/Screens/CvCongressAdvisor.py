@@ -89,7 +89,8 @@ class CvCongressAdvisor:
 		
 		for iFather in range(gc.getNumFatherInfos()):
 			Father = gc.getFatherInfo(iFather)
-			if (gc.getGame().getFatherTeam(iFather) == self.team.getID()):
+			#if (gc.getGame().getFatherTeam(iFather) == self.team.getID()):
+			if (self.team.isFatherConvinced(iFather)):
 				self.MyFathers.append(iFather)
 
 		FatherCountText = localText.getText("TXT_KEY_MEMBERS", (CyGameTextMgr().getInterfaceTimeStr(gc.getGame().getActivePlayer()), len(self.MyFathers)))

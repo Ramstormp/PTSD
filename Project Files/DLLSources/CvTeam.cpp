@@ -151,20 +151,34 @@ void CvTeam::addTeam(TeamTypes eTeam)
 	for (iI = 0; iI < GC.getNumFatherInfos(); ++iI)
 	{
 		FatherTypes eFather = (FatherTypes) iI;
-
-		//transfer father ownership from other team to us
-		if (GC.getGameINLINE().getFatherTeam(eFather) == eTeam)
-		{
-			GC.getGameINLINE().setFatherTeam(eFather, getID());
-		}
-
+		// Ramstomp, PTSD, Everyone can have every dad - start
 		//give father benefits to other team's players
-		if (GC.getGameINLINE().getFatherTeam(eFather) == getID())
+		if (!isHuman())
 		{
-			GET_TEAM(eTeam).processFather(eFather, 1);
+			if (GC.getGameINLINE().getFatherTeam(eFather) == getID())
+			{
+				GET_TEAM(eTeam).processFather(eFather, 1);
+			}
+			if (GC.getGameINLINE().getFatherTeam(eFather) == eTeam)
+			{
+				GC.getGameINLINE().setFatherTeam(eFather, getID());
+			}
+		}
+		else
+		{
+			//transfer father ownership from other team to us
+			if (GET_TEAM(eTeam).isFatherConvinced(eFather))
+			{
+				setFatherConvinced(eFather, true);
+			}
+			//give father benefits to other team's players
+			if (isFatherConvinced(eFather))
+			{
+				GET_TEAM(eTeam).processFather(eFather, 1);
+			}
 		}
 	}
-
+	// Ramstormp - end
 	for (iI = 0; iI < MAX_TEAMS; iI++)
 	{
 		if ((iI != getID()) && (iI != eTeam))
@@ -454,7 +468,7 @@ void CvTeam::shareCounters(TeamTypes eTeam)
 	for (int iI = 0; iI < GC.getNumFatherInfos(); iI++)
 	{
 		FatherTypes eFather = (FatherTypes) iI;
-		setFatherIgnore(eFather, isFatherIgnore(eFather) && kOtherTeam.isFatherIgnore(eFather));
+		setFatherIgnore(eFather, isFatherIgnore(eFather) && kOtherTeam.isFatherIgnore(eFather)); 
 	}
 }
 
@@ -468,6 +482,74 @@ void CvTeam::processFather(FatherTypes eFather, int iChange)
 			kPlayer.processFather(eFather, iChange);
 		}
 	}
+}
+
+void CvTeam::setFatherConvinced(FatherTypes eFather, bool bValue)
+{
+	FAssert(eFather >= 0);
+	FAssert(eFather < GC.getNumFatherInfos());
+	FAssert(eTeam >= 0);
+	FAssert(eTeam < MAX_TEAMS);
+
+	if (!isFatherConvinced(eFather))
+	{
+		bool bFirstTime = true;
+		//	if (getFatherConvinced(eTeam) != eFather)
+		//	{
+		//		GET_TEAM(eTeam).processFather(eFather, -1);
+		//		bFirstTime = false;
+		//	}
+
+		m_em_bFatherConvinced.set(eFather, true);
+
+		//if (getFatherConvinced() == eFather)
+		//{
+			GET_TEAM(getID()).processFather(eFather, 1);
+
+			if (bFirstTime)
+			{
+				for (int iPlayer = 0; iPlayer < MAX_PLAYERS; ++iPlayer)
+				{
+					CvPlayer& kPlayer = GET_PLAYER((PlayerTypes)iPlayer);
+					// R&R, ray, fix for Natives in Permanent Alliance getting Units from FFs of Players
+					if (kPlayer.isAlive() && !kPlayer.isNative() && kPlayer.getTeam() == getID())
+						// if (kPlayer.isAlive() && kPlayer.getTeam() == GETID())
+					{
+						kPlayer.processFatherOnce(eFather);
+					}
+				}
+
+				CvWString szBuffer;
+				/*
+				for (int iI = 0; iI < MAX_PLAYERS; iI++)
+				{
+					CvPlayer& kPlayer = GET_PLAYER((PlayerTypes)iI);
+					if (kPlayer.isAlive())
+					{
+						if (GET_TEAM(kPlayer.getTeam()).isHasMet(eTeam))
+						{
+							szBuffer = gDLL->getText("TXT_KEY_FATHER_JOINED_TEAM", GC.getFatherInfo(eFather).getTextKeyWide(), GET_TEAM(getFatherTeam(eFather)).getName().GetCString());
+						}
+						else
+						{
+							szBuffer = gDLL->getText("TXT_KEY_FATHER_JOINED_UNKNOWN", GC.getFatherInfo(eFather).getTextKeyWide());
+						}
+
+						gDLL->getInterfaceIFace()->addMessage(((PlayerTypes)iI), false, GC.getEVENT_MESSAGE_TIME(), szBuffer, "AS2D_GLOBECIRCUMNAVIGATED", MESSAGE_TYPE_MAJOR_EVENT, NULL, (ColorTypes)GC.getInfoTypeForString("COLOR_HIGHLIGHT_TEXT"));
+					}
+				}
+				szBuffer = gDLL->getText("TXT_KEY_FATHER_JOINED_TEAM", GC.getFatherInfo(eFather).getTextKeyWide(), GET_TEAM(getFatherTeam(eFather)).getName().GetCString());
+				addReplayMessage(REPLAY_MESSAGE_MAJOR_EVENT, NO_PLAYER, szBuffer, -1, -1, (ColorTypes)GC.getInfoTypeForString("COLOR_HIGHLIGHT_TEXT"));
+			*/
+			}
+		//}
+	}
+}
+
+bool CvTeam::isFatherConvinced(FatherTypes eFather) const
+{
+	FAssert(eTeam >= 0 && eTeam < MAX_TEAMS);
+	return m_em_bFatherConvinced.get(eFather);
 }
 
 void CvTeam::doTurn()
@@ -1700,10 +1782,13 @@ void CvTeam::setFatherIgnore(FatherTypes eFather, bool bValue)
 
 bool CvTeam::canConvinceFather(FatherTypes eFather) const
 {
+	// Ramstormp, PTSD, Everyone can have every dad - start
 	// R&R, ray, Founding Fathers Available again, when Civ destroyed - START
+	/*
 	if (!GC.getGameINLINE().isOption(GAMEOPTION_USE_OLD_FOUNDING_FATHER_SYSTEM))
 	{
-		if(GC.getGameINLINE().getFatherTeam(eFather) != NO_TEAM && GET_TEAM(GC.getGameINLINE().getFatherTeam(eFather)).isAlive())
+	//	if(GC.getGameINLINE().getFatherTeam(eFather) != NO_TEAM && GET_TEAM(GC.getGameINLINE().getFatherTeam(eFather)).isAlive())
+		if (GC.getGameINLINE().getFatherConvinced(GETID()) != NO_FATHER && GET_TEAM(GC.getGameINLINE().getFatherConvinced(GETID())).isAlive())
 		{
 			return false;
 		}
@@ -1714,9 +1799,9 @@ bool CvTeam::canConvinceFather(FatherTypes eFather) const
 		{
 			return false;
 		}
-	}
+	}*/
 	// R&R, ray, Founding Fathers Available again, when Civ destroyed - END
-
+	// Ramstormp - end
 	if(isFatherIgnore(eFather))
 	{
 		return false;
@@ -1748,8 +1833,17 @@ void CvTeam::convinceFather(FatherTypes eFather, bool bAccept)
 			FatherPointTypes ePointType = (FatherPointTypes) iPoint;
 			changeFatherPoints(ePointType, -getFatherPointCost(eFather, ePointType));
 		}
-
-		GC.getGameINLINE().setFatherTeam(eFather, getID());
+		// Ramstormp, PTSD, Everyone can have every dad - start
+		if (!isHuman())
+		{
+			GC.getGameINLINE().setFatherTeam(eFather, getID());
+		}
+		else
+		{
+			setFatherConvinced(eFather, true);
+			setFatherIgnore(eFather, true);
+		}
+		// Ramstormp - end
 	}
 	else //reject
 	{

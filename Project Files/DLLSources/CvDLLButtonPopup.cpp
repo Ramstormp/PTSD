@@ -2972,6 +2972,7 @@ bool CvDLLButtonPopup::launchFoundingFatherPopup(CvPopup* pPopup, CvPopupInfo &i
 
 	gDLL->getInterfaceIFace()->popupAddGenericButton(pPopup, gDLL->getText("TXT_KEY_POPUP_YES"), NULL, 1, WIDGET_GENERAL);
 	gDLL->getInterfaceIFace()->popupAddGenericButton(pPopup, gDLL->getText("TXT_KEY_POPUP_NO"), NULL, 0, WIDGET_GENERAL);
+	gDLL->getInterfaceIFace()->popupAddGenericButton(pPopup, gDLL->getText("TXT_KEY_POPUP_MAYBE_LATER"), NULL, 0, WIDGET_GENERAL);
 	gDLL->getInterfaceIFace()->popupAddGenericButton(pPopup, gDLL->getText("TXT_KEY_FEAT_ACCOMPLISHED_MORE"), NULL, -1, WIDGET_GENERAL);
 
 	gDLL->getInterfaceIFace()->popupLaunch(pPopup, false, POPUPSTATE_IMMEDIATE);

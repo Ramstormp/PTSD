@@ -7102,7 +7102,6 @@ bool CvGame::getRemainingFathers(FatherPointTypes ePointType, std::vector<Father
 	return bAll;
 }
 
-
 int CvGame::getFatherCategoryPosition(FatherTypes eFather) const
 {
 	FAssert(eFather != NO_FATHER);

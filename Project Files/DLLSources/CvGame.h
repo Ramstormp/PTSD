@@ -360,7 +360,6 @@ public:
 	bool isLeaderEverActive(LeaderHeadTypes eLeader) const;
 	bool isUnitEverActive(UnitTypes eUnit) const;
 	bool isBuildingEverActive(BuildingTypes eBuilding) const;
-
 	TeamTypes getFatherTeam(FatherTypes eFather) const;
 	int getFatherGameTurn(FatherTypes eFather) const;
 	void setFatherTeam(FatherTypes eFather, TeamTypes eTeam);
@@ -454,6 +453,8 @@ protected:
 	EnumMap<BuildingClassTypes, int> m_em_iBuildingClassCreatedCount;
 
 	EnumMapDefault<FatherTypes, TeamTypes, NO_TEAM> m_em_eFatherTeam;
+	EnumMapDefault<TeamTypes, FatherTypes, NO_FATHER> m_em_eFatherConvinced; // Ramstormp, PTSD, Everyone can have every dad
+
 	EnumMapDefault<FatherTypes, int, -1> m_em_iFatherGameTurn;
 
 	EnumMap<SpecialUnitTypes, bool> m_em_bSpecialUnitValid;

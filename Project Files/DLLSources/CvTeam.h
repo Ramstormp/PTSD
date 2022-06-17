@@ -80,6 +80,11 @@ public:
 
 	bool isFatherIgnore(FatherTypes eFather) const;
 	void setFatherIgnore(FatherTypes eFather, bool bValue);
+	// Ramstormp, PTSD, Everyone can have every dad - start
+// FatherTypes getFatherConvinced() const;
+	void setFatherConvinced(FatherTypes eFather, bool bValue);
+	bool isFatherConvinced(FatherTypes eFather) const;
+	// Ramstormp - end
 
 	bool canConvinceFather(FatherTypes eFather) const;
 	void convinceFather(FatherTypes eFather, bool bAccept);
@@ -229,11 +234,12 @@ protected:
 	EnumMap<TeamTypes, bool> m_em_bForcePeace;
 
 	EnumMap<FatherTypes, bool> m_em_bFatherIgnore;
+	EnumMap<FatherTypes, bool> m_em_bFatherConvinced; // Ramstormp, PTSD, Everyone can have every dad
 	EnumMap<FatherPointTypes, int> m_em_iFatherPoints;
 	EnumMap<UnitClassTypes, int> m_em_iUnitClassCount;
 	EnumMap<BuildingClassTypes, int> m_em_iBuildingClassCount;
 	EnumMap<UnitClassTypes, int> m_em_iEuropeUnitsPurchased;
-
+	
 	std::vector<BonusTypes> m_aeRevealedBonuses;
 	void testFoundingFather();
 	void cancelDefensivePacts(TeamTypes eEndingTeam);

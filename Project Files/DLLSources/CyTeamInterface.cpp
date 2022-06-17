@@ -45,6 +45,7 @@ void CyTeamPythonInterface()
 		.def("countNumAIUnitsByArea", &CyTeam::countNumAIUnitsByArea, "int (CyArea* pArea, int /*UnitAITypes*/ eUnitAI)")
 		.def("countEnemyDangerByArea", &CyTeam::countEnemyDangerByArea, "int (CyArea* pArea)")
 		.def("getFatherPointCost", &CyTeam::getFatherPointCost, "int (int /*FatherTypes*/ eFather, int /*FatherPointTypes*/ ePointType)")
+		.def("isFatherConvinced", &CyTeam::isFatherConvinced, "bool (int /*FatherTypes*/)") // Ramstormp, PTSD, Everyone can have every dad
 		// TAC - Python Export - koma13 - START
 		.def("isFatherIgnore", &CyTeam::isFatherIgnore, "bool (int /*FatherTypes*/)")
 		// TAC - Python Export - koma13 - END

@@ -254,28 +254,30 @@ class CvFoundingFatherScreen:
 # TAC 0201 Start: Test if FF was rejected before by active player. Set flag in lower row if FF unavailable
 				if activeTeam.isFatherIgnore(i):
 					screen.addDDSGFCAt("Flag Icon" + str(i), ScrollPanel, ArtFileMgr.getInterfaceArtInfo("INTERFACE_BUTTONS_CANCEL").getPath(), (self.FatherRecordWidth * (j+ 1)) - (self.FatherRecordHeight * 6 / 7) + (self.FatherRecordHeight * 9 / 10) - (self.FatherRecordHeight / 5), self.BarAreaHeight + self.FatherRecordHeight - 15 + (self.FatherRecordWidth / 5), (self.FatherRecordHeight / 5), (self.FatherRecordHeight / 5), WidgetTypes.WIDGET_PEDIA_DESCRIPTION, CivilopediaPageTypes.CIVILOPEDIA_PAGE_CONCEPT, gc.getInfoTypeForString("CONCEPT_FATHERS"), False )	
-					szTempBuffer = localText.getText("TXT_KEY_FATHER_REJECTED", ())
-					szTempBuffer = localText.changeTextColor(szTempBuffer, gc.getInfoTypeForString("COLOR_FONT_RED"))
-					screen.setTextAt("FatherOwner" + str(i), ScrollPanel, "<font=3>" + szTempBuffer + "</font>", CvUtil.FONT_LEFT_JUSTIFY, (self.FatherRecordWidth * (j + 1)) - (self.FatherRecordHeight * 6 / 7) + (self.FatherRecordHeight * 9 / 10), self.BarAreaHeight + self.FatherRecordHeight - 30 + (self.FatherRecordWidth / 5) + (self.FatherRecordWidth / 5), -0.1, FontTypes.SMALL_FONT, WidgetTypes.WIDGET_PEDIA_DESCRIPTION, CivilopediaPageTypes.CIVILOPEDIA_PAGE_CONCEPT, gc.getInfoTypeForString("CONCEPT_FATHERS") )
+					#szTempBuffer = localText.getText("TXT_KEY_FATHER_REJECTED", ())
+					#szTempBuffer = localText.changeTextColor(szTempBuffer, gc.getInfoTypeForString("COLOR_FONT_RED"))
+					#screen.setTextAt("FatherOwner" + str(i), ScrollPanel, "<font=3>" + szTempBuffer + "</font>", CvUtil.FONT_LEFT_JUSTIFY, (self.FatherRecordWidth * (j + 1)) - (self.FatherRecordHeight * 6 / 7) + (self.FatherRecordHeight * 9 / 10), self.BarAreaHeight + self.FatherRecordHeight - 30 + (self.FatherRecordWidth / 5) + (self.FatherRecordWidth / 5), -0.1, FontTypes.SMALL_FONT, WidgetTypes.WIDGET_PEDIA_DESCRIPTION, CivilopediaPageTypes.CIVILOPEDIA_PAGE_CONCEPT, gc.getInfoTypeForString("CONCEPT_FATHERS") )
 # TAC End				
-
-				if (gc.getGame().getFatherTeam(i) != TeamTypes.NO_TEAM):
-					for k in range(gc.getMAX_PLAYERS()):
-						if (gc.getPlayer(k).getTeam() == gc.getGame().getFatherTeam(i)):
-							if (gc.getTeam(gc.getPlayer(gc.getGame().getActivePlayer()).getTeam()).isHasMet(gc.getGame().getFatherTeam(i))):
-								screen.addDDSGFCAt("Flag Icon" + str(i), ScrollPanel, ArtFileMgr.getCivilizationArtInfo(gc.getCivilizationInfo(gc.getPlayer(k).getCivilizationType()).getArtDefineTag()).getButton() , (self.FatherRecordWidth * (j+ 1)) - (self.FatherRecordHeight * 6 / 7) + (self.FatherRecordHeight * 9 / 10) - (self.FatherRecordHeight / 5), self.BarAreaHeight + self.FatherRecordHeight - 15 + (self.FatherRecordWidth / 5), (self.FatherRecordHeight / 5), (self.FatherRecordHeight / 5), WidgetTypes.WIDGET_GENERAL, -1, -1, False )
-								for m in range(gc.getMAX_PLAYERS()):
-									# Erik: Skip the the flag icon of the native player in a permanent alliance with a European
-									if (not gc.getPlayer(m).isNative() and gc.getPlayer(m).getTeam() == gc.getGame().getFatherTeam(i)):
-										szTempBuffer = u"  <color=%d,%d,%d,%d>%s</color>" %(gc.getPlayer(m).getPlayerTextColorR(), gc.getPlayer(m).getPlayerTextColorG(), gc.getPlayer(m).getPlayerTextColorB(), gc.getPlayer(m).getPlayerTextColorA(), gc.getPlayer(m).getName())
-										if (len(szTempBuffer) > 50):
-											screen.attachMultilineTextAt(ScrollPanel, "FatherOwner" + str(i), "<font=3>" + szTempBuffer + "</font>", (self.FatherRecordWidth * (j + 1)) + (self.FatherRecordHeight / 20), self.BarAreaHeight + self.FatherRecordHeight - 15 + (self.FatherRecordWidth / 5), self.FatherRecordWidth, 55, WidgetTypes.WIDGET_GENERAL, -1, -1, CvUtil.FONT_LEFT_JUSTIFY)
-										else:
-											screen.setTextAt("FatherOwner" + str(i), ScrollPanel, "<font=4>" + szTempBuffer + "</font>", CvUtil.FONT_LEFT_JUSTIFY, (self.FatherRecordWidth * (j + 1)) - (self.FatherRecordHeight * 6 / 7) + (self.FatherRecordHeight * 9 / 10), self.BarAreaHeight + self.FatherRecordHeight - 30 + (self.FatherRecordWidth / 5) + (self.FatherRecordWidth / 5), -0.1, FontTypes.SMALL_FONT, WidgetTypes.WIDGET_GENERAL, -1, -1 )
-										break
-							else:
-								screen.addDDSGFCAt("Flag Icon" + str(i), ScrollPanel, ArtFileMgr.getMiscArtInfo("LEADERHEAD_RANDOM").getPath(), (self.FatherRecordWidth * (j+ 1)) - (self.FatherRecordHeight * 6 / 7) + (self.FatherRecordHeight * 9 / 10) - (self.FatherRecordHeight / 5), self.BarAreaHeight + self.FatherRecordHeight - 15 + (self.FatherRecordWidth / 5), (self.FatherRecordHeight / 5), (self.FatherRecordHeight / 5), WidgetTypes.WIDGET_GENERAL, -1, -1, False )
-							break
+# Ramstormp: Everyone can have every dad
+				if (activeTeam.isFatherConvinced(i)):
+					screen.addDDSGFCAt("Flag Icon" + str(i), ScrollPanel, ArtFileMgr.getCivilizationArtInfo(gc.getCivilizationInfo(gc.getActivePlayer().getCivilizationType()).getArtDefineTag()).getButton() , (self.FatherRecordWidth * (j+ 1)) - (self.FatherRecordHeight * 6 / 7) + (self.FatherRecordHeight * 9 / 10) - (self.FatherRecordHeight / 5), self.BarAreaHeight + self.FatherRecordHeight - 15 + (self.FatherRecordWidth / 5), (self.FatherRecordHeight / 5), (self.FatherRecordHeight / 5), WidgetTypes.WIDGET_GENERAL, -1, -1, False )
+				#if (gc.getGame().getFatherTeam(i) != TeamTypes.NO_TEAM):
+				#	for k in range(gc.getMAX_PLAYERS()):
+				#		if (gc.getPlayer(k).getTeam() == gc.getGame().getFatherTeam(i)):
+				#			if (gc.getTeam(gc.getPlayer(gc.getGame().getActivePlayer()).getTeam()).isHasMet(gc.getGame().getFatherTeam(i))):
+				#				screen.addDDSGFCAt("Flag Icon" + str(i), ScrollPanel, ArtFileMgr.getCivilizationArtInfo(gc.getCivilizationInfo(gc.getPlayer(k).getCivilizationType()).getArtDefineTag()).getButton() , (self.FatherRecordWidth * (j+ 1)) - (self.FatherRecordHeight * 6 / 7) + (self.FatherRecordHeight * 9 / 10) - (self.FatherRecordHeight / 5), self.BarAreaHeight + self.FatherRecordHeight - 15 + (self.FatherRecordWidth / 5), (self.FatherRecordHeight / 5), (self.FatherRecordHeight / 5), WidgetTypes.WIDGET_GENERAL, -1, -1, False )
+				#				for m in range(gc.getMAX_PLAYERS()):
+				#					# Erik: Skip the the flag icon of the native player in a permanent alliance with a European
+				#					if (not gc.getPlayer(m).isNative() and gc.getPlayer(m).getTeam() == gc.getGame().getFatherTeam(i)):
+				#	szTempBuffer = u"  <color=%d,%d,%d,%d>%s</color>" %(gc.getPlayer(m).getPlayerTextColorR(), gc.getPlayer(m).getPlayerTextColorG(), gc.getPlayer(m).getPlayerTextColorB(), gc.getPlayer(m).getPlayerTextColorA(), gc.getPlayer(m).getName())
+				#	if (len(szTempBuffer) > 50):
+				#		screen.attachMultilineTextAt(ScrollPanel, "FatherOwner" + str(i), "<font=3>" + szTempBuffer + "</font>", (self.FatherRecordWidth * (j + 1)) + (self.FatherRecordHeight / 20), self.BarAreaHeight + self.FatherRecordHeight - 15 + (self.FatherRecordWidth / 5), self.FatherRecordWidth, 55, WidgetTypes.WIDGET_GENERAL, -1, -1, CvUtil.FONT_LEFT_JUSTIFY)
+				#	else:
+				#		screen.setTextAt("FatherOwner" + str(i), ScrollPanel, "<font=4>" + szTempBuffer + "</font>", CvUtil.FONT_LEFT_JUSTIFY, (self.FatherRecordWidth * (j + 1)) - (self.FatherRecordHeight * 6 / 7) + (self.FatherRecordHeight * 9 / 10), self.BarAreaHeight + self.FatherRecordHeight - 30 + (self.FatherRecordWidth / 5) + (self.FatherRecordWidth / 5), -0.1, FontTypes.SMALL_FONT, WidgetTypes.WIDGET_GENERAL, -1, -1 )
+				#		break
+				#			else:
+				#				screen.addDDSGFCAt("Flag Icon" + str(i), ScrollPanel, ArtFileMgr.getMiscArtInfo("LEADERHEAD_RANDOM").getPath(), (self.FatherRecordWidth * (j+ 1)) - (self.FatherRecordHeight * 6 / 7) + (self.FatherRecordHeight * 9 / 10) - (self.FatherRecordHeight / 5), self.BarAreaHeight + self.FatherRecordHeight - 15 + (self.FatherRecordWidth / 5), (self.FatherRecordHeight / 5), (self.FatherRecordHeight / 5), WidgetTypes.WIDGET_GENERAL, -1, -1, False )
+				#			break
 			else:				
 				screen.addDDSGFCAt(BoxName, ScrollPanel, ArtFileMgr.getInterfaceArtInfo("FATHER_RIGHT_BOX").getPath(), (self.FatherRecordWidth * (j - 1)), self.TopPanelHeight, self.FatherRecordWidth + (self.FatherRecordWidth / 2), (self.FatherRecordHeight / 2), WidgetTypes.WIDGET_GENERAL, -1, -1, False )
 				screen.addDDSGFCAt("Portrait" + str(i), ScrollPanel, gc.getFatherInfo(i).getPortrait(), (self.FatherRecordWidth * (j - 1)) + self.FatherRecordWidth, self.TopPanelHeight / 4, self.FatherRecordHeight * 9 / 10, self.FatherRecordHeight * 9 / 10, WidgetTypes.WIDGET_PEDIA_JUMP_TO_FATHER, i, -1, False)
@@ -293,28 +295,32 @@ class CvFoundingFatherScreen:
 # TAC 0201 Start: Test if FF was rejected before by active player. Set flag in upper row if FF unavailable
 				if activeTeam.isFatherIgnore(i):
 					screen.addDDSGFCAt("Flag Icon" + str(i), ScrollPanel, ArtFileMgr.getInterfaceArtInfo("INTERFACE_BUTTONS_CANCEL").getPath(), (self.FatherRecordWidth * (j - 1)) + self.FatherRecordWidth + (self.FatherRecordHeight / 20), self.TopPanelHeight + (self.FatherRecordHeight / 2) - (self.FatherRecordHeight / 12), (self.FatherRecordHeight / 5), (self.FatherRecordHeight / 5), WidgetTypes.WIDGET_PEDIA_DESCRIPTION, CivilopediaPageTypes.CIVILOPEDIA_PAGE_CONCEPT, gc.getInfoTypeForString("CONCEPT_FATHERS"), False )	
-					szTempBuffer = localText.getText("TXT_KEY_FATHER_REJECTED", ())
-					szTempBuffer = localText.changeTextColor(szTempBuffer, gc.getInfoTypeForString("COLOR_FONT_RED"))
-					screen.setTextAt("FatherOwner" + str(i), ScrollPanel, "<font=3>" + szTempBuffer + "</font>", CvUtil.FONT_RIGHT_JUSTIFY, (self.FatherRecordWidth * (j - 1)) + self.FatherRecordWidth + (self.FatherRecordHeight / 20), self.TopPanelHeight + (self.FatherRecordHeight / 2) - (self.FatherRecordHeight / 12) + (self.FatherRecordWidth / 5), -0.1, FontTypes.SMALL_FONT, WidgetTypes.WIDGET_PEDIA_DESCRIPTION, CivilopediaPageTypes.CIVILOPEDIA_PAGE_CONCEPT, gc.getInfoTypeForString("CONCEPT_FATHERS") )
+			#		szTempBuffer = localText.getText("TXT_KEY_FATHER_REJECTED", ())
+			#		szTempBuffer = localText.changeTextColor(szTempBuffer, gc.getInfoTypeForString("COLOR_FONT_RED"))
+			#		screen.setTextAt("FatherOwner" + str(i), ScrollPanel, "<font=3>" + szTempBuffer + "</font>", CvUtil.FONT_RIGHT_JUSTIFY, (self.FatherRecordWidth * (j - 1)) + self.FatherRecordWidth + (self.FatherRecordHeight / 20), self.TopPanelHeight + (self.FatherRecordHeight / 2) - (self.FatherRecordHeight / 12) + (self.FatherRecordWidth / 5), -0.1, FontTypes.SMALL_FONT, WidgetTypes.WIDGET_PEDIA_DESCRIPTION, CivilopediaPageTypes.CIVILOPEDIA_PAGE_CONCEPT, gc.getInfoTypeForString("CONCEPT_FATHERS") )
 # TAC End
-				
-				if (gc.getGame().getFatherTeam(i) != TeamTypes.NO_TEAM):
-					for k in range(gc.getMAX_PLAYERS()):
-						if (gc.getPlayer(k).getTeam() == gc.getGame().getFatherTeam(i)):
-							if (gc.getTeam(gc.getPlayer(gc.getGame().getActivePlayer()).getTeam()).isHasMet(gc.getGame().getFatherTeam(i))):
-								screen.addDDSGFCAt("Flag Icon" + str(i), ScrollPanel, ArtFileMgr.getCivilizationArtInfo(gc.getCivilizationInfo(gc.getPlayer(k).getCivilizationType()).getArtDefineTag()).getButton(), (self.FatherRecordWidth * (j - 1)) + self.FatherRecordWidth + (self.FatherRecordHeight / 20), self.TopPanelHeight + (self.FatherRecordHeight / 2) - (self.FatherRecordHeight / 12), (self.FatherRecordHeight / 5), (self.FatherRecordHeight / 5), WidgetTypes.WIDGET_GENERAL, -1, -1, False )
-								for m in range(gc.getMAX_PLAYERS()):
-									if (gc.getPlayer(m).getTeam() == gc.getGame().getFatherTeam(i)):
-										szTempBuffer = u"<color=%d,%d,%d,%d>%s</color>  " %(gc.getPlayer(m).getPlayerTextColorR(), gc.getPlayer(m).getPlayerTextColorG(), gc.getPlayer(m).getPlayerTextColorB(), gc.getPlayer(m).getPlayerTextColorA(), gc.getPlayer(m).getName())
-										if (len(szTempBuffer) > 50):
-											screen.attachMultilineTextAt(ScrollPanel, "FatherOwner" + str(i), "<font=3>" + szTempBuffer + "</font>", (self.FatherRecordWidth * (j - 1)) + (self.FatherRecordHeight / 20), self.TopPanelHeight + (self.FatherRecordHeight / 2), self.FatherRecordWidth, 55, WidgetTypes.WIDGET_GENERAL, -1, -1, CvUtil.FONT_LEFT_JUSTIFY)
-										else:
-											screen.setTextAt("FatherOwner" + str(i), ScrollPanel, "<font=4>" + szTempBuffer + "</font>", CvUtil.FONT_RIGHT_JUSTIFY, (self.FatherRecordWidth * (j - 1)) + self.FatherRecordWidth + (self.FatherRecordHeight / 20), self.TopPanelHeight + (self.FatherRecordHeight / 2) - (self.FatherRecordHeight / 12) + (self.FatherRecordWidth / 5), -0.1, FontTypes.SMALL_FONT, WidgetTypes.WIDGET_GENERAL, -1, -1 )
-										break
+# Ramstormp: Everyone gets a dad			
+				if (activeTeam.isFatherConvinced(i)):
+					screen.addDDSGFCAt("Flag Icon" + str(i), ScrollPanel, ArtFileMgr.getCivilizationArtInfo(gc.getCivilizationInfo(gc.getActivePlayer().getCivilizationType()).getArtDefineTag()).getButton(), (self.FatherRecordWidth * (j - 1)) + self.FatherRecordWidth + (self.FatherRecordHeight / 20), self.TopPanelHeight + (self.FatherRecordHeight / 2) - (self.FatherRecordHeight / 12), (self.FatherRecordHeight / 5), (self.FatherRecordHeight / 5), WidgetTypes.WIDGET_GENERAL, -1, -1, False )
+			#	if (gc.getGame().getFatherTeam(i) != TeamTypes.NO_TEAM):
+			#		for k in range(gc.getMAX_PLAYERS()):
+			#			if (gc.getPlayer(k).getTeam() == gc.getGame().getFatherTeam(i)):
+			#				if (gc.getTeam(gc.getPlayer(gc.getGame().getActivePlayer()).getTeam()).isHasMet(gc.getGame().getFatherTeam(i))):
+			#					screen.addDDSGFCAt("Flag Icon" + str(i), ScrollPanel, ArtFileMgr.getCivilizationArtInfo(gc.getCivilizationInfo(gc.getPlayer(k).getCivilizationType()).getArtDefineTag()).getButton(), (self.FatherRecordWidth * (j - 1)) + self.FatherRecordWidth + (self.FatherRecordHeight / 20), self.TopPanelHeight + (self.FatherRecordHeight / 2) - (self.FatherRecordHeight / 12), (self.FatherRecordHeight / 5), (self.FatherRecordHeight / 5), WidgetTypes.WIDGET_GENERAL, -1, -1, False )
+			#		
+			#		
+			#		for m in range(gc.getMAX_PLAYERS()):
+			#						if (gc.getPlayer(m).getTeam() == gc.getGame().getFatherTeam(i)):
+			#		szTempBuffer = u"<color=%d,%d,%d,%d>%s</color>  " %(gc.getPlayer(m).getPlayerTextColorR(), gc.getPlayer(m).getPlayerTextColorG(), gc.getPlayer(m).getPlayerTextColorB(), gc.getPlayer(m).getPlayerTextColorA(), gc.getPlayer(m).getName())
+			#		if (len(szTempBuffer) > 50):
+			#			screen.attachMultilineTextAt(ScrollPanel, "FatherOwner" + str(i), "<font=3>" + szTempBuffer + "</font>", (self.FatherRecordWidth * (j - 1)) + (self.FatherRecordHeight / 20), self.TopPanelHeight + (self.FatherRecordHeight / 2), self.FatherRecordWidth, 55, WidgetTypes.WIDGET_GENERAL, -1, -1, CvUtil.FONT_LEFT_JUSTIFY)
+			#		else:
+			#			screen.setTextAt("FatherOwner" + str(i), ScrollPanel, "<font=4>" + szTempBuffer + "</font>", CvUtil.FONT_RIGHT_JUSTIFY, (self.FatherRecordWidth * (j - 1)) + self.FatherRecordWidth + (self.FatherRecordHeight / 20), self.TopPanelHeight + (self.FatherRecordHeight / 2) - (self.FatherRecordHeight / 12) + (self.FatherRecordWidth / 5), -0.1, FontTypes.SMALL_FONT, WidgetTypes.WIDGET_GENERAL, -1, -1 )
+			#		break
 
-							else:
-								screen.addDDSGFCAt("Flag Icon" + str(i), ScrollPanel, ArtFileMgr.getMiscArtInfo("LEADERHEAD_RANDOM").getPath(), (self.FatherRecordWidth * (j - 1)) + self.FatherRecordWidth + (self.FatherRecordHeight / 20), self.TopPanelHeight + (self.FatherRecordHeight / 2) - (self.FatherRecordHeight / 12), (self.FatherRecordHeight / 5), (self.FatherRecordHeight / 5), WidgetTypes.WIDGET_GENERAL, -1, -1, False )
-							break
+			#				else:
+			#					screen.addDDSGFCAt("Flag Icon" + str(i), ScrollPanel, ArtFileMgr.getMiscArtInfo("LEADERHEAD_RANDOM").getPath(), (self.FatherRecordWidth * (j - 1)) + self.FatherRecordWidth + (self.FatherRecordHeight / 20), self.TopPanelHeight + (self.FatherRecordHeight / 2) - (self.FatherRecordHeight / 12), (self.FatherRecordHeight / 5), (self.FatherRecordHeight / 5), WidgetTypes.WIDGET_GENERAL, -1, -1, False )
+			#				break
 				
 
 			#reset so that it offsets from the father record's panel			

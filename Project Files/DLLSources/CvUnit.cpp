@@ -4024,7 +4024,7 @@ int CvUnit::loadYieldAmount(YieldTypes eYield, int iAmount, bool bTrade)
 			}
 		}
 	}
-	if (isHuman())
+	/*if (isHuman())
 	{
 		const PlayerTypes eNativePlayer = pCity->getOwnerINLINE();
 		CvPlayerAI& nativePlayer = GET_PLAYER(eNativePlayer);
@@ -4035,7 +4035,7 @@ int CvUnit::loadYieldAmount(YieldTypes eYield, int iAmount, bool bTrade)
 				iAmount = GET_PLAYER(getOwnerINLINE()).getTradeYieldAmount(eYield, this);// GET_PLAYER(getOwnerINLINE()).getGold() / GC.getYieldInfo(eYield).getNativeSellPrice();
 			}
 		}
-	}
+	}*/
 	
 	// Ramstormp - END
 	CvUnit* pUnit = plot()->getPlotCity()->createYieldUnit(eYield, getOwnerINLINE(), iAmount);

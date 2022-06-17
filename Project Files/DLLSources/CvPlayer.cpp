@@ -17600,17 +17600,17 @@ int CvPlayer::getTradeYieldAmount(YieldTypes eYield, CvUnit* pTransport) const
 		int iCityAmount = pCity->getYieldStored(eYield);
 		int iAmountAvailable = pTransport->getLoadYieldAmount(eYield);
 		//int iFullPrice = GC.getYieldInfo(eYield).getNativeSellPrice() * iCityAmount;
-		int iAffordablePrice = std::max(kPlayer.getGold(), 50);
-		int iNativeSellPrice = GC.getYieldInfo(eYield).getNativeSellPrice();
-		int iAffordableAmount = 0;
-		if (iNativeSellPrice > 0)
-		{
-			iAffordableAmount = (iAffordablePrice) / iNativeSellPrice;
-		}
-		iAffordableAmount = std::min(iCityAmount, iAffordableAmount);
-		iAmount = std::min(iAffordableAmount, iAmountAvailable);
+		//int iAffordablePrice = std::max(kPlayer.getGold(), 50);
+		//int iNativeSellPrice = GC.getYieldInfo(eYield).getNativeSellPrice();
+		//int iAffordableAmount = 0;
+		//if (iNativeSellPrice > 0)
+		//{
+		//	iAffordableAmount = (iAffordablePrice) / iNativeSellPrice;
+		//}
+		//iAffordableAmount = std::min(iCityAmount, iAffordableAmount);
+		//iAmount = std::min(iAffordableAmount, iAmountAvailable);
 
-		//iAmount = std::min(iCityAmount, iAmountAvailable);
+		iAmount = std::min(iCityAmount, iAmountAvailable);
 		// Ramstormp - end
 	}
 

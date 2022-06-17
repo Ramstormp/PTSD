@@ -244,7 +244,8 @@ void CvPlayerCivEffect::updateHasCivEffectCache() const
 	TeamTypes eTeam = this->getTeam();
 	for (FatherTypes eFather = FIRST_FATHER; eFather < NUM_FATHER_TYPES; ++eFather)
 	{
-		if (GC.getGameINLINE().getFatherTeam(eFather) == eTeam)
+		//if (GC.getGameINLINE().getFatherTeam(eFather) == eTeam)
+		if (GET_TEAM(eTeam).isFatherConvinced(eFather))
 		{
 			m_ja_iHasCivEffectCache.safeAdd(1, GC.getFatherInfo(eFather).getCivEffect());
 		}

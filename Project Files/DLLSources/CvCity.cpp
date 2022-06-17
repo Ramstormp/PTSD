@@ -1793,12 +1793,16 @@ bool CvCity::canConvince(FatherPointTypes eFatherPoint, bool bContinue, bool bTe
 		return false;
 	}
 
+	// Ramstormp, PTSD, Everyone can have every dad - start
+	/*
 	std::vector<FatherTypes> aFathers;
 	GC.getGameINLINE().getRemainingFathers(eFatherPoint, aFathers);
 	if (aFathers.empty())
 	{
 		return false;
 	}
+	*/
+	// Ramstormp - end
 
 	return true;
 }

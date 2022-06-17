@@ -44784,11 +44784,11 @@
             <Type>UNIT_TREASURE</Type>
             <Class>UNITCLASS_TREASURE</Class>
             <UniqueNames/>
-            <Special>NONE</Special>
+            <Special>SPECIALUNIT_YIELD_CARGO</Special>
             <Capture>UNITCLASS_TREASURE</Capture>
             <Combat>NONE</Combat>
-            <Domain>DOMAIN_IMMOBILE</Domain>
-            <DefaultUnitAI>UNITAI_TREASURE</DefaultUnitAI>
+            <Domain>DOMAIN_LAND</Domain>
+            <DefaultUnitAI>UNITAI_YIELD</DefaultUnitAI>
             <DefaultProfession>NONE</DefaultProfession>
             <Invisible>NONE</Invisible>
             <SeeInvisible>NONE</SeeInvisible>
@@ -44825,7 +44825,7 @@
             <UnitClassUpgrades/>
             <UnitAIs>
                 <UnitAI>
-                    <UnitAIType>UNITAI_TREASURE</UnitAIType>
+                    <UnitAIType>UNITAI_YIELD</UnitAIType>
                     <bUnitAI>1</bUnitAI>
                 </UnitAI>
             </UnitAIs>
@@ -44844,7 +44844,7 @@
             <iImmigrationWeight>0</iImmigrationWeight>
             <iImmigrationWeightDecay>0</iImmigrationWeightDecay>
             <iMinAreaSize>-1</iMinAreaSize>
-            <iMoves>1</iMoves>
+            <iMoves>0</iMoves>
             <bCapturesCargo>0</bCapturesCargo>
             <bCapturesShips>0</bCapturesShips>
             <iWorkRate>0</iWorkRate>

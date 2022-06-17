@@ -88,6 +88,7 @@ enum SavegameVariableTypes
 	GameSave_UnitClassCreatedCount,
 	GameSave_BuildingClassCreatedCount,
 	GameSave_FatherTeam,
+	GameSave_FatherConvinced, // Ramstormp, PTSD, Everyone can have every dad
 	GameSave_FatherGameTurn,
 	GameSave_SpecialUnitValid,
 	GameSave_SpecialBuildingValid,
@@ -230,6 +231,7 @@ void CvGame::resetSavedData(HandicapTypes eHandicap, bool bConstructorCall)
 	m_em_iUnitClassCreatedCount.reset();
 	m_em_iBuildingClassCreatedCount.reset();
 	m_em_eFatherTeam.reset();
+	m_em_eFatherConvinced.reset(); // Ramstormp, PTSD, Everyone can have every dad
 	m_em_iFatherGameTurn.reset();
 	m_em_bSpecialUnitValid.reset();
 	m_em_bSpecialBuildingValid.reset();
@@ -312,6 +314,7 @@ void CvGame::read(CvSavegameReader reader)
 		case GameSave_UnitClassCreatedCount: reader.Read(m_em_iUnitClassCreatedCount); break;
 		case GameSave_BuildingClassCreatedCount: reader.Read(m_em_iBuildingClassCreatedCount); break;
 		case GameSave_FatherTeam: reader.Read(m_em_eFatherTeam); break;
+		case GameSave_FatherConvinced: reader.Read(m_em_eFatherConvinced); break; // Ramstormp, PTSD, Everyone can have every dad
 		case GameSave_FatherGameTurn: reader.Read(m_em_iFatherGameTurn); break;
 		case GameSave_SpecialUnitValid: reader.Read(m_em_bSpecialUnitValid); break;
 		case GameSave_SpecialBuildingValid: reader.Read(m_em_bSpecialBuildingValid); break;
@@ -413,6 +416,7 @@ void CvGame::write(CvSavegameWriter writer)
 	writer.Write(GameSave_UnitClassCreatedCount, m_em_iUnitClassCreatedCount);
 	writer.Write(GameSave_BuildingClassCreatedCount, m_em_iBuildingClassCreatedCount);
 	writer.Write(GameSave_FatherTeam, m_em_eFatherTeam);
+	writer.Write(GameSave_FatherConvinced, m_em_eFatherConvinced); // Ramstormp, PTSD, Everyone can have every dad
 	writer.Write(GameSave_FatherGameTurn, m_em_iFatherGameTurn);
 	writer.Write(GameSave_SpecialUnitValid, m_em_bSpecialUnitValid);
 	writer.Write(GameSave_SpecialBuildingValid, m_em_bSpecialBuildingValid);
