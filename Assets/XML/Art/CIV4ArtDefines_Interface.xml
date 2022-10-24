@@ -627,6 +627,14 @@
             <Path>Art/Interface/Screens/City_Management/ScrollBG.dds</Path>
         </InterfaceArtInfo>
         <InterfaceArtInfo>
+          <Type>INTERFACE_BG_JUNGLE_FULL</Type>
+          <Path>Art/Interface/Screens/City_Management/BGJungleFull.dds</Path>
+        </InterfaceArtInfo>
+        <InterfaceArtInfo>
+          <Type>INTERFACE_BG_GRASS_FULL</Type>
+          <Path>Art/Interface/Screens/City_Management/BGGrassFull.dds</Path>
+        </InterfaceArtInfo>
+        <InterfaceArtInfo>
             <Type>INTERFACE_CITY_LEFT_ARROW</Type>
             <Path>Art/Interface/Screens/City_Management/ArrowLEFT.dds</Path>
         </InterfaceArtInfo>

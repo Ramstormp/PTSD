@@ -58,12 +58,6 @@ bool CyPlot::isLake()
 {
 	return m_pPlot ? m_pPlot->isLake() : false;
 }
-// Ramstormp, PTSD, Random Large Rivers and Fords- START
-bool CyPlot::isLargeRiver()
-{
-	return m_pPlot ? m_pPlot->isLargeRiver() : false;
-}
-// Ramstormp - END
 bool CyPlot::isRiverSide()
 {
 	return m_pPlot ? m_pPlot->isRiverSide() : false;

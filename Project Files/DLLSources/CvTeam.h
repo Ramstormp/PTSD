@@ -239,7 +239,7 @@ protected:
 	EnumMap<UnitClassTypes, int> m_em_iUnitClassCount;
 	EnumMap<BuildingClassTypes, int> m_em_iBuildingClassCount;
 	EnumMap<UnitClassTypes, int> m_em_iEuropeUnitsPurchased;
-	
+
 	std::vector<BonusTypes> m_aeRevealedBonuses;
 	void testFoundingFather();
 	void cancelDefensivePacts(TeamTypes eEndingTeam);

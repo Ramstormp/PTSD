@@ -59,7 +59,7 @@ LOWER_RIGHT_CORNER_BACKGROUND_WIDTH = -1
 LOWER_RIGHT_CORNER_BACKGROUND_WIDTH_PERCENT = 19
 
 LOWER_RIGHT_CORNER_BACKGROUND_HEIGHT = -1
-LOWER_RIGHT_CORNER_BACKGROUND_HEIGHT_PERCENT = 10
+LOWER_RIGHT_CORNER_BACKGROUND_HEIGHT_PERCENT = 12 #PTSD, was 10
 
 BOTTOM_CENTER_HUD_HEIGHT = -1
 BOTTOM_CENTER_HUD_PERCENT_HEIGHT = 15
@@ -68,7 +68,7 @@ TOP_CORNER_HUD_WIDTHS = -1
 TOP_CORNER_HUD_PERCENT_WIDTH = 20
 
 TOP_CORNER_HUD_HEIGHT = -1
-TOP_CORNER_HUD_PERCENT_HEIGHT = 8
+TOP_CORNER_HUD_PERCENT_HEIGHT = 5 # Ramstormp, PTSD, was 8
 
 TOP_CENTER_HUD_HEIGHT = -1
 TOP_CENTER_HUD_PERCENT_HEIGHT = 8
@@ -77,7 +77,7 @@ TOP_CENTER_HUD_WIDTH = -1
 TOP_CENTER_HUD_PERCENT_WIDTH = 45
 
 CITIZEN_BAR_HEIGHT = -1
-CITIZEN_BAR_PERCENT_HEIGHT = 10
+CITIZEN_BAR_PERCENT_HEIGHT = 12 # PTSD was 10
 
 CITY_TITLE_BAR_HEIGHT = -1
 CITY_TITLE_BAR_PERCENT_HEIGHT = 5
@@ -151,37 +151,37 @@ HELPTEXT_AREA_MIN_WIDTH = 150
 # CITY BUILDINGS GRID MAP
 BUILDING_DATA = ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]
 
-BUILDING_DATA[0] = [36, 26, 28, 14] #Bells
-BUILDING_DATA[1] = [52, 28, 28, 14] #Hammers
-BUILDING_DATA[2] = [68, 26, 28, 14] #Meat
-BUILDING_DATA[3] = [36, 50, 28, 14] #Coats
-BUILDING_DATA[4] = [52, 52, 28, 14] #Leather
-BUILDING_DATA[5] = [4, 26, 28, 14] #Cloth
-BUILDING_DATA[6] = [68, 50, 28, 14] #Coloured Cloth
-BUILDING_DATA[7] = [20, 52, 28, 14] #Beer
+BUILDING_DATA[0] = [35, 26, 31, 17] #Bells
+BUILDING_DATA[1] = [52, 28, 28, 17] #Hammers
+BUILDING_DATA[2] = [71, 26, 28, 16] #Meat
+BUILDING_DATA[3] = [36, 50, 28, 17] #Coats
+BUILDING_DATA[4] = [52, 52, 28, 17] #Leather
+BUILDING_DATA[5] = [1, 2, 28, 13] #Cloth
+BUILDING_DATA[6] = [71, 50, 28, 14] #Coloured Cloth
+BUILDING_DATA[7] = [18, 50, 26, 15] #Beer
 BUILDING_DATA[8] = [68, 2, 28, 14] #Rum
-BUILDING_DATA[9] = [68, 74, 28, 14] #Wine
-BUILDING_DATA[10] = [20, 28, 28, 14] #Cigars
-BUILDING_DATA[11] = [84, 4, 28, 14] #Whale oil
-BUILDING_DATA[12] = [36, 74, 28, 14] #Furniture
-BUILDING_DATA[13] = [52, 4, 28, 14] #Tools
-BUILDING_DATA[14] = [36, 2, 28, 14] #Crosses
-BUILDING_DATA[15] = [4, 50, 28, 14] #Muskets
-BUILDING_DATA[16] = [17, 75, 28, 12] #Horses
-BUILDING_DATA[17] = [84, 28, 28, 14] #Dock
-BUILDING_DATA[18] = [4, 2, 28, 14] #WareHouse
-BUILDING_DATA[19] = [4, 74, 28, 14] #Spices
-BUILDING_DATA[20] = [59, 76, 28, 9] #Domestic Market
-BUILDING_DATA[21] = [50, 87, 28, 10] #Tavern
-BUILDING_DATA[22] = [20, 4, 28, 14] #Education
-BUILDING_DATA[23] = [88, 79, 28, 10] #Wall
-BUILDING_DATA[24] = [50, 76, 28, 9] #Print
-BUILDING_DATA[25] = [24, 85, 28, 12] #Mill
-BUILDING_DATA[26] = [60, 88, 28, 8] #Trainstation
-BUILDING_DATA[27] = [16, 87, 28, 10] #Corn
-BUILDING_DATA[28] = [84, 52, 28, 13] #Medical Care
-BUILDING_DATA[29] = [26, 74, 28, 10] #Well
-BUILDING_DATA[30] = [83, 76, 28, 10] #Defense
+BUILDING_DATA[9] = [36, 75, 28, 19] #Wine 
+BUILDING_DATA[10] = [18, 4, 28, 14] #Cigars
+BUILDING_DATA[11] = [68, 75, 28, 19] #Whale oil
+BUILDING_DATA[12] = [86, 52, 28, 17] #Furniture
+BUILDING_DATA[13] = [52, 4, 28, 13] #Tools
+BUILDING_DATA[14] = [36, 2, 28, 13] #Crosses
+BUILDING_DATA[15] = [1, 50, 28, 16] #Muskets
+BUILDING_DATA[16] = [17, 71, 28, 16] #Horses
+BUILDING_DATA[17] = [1, 75, 28, 19] #Dock
+BUILDING_DATA[18] = [1, 26, 28, 16] #WareHouse
+BUILDING_DATA[19] = [88, 28, 28, 14] #Spices
+BUILDING_DATA[20] = [53, 78, 28, 18] #Domestic Market 
+BUILDING_DATA[21] = [29, 2, 28, 9] #Tavern
+BUILDING_DATA[22] = [19, 28, 28, 15] #Education
+BUILDING_DATA[23] = [90, 80, 28, 10] #Wall
+BUILDING_DATA[24] = [13, 3, 28, 8] #Print
+BUILDING_DATA[25] = [64, 3, 28, 7] #Mill
+BUILDING_DATA[26] = [83, 7, 28, 7] #Trainstation
+BUILDING_DATA[27] = [46, 2, 28, 8] #Corn
+BUILDING_DATA[28] = [89, 4, 28, 13] #Medical Care
+BUILDING_DATA[29] = [30, 73, 28, 10] #Well
+BUILDING_DATA[30] = [84, 75, 28, 13] #Defense
 
 BUILDING_GRID = ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]
 
@@ -217,6 +217,11 @@ SHIP_MANAGMENT_PANEL_UP = False
 AUTOMATION_MANAGMENT_PANEL_UP = False
 MAP_MANAGMENT_PANEL_UP = False
 GARRISON_MANAGMENT_PANEL_UP = False
+
+# Ramstormp, PTSD, Terrain based city background image 
+TERRAIN_SNOW = False
+TERRAIN_JUNGLE = False
+TERRAIN_GRASS = True
 
 # HIDE TYPE
 HIDE_TYPE_CITY = 0
@@ -335,7 +340,7 @@ class CvMainInterface:
 		LOWER_RIGHT_CORNER_BACKGROUND_HEIGHT = int((LOWER_RIGHT_CORNER_BACKGROUND_HEIGHT_PERCENT * yResolution) / 100)
 
 		global BOTTOM_CENTER_HUD_HEIGHT
-		BOTTOM_CENTER_HUD_HEIGHT = int((BOTTOM_CENTER_HUD_PERCENT_HEIGHT * yResolution) / 100)
+		BOTTOM_CENTER_HUD_HEIGHT = int((BOTTOM_CENTER_HUD_PERCENT_HEIGHT * yResolution) / 100) 
 
 		global TOP_CORNER_HUD_WIDTHS
 		TOP_CORNER_HUD_WIDTHS = int((TOP_CORNER_HUD_PERCENT_WIDTH * xResolution) / 100)
@@ -567,7 +572,7 @@ class CvMainInterface:
 		screen.addPanel("CityRightBackground", u"", u"", True, False, CITIZEN_BAR_WIDTH + CITY_VIEW_BOX_HEIGHT_AND_WIDTH - (MAP_EDGE_MARGIN_WIDTH * 2), CITY_TITLE_BAR_HEIGHT, BUILD_AREA_WIDTH + (MAP_EDGE_MARGIN_WIDTH * 2), CITY_VIEW_BOX_HEIGHT_AND_WIDTH, PanelStyles.PANEL_STYLE_STANDARD, WidgetTypes.WIDGET_GENERAL, -1, -1 )
 		screen.addDrawControl("CityRightBackground", ArtFileMgr.getInterfaceArtInfo("INTERFACE_CITY_BG_RIGHT").getPath(), CITIZEN_BAR_WIDTH + CITY_VIEW_BOX_HEIGHT_AND_WIDTH - (MAP_EDGE_MARGIN_WIDTH * 2), CITY_TITLE_BAR_HEIGHT, BUILD_AREA_WIDTH + (MAP_EDGE_MARGIN_WIDTH * 2) + 10, CITY_VIEW_BOX_HEIGHT_AND_WIDTH, WidgetTypes.WIDGET_GENERAL, -1, -1 )
 		self.appendtoHideState(screen, "CityRightBackground", HIDE_TYPE_CITY, HIDE_LEVEL_ALL)
-
+		
 	# CITY FRAMING PANELS
 		screen.addPanel("CityTitlePanel", u"", u"", True, False, 0, 0, xResolution, CITY_TITLE_BAR_HEIGHT, PanelStyles.PANEL_STYLE_STANDARD, WidgetTypes.WIDGET_GENERAL, -1, -1 )
 		screen.addDrawControl("CityTitlePanel", ArtFileMgr.getInterfaceArtInfo("INTERFACE_SCREEN_TITLE").getPath(), 0, 0, xResolution, int(CITY_TITLE_BAR_HEIGHT * 1.3), WidgetTypes.WIDGET_GENERAL, -1, -1 )
@@ -594,15 +599,38 @@ class CvMainInterface:
 		screen.addDrawControl("CityMultiTabFramePanel", ArtFileMgr.getInterfaceArtInfo("INTERFACE_WIDE_BOX").getPath(), CITIZEN_BAR_WIDTH, CITY_TITLE_BAR_HEIGHT + CITY_VIEW_BOX_HEIGHT_AND_WIDTH - MAP_EDGE_MARGIN_WIDTH , xResolution - CITIZEN_BAR_WIDTH - (MAP_EDGE_MARGIN_WIDTH * 1), TRANSPORT_AREA_HEIGHT - STACK_BAR_HEIGHT, WidgetTypes.WIDGET_GENERAL, -1, -1 )
 		self.appendtoHideState(screen, "CityMultiTabFramePanel", HIDE_TYPE_CITY, HIDE_LEVEL_ALL)	
 		
-		screen.addScrollPanel("CityGarrisonBackGroundPanel", u"", CITIZEN_BAR_WIDTH, yResolution - BOTTOM_CENTER_HUD_HEIGHT - TRANSPORT_AREA_HEIGHT * 9 / 8 - 2, xResolution - CITIZEN_BAR_WIDTH - TRANSPORT_AREA_WIDTH + STACK_BAR_HEIGHT + 15, TRANSPORT_AREA_HEIGHT + (STACK_BAR_HEIGHT / 3) + SMALL_BUTTON_SIZE * 11 / 8, PanelStyles.PANEL_STYLE_STANDARD, false, WidgetTypes.WIDGET_GENERAL, -1, -1 )
+		screen.addScrollPanel("CityGarrisonBackGroundPanel", u"", CITIZEN_BAR_WIDTH, yResolution - BOTTOM_CENTER_HUD_HEIGHT - TRANSPORT_AREA_HEIGHT * 9 / 8 - 4, xResolution - CITIZEN_BAR_WIDTH - TRANSPORT_AREA_WIDTH + STACK_BAR_HEIGHT + 15, TRANSPORT_AREA_HEIGHT + (STACK_BAR_HEIGHT / 3) + SMALL_BUTTON_SIZE * 13 / 8, PanelStyles.PANEL_STYLE_STANDARD, false, WidgetTypes.WIDGET_GENERAL, -1, -1 )
 		screen.addDrawControl("CityGarrisonBackGroundPanel", ArtFileMgr.getInterfaceArtInfo("INTERFACE_WIDE_BOX").getPath(), CITIZEN_BAR_WIDTH, yResolution - BOTTOM_CENTER_HUD_HEIGHT - TRANSPORT_AREA_HEIGHT * 9 / 8 - 2, xResolution - CITIZEN_BAR_WIDTH - (MAP_EDGE_MARGIN_WIDTH * 1), TRANSPORT_AREA_HEIGHT + (STACK_BAR_HEIGHT / 1) , WidgetTypes.WIDGET_GENERAL, -1, -1 )
 		self.appendtoHideState(screen, "CityGarrisonBackGroundPanel", HIDE_TYPE_CITY, HIDE_LEVEL_ALL)	
 #<--- TAC
-
-		screen.addPanel("CityManagerBackground", u"", u"", True, False, 0, CITY_TITLE_BAR_HEIGHT, int(CITIZEN_BAR_WIDTH * 1.07), int((yResolution - (BOTTOM_CENTER_HUD_HEIGHT + CITY_TITLE_BAR_HEIGHT)) * 1.07), PanelStyles.PANEL_STYLE_STANDARD, WidgetTypes.WIDGET_GENERAL, -1, -1 )
-		screen.addDrawControl("CityManagerBackground", ArtFileMgr.getInterfaceArtInfo("INTERFACE_SCROLL_BG").getPath(), 0, CITY_TITLE_BAR_HEIGHT, int(CITIZEN_BAR_WIDTH * 1.07), int((yResolution - (BOTTOM_CENTER_HUD_HEIGHT + CITY_TITLE_BAR_HEIGHT)) * 1.04), WidgetTypes.WIDGET_GENERAL, -1, -1 )
-		self.appendtoHideState(screen, "CityManagerBackground", HIDE_TYPE_CITY, HIDE_LEVEL_ALL)
-
+		#screen.addPanel("CityManagerBackground", u"", u"", True, False, 0, CITY_TITLE_BAR_HEIGHT, int(CITIZEN_BAR_WIDTH * 1.07), int((yResolution - (BOTTOM_CENTER_HUD_HEIGHT + CITY_TITLE_BAR_HEIGHT)) * 1.99), PanelStyles.PANEL_STYLE_STANDARD, WidgetTypes.WIDGET_GENERAL, -1, -1 )
+		#screen.addDrawControl("CityManagerBackground", ArtFileMgr.getInterfaceArtInfo("INTERFACE_SCROLL_BG").getPath(), 0, CITY_TITLE_BAR_HEIGHT, int(CITIZEN_BAR_WIDTH * 1.07), int((yResolution - (BOTTOM_CENTER_HUD_HEIGHT + CITY_TITLE_BAR_HEIGHT)) * 1.04), WidgetTypes.WIDGET_GENERAL, -1, -1 )
+		#self.appendtoHideState(screen, "CityManagerBackground", HIDE_TYPE_CITY, HIDE_LEVEL_ALL)
+		screen.addPanel("BGGrassFull", u"", u"", True, False, 0, CITY_TITLE_BAR_HEIGHT, xResolution, int((yResolution - (CITY_TITLE_BAR_HEIGHT))*1.99), PanelStyles.PANEL_STYLE_STANDARD, WidgetTypes.WIDGET_GENERAL, -1, -1 )
+		screen.addDrawControl("BGGrassFull", ArtFileMgr.getInterfaceArtInfo("INTERFACE_BG_GRASS_FULL").getPath(), 0, CITY_TITLE_BAR_HEIGHT, xResolution, int((yResolution - (BOTTOM_CENTER_HUD_HEIGHT)) * 1.18), WidgetTypes.WIDGET_GENERAL, -1, -1 )
+		self.appendtoHideState(screen, "BGGrassFull", HIDE_TYPE_CITY, HIDE_LEVEL_ALL)
+		screen.addPanel("BGJungleFull", u"", u"", True, False, 0, CITY_TITLE_BAR_HEIGHT, xResolution, int((yResolution - (CITY_TITLE_BAR_HEIGHT))*1.99), PanelStyles.PANEL_STYLE_STANDARD, WidgetTypes.WIDGET_GENERAL, -1, -1 )
+		screen.addDrawControl("BGJungleFull", ArtFileMgr.getInterfaceArtInfo("INTERFACE_BG_JUNGLE_FULL").getPath(), 0, CITY_TITLE_BAR_HEIGHT, xResolution, int((yResolution - (BOTTOM_CENTER_HUD_HEIGHT)) * 1.18), WidgetTypes.WIDGET_GENERAL, -1, -1 )
+		self.appendtoHideState(screen, "BGJungleFull", HIDE_TYPE_CITY, HIDE_LEVEL_ALL)
+		#screen.addPanel("BgInlandPlains", u"", u"", True, False, 0, CITY_TITLE_BAR_HEIGHT, int(CITIZEN_BAR_WIDTH * 1.07), int((yResolution - (BOTTOM_CENTER_HUD_HEIGHT + CITY_TITLE_BAR_HEIGHT)) * 1.99), PanelStyles.PANEL_STYLE_STANDARD, WidgetTypes.WIDGET_GENERAL, -1, -1 )
+		#screen.addDrawControl("BgInlandPlains", ArtFileMgr.getInterfaceArtInfo("INTERFACE_BG_INLAND_PLAINS").getPath(), 0, CITY_TITLE_BAR_HEIGHT, int(CITIZEN_BAR_WIDTH * 1.07), int((yResolution - (BOTTOM_CENTER_HUD_HEIGHT + CITY_TITLE_BAR_HEIGHT)) * 1.04), WidgetTypes.WIDGET_GENERAL, -1, -1 )
+		#self.appendtoHideState(screen, "BgInlandPlains", HIDE_TYPE_CITY, HIDE_LEVEL_ALL)
+		#screen.addPanel("BgInlandPlainsLow", u"", u"", True, False, 0, CITY_TITLE_BAR_HEIGHT, int(CITIZEN_BAR_WIDTH * 1.07), int((yResolution - (BOTTOM_CENTER_HUD_HEIGHT + CITY_TITLE_BAR_HEIGHT)) * 1.99), PanelStyles.PANEL_STYLE_STANDARD, WidgetTypes.WIDGET_GENERAL, -1, -1 )
+		#screen.addDrawControl("BgInlandPlainsLow", ArtFileMgr.getInterfaceArtInfo("INTERFACE_CITY_BG_LOW_INLAND_PLAINS").getPath(), CITIZEN_BAR_WIDTH, CITY_TITLE_BAR_HEIGHT + CITY_VIEW_BOX_HEIGHT_AND_WIDTH - (MAP_EDGE_MARGIN_WIDTH * 2), xResolution - CITIZEN_BAR_WIDTH, yResolution - CITY_VIEW_BOX_HEIGHT_AND_WIDTH - CITY_TITLE_BAR_HEIGHT + (MAP_EDGE_MARGIN_WIDTH * 2), WidgetTypes.WIDGET_GENERAL, -1, -1 )
+		#self.appendtoHideState(screen, "BgInlandPlainsLow", HIDE_TYPE_CITY, HIDE_LEVEL_ALL)
+		screen.addDDSGFC("CitySnowyBackground", "Art/Interface/Screens/city_management/ScrollBgWINTER.dds", 0, CITY_TITLE_BAR_HEIGHT, int(CITIZEN_BAR_WIDTH * 1.07), int((yResolution - (BOTTOM_CENTER_HUD_HEIGHT + CITY_TITLE_BAR_HEIGHT)) * 1.04), WidgetTypes.WIDGET_GENERAL, -1, -1 )
+		self.appendtoHideState(screen, "CitySnowyBackground", HIDE_TYPE_CITY, HIDE_LEVEL_ALL)
+		screen.addDDSGFC("CitySnowyBgLowerRight", "Art/Interface/Screens/city_management/cm_bgrightlowWINTER.dds", CITIZEN_BAR_WIDTH, CITY_TITLE_BAR_HEIGHT + CITY_VIEW_BOX_HEIGHT_AND_WIDTH - (MAP_EDGE_MARGIN_WIDTH * 2), xResolution - CITIZEN_BAR_WIDTH, yResolution - CITY_VIEW_BOX_HEIGHT_AND_WIDTH - CITY_TITLE_BAR_HEIGHT + (MAP_EDGE_MARGIN_WIDTH * 2), WidgetTypes.WIDGET_GENERAL, -1, -1 )
+		self.appendtoHideState(screen, "CitySnowyBgLowerRight", HIDE_TYPE_CITY, HIDE_LEVEL_ALL)
+		#screen.addDDSGFC("CitySavannahBgLowerRight","Art/Interface/Screens/city_management/cm_bgrightlowjungle.dds", CITIZEN_BAR_WIDTH, CITY_TITLE_BAR_HEIGHT + CITY_VIEW_BOX_HEIGHT_AND_WIDTH - (MAP_EDGE_MARGIN_WIDTH * 2), xResolution - CITIZEN_BAR_WIDTH, yResolution - CITY_VIEW_BOX_HEIGHT_AND_WIDTH - CITY_TITLE_BAR_HEIGHT + (MAP_EDGE_MARGIN_WIDTH * 2), WidgetTypes.WIDGET_GENERAL, -1, -1 )
+		#self.appendtoHideState(screen, "CitySavannahBgLowerRight", HIDE_TYPE_CITY, HIDE_LEVEL_ALL)
+		#screen.addDDSGFC("CitySavannahBg", "Art/Interface/Screens/city_management/BgJungle.dds", 0, CITY_TITLE_BAR_HEIGHT, int(CITIZEN_BAR_WIDTH * 1.07), int((yResolution - (BOTTOM_CENTER_HUD_HEIGHT + CITY_TITLE_BAR_HEIGHT)) * 1.04), WidgetTypes.WIDGET_GENERAL, -1, -1 )
+		#self.appendtoHideState(screen, "CitySavannahBg", HIDE_TYPE_CITY, HIDE_LEVEL_ALL)
+		#screen.addDDSGFC("CityPlainsBg", "Art/Interface/Screens/city_management/ScrollBgPlains.dds", 0, CITY_TITLE_BAR_HEIGHT, int(CITIZEN_BAR_WIDTH * 1.07), int((yResolution - (BOTTOM_CENTER_HUD_HEIGHT + CITY_TITLE_BAR_HEIGHT)) * 1.04), WidgetTypes.WIDGET_GENERAL, -1, -1 )
+		#self.appendtoHideState(screen, "CityPlainsBg", HIDE_TYPE_CITY, HIDE_LEVEL_ALL)
+		#screen.addDDSGFC("CityPlainsBgLowerRight", "Art/Interface/Screens/city_management/cm_bgrightlowPlains.dds", 0, CITY_TITLE_BAR_HEIGHT, int(CITIZEN_BAR_WIDTH * 1.07), int((yResolution - (BOTTOM_CENTER_HUD_HEIGHT + CITY_TITLE_BAR_HEIGHT)) * 1.04), WidgetTypes.WIDGET_GENERAL, -1, -1 )
+		#self.appendtoHideState(screen, "CityPlainsBgLowerRight", HIDE_TYPE_CITY, HIDE_LEVEL_ALL)
+				
 	# MAP BACKGROUND SADDLE
 
 		screen.addPanel("InterfaceMapViewSaddleLeft", u"", u"", True, False, 0, yResolution - UPPER_SADDLE_HEIGHT, xResolution - RIGHT_PANEL_WIDTH, SADDLE_HEIGHT * 4 / 7, PanelStyles.PANEL_STYLE_STANDARD, WidgetTypes.WIDGET_GENERAL, -1, -1 )
@@ -1150,7 +1178,7 @@ class CvMainInterface:
 	
 	# CITY BUILDING GRID	
 		#Androrc Multiple Professions per Building
-		pHeadSelectedCity = CyInterface().getHeadSelectedCity()
+		pHeadSelectedCity = CyInterface().getHeadSelectedCity()	
 		#Androrc End
 		for iSpecial in range(gc.getNumSpecialBuildingInfos()):
 			#Androrc Multiple Professions per Building
@@ -1205,8 +1233,8 @@ class CvMainInterface:
 		self.appendtoHideState(screen, "CityExitText", HIDE_TYPE_CITY, HIDE_LEVEL_HIDE)
 
 	# GROWTH EMPHASIZE/DEMPHASIZE
-		#screen.setImageButton("AvoidGrowth", ArtFileMgr.getInterfaceArtInfo("INTERFACE_BUTTONS_CANCEL").getPath(), xResolution * 1 / 100, CITY_TITLE_BAR_HEIGHT / 10, ScrollButtonSize, ScrollButtonSize, WidgetTypes.WIDGET_EMPHASIZE, -1, AVOID_GROWTH)
-		#self.appendtoHideState(screen, "AvoidGrowth", HIDE_TYPE_CITY, HIDE_LEVEL_HIDE)
+		screen.setImageButton("AvoidGrowth", ArtFileMgr.getInterfaceArtInfo("INTERFACE_BUTTONS_CANCEL").getPath(), xResolution * 1 / 100, CITY_TITLE_BAR_HEIGHT / 10, ScrollButtonSize, ScrollButtonSize, WidgetTypes.WIDGET_EMPHASIZE, -1, AVOID_GROWTH)
+		self.appendtoHideState(screen, "AvoidGrowth", HIDE_TYPE_CITY, HIDE_LEVEL_HIDE)
 		
 	# Garrison and Transport Panel
 		screen.addScrollPanel("CityGarrisonPanel", u"", CITIZEN_BAR_WIDTH + (SMALL_BUTTON_SIZE / 8), yResolution - BOTTOM_CENTER_HUD_HEIGHT - TRANSPORT_AREA_HEIGHT * 9 / 8 - 2, xResolution - CITIZEN_BAR_WIDTH - TRANSPORT_AREA_WIDTH + STACK_BAR_HEIGHT * 4 / 8, TRANSPORT_AREA_HEIGHT - (STACK_BAR_HEIGHT / 3), PanelStyles.PANEL_STYLE_EMPTY, false, WidgetTypes.WIDGET_EJECT_CITIZEN, -1, -1 )	
@@ -1244,6 +1272,7 @@ class CvMainInterface:
 
 		# Hide all interface widgets
 		bShow = False
+
 		if ( CyInterface().getShowInterface() != InterfaceVisibility.INTERFACE_HIDE_ALL and CyInterface().getShowInterface() != InterfaceVisibility.INTERFACE_MINIMAP_ONLY ):
 			if (gc.getGame().isPaused()):
 				# Pause overrides other messages
@@ -1597,6 +1626,7 @@ class CvMainInterface:
 				
 		if (not CyInterface().isCityScreenUp() and not CyEngine().isGlobeviewUp()):
 			if (pHeadSelectedCity):
+				
 				screen.hide("InterfaceMapViewSaddleRight")
 				screen.hide("MiniMapRing")
 								
@@ -1820,7 +1850,7 @@ class CvMainInterface:
 
 		if (not CyEngine().isGlobeviewUp() and CyInterface().isCityScreenUp() and pHeadSelectedCity):
 			self.setMinimapButtonVisibility(True)
-
+			
 			self.updateGarrisonAndTransports()
 			g_pSelectedUnit = 0
 			screen.enable("HurryGold", pHeadSelectedCity.canHurry(0, False))
@@ -2135,8 +2165,16 @@ class CvMainInterface:
 
 		# ON PLOT WORKERS
 ###=====City Radius 2 (NeverMind)===1/2=====###
-			city_radius = gc.getCityDiameter()
+#Ramstormp, PTSD, no 2 plot radius zoom out until necessary - START
+			city_radius =  gc.getCityDiameter()
 			pHeadSelectedCity = CyInterface().getHeadSelectedCity()
+
+#			if (pHeadSelectedCity.getCultureLevel() < 3):
+#				city_radius = 3
+#			else:
+#				city_radius = gc.getCityDiameter()
+#Ramstormp - END			
+
 			ButtonSize = (CITY_VIEW_BOX_HEIGHT_AND_WIDTH - (MAP_EDGE_MARGIN_WIDTH * 4 ))  / city_radius 
 			
 			if (pHeadSelectedCity.getPopulation() == 0): # TAC abandon city
@@ -2173,6 +2211,11 @@ class CvMainInterface:
 								
 							screen.addDDSGFC("PlotDragOn" + str(iPlotIndex), "", x, y, size_x, size_y, WidgetTypes.WIDGET_ASSIGN_CITIZEN_TO_PLOT, iPlotIndex, -1) 
 							CitizenHideList.append("PlotDragOn" + str(iPlotIndex))
+							
+							# city plot mouse over help - inaiwae - START
+							screen.addDDSGFC("CityPlotInfo" + str(iPlotIndex), "", x-(size_x/32), y-(size_y/16), size_x, size_y, WidgetTypes.WIDGET_ASSIGN_CITIZEN_TO_PLOT, iPlotIndex, -1) 
+							CitizenHideList.append("CityPlotInfo" + str(iPlotIndex))
+							# city plot mouse over help - inaiwae - END
 
 							if (not pUnit.isNone()):
 								if (pUnit.isColonistLocked()):
@@ -2430,7 +2473,7 @@ class CvMainInterface:
 		CyInterface().cacheInterfacePlotUnits(pHeadSelectedCity.plot())		
 		#screen.addScrollPanel("CityGarrisonPanel", u"", CITIZEN_BAR_WIDTH + (SMALL_BUTTON_SIZE / 2), yResolution - BOTTOM_CENTER_HUD_HEIGHT - TRANSPORT_AREA_HEIGHT * 9 / 8 - 2, xResolution - CITIZEN_BAR_WIDTH - TRANSPORT_AREA_WIDTH + STACK_BAR_HEIGHT, TRANSPORT_AREA_HEIGHT + (STACK_BAR_HEIGHT / 3), PanelStyles.PANEL_STYLE_EMPTY, false, WidgetTypes.WIDGET_EJECT_CITIZEN, -1, -1 )	
 		#screen.addScrollPanel("CityTransportPanel", u"", xResolution - TRANSPORT_AREA_WIDTH + MAP_EDGE_MARGIN_WIDTH - SMALL_BUTTON_SIZE / 2, yResolution - BOTTOM_CENTER_HUD_HEIGHT - TRANSPORT_AREA_HEIGHT * 9 / 8 - 2, TRANSPORT_AREA_WIDTH * 126 / 128, TRANSPORT_AREA_HEIGHT + (STACK_BAR_HEIGHT / 3), PanelStyles.PANEL_STYLE_MAIN, false, WidgetTypes.WIDGET_RECEIVE_MOVE_CARGO_TO_CITY, -1, -1 )
-		screen.setLabelAt("TransportPanelLabel", "CityTransportPanel", "    " + self.setFontSize((localText.getColorText("TXT_KEY_TRANSPORT_PANEL", (), gc.getInfoTypeForString("COLOR_FONT_CREAM"))).upper(), 0), CvUtil.FONT_LEFT_JUSTIFY, 0, STACK_BAR_HEIGHT / 2, -1.3, FontTypes.GAME_FONT, WidgetTypes.WIDGET_RECEIVE_MOVE_CARGO_TO_CITY, -1, -1 )
+		#screen.setLabelAt("TransportPanelLabel", "CityTransportPanel", "    " + self.setFontSize((localText.getColorText("TXT_KEY_TRANSPORT_PANEL", (), gc.getInfoTypeForString("COLOR_FONT_CREAM"))).upper(), 0), CvUtil.FONT_LEFT_JUSTIFY, 0, STACK_BAR_HEIGHT / 2, -1.3, FontTypes.GAME_FONT, WidgetTypes.WIDGET_RECEIVE_MOVE_CARGO_TO_CITY, -1, -1 )
 		
 		global LAST_CACHED_TRANSPORT_UNITS_COUNT
 		for i in range(LAST_CACHED_TRANSPORT_UNITS_COUNT):
@@ -2446,7 +2489,7 @@ class CvMainInterface:
 		for i in range(CyInterface().getNumCachedInterfacePlotUnits()):
 			pLoopUnit = CyInterface().getCachedInterfacePlotUnit(i)
 			if (pLoopUnit and pLoopUnit.getOwner() == pHeadSelectedCity.getOwner()):
-				if (pLoopUnit.cargoSpace() > 0 and not pLoopUnit.isCargo()):
+				if (pLoopUnit.cargoSpace() > 0 and not pLoopUnit.isCargo() or pLoopUnit.baseCombatStr()> 20):
 					visitingShipWidth = TransportButtonSize + pLoopUnit.cargoSpace() * (CargoButtonSize * 11 / 10)
 					xPosition = (TRANSPORT_AREA_WIDTH * 116 / 128 - visitingShipWidth) / 2
 					screen.addDDSGFCAt("VisitingShipPanel" + str(i), "CityTransportPanel", ArtFileMgr.getInterfaceArtInfo("INTERFACE_EUROPE_IN_PORT_BOX").getPath(), xPosition, yLocation, TransportButtonSize + pLoopUnit.cargoSpace() * (CargoButtonSize * 11 / 10), PanelHeight, WidgetTypes.WIDGET_RECEIVE_MOVE_CARGO_TO_TRANSPORT, pLoopUnit.getID(), -1, False)
@@ -2473,12 +2516,13 @@ class CvMainInterface:
 
 	# GARISSON MANAGMENT PANEL
 		GarrisonButtonSize = LARGE_BUTTON_SIZE
+		ButtonSize = LARGE_BUTTON_SIZE * 5 / 2
 		self.PLOT_LIST_ICON_SIZE = 12
 		self.PLOT_LIST_HEALTH_BAR_HEIGHT = 11
 		self.PLOT_LIST_HEALTH_BAR_SHORTENING_CORRECTION = 6
 		CyInterface().cacheInterfacePlotUnits(pHeadSelectedCity.plot())		
 		#screen.addScrollPanel("CityGarrisonPanel", u"", CITIZEN_BAR_WIDTH + (SMALL_BUTTON_SIZE / 8), yResolution - BOTTOM_CENTER_HUD_HEIGHT - TRANSPORT_AREA_HEIGHT * 9 / 8 - 2, xResolution - CITIZEN_BAR_WIDTH - TRANSPORT_AREA_WIDTH + STACK_BAR_HEIGHT * 4 / 8, TRANSPORT_AREA_HEIGHT + (STACK_BAR_HEIGHT / 3), PanelStyles.PANEL_STYLE_EMPTY, false, WidgetTypes.WIDGET_EJECT_CITIZEN, -1, -1 )	
-		screen.setLabelAt("CityGarrisonLabel", "CityGarrisonPanel", self.setFontSize((localText.getColorText("TXT_KEY_GARRISON_PANEL", (), gc.getInfoTypeForString("COLOR_FONT_CREAM"))).upper(), 0), CvUtil.FONT_LEFT_JUSTIFY, SMALL_BUTTON_SIZE / 4, STACK_BAR_HEIGHT / 2, -1.3, FontTypes.GAME_FONT, WidgetTypes.WIDGET_EJECT_CITIZEN, -1, -1 )
+		#screen.setLabelAt("CityGarrisonLabel", "CityGarrisonPanel", self.setFontSize((localText.getColorText("TXT_KEY_GARRISON_PANEL", (), gc.getInfoTypeForString("COLOR_FONT_CREAM"))).upper(), 0), CvUtil.FONT_LEFT_JUSTIFY, SMALL_BUTTON_SIZE / 4, STACK_BAR_HEIGHT / 2, -1.3, FontTypes.GAME_FONT, WidgetTypes.WIDGET_EJECT_CITIZEN, -1, -1 )
 		
 		global LAST_CACHED_GARRISON_UNITS_COUNT
 		for i in range(LAST_CACHED_GARRISON_UNITS_COUNT):
@@ -2489,8 +2533,12 @@ class CvMainInterface:
 		
 		xPosition = 0
 		GarrisonUnitsWidth = GarrisonButtonSize * 3
-		xPositionBase = (xResolution - CITIZEN_BAR_WIDTH - TRANSPORT_AREA_WIDTH - STACK_BAR_HEIGHT - GarrisonUnitsWidth) / 2
-				
+		xPositionBase = (xResolution - CITIZEN_BAR_WIDTH - TRANSPORT_AREA_WIDTH * 11/10 - STACK_BAR_HEIGHT - GarrisonUnitsWidth) / 2
+		iXUp = xPositionBase 
+		iXDown = xPositionBase
+		iNumGarrisoned = CyInterface().getNumCachedInterfacePlotUnits()
+		if (iNumGarrisoned < 3):
+			iNumGarrisoned = 3 
 		yPosition = 0
 		for i in range(CyInterface().getNumCachedInterfacePlotUnits()):
 			pLoopUnit = CyInterface().getCachedInterfacePlotUnit(i)
@@ -2499,13 +2547,19 @@ class CvMainInterface:
 					if (pLoopUnit.getYield() == YieldTypes.NO_YIELD ):
 						if (pLoopUnit.getTransportUnit().isNone()):
 							cityGarrisonX = xPosition * GarrisonButtonSize + xPositionBase
+			 
 #<--- TAC
 							cityGarrisonY = STACK_BAR_HEIGHT * 3 / 2 + (yPosition * (GarrisonButtonSize + self.PLOT_LIST_HEALTH_BAR_SHORTENING_CORRECTION))
-							screen.addDragableButtonAt("CityGarrisonPanel", "GarrisonUnit" + str(i), pLoopUnit.getButton(), "", cityGarrisonX, cityGarrisonY, GarrisonButtonSize, GarrisonButtonSize, WidgetTypes.WIDGET_EJECT_CITIZEN, pLoopUnit.getID(), -1, ButtonStyles.BUTTON_STYLE_LABEL)
-		
+							if (pLoopUnit.baseCombatStr() > 2 and pLoopUnit.baseMoves() < 2):
+								screen.addDragableButtonAt("CityGarrisonPanel", "GarrisonUnit" + str(i), pLoopUnit.getFullLengthIcon(), "", iXUp, cityGarrisonY - ButtonSize*10/22, ButtonSize/2, ButtonSize, WidgetTypes.WIDGET_EJECT_CITIZEN, pLoopUnit.getID(), -1, ButtonStyles.BUTTON_STYLE_LABEL)
+								iXUp += (ButtonSize/11) * 12 / iNumGarrisoned
+							elif (not pLoopUnit.canKingTransport()):
+								#Ramstormp, PTSD, well, where do I hide the treasure?
+								screen.addDragableButtonAt("CityGarrisonPanel", "GarrisonUnit" + str(i), pLoopUnit.getFullLengthIcon(), "", iXDown, cityGarrisonY + ButtonSize * 1/4, ButtonSize/2, ButtonSize, WidgetTypes.WIDGET_EJECT_CITIZEN, pLoopUnit.getID(), -1, ButtonStyles.BUTTON_STYLE_LABEL)
+								iXDown += (ButtonSize/11) * 12 / iNumGarrisoned
 						# HEALTH BAR
 							HealthBar = "GarrisonHealth" + str(i)
-							screen.addStackedBarGFCAt( HealthBar, "CityGarrisonPanel", cityGarrisonX, cityGarrisonY + GarrisonButtonSize - (self.PLOT_LIST_HEALTH_BAR_HEIGHT / 2), GarrisonButtonSize, self.PLOT_LIST_HEALTH_BAR_HEIGHT, InfoBarTypes.NUM_INFOBAR_TYPES, WidgetTypes.WIDGET_EJECT_CITIZEN, pLoopUnit.getID(), -1 )
+							#screen.addStackedBarGFCAt( HealthBar, "CityGarrisonPanel", cityGarrisonX, cityGarrisonY + GarrisonButtonSize - (self.PLOT_LIST_HEALTH_BAR_HEIGHT / 2), GarrisonButtonSize, self.PLOT_LIST_HEALTH_BAR_HEIGHT, InfoBarTypes.NUM_INFOBAR_TYPES, WidgetTypes.WIDGET_EJECT_CITIZEN, pLoopUnit.getID(), -1 )
 							screen.setBarPercentage( HealthBar, InfoBarTypes.INFOBAR_STORED, float( pLoopUnit.currHitPoints() ) / float( pLoopUnit.maxHitPoints() ) )
 							
 							if (pLoopUnit.getDamage() >= ((pLoopUnit.maxHitPoints() * 2) / 3)):
@@ -2518,22 +2572,21 @@ class CvMainInterface:
 						# MOVE ICON
 							if pLoopUnit.isWaiting():
 								szFileName = ArtFileMgr.getInterfaceArtInfo("OVERLAY_FORTIFY").getPath()
-							elif (pLoopUnit.canMove()):
+							if (pLoopUnit.canMove()):
 								if (pLoopUnit.hasMoved()):
 									szFileName = ArtFileMgr.getInterfaceArtInfo("OVERLAY_HASMOVED").getPath()
 								else:
 									szFileName = ArtFileMgr.getInterfaceArtInfo("OVERLAY_MOVE").getPath()
 							else:
 								szFileName = ArtFileMgr.getInterfaceArtInfo("OVERLAY_NOMOVE").getPath()
-							screen.addDDSGFCAt( "GarrisonMoveIcon" + str(i), "CityGarrisonPanel", szFileName, cityGarrisonX, (STACK_BAR_HEIGHT * 3 / 2) + (yPosition * (GarrisonButtonSize + self.PLOT_LIST_HEALTH_BAR_SHORTENING_CORRECTION)), self.PLOT_LIST_ICON_SIZE, self.PLOT_LIST_ICON_SIZE, WidgetTypes.WIDGET_EJECT_CITIZEN, -1, -1, False )										
+							screen.addDDSGFCAt( "GarrisonMoveIcon" + str(i), "CityGarrisonPanel", szFileName, cityGarrisonX, (STACK_BAR_HEIGHT * 3 / 2) + (yPosition * (ButtonSize + self.PLOT_LIST_HEALTH_BAR_SHORTENING_CORRECTION)), self.PLOT_LIST_ICON_SIZE, self.PLOT_LIST_ICON_SIZE, WidgetTypes.WIDGET_EJECT_CITIZEN, -1, -1, False )										
 							
 							xPosition += 1
-							if (xPosition == 3):
-								xPosition = 0
-								yPosition += 1
+							#if (xPosition == 3):
+								#xPosition = 0
+								#yPosition += 1
 
-		return 0
-		
+		return 0		
 	# Will update the game data strings
 	def updateGameDataStrings( self ):
 
@@ -2563,9 +2616,7 @@ class CvMainInterface:
 			if (gc.getPlayer(ePlayer).isAlive()):
 				szText = CyGameTextMgr().getGoldStr(ePlayer)
 				screen.setLabel("GoldText", "Background", self.setFontSize(szText, 1), CvUtil.FONT_LEFT_JUSTIFY, 17, 17, -0.3, FontTypes.GAME_FONT, WidgetTypes.WIDGET_GENERAL, TIMETEXT_ID, -1 )
-				#szPinkyTimer = CyGameTextMgr().setPinkyTimerStr(ePlayer)
-				#screen.setLabel("GoldText", "Background", self.setFontSize(szPinkyTimer, 1), CvUtil.FONT_LEFT_JUSTIFY, 20, 17, -0.3, FontTypes.GAME_FONT, WidgetTypes.WIDGET_GENERAL, TIMETEXT_ID, -1 )
-				
+
 		return 0
 
 
@@ -2625,7 +2676,57 @@ class CvMainInterface:
 						screen.hide( szString )
 						screen.hide( szString + "Health")
 						screen.hide( szString + "Icon")
-				
+				for iPlotIndex in range(gc.getNUM_CITY_PLOTS()):
+					if iPlotIndex == gc.getCITY_HOME_PLOT():
+						pPlot = pHeadSelectedCity.getCityIndexPlot(iPlotIndex)
+		# Ramstormp, PTSD, Right here
+						if (pPlot.getTerrainType() == gc.getInfoTypeForString("TERRAIN_GRASS")):
+							screen.hide("CitySavannahBg")
+							screen.hide("CitySnowyBackground")
+							screen.hide("CitySavannahBgLowerRight")
+							screen.hide("CitySnowyBgLowerRight")
+							#screen.hide("BgInlandPlains")
+							#screen.hide("BgInlandPlainsLow")
+							screen.hide("BGJungleFull")
+							screen.show("CityManagerBackground")
+							screen.show("CityLowBackground")
+						elif (pPlot.getTerrainType() == gc.getInfoTypeForString("TERRAIN_SAVANNAH")):
+							screen.hide("CityManagerBackground")
+							screen.hide("CityLowBackground")
+							screen.hide("CitySnowyBackground")
+							screen.hide("CitySnowyBgLowerRight")
+							#screen.hide("BgInlandPlains")
+							#screen.hide("BgInlandPlainsLow")
+							screen.show("BGJungleFull")
+							screen.hide("CitySavannahBg")
+							screen.hide("CitySavannahBgLowerRight")
+				#		elif (pPlot.getTerrainType() == gc.getInfoTypeForString("TERRAIN_PLAINS")):
+				#			screen.hide("CityManagerBackground")
+				#			screen.hide("CityLowBackground")
+				#			screen.hide("CitySnowyBackground")
+				#			screen.hide("CitySnowyBgLowerRight")
+				#			screen.hide("CitySavannahBg")
+				#			screen.hide("CitySavannahBgLowerRight")	
+				#			screen.show("CityPlainsBg")
+				#			screen.show("CityPlainsBgLowerRight")
+						elif (not pHeadSelectedCity.isCoastal(1)):
+							screen.hide("CityManagerBackground")
+							screen.hide("CityLowBackground")
+							screen.hide("CitySnowyBackground")
+							screen.hide("CitySnowyBgLowerRight")
+							screen.hide("CitySavannahBg")
+							screen.hide("CitySavannahBgLowerRight")
+							screen.show("BGJungleFull")
+						else:	
+							screen.hide("CityManagerBackground")
+							screen.hide("CityLowBackground")
+							screen.hide("CitySavannahBg")
+							screen.hide("CitySavannahBgLowerRight")
+							#screen.hide("CityPlainsBg")
+							#screen.hide("CityPlainsBgLowerRight")
+							screen.hide("CitySnowyBackground")
+							screen.hide("CitySnowyBgLowerRight")
+							screen.show("BGJungleFull")
 				screen.show("ResourceTable")
 				for iYield in range(YieldTypes.NUM_YIELD_TYPES):
 					screen.show("YieldIcon" + str(iYield))
@@ -2651,20 +2752,18 @@ class CvMainInterface:
 				screen.setText("CityNameText", "Background", szBuffer, CvUtil.FONT_CENTER_JUSTIFY, xResolution / 2 , CITY_TITLE_BAR_HEIGHT / 12, -0.3, FontTypes.GAME_FONT, WidgetTypes.WIDGET_CITY_NAME, -1, -1 )
 
 			# POPULATION GROWTH/STARVATION TEXT
-				iFoodDifference = pHeadSelectedCity.foodDifference() #PTSD
-				iFood = pHeadSelectedCity.getFood()
-				iHeartsDifference = pHeadSelectedCity.heartsDifference()
+				iFoodDifference = pHeadSelectedCity.foodDifference()
 				iProductionDiffNoFood = pHeadSelectedCity.getCurrentProductionDifference(True)
 				iProductionDiffJustFood = 0
 				szBuffer = u"<font=4>"
-				if (iFoodDifference >= 0):
-					szBuffer = localText.getText("INTERFACE_CITY_GROWING", (pHeadSelectedCity.getHeartsTurnsLeft(), ))
-				elif (iFoodDifference < 0 and iFood < 20):
+				if (iFoodDifference > 0):
+					szBuffer = localText.getText("INTERFACE_CITY_GROWING", (pHeadSelectedCity.getFoodTurnsLeft(), ))
+				elif (iFoodDifference < 0):
 					szBuffer = localText.getText("INTERFACE_CITY_STARVING", ())
 				else:
 					szBuffer = localText.getText("INTERFACE_CITY_STAGNANT", ())
 				szBuffer += u"</font>"
-				screen.setText("PopulationText", "Background", szBuffer, CvUtil.FONT_LEFT_JUSTIFY, xResolution * 7 / 100, CITY_TITLE_BAR_HEIGHT / 8, -0.3, FontTypes.SMALL_FONT, WidgetTypes.WIDGET_HELP_POPULATION, -1, -1 )
+				screen.setText("PopulationText", "Background", szBuffer, CvUtil.FONT_LEFT_JUSTIFY, xResolution * 5 / 100, CITY_TITLE_BAR_HEIGHT / 8, -0.3, FontTypes.GAME_FONT, WidgetTypes.WIDGET_HELP_POPULATION, -1, -1 )
 				screen.setStyle("PopulationText", "Button_Stone_Style")					
 					
 			# CURRENT PRODUCTION BAR FILL
@@ -2870,12 +2969,9 @@ class CvMainInterface:
 					for iYield in range(YieldTypes.NUM_YIELD_TYPES):
 						if iYield != YieldTypes.YIELD_FOOD and gc.getYieldInfo(iYield).isCargo():
 							iProdusedYield += aiProducedYields[iYield]
-	
 
 					szBuffer += u" <color="
 					iMaxYield = pHeadSelectedCity.getMaxYieldCapacity()
-					iMaxFood = pHeadSelectedCity.getMaxFoodCapacity()
-
 					iTotalYield = pHeadSelectedCity.getTotalYieldStored()
 					if iTotalYield + iProdusedYield > iMaxYield:
 						szBuffer += u"255,0,0"
@@ -2896,23 +2992,6 @@ class CvMainInterface:
 					#screen.setLabel("StorageCapacityText", "Background", szBuffer, CvUtil.FONT_CENTER_JUSTIFY, xResolution * 83 / 100, CITY_TITLE_BAR_HEIGHT / 12, -0.3, FontTypes.SMALL_FONT, WidgetTypes.WIDGET_CITY_NAME, -1, -1 )
 					screen.setLabel("StorageCapacityText", "Background", szBuffer, CvUtil.FONT_CENTER_JUSTIFY, xResolution * 86 / 100 , CITY_TITLE_BAR_HEIGHT / 12, -0.3, FontTypes.SMALL_FONT, WidgetTypes.WIDGET_GENERAL, VET_NEW_CAPACITY, -1 )
 					#screen.setLabel("StorageCapacityText", "Background", szBuffer, CvUtil.FONT_CENTER_JUSTIFY, xResolution * 84 / 100 , CITY_TITLE_BAR_HEIGHT / 12, -0.3, FontTypes.SMALL_FONT, WidgetTypes.WIDGET_GENERAL, -1, -1 )
-# PTSD Food Storage
-
-					iFoodProduced = pHeadSelectedCity.calculateNetYield(YieldTypes.YIELD_FOOD)
-					iFoodStored = pHeadSelectedCity.getFood()
-					szFoodBuffer = u"<font=3>"
-					szFoodBuffer += u" <color="
-					
-					if iFoodStored + iFoodProduced > iMaxFood:
-						szFoodBuffer += u"255,0,0"
-					elif iFoodStored + (2 * iFoodProduced) > iMaxFood:
-						szFoodBuffer += u"255,255,0"
-					else:
-						szFoodBuffer += u"255,155,0"
-					szFoodBuffer +=  u">"
-					szFoodBuffer +=  str(iFoodStored)
-					szFoodBuffer += u"/" + str(iMaxFood) + localText.getText("[ICON_FOOD]", ())
-					screen.setLabel("FoodStorageCapacityText", "Background", szFoodBuffer, CvUtil.FONT_CENTER_JUSTIFY, xResolution * 3 / 100 , CITY_TITLE_BAR_HEIGHT / 12, -0.3, FontTypes.SMALL_FONT, WidgetTypes.WIDGET_GENERAL, VET_NEW_CAPACITY, -1 )
 					
 				# R&R, Robert Surcouf VET NewCapacity - End
 			screen.hide("TimeText")
@@ -2946,8 +3025,6 @@ class CvMainInterface:
 				screen.hide("CultureText")
 				# R&R, Robert Surcouf,START
 				screen.hide("StorageCapacityText")
-				screen.hide("FoodStorageCapacityText")
-						
 				# R&R, Robert Surcouf,END
 
 			for iSpecial in range(gc.getNumSpecialBuildingInfos()):
@@ -3072,10 +3149,10 @@ class CvMainInterface:
 					screen.hide("BonusPanePos" + str(i))
 					screen.hide("BonusPaneNeg" + str(i))
 
-			#if pCity.AI_isEmphasize(AVOID_GROWTH):
-				#screen.overlayButtonGFC("AvoidGrowth", ArtFileMgr.getInterfaceArtInfo("INTERFACE_HIGHLIGHTED_BUTTON").getPath())
-			#else:
-				#screen.overlayButtonGFC("AvoidGrowth", None)
+			if pCity.AI_isEmphasize(AVOID_GROWTH):
+				screen.overlayButtonGFC("AvoidGrowth", ArtFileMgr.getInterfaceArtInfo("INTERFACE_HIGHLIGHTED_BUTTON").getPath())
+			else:
+				screen.overlayButtonGFC("AvoidGrowth", None)
 
 	# Will update the info pane strings
 	def updateInfoPaneStrings( self ):

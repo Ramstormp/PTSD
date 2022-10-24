@@ -1100,14 +1100,14 @@ bool CvPlot::isLake() const
 	//WTP, ray, Lakes - START
 	// all of this is now unnecessary, since we have the Terrain Lake
 	// we keep the function anyways if maybe needed in future
-	
+	/*
 	//WTP, ray, Large Rivers - Start
 	if (getTerrainType() == TERRAIN_LARGE_RIVERS)
 	{
 		return false;
 	}
 	//WTP, ray, Large Rivers - END
-	/*
+
 	CvArea* pArea;
 
 	pArea = area();
@@ -1121,10 +1121,6 @@ bool CvPlot::isLake() const
 
 	return (getTerrainType() == TERRAIN_LAKE);
 	//WTP, ray, Lakes - END
-}
-bool CvPlot::isLargeRiver() const
-{
-	return (getTerrainType() == TERRAIN_LARGE_RIVERS);
 }
 
 bool CvPlot::isRiverMask() const
@@ -6536,7 +6532,7 @@ int CvPlot::calculatePotentialYield(YieldTypes eYield, PlayerTypes ePlayer, Impr
 		{
 			if (iYield > 0 && pWorkingCity->getYieldStored(eYield) > 0)
 			{
-				// WTP, Ray, fixing issue with Livestock Breeding having forgotten gamespeedhPercent() / 100;
+				// WTP, Ray, fixing issue with Livestock Breeding having forgotten gamespeed
 				int iYieldDivisor = GC.getGameINLINE().getCargoYieldCapacity(); // this already considers GameSpeed
 
 				iYield = std::min(iYield, pWorkingCity->getYieldStored(eYield) * iYield / iYieldDivisor);

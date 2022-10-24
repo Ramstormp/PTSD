@@ -27,6 +27,7 @@ RECALL_TO_EUROPE = 2
 SELL_SHIP_IN_AFRICA = 3
 LIFT_BOYCOTT_IN_AFRICA = 4
 RECALL_TO_AFRICA = 5
+SEND_TO_EUROPE = 6
 
 # Sound Types
 INIT_SOUND = 0
@@ -78,6 +79,8 @@ class CvAfricaScreen:
 		self.SAIL_WEST_STropic = 34
 		self.SAIL_WEST_STemperate = 35
 		self.SAIL_WEST_SFrigid = 36
+		self.SAIL_TO_EUROPE = 37
+		self.SAIL_EU_EXEC = 38
 		self.SectorNames = dict([(0, 'NFrigid'), (1, 'NTemperate'), (2, 'NTropic'), (3, 'STropic'), (4, 'STemperate'), (5, 'SFrigid')])		
 		# R&R, vetiarvind, Navigation Sectors - END
 
@@ -122,6 +125,7 @@ class CvAfricaScreen:
 		bShowTradeBox = sdToolKit.sdGetVal('komaScreens', player.getID(), 'TradeBox')
 		self.AfricaUnitsList = []
 		self.OutboundUnitsList = []
+		self.EuropeboundUnitsList = []
 		self.EuropePlotList = []
 		self.PreviewPlotList = []
 				
@@ -302,7 +306,10 @@ class CvAfricaScreen:
 
 		# OutBound
 		screen.addScrollPanel("OutBoundList", u"", self.OUTBOUND_X, self.OUTBOUND_Y, self.OUTBOUND_W, self.OUTBOUND_H, PanelStyles.PANEL_STYLE_MAIN, false, WidgetTypes.WIDGET_SAIL, UnitTravelStates.UNIT_TRAVEL_STATE_FROM_AFRICA, -1 )
-	
+		
+		# EuropeBound
+		screen.addScrollPanel("EuropeBoundList", u"", self.OUTBOUND_X, self.OUTBOUND_Y, self.OUTBOUND_W, self.OUTBOUND_H, PanelStyles.PANEL_STYLE_MAIN, false, WidgetTypes.WIDGET_SAIL, UnitTravelStates.UNIT_TRAVEL_STATE_FROM_AFRICA_TO_EUROPE, -1 )
+		
 		# In Port
 		screen.addScrollPanel("LoadingList", u"", self.INPORT_X, self.INPORT_Y, self.INPORT_W, self.INPORT_H, PanelStyles.PANEL_STYLE_MAIN, True, WidgetTypes.WIDGET_GENERAL, -1, -1)
 		screen.addScrollPanel("OutBoundListOverlay", u"", self.OUTBOUND_X, self.OUTBOUND_Y, self.OUTBOUND_W, self.OUTBOUND_H, PanelStyles.PANEL_STYLE_MAIN, false, WidgetTypes.WIDGET_SAIL, UnitTravelStates.UNIT_TRAVEL_STATE_FROM_AFRICA, -1 )
@@ -382,6 +389,9 @@ class CvAfricaScreen:
 					InboundUnitsList.append(unit)
 				elif (unit.getUnitTravelState() == UnitTravelStates.UNIT_TRAVEL_STATE_FROM_EUROPE and gc.getGame().isOption(GameOptionTypes.GAMEOPTION_TRIANGLE_TRADE)): ## Ramstormp, PTSD, Give me a triangle
 					InboundUnitsList.append(unit)
+				elif (unit.getUnitTravelState() == UnitTravelStates.UNIT_TRAVEL_STATE_FROM_AFRICA_TO_EUROPE and gc.getGame().isOption(GameOptionTypes.GAMEOPTION_TRIANGLE_TRADE)): ## Ramstormp, PTSD, Give me a backward triangle
+					if not unit.getID() in self.EuropeboundUnitsList:
+						self.EuropeboundUnitsList.append(unit.getID())
 
 				if (gc.getUnitInfo(unit.getUnitType()).getDomainType() == DomainTypes.DOMAIN_SEA):
 					iSeaUnitCount += 1
@@ -451,6 +461,11 @@ class CvAfricaScreen:
 				screen.setImageButtonAt(self.getNextWidgetName(), "LoadingList", gc.getActionInfo(gc.getInfoTypeForString("COMMAND_LOAD")).getButton(), iX + self.INPORT_SHIP_W * 15 / 16 - self.CARGO_ICON_SIZE * 17 / 8, self.INPORT_SHIP_H * 9 / 20, self.CARGO_ICON_SIZE * 5 / 4, self.CARGO_ICON_SIZE * 5 / 4, WidgetTypes.WIDGET_GENERAL, self.LOAD_ALL, unit.getID())
 			
 			screen.setImageButtonAt(self.getNextWidgetName(), "LoadingList", ArtFileMgr.getInterfaceArtInfo("INTERFACE_EUROPE_SAIL").getPath(), iX + self.INPORT_SHIP_W / 8, self.INPORT_SHIP_H * 9 / 20, self.CARGO_ICON_SIZE * 5 / 4, self.CARGO_ICON_SIZE * 5 / 4, WidgetTypes.WIDGET_GENERAL, self.SAIL_TO_NEW_WORLD, unit.getID())
+#PTSD
+			screen.setImageButtonAt(self.getNextWidgetName(), "LoadingList", ArtFileMgr.getInterfaceArtInfo("INTERFACE_EUROPE").getPath(), iX + self.INPORT_SHIP_W / 11, self.INPORT_SHIP_H * 6 / 20, self.CARGO_ICON_SIZE * 5 / 4, self.CARGO_ICON_SIZE * 5 / 4, WidgetTypes.WIDGET_GENERAL, self.SAIL_EU_EXEC, unit.getID())
+#			screen.setImageShape("EuropeScreenButton", ImageShapes.IMAGE_SHAPE_ELLIPSE, -1)
+#			screen.setHitMargins("EuropeScreenButton", self.ADVISOR_BUTTON_SIZE / 6, self.ADVISOR_BUTTON_SIZE / 6)
+#			self.appendtoHideState(screen, "EuropeScreenButton", HIDE_TYPE_MAP, HIDE_LEVEL_HIDE)
 
 			iTotalCargoWidth = unit.cargoSpace() * self.CARGO_SPACING
 			if iTotalCargoWidth > self.INPORT_SHIP_W :
@@ -485,10 +500,10 @@ class CvAfricaScreen:
 			screen.addDDSGFCAt(self.getNextWidgetName(), "InBoundList", self.getMirrorShipIcon(unit), iX, 0, self.INBOUND_SHIP_W, self.INBOUND_SHIP_H, WidgetTypes.WIDGET_GENERAL, self.TRAVEL_INFO, unit.getID(), False)
 			iX += self.XResolution / len(InboundUnitsList) * 2 / 5
 	
-		#outbound
+		#outbound and Europe bound
 		iX, iY = 0, 0
 		iW, iH = self.OUTBOUND_SHIP_W, self.OUTBOUND_SHIP_H
-		iNumOutbound = len(self.OutboundUnitsList)
+		iNumOutbound = len(self.OutboundUnitsList) + len(self.EuropeboundUnitsList)
 		if (iNumOutbound < 5): 
 			iNumOutbound = 5
 		
@@ -623,13 +638,17 @@ class CvAfricaScreen:
 			kYield = gc.getYieldInfo(iYield)
 			iStock = self.playerEurope.getAfricaWarehouseYield(iYield) #PTSD, Ramstormp, EuropeStock
 			iSellPrice = self.playerEurope.getYieldAfricaSellPrice(iYield)  
-	
+			iBuyPrice = self.playerEurope.getYieldAfricaBuyPrice(iYield)
 			#player.setYieldEuropeTradable(iYield, false)
 			#screen.addDDSGFC(self.getNextWidgetName(), ArtFileMgr.getInterfaceArtInfo("INTERFACE_EUROPE_SHADOW_BOX").getPath(), iX, self.BOX_Y, self.BOX_W, self.BOX_H, WidgetTypes.WIDGET_MOVE_CARGO_TO_TRANSPORT, iYield, -1)
 			#screen.addDDSGFC(self.getNextWidgetName(), ArtFileMgr.getInterfaceArtInfo("INTERFACE_EUROPE_BOX_PRICE").getPath(), iX, self.BOX_Y, self.BOX_W, self.BOX_H, WidgetTypes.WIDGET_MOVE_CARGO_TO_TRANSPORT, iYield, -1)
 			screen.addDDSGFC(self.getNextWidgetName(), ArtFileMgr.getInterfaceArtInfo("INTERFACE_EUROPE_SHADOW_BOX").getPath(), iX,iY, self.BOX_W, self.BOX_H, WidgetTypes.WIDGET_MOVE_CARGO_TO_TRANSPORT_AFRICA, iYield, -1)
 			screen.addDDSGFC(self.getNextWidgetName(), ArtFileMgr.getInterfaceArtInfo("INTERFACE_EUROPE_BOX_PRICE").getPath(), iX, iY, self.BOX_W, self.BOX_H, WidgetTypes.WIDGET_MOVE_CARGO_TO_TRANSPORT_AFRICA, iYield, -1)
 			szPrices = u"<font=2>%d/%d</font>" % (iSellPrice, iStock) #Ramstormp, PTSD, Europe Stock
+			szStock = u"<font=3>%d</font>" % (iStock)
+			szStockShadow = u"<font=3>%d</font>" % (iStock)
+			szStock = u"<color=109,255,255>" + szStock + u"</color>"
+			szStockShadow = u"<color=60,50,50>" + szStockShadow + u"</color>"
 			szIcons = self.getNextWidgetName()
 			if not player.isYieldAfricaTradable(iYield) and self.iBoycott > 0:
 				szPrices = u"<color=255,0,0>" + szPrices + u"</color>"
@@ -640,6 +659,8 @@ class CvAfricaScreen:
 				#screen.addDragableButton(szIcons, gc.getYieldInfo(iYield).getIcon(), "", iX + self.BOX_W / 12, self.BOX_Y + self.BOX_H / 3, self.BOX_W * 5 / 6, self.BOX_W * 5 / 6, WidgetTypes.WIDGET_MOVE_CARGO_TO_TRANSPORT, iYield, -1, ButtonStyles.BUTTON_STYLE_IMAGE )
 			#screen.setLabel("EuropePrices" + str(iYield), "Background", szPrices, CvUtil.FONT_CENTER_JUSTIFY, iX + self.BOX_W / 2, self.BOX_Y + self.BOX_H / 12, 0, FontTypes.GAME_FONT, WidgetTypes.WIDGET_MOVE_CARGO_TO_TRANSPORT, iYield, -1)
 			screen.setLabel("AfricaPrices" + str(iYield), "Background", szPrices, CvUtil.FONT_CENTER_JUSTIFY, iX + self.BOX_W / 2, iY + self.BOX_H / 12, 0, FontTypes.GAME_FONT, WidgetTypes.WIDGET_MOVE_CARGO_TO_TRANSPORT_AFRICA, iYield, -1)
+			screen.setLabel("AfricaStockShadow" + str(iYield), "Background", szStockShadow, CvUtil.FONT_CENTER_JUSTIFY, iX + self.BOX_W / 2 - 1, iY + self.BOX_H * 9/ 12 - 1, 0, FontTypes.GAME_FONT, WidgetTypes.WIDGET_MOVE_CARGO_TO_TRANSPORT, iYield, -1)
+			screen.setLabel("AfricaStock" + str(iYield), "Background", szStock, CvUtil.FONT_CENTER_JUSTIFY, iX + self.BOX_W / 2, iY + self.BOX_H * 9 / 12, 0, FontTypes.GAME_FONT, WidgetTypes.WIDGET_MOVE_CARGO_TO_TRANSPORT, iYield, -1)
 			screen.moveBackward("AfricaPrices" + str(iYield))
 	
 			iX += self.BOX_W
@@ -716,7 +737,10 @@ class CvAfricaScreen:
 
 				elif (inputClass.getData1() == self.SAIL_TO_NEW_WORLD) :
 					self.sailToNewWorld(inputClass.getData2())
-					
+				
+				elif (inputClass.getData1() == self.SAIL_TO_EUROPE) :
+					self.sailToEurope(inputClass.getData2())
+						
 				elif (inputClass.getData1() == self.SAIL_EAST) :
 					self.sailToEastOrWest(inputClass.getData2(), self.pPlotEast)
 					
@@ -746,8 +770,17 @@ class CvAfricaScreen:
 								CyMessageControl().sendDoCommand(inputClass.getData2(), CommandTypes.COMMAND_SAIL_TO_AFRICA, UnitTravelStates.UNIT_TRAVEL_STATE_FROM_AFRICA, -1, false)
 								self.AfricaUnitsList.remove(inputClass.getData2())
 								self.setSound(UNIT_SOUND_ORDER)
+				elif (inputClass.getData1() == self.SAIL_EU_EXEC) :
+					transport = player.getUnit(inputClass.getData2())
+					#index = self.getCityByTableRow(inputClass.getID())
+					if (inputClass.getFunctionName() == "DialogTable") :
+						if (not transport.isNone()) and transport.getUnitTravelState() != UnitTravelStates.UNIT_TRAVEL_STATE_FROM_AFRICA_TO_EUROPE:
+							CyMessageControl().sendApplyEvent(CvUtil.EventDoEuropeScreen, EventContextTypes.EVENTCONTEXT_ALL, (SEND_TO_NEW_WORLD, iUnit, -1, -1, -1, -1, -1, -1, -1))			
+							CyMessageControl().sendDoCommand(inputClass.getData2(), CommandTypes.COMMAND_SAIL_TO_AFRICA, UnitTravelStates.UNIT_TRAVEL_STATE_FROM_AFRICA, -1, false)
+							self.AfricaUnitsList.remove(inputClass.getData2())
+							self.setSound(UNIT_SOUND_ORDER)
 
-					self.hideDialogBox(index)
+					self.hideDialogBox(-1)
 				
 				elif (inputClass.getData1() == self.CLOSE_DIALOG) :
 					self.hideDialogBox(-1)
@@ -904,6 +937,8 @@ class CvAfricaScreen:
 		if eWidgetType == WidgetTypes.WIDGET_GENERAL:
 			if iData1 == self.SAIL_TO_NEW_WORLD:
 				return localText.getText("TXT_KEY_SAIL", ())
+			elif iData1 ==self.SAIL_TO_EUROPE: 						#PTSD
+				return localText.getText("TXT_KEY_SAIL_TO_EUROPE", ())
 			elif iData1 == self.SELL_ALL:
 				return localText.getText("TXT_KEY_SELL_ALL", ())
 			elif iData1 == self.LOAD_ALL:
@@ -1010,6 +1045,13 @@ class CvAfricaScreen:
 			screen.setTableText("DialogTable", 2, iI, self.getTradeRouteIcon(pCity, pTransport), "", WidgetTypes.WIDGET_GENERAL, -1, -1, CvUtil.FONT_CENTER_JUSTIFY)
 			screen.setImageButtonAt("DialogTable" + str(iI), "DialogTable", "", 0, iI * 32, self.DIALOG_TABLE_W, 32, WidgetTypes.WIDGET_GENERAL, self.SAIL_EXEC, iUnit)
 			iI += 1
+	#PTSD
+		screen.appendTableRow("DialogTable")
+		screen.setTableRowHeight("DialogTable", iI, 32)
+		screen.setTableText("DialogTable", 0, iI, u"%d" % iI, "", WidgetTypes.WIDGET_GENERAL, -1, -1, CvUtil.FONT_CENTER_JUSTIFY)
+		screen.setTableText("DialogTable", 1, iI, localText.getText("TXT_KEY_SAIL_TO_EUROPE", ()), "", WidgetTypes.WIDGET_GENERAL, -1, -1, CvUtil.FONT_RIGHT_JUSTIFY)
+		#screen.setTableText("DialogTable", 2, iI, self.getTradeRouteIcon(pCity, pTransport), "", WidgetTypes.WIDGET_GENERAL, -1, -1, CvUtil.FONT_CENTER_JUSTIFY)
+		screen.setImageButtonAt("DialogTable" + str(iI), "DialogTable", "", 0, iI * 32, self.DIALOG_TABLE_W, 32, WidgetTypes.WIDGET_GENERAL, self.SAIL_EU_EXEC, iUnit)
 		
 		
 	def sailToEastOrWest(self, iUnit, pPlot):
@@ -1018,7 +1060,13 @@ class CvAfricaScreen:
 		self.AfricaUnitsList.remove(iUnit)
 		self.setSound(UNIT_SOUND_ORDER)
 		self.hideDialogBox(-1)
-		
+	#PTSD
+	def sailToEurope(self, iUnit):
+		CyMessageControl().sendApplyEvent(CvUtil.EventDoEuropeScreen, EventContextTypes.EVENTCONTEXT_ALL, (SEND_TO_EUROPE, iUnit, -1, -1, -1, -1, -1, -1, -1))			
+		CyMessageControl().sendDoCommand(iUnit, CommandTypes.COMMAND_SAIL_TO_EUROPE, UnitTravelStates.UNIT_TRAVEL_STATE_TO_EUROPE, -1, false)
+		self.AfricaUnitsList.remove(iUnit)
+		self.setSound(UNIT_SOUND_ORDER)
+		self.hideDialogBox(-1)	
 	
 	def sellShip(self, iUnit):
 		screen = self.getScreen()

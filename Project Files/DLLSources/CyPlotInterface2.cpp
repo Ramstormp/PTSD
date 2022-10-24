@@ -19,7 +19,6 @@ void CyPlotPythonInterface2(python::class_<CyPlot>& x)
 		.def("setWOfRiver", &CyPlot::setWOfRiver, "void (bool bNewValue, CardinalDirectionTypes eRiverDir)")
 		.def("getRiverWEDirection", &CyPlot::getRiverWEDirection, "CardinalDirectionTypes ()")
 		.def("getRiverNSDirection", &CyPlot::getRiverNSDirection, "CardinalDirectionTypes ()")
-		.def("isLargeRiver", &CyPlot::isLargeRiver, "bool ()") // Ramstormp, PTSD
 		.def("isPotentialCityWork", &CyPlot::isPotentialCityWork, "bool ()")
 		.def("isPotentialCityWorkForArea", &CyPlot::isPotentialCityWorkForArea, "bool (CyArea* pArea)")
 		.def("isFlagDirty", &CyPlot::isFlagDirty, "bool ()")

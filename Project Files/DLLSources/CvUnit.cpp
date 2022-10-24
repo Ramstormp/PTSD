@@ -574,48 +574,51 @@ void CvUnit::kill(bool bDelay, CvUnit* pAttacker)
 			{
 				eCaptureProfession = GC.getUnitInfo(eCaptureUnitType).getDefaultProfession();
 			}
-			CvUnit* pkCapturedUnit = GET_PLAYER(eCapturingPlayer).initUnit(eCaptureUnitType, eCaptureProfession, pPlot->getX_INLINE(), pPlot->getY_INLINE(), NO_UNITAI, NO_DIRECTION, iYieldStored);
-
-			if (pkCapturedUnit != NULL)
+			// WTP, ray fixing Unit duplication bug
+			if (eCaptureProfession == NO_PROFESSION || (eCaptureProfession != NO_PROFESSION && GC.getProfessionInfo(eCaptureProfession).getCombatChange() == 0))
 			{
-				bool bAlive = true;
-				if (pAttacker != NULL && pAttacker->getUnitInfo().isCapturesCargo())
+				CvUnit* pkCapturedUnit = GET_PLAYER(eCapturingPlayer).initUnit(eCaptureUnitType, eCaptureProfession, pPlot->getX_INLINE(), pPlot->getY_INLINE(), NO_UNITAI, NO_DIRECTION, iYieldStored);
+				if (pkCapturedUnit != NULL)
 				{
-					pkCapturedUnit->setXY(pAttacker->getX_INLINE(), pAttacker->getY_INLINE());
-					if(pkCapturedUnit->getTransportUnit() == NULL) //failed to load
+					bool bAlive = true;
+					if (pAttacker != NULL && pAttacker->getUnitInfo().isCapturesCargo())
 					{
-						bAlive = false;
-						pkCapturedUnit->kill(false);
-					}
-				}
-
-				if (bAlive)
-				{
-					szBuffer = gDLL->getText("TXT_KEY_MISC_YOU_CAPTURED_UNIT", GC.getUnitInfo(eCaptureUnitType).getTextKeyWide());
-					gDLL->getInterfaceIFace()->addMessage(eCapturingPlayer, false, GC.getEVENT_MESSAGE_TIME(), szBuffer, "AS2D_UNITCAPTURE", MESSAGE_TYPE_INFO, pkCapturedUnit->getButton(), (ColorTypes)GC.getInfoTypeForString("COLOR_GREEN"), pPlot->getX_INLINE(), pPlot->getY_INLINE());
-
-					if (!pkCapturedUnit->isCargo())
-					{
-						// Add a captured mission
-						CvMissionDefinition kMission;
-						kMission.setMissionTime(GC.getMissionInfo(MISSION_CAPTURED).getTime() * gDLL->getSecsPerTurn());
-						kMission.setUnit(BATTLE_UNIT_ATTACKER, pkCapturedUnit);
-						kMission.setUnit(BATTLE_UNIT_DEFENDER, NULL);
-						kMission.setPlot(pPlot);
-						kMission.setMissionType(MISSION_CAPTURED);
-						gDLL->getEntityIFace()->AddMission(&kMission);
-					}
-
-					pkCapturedUnit->finishMoves();
-
-					if (!GET_PLAYER(eCapturingPlayer).isHuman())
-					{
-						CvPlot* pPlot = pkCapturedUnit->plot();
-						if (pPlot && !pPlot->isCity(false))
+						pkCapturedUnit->setXY(pAttacker->getX_INLINE(), pAttacker->getY_INLINE());
+						if(pkCapturedUnit->getTransportUnit() == NULL) //failed to load
 						{
-							if (GET_PLAYER(eCapturingPlayer).AI_getPlotDanger(pPlot) && GC.getDefineINT("AI_CAN_DISBAND_UNITS"))
+							bAlive = false;
+							pkCapturedUnit->kill(false);
+						}
+					}
+
+					if (bAlive)
+					{
+						szBuffer = gDLL->getText("TXT_KEY_MISC_YOU_CAPTURED_UNIT", GC.getUnitInfo(eCaptureUnitType).getTextKeyWide());
+						gDLL->getInterfaceIFace()->addMessage(eCapturingPlayer, false, GC.getEVENT_MESSAGE_TIME(), szBuffer, "AS2D_UNITCAPTURE", MESSAGE_TYPE_INFO, pkCapturedUnit->getButton(), (ColorTypes)GC.getInfoTypeForString("COLOR_GREEN"), pPlot->getX_INLINE(), pPlot->getY_INLINE());
+
+						if (!pkCapturedUnit->isCargo())
+						{
+							// Add a captured mission
+							CvMissionDefinition kMission;
+							kMission.setMissionTime(GC.getMissionInfo(MISSION_CAPTURED).getTime() * gDLL->getSecsPerTurn());
+							kMission.setUnit(BATTLE_UNIT_ATTACKER, pkCapturedUnit);
+							kMission.setUnit(BATTLE_UNIT_DEFENDER, NULL);
+							kMission.setPlot(pPlot);
+							kMission.setMissionType(MISSION_CAPTURED);
+							gDLL->getEntityIFace()->AddMission(&kMission);
+						}
+
+						pkCapturedUnit->finishMoves();
+
+						if (!GET_PLAYER(eCapturingPlayer).isHuman())
+						{
+							CvPlot* pPlot = pkCapturedUnit->plot();
+							if (pPlot && !pPlot->isCity(false))
 							{
-								pkCapturedUnit->kill(false);
+								if (GET_PLAYER(eCapturingPlayer).AI_getPlotDanger(pPlot) && GC.getDefineINT("AI_CAN_DISBAND_UNITS"))
+								{
+									pkCapturedUnit->kill(false);
+								}
 							}
 						}
 					}
@@ -1259,6 +1262,7 @@ void CvUnit::updateCombat(bool bQuick)
 		NotifyEntity(MISSION_DAMAGE);
 		pDefender->NotifyEntity(MISSION_DAMAGE);
 
+		// case: Attacker died, defender won
 		if (isDead())
 		{
 			// PatchMod: Achievements START
@@ -1310,6 +1314,14 @@ void CvUnit::updateCombat(bool bQuick)
 			szBuffer = gDLL->getText("TXT_KEY_MISC_YOU_KILLED_ENEMY_UNIT", pDefender->getNameOrProfessionKey(), getNameOrProfessionKey(), getVisualCivAdjective(pDefender->getTeam()));
 			gDLL->getInterfaceIFace()->addMessage(pDefender->getOwnerINLINE(), true, GC.getEVENT_MESSAGE_TIME(), szBuffer, GC.getEraInfo(GC.getGameINLINE().getCurrentEra()).getAudioUnitVictoryScript(), MESSAGE_TYPE_INFO, NULL, (ColorTypes)GC.getInfoTypeForString("COLOR_GREEN"), pPlot->getX_INLINE(), pPlot->getY_INLINE());
 
+			// WTP, ray, fix for Human Unit not stopping automation after attacked - START
+			// in this case the defender is alive and has won the battle
+			if (pDefender->isHuman() && pDefender->isAutomated())
+			{
+				pDefender->getGroup()->setAutomateType(NO_AUTOMATE);
+			}
+			// WTP, ray, fix for not stopping automation after attacked - END
+
 			// report event to Python, along with some other key state
 			gDLL->getEventReporterIFace()->combatResult(pDefender, this);
 
@@ -1324,14 +1336,17 @@ void CvUnit::updateCombat(bool bQuick)
 			}
 			// TAC - AI purchases military units - koma13 - END
 		}
+
+		// case: Attacker won, defender died
 		else if (pDefender->isDead())
 		{
 			// TAC Capturing Ships - ray
 			bool displayCapturedShipMessage = false;
 			int capturingShipChance = GC.getBASE_CHANCE_CAPTURING_SHIPS();
 			int randomShipCaptureValue = GC.getGameINLINE().getSorenRandNum(1000, "Capture Ships");
-					
-			if (m_pUnitInfo->isCapturesShips() && !(pDefender->getUnitInfo()).isAnimal())
+			
+			// ray, fix for bNoCapture being ingored 
+			if (m_pUnitInfo->isCapturesShips() && !pDefender->getUnitInfo().isAnimal() && !pDefender->getUnitInfo().isNoCapture())
 			{
 				if (capturingShipChance > randomShipCaptureValue)
 				{
@@ -1446,11 +1461,16 @@ void CvUnit::updateCombat(bool bQuick)
 			//WTP, ray, Large Rivers - START
 			// allowing Cargo Ships on Large Rivers to be caugth as well
 			// if (((pDefender->cargoSpace() > 0 && (pDefender->getDomainType() == DOMAIN_LAND)) || pDefender->getUnitInfo().isTreasure() || (pDefender->isUnarmed() && pDefender->getProfession() != NO_PROFESSION && GC.getProfessionInfo(pDefender->getProfession()).getCombatChange() > 0)) && !GET_PLAYER(getOwnerINLINE()).isNative() && !GC.getGameINLINE().isBarbarianPlayer(getOwnerINLINE())) 
-			if ((pDefender->cargoSpace() > 0 && (pDefender->getDomainType() == DOMAIN_LAND || (pDefender->getDomainType() == DOMAIN_SEA && pPlot->getTerrainType() == TERRAIN_LARGE_RIVERS)) || pDefender->getUnitInfo().isTreasure() || (pDefender->isUnarmed() && pDefender->getProfession() != NO_PROFESSION && GC.getProfessionInfo(pDefender->getProfession()).getCombatChange() > 0)) && !GET_PLAYER(getOwnerINLINE()).isNative() && !GC.getGameINLINE().isBarbarianPlayer(getOwnerINLINE())) 
+			// ray, fix for bNoCapture being ingored 
+			// we do not capture Units anymore that are flagged as bNoCapture
+			if (!pDefender->getUnitInfo().isNoCapture())
 			{
-				CvUnit* pkCapturedUnitAfterFight = GET_PLAYER(getOwnerINLINE()).initUnit(pDefender->getUnitType(), pDefender->getProfession(), pPlot->getX_INLINE(), pPlot->getY_INLINE(), NO_UNITAI, NO_DIRECTION, pDefender->getYieldStored());
-				pkCapturedUnitAfterFight->setDamage(GC.getMAX_HIT_POINTS() / 2);	
-				szBuffer = gDLL->getText("TXT_KEY_UNIT_CAPTURED_AFTER_FIGHT", pDefender->getUnitInfo().getDescription());				
+				if (((pDefender->cargoSpace() > 0 && (pDefender->getDomainType() == DOMAIN_LAND || (pDefender->getDomainType() == DOMAIN_SEA && pPlot->getTerrainType() == TERRAIN_LARGE_RIVERS))) || pDefender->getUnitInfo().isTreasure() || (pDefender->isUnarmed() && pDefender->getProfession() != NO_PROFESSION && GC.getProfessionInfo(pDefender->getProfession()).getCombatChange() > 0)) && !GET_PLAYER(getOwnerINLINE()).isNative() && !GC.getGameINLINE().isBarbarianPlayer(getOwnerINLINE())) 
+				{
+					CvUnit* pkCapturedUnitAfterFight = GET_PLAYER(getOwnerINLINE()).initUnit(pDefender->getUnitType(), pDefender->getProfession(), pPlot->getX_INLINE(), pPlot->getY_INLINE(), NO_UNITAI, NO_DIRECTION, pDefender->getYieldStored());
+					pkCapturedUnitAfterFight->setDamage(GC.getMAX_HIT_POINTS() / 2);	
+					szBuffer = gDLL->getText("TXT_KEY_UNIT_CAPTURED_AFTER_FIGHT", pDefender->getUnitInfo().getDescription());				
+				}
 			}
 			//Ende ray14
 
@@ -1590,6 +1610,8 @@ void CvUnit::updateCombat(bool bQuick)
 			// to the square that they came from, before advancing.
 			getGroup()->clearMissionQueue();
 		}
+
+		// case: Attacker won, defender escaped
 		else if (bDefenderEscaped)
 		{
 			// PatchMod: Achievements START
@@ -1614,6 +1636,14 @@ void CvUnit::updateCombat(bool bQuick)
 				szBuffer = gDLL->getText("TXT_KEY_MISC_ENEMY_UNIT_ESCAPED", pDefender->getNameOrProfessionKey(), getNameOrProfessionKey(), pCity->getNameKey());
 				gDLL->getInterfaceIFace()->addMessage(pDefender->getOwnerINLINE(), true, GC.getEVENT_MESSAGE_TIME(), szBuffer, "AS2D_OUR_WITHDRAWL", MESSAGE_TYPE_INFO, NULL, (ColorTypes)GC.getInfoTypeForString("COLOR_GREEN"), pCity->getX_INLINE(), pCity->getY_INLINE());
 			}
+
+			// WTP, ray, fix for Human Unit not stopping automation after attacked - START
+			// in this case the defender is alive and lost but escaped
+			if (pDefender->isHuman() && pDefender->isAutomated())
+			{
+				pDefender->getGroup()->setAutomateType(NO_AUTOMATE);
+			}
+			// WTP, ray, fix for not stopping automation after attacked - END
 
 			bool bAdvance = canAdvance(pPlot, 0);
 			if (!bAdvance)
@@ -1658,6 +1688,8 @@ void CvUnit::updateCombat(bool bQuick)
 
 			getGroup()->clearMissionQueue();
 		}
+
+		// case: Attacker lost but escaped
 		else if (bAttackerEscaped)
 		{
 			// PatchMod: Achievements START
@@ -1690,6 +1722,14 @@ void CvUnit::updateCombat(bool bQuick)
 			szBuffer = gDLL->getText("TXT_KEY_MISC_YOU_UNIT_ESCAPED", pDefender->getNameOrProfessionKey(), getNameOrProfessionKey());
 			gDLL->getInterfaceIFace()->addMessage(pDefender->getOwnerINLINE(), true, GC.getEVENT_MESSAGE_TIME(), szBuffer, "AS2D_THEIR_WITHDRAWL", MESSAGE_TYPE_INFO, NULL, (ColorTypes)GC.getInfoTypeForString("COLOR_WHITE"), pPlot->getX_INLINE(), pPlot->getY_INLINE());
 
+			// WTP, ray, fix for Human Unit not stopping automation after attacked - START
+			// in this case the defender is alive and had won the battle
+			if (pDefender->isHuman() && pDefender->isAutomated())
+			{
+				pDefender->getGroup()->setAutomateType(NO_AUTOMATE);
+			}
+			// WTP, ray, fix for not stopping automation after attacked - END
+
 			if (IsSelected())
 			{
 				if (gDLL->getInterfaceIFace()->getLengthSelectionList() > 1)
@@ -1703,12 +1743,22 @@ void CvUnit::updateCombat(bool bQuick)
 			// to the square that they came from, before advancing.
 			getGroup()->clearMissionQueue();
 		}
+
+		// case: draw, but sides withdraw
 		else
 		{
 			szBuffer = gDLL->getText("TXT_KEY_MISC_YOU_UNIT_WITHDRAW", getNameOrProfessionKey(), pDefender->getNameOrProfessionKey());
 			gDLL->getInterfaceIFace()->addMessage(getOwnerINLINE(), true, GC.getEVENT_MESSAGE_TIME(), szBuffer, "AS2D_OUR_WITHDRAWL", MESSAGE_TYPE_INFO, NULL, (ColorTypes)GC.getInfoTypeForString("COLOR_GREEN"), pPlot->getX_INLINE(), pPlot->getY_INLINE());
 			szBuffer = gDLL->getText("TXT_KEY_MISC_ENEMY_UNIT_WITHDRAW", getNameOrProfessionKey(), pDefender->getNameOrProfessionKey());
 			gDLL->getInterfaceIFace()->addMessage(pDefender->getOwnerINLINE(), true, GC.getEVENT_MESSAGE_TIME(), szBuffer, "AS2D_THEIR_WITHDRAWL", MESSAGE_TYPE_INFO, NULL, (ColorTypes)GC.getInfoTypeForString("COLOR_RED"), pPlot->getX_INLINE(), pPlot->getY_INLINE());
+
+			// WTP, ray, fix for Human Unit not stopping automation after attacked - START
+			// in this case we are sure that defender is alive since both are alive
+			if (pDefender->isHuman() && pDefender->isAutomated())
+			{
+				pDefender->getGroup()->setAutomateType(NO_AUTOMATE);
+			}
+			// WTP, ray, fix for not stopping automation after attacked - END
 
 			changeMoves(std::max(GC.getMOVE_DENOMINATOR(), pPlot->movementCost(this, plot())));
 
@@ -2486,7 +2536,7 @@ void CvUnit::doCommand(CommandTypes eCommand, int iData1, int iData2)
 			break;
 		/*** TRIANGLETRADE 10/25/08 by DPII ***/
 		case COMMAND_SAIL_TO_AFRICA:
-			sailToAfrica();
+			sailToAfrica((UnitTravelStates)iData1); // Ramstormp, PTSD, added args
 		// R&R, ray, Port Royal
 		case COMMAND_SAIL_TO_PORT_ROYAL:
 			sailToPortRoyal();
@@ -3218,7 +3268,6 @@ void CvUnit::move(CvPlot* pPlot, bool bShow)
 				{
 					//changeDamage(GC.getFeatureInfo(eFeature).getTurnDamage(), NO_PLAYER); Version Beyond The Sword
 					changeDamage(iPotentialDamage, NULL);
-				
 				}
 				// R&R, bugfix: we never destroy a unit from feature damage, ray, END 
 				// Ramstormp - END
@@ -4347,7 +4396,7 @@ bool CvUnit::canCrossOcean(const CvPlot* pPlot, UnitTravelStates eNewState) cons
 		}
 		break;
 	case UNIT_TRAVEL_STATE_IN_AFRICA: // R&R, ray, adjustments for Africa
-		if (eNewState != UNIT_TRAVEL_STATE_FROM_AFRICA)
+		if (eNewState != UNIT_TRAVEL_STATE_FROM_AFRICA && eNewState != UNIT_TRAVEL_STATE_FROM_AFRICA_TO_EUROPE && eNewState != UNIT_TRAVEL_STATE_TO_EUROPE) // Ramstormp, PTSD, Give me a backward Triangle
 		{
 			return false;
 		}
@@ -4381,10 +4430,10 @@ void CvUnit::crossOcean(UnitTravelStates eNewState)
 	}
 
 	int iTravelTime = GC.getEuropeInfo(plot()->getEurope()).getTripLength();
-	// Ramstormp, PTSD, No varying of trip length based on speed - START
+
 	iTravelTime *= GC.getGameSpeedInfo(GC.getGameINLINE().getGameSpeedType()).getGrowthPercent();
 	iTravelTime /= 100;
-	// Ramstormp - END
+
 	for (int iTrait = 0; iTrait < GC.getNumTraitInfos(); ++iTrait)
 	{
 		TraitTypes eTrait = (TraitTypes) iTrait;
@@ -4442,6 +4491,7 @@ bool CvUnit::canSailToAfrica(const CvPlot* pPlot, UnitTravelStates eNewState) co
 		return true;
 		break;
 	case UNIT_TRAVEL_STATE_FROM_AFRICA:
+	case UNIT_TRAVEL_STATE_FROM_AFRICA_TO_EUROPE: //Ramstormp, PTSD, Give me a backward triangle
 	case UNIT_TRAVEL_STATE_FROM_PORT_ROYAL:
 	case UNIT_TRAVEL_STATE_TO_EUROPE:
 	case UNIT_TRAVEL_STATE_TO_AFRICA:
@@ -4498,7 +4548,12 @@ void CvUnit::sailToAfrica(UnitTravelStates eNewState)
 			break;
 		}
 	}
-
+	// Ramstormp, PTSD, Give me a backward triangle - start
+	else if (eNewState == UNIT_TRAVEL_STATE_FROM_AFRICA_TO_EUROPE)
+	{
+		eNewState == UNIT_TRAVEL_STATE_IN_EUROPE;
+	}
+	// Ramstormp - end
 	setUnitTravelState(eNewState, false);
 	if (iTravelTime > 0)
 	{
@@ -4600,7 +4655,7 @@ void CvUnit::sailToPortRoyal(UnitTravelStates eNewState)
 	// Ramstormp, PTSD, No varying of trip length based on speed - START
 	iTravelTime *= GC.getGameSpeedInfo(GC.getGameINLINE().getGameSpeedType()).getGrowthPercent();
 	iTravelTime /= 100;
-	// Ramstormp - END
+
 	for (int iTrait = 0; iTrait < GC.getNumTraitInfos(); ++iTrait)
 	{
 		TraitTypes eTrait = (TraitTypes) iTrait;
@@ -6928,7 +6983,7 @@ bool CvUnit::canJoinCity(const CvPlot* pPlot, bool bTestVisible, bool bIgnoreFoo
 
 	if (!bTestVisible)
 	{
-		if (!isHuman() && pCity->getRawYieldProduced(YIELD_FOOD) < pCity->getPopulation() * GC.getFOOD_CONSUMPTION_PER_POPULATION()) // Ramstormp, PTSD, why is it necessary?
+		if (pCity->getRawYieldProduced(YIELD_FOOD) < pCity->getPopulation() * GC.getFOOD_CONSUMPTION_PER_POPULATION())
 		{
 			// TAC - Clear Specialty Fix - koma13 - START
 			//if (!canJoinStarvingCity(*pCity))
@@ -6949,11 +7004,7 @@ bool CvUnit::canJoinCity(const CvPlot* pPlot, bool bTestVisible, bool bIgnoreFoo
 		}
 		else
 		{
-			if (!isHuman() && hasMoved())
-			{
-				return false;
-			}
-			else if (movesLeft() == 0)
+			if (hasMoved())
 			{
 				return false;
 			}
@@ -8064,41 +8115,6 @@ BuildTypes CvUnit::getBuildType() const
 		{
 		case MISSION_MOVE_TO:
 			break;
-			// Ramstormp, Route To variety - START
-			/*
-		case MISSION_ROUTE_TO_ROAD:
-		{
-			BuildTypes eBuild;
-			if (pGroup->getBestBuildRoute(plot(), &eBuild) != NO_ROUTE)
-			{
-				if (plot()->getRouteType() == NO_ROUTE)
-				{
-					eBuild = (BuildTypes)GC.getDefineINT("BUILD_ROAD");
-					return eBuild;
-				}
-			}
-		}
-		break;
-		case MISSION_ROUTE_TO_PLASTERED_ROAD:
-		{
-			BuildTypes eBuild;
-			if (pGroup->getBestBuildRoute(plot(), &eBuild) != NO_ROUTE)
-			{
-				if (plot()->getRouteType() == NO_ROUTE)
-				{
-					eBuild = (BuildTypes)GC.getDefineINT("BUILD_ROAD");
-					return eBuild;
-				}
-				else if (GC.getRouteInfo(plot()->getRouteType()).getValue() < GC.getDefineINT("ROUTE_PLASTERED_ROAD_VALUE"))
-				{
-					eBuild = (BuildTypes)GC.getDefineINT("BUILD_PLASTERED_ROAD");
-					return eBuild;
-				}
-			}
-		}
-		break;
-		*/
-		// Ramstormp - END
 
 		case MISSION_ROUTE_TO:
 			{
@@ -13769,8 +13785,12 @@ void CvUnit::setUnitTravelState(UnitTravelStates eState, bool bShowEuropeScreen)
 		{
 			if (!isHuman())
 			{
-				// Erik: Unconditionally separate all units (all units will be re-assigned to a group with the unit as its single member)
-				getGroup()->AI_separate();
+				// Do not split if the unit is in a port. This prevents the bug where a massive REF in Europe runs out of group ids while joining separate groups!
+				if (!(eState == UNIT_TRAVEL_STATE_IN_EUROPE || eState == UNIT_TRAVEL_STATE_IN_AFRICA || eState == UNIT_TRAVEL_STATE_IN_PORT_ROYAL))
+				{ 
+					// Erik: Unconditionally separate all units (all units will be re-assigned to a group with the unit as its single member)
+					getGroup()->AI_separate();
+				}
 			}
 			else
 			{
@@ -14050,6 +14070,11 @@ void CvUnit::doUnitTravelTimer()
 			case UNIT_TRAVEL_STATE_FROM_AFRICA:
 				setUnitTravelState(NO_UNIT_TRAVEL_STATE, false);
 				break;
+			// Ramstormp, PTSD, Give me a backward triangle - start
+			case UNIT_TRAVEL_STATE_FROM_AFRICA_TO_EUROPE:
+				setUnitTravelState(UNIT_TRAVEL_STATE_TO_EUROPE, false);
+				break;
+			// Ramstormp - end
 			case UNIT_TRAVEL_STATE_TO_AFRICA:
 				setUnitTravelState(UNIT_TRAVEL_STATE_IN_AFRICA, true);
 				break;

@@ -799,7 +799,6 @@ enum FontSymbols
 	UNHAPPY_CHAR,
 	HEALTHY_CHAR,
 	UNHEALTHY_CHAR,
-	//HEARTS_CHAR, // Ramstormp, PTSD, growth from food consumption
 	BULLET_CHAR,
 	STRENGTH_CHAR,
 	MOVES_CHAR,
@@ -1442,7 +1441,6 @@ enum ControlTypes
 extern HurryTypes HURRY_GOLD;
 extern HurryTypes HURRY_IMMIGRANT;
 extern SpecialUnitTypes SPECIALUNIT_COLONIST_UNIT;
-
 #endif
 
 enum WarPlanTypes
@@ -2588,6 +2586,7 @@ enum UnitTravelStates
 	UNIT_TRAVEL_STATE_TO_AFRICA,
 	UNIT_TRAVEL_STATE_IN_AFRICA,
 	UNIT_TRAVEL_STATE_FROM_AFRICA,
+	UNIT_TRAVEL_STATE_FROM_AFRICA_TO_EUROPE, // Ramstormp, PTSD, Give Me a Backwards Triangle
 	// R&R, ray, Port Royal
 	UNIT_TRAVEL_STATE_TO_PORT_ROYAL,
 	UNIT_TRAVEL_STATE_IN_PORT_ROYAL,

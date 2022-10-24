@@ -396,12 +396,11 @@ public:
 	int getCivEffectCount(CivEffectTypes eCivEffect) const;
 
 	unsigned int getNumUnitsOnDock() const;
-	
+
 	std::string getScriptData() const;
 	void setScriptData(std::string szNewValue);
 	int AI_maxGoldTrade(int iPlayer);
 	void forcePeace(int iPlayer);
-
 private:
 	CvPlayer* m_pPlayer;
 	// R&R mod, vetiarvind, trade groups - start

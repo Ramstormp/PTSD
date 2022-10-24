@@ -33506,7 +33506,7 @@
             <LeaderPromotion>NONE</LeaderPromotion>
             <iLeaderExperience>0</iLeaderExperience>
         </UnitInfo>
-        <UnitInfo>
+    <UnitInfo>
             <Type>UNIT_OXCART</Type>
             <Class>UNITCLASS_OXCART</Class>
             <UniqueNames/>
@@ -44784,11 +44784,11 @@
             <Type>UNIT_TREASURE</Type>
             <Class>UNITCLASS_TREASURE</Class>
             <UniqueNames/>
-            <Special>SPECIALUNIT_YIELD_CARGO</Special>
+            <Special>NONE</Special>
             <Capture>UNITCLASS_TREASURE</Capture>
             <Combat>NONE</Combat>
             <Domain>DOMAIN_LAND</Domain>
-            <DefaultUnitAI>UNITAI_YIELD</DefaultUnitAI>
+            <DefaultUnitAI>UNITAI_TREASURE</DefaultUnitAI>
             <DefaultProfession>NONE</DefaultProfession>
             <Invisible>NONE</Invisible>
             <SeeInvisible>NONE</SeeInvisible>
@@ -44825,7 +44825,7 @@
             <UnitClassUpgrades/>
             <UnitAIs>
                 <UnitAI>
-                    <UnitAIType>UNITAI_YIELD</UnitAIType>
+                    <UnitAIType>UNITAI_TREASURE</UnitAIType>
                     <bUnitAI>1</bUnitAI>
                 </UnitAI>
             </UnitAIs>
@@ -44844,7 +44844,7 @@
             <iImmigrationWeight>0</iImmigrationWeight>
             <iImmigrationWeightDecay>0</iImmigrationWeightDecay>
             <iMinAreaSize>-1</iMinAreaSize>
-            <iMoves>0</iMoves>
+            <iMoves>1</iMoves>
             <bCapturesCargo>0</bCapturesCargo>
             <bCapturesShips>0</bCapturesShips>
             <iWorkRate>0</iWorkRate>
@@ -44856,7 +44856,7 @@
                     <TerrainType>TERRAIN_LARGE_RIVERS</TerrainType>
                     <bTerrainImpassable>1</bTerrainImpassable>
                 </TerrainImpassable>
-			<TerrainImpassable>
+		          	<TerrainImpassable>
                     <TerrainType>TERRAIN_LAKE</TerrainType>
                     <bTerrainImpassable>1</bTerrainImpassable>
                 </TerrainImpassable>
@@ -44889,8 +44889,8 @@
             <SpecialCargo>NONE</SpecialCargo>
             <DomainCargo>NONE</DomainCargo>
             <iCargo>0</iCargo>
-            <iRequiredTransportSize>2</iRequiredTransportSize>
-            <iBerthSize>2</iBerthSize>
+            <iRequiredTransportSize>6</iRequiredTransportSize>
+            <iBerthSize>3</iBerthSize>
             <iAsset>50</iAsset>
             <iPower>0</iPower>
             <iNativeLearnTime>-1</iNativeLearnTime>
@@ -44918,8 +44918,8 @@
             <FreePromotions/>
             <LeaderPromotion>NONE</LeaderPromotion>
             <iLeaderExperience>0</iLeaderExperience>
-        </UnitInfo>
-        <UnitInfo>
+          </UnitInfo>
+          <UnitInfo>
             <Type>UNIT_HUMPBACK_WHALE</Type>
             <Class>UNITCLASS_HUMPBACK_WHALE</Class>
             <UniqueNames/>

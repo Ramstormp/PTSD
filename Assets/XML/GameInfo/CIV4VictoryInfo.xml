@@ -120,8 +120,8 @@
             <iPopulationPercentLead>0</iPopulationPercentLead>
             <iLandPercent>0</iLandPercent>
             <iMinLandPercent>0</iMinLandPercent>
-            <CityCulture>CULTURELEVEL_LEGENDARY</CityCulture>
-            <iNumCultureCities>2</iNumCultureCities>
+            <CityCulture>NONE</CityCulture>
+            <iNumCultureCities>0</iNumCultureCities>
             <iTotalCultureRatio>0</iTotalCultureRatio>
             <iTotalProductionRate>0</iTotalProductionRate>
             <VictoryMovie/>

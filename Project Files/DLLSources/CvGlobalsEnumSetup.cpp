@@ -20,7 +20,7 @@ CivEffectTypes   CIV_EFFECT_DEFAULT_AI       = NO_CIV_EFFECT;
 HurryTypes       HURRY_GOLD                  = NO_HURRY;
 HurryTypes       HURRY_IMMIGRANT             = NO_HURRY;
 
-SpecialUnitTypes SPECIALUNIT_COLONIST_UNIT = NO_SPECIALUNIT;
+SpecialUnitTypes SPECIALUNIT_COLONIST_UNIT   = NO_SPECIALUNIT;
 #endif
 
 
@@ -85,6 +85,7 @@ void CvGlobals::postXMLLoad(bool bFirst)
 				HURRY_IMMIGRANT = eHurry;
 			}
 		}
+
 		SPECIALUNIT_COLONIST_UNIT = static_cast<SpecialUnitTypes>(getIndexForType(JIT_ARRAY_UNIT_SPECIAL, "SPECIALUNIT_COLONIST_UNIT"));
 
 		int iCounter = 0;

@@ -551,7 +551,10 @@ void CvCity::doTurn()
 	{
 		doExtraCityDefenseAttacks(); // R&R, ray, Extra City Defense Attacks
 		doEntertainmentBuildings(); // R&R, ray, Entertainment Buildings
-		doLbD(); // TAC - LBD - Ray - START
+		if (!isDisorder())
+		{
+			doLbD(); // TAC - LBD - Ray - START
+		}
 		doPrices(); // R&R, Androrc Domestic Market
 		doCityHealth(); // R&R, ray, Health
 		// WTP, ray, Happiness - START
@@ -1216,6 +1219,25 @@ int CvCity::countNumRiverPlots() const
 	return iCount;
 }
 
+
+int CvCity::getNumAvailableWorkSlots() const
+{
+	int cnt = 0;
+
+	for (int i = 0; i < GC.getNumBuildingInfos(); ++i)
+	{
+		const BuildingTypes eBuilding = (BuildingTypes)i;
+
+		if (isHasBuilding(eBuilding))
+		{
+			cnt += getAvailableBuildingSlots(eBuilding, NULL);
+		}
+	}
+
+	return cnt;
+}
+
+
 int CvCity::getNumProfessionBuildingSlots(ProfessionTypes eProfession) const
 {
 	FAssert(!GC.getProfessionInfo(eProfession).isWorkPlot());
@@ -1285,7 +1307,7 @@ bool CvCity::isAvailableProfessionSlot(ProfessionTypes eProfession, const CvUnit
 				if (GC.getBuildingInfo(eBuilding).getSpecialBuildingType() == GC.getProfessionInfo(eProfession).getSpecialBuilding() && isHasBuilding(eBuilding))
 				{
 					bHasBuilding = true;
-					if (!isAvailableBuildingSlot(eBuilding, pUnit))
+					if (getAvailableBuildingSlots(eBuilding, pUnit) == 0)
 					{
 						return false;
 					}
@@ -1304,7 +1326,7 @@ bool CvCity::isAvailableProfessionSlot(ProfessionTypes eProfession, const CvUnit
 
 //Androrc Multiple Professions per Building
 //get the available slots per building, instead of per profession
-bool CvCity::isAvailableBuildingSlot(BuildingTypes eBuilding, const CvUnit* pUnit) const
+int CvCity::getAvailableBuildingSlots(BuildingTypes eBuilding, const CvUnit* pUnit) const
 {
 	int iSlots = 0;
 
@@ -1329,10 +1351,10 @@ bool CvCity::isAvailableBuildingSlot(BuildingTypes eBuilding, const CvUnit* pUni
 	if (iSlots <= 0)
 	{
 		FAssert(iSlots == 0);
-		return false;
+		return 0;
 	}
 
-	return true;
+	return iSlots;
 }
 //Androrc End
 
@@ -3450,7 +3472,7 @@ void CvCity::changePopulation(int iChange)
 long CvCity::getRealPopulation() const
 {
 	//WTP, ray, make real Population balanceable in XML
-	long iRealPopulationMultiplier = (long)GC.getDefineINT("REAL_POPULATION_MULTIPLIER");
+	long iRealPopulationMultiplier = (long) GC.getDefineINT("REAL_POPULATION_MULTIPLIER");
 
 	return (getPopulation() * iRealPopulationMultiplier);
 }
@@ -4185,7 +4207,8 @@ void CvCity::updateCultureLevel()
 
 	CultureLevelTypes eCultureLevel = ((CultureLevelTypes)0);
 
-	//if (!isOccupation()) // R&R mod, vetiarvind, bug fix for units "disappearing" during disorder
+	// WTP, ray, removed bad bugfix try of vetiarvind which actually fixed nothing and caused a new bug
+	if (!isOccupation())
 	{
 		for (int iI = (GC.getNumCultureLevelInfos() - 1); iI > 0; iI--)
 		{
@@ -4863,8 +4886,8 @@ void CvCity::setYieldStored(YieldTypes eYield, int iValue)
 {
 	FAssert(validEnumRange(eYield));
 	FAssert(iValue >= 0 || eYield == YIELD_FOOD);
-
-	if (iValue < 0 && eYield != YIELD_FOOD)
+	// Ramstorm, PTSD, Added hearts and health
+	if (iValue < 0 && eYield != YIELD_FOOD && eYield != YIELD_HEARTS)
 	{
 		// this is such a critical bug that we want people to be alert to it even without having asserts enabled
 		// this is the best chance we have of getting an autosave from the turn before it happened.
@@ -4883,6 +4906,7 @@ void CvCity::setYieldStored(YieldTypes eYield, int iValue)
 			{changeTotalYieldStored(iChange);}
 //VET NewCapacity - end 3/9
 		m_em_iYieldStored.set(eYield, iValue);
+
 		if (!AI_isWorkforceHack())
 		{
 			checkCompletedBuilds(eYield, iChange);
@@ -6022,7 +6046,7 @@ void CvCity::alterUnitWorkingBuilding(BuildingTypes eBuilding, int iUnitId, bool
 		}
 	}
 
-	if (isAvailableBuildingSlot(eBuilding, pUnit))
+	if (getAvailableBuildingSlots(eBuilding, pUnit) > 0)
 	{
 		if (pUnit != NULL)
 		{
@@ -7037,6 +7061,7 @@ const std::vector< std::pair<float, float> >& CvCity::getWallOverridePoints() co
 
 void CvCity::doGrowth()
 {
+	// Ramstormp, PTSD, Growth based on food consumption - start
 	int iFoodDiff;
 	int iHeartsDiff;
 	int iFoodConsumed;
@@ -7054,7 +7079,6 @@ void CvCity::doGrowth()
 			return;
 		}
 	}
-	// Ramstormp, PTSD, Growth based on food consumption - start
 
 	iFoodDiff = foodDifference();
 	iHeartsDiff = heartsDifference();
@@ -7147,7 +7171,7 @@ void CvCity::doGrowth()
 			gDLL->getEventReporterIFace()->cityGrowth(this, getOwnerINLINE());
 		}
 	}
-	else if (getFood() < 0)
+	if (getFood() < 0)
 	{
 		changeFood(-(getFood()));
 
@@ -7165,19 +7189,20 @@ void CvCity::doGrowth()
 		if (isHuman())
 		{
 			uint iDyingLot = GC.getGameINLINE().getSorenRandNum((aPopulationUnits.size() + 2), "Choose starving soul");
-			CvUnit* pTargetUnit = aPopulationUnits[iDyingLot];
-		}
-		if (iDyingLot < aPopulationUnits.size() && pTargetUnit != NULL && isHuman())
-		{
-			CvWString szString = gDLL->getText("TXT_KEY_STARVED_TO_DEATH", GC.getCivilizationInfo(getCivilizationType()).getAdjectiveKey(), getNameKey(), GC.getUnitInfo(pTargetUnit->getUnitType()).getTextKeyWide());
-			gDLL->getInterfaceIFace()->addMessage(getOwnerINLINE(), true, GC.getEVENT_MESSAGE_TIME(), szString, GC.getEraInfo(GC.getGameINLINE().getCurrentEra()).getAudioUnitDefeatScript(), MESSAGE_TYPE_MINOR_EVENT, pTargetUnit->getButton(), (ColorTypes)GC.getInfoTypeForString("COLOR_RED"), getX_INLINE(), getY_INLINE(), true, true);
+			pTargetUnit = aPopulationUnits[iDyingLot];
 
-			//GET_TEAM(getTeam()).AI_changeDamages(getTeam(), -pTargetUnit->getAsset()); //Ramstormp, do I need it?
+			if (iDyingLot < aPopulationUnits.size() && pTargetUnit != NULL)
+			{
+				CvWString szString = gDLL->getText("TXT_KEY_STARVED_TO_DEATH", GC.getCivilizationInfo(getCivilizationType()).getAdjectiveKey(), getNameKey(), GC.getUnitInfo(pTargetUnit->getUnitType()).getTextKeyWide());
+				gDLL->getInterfaceIFace()->addMessage(getOwnerINLINE(), true, GC.getEVENT_MESSAGE_TIME(), szString, GC.getEraInfo(GC.getGameINLINE().getCurrentEra()).getAudioUnitDefeatScript(), MESSAGE_TYPE_MINOR_EVENT, pTargetUnit->getButton(), (ColorTypes)GC.getInfoTypeForString("COLOR_RED"), getX_INLINE(), getY_INLINE(), true, true);
 
-			removePopulationUnit(pTargetUnit, false, NO_PROFESSION);
-			pTargetUnit->kill(false);
+				//GET_TEAM(getTeam()).AI_changeDamages(getTeam(), -pTargetUnit->getAsset()); //Ramstormp, do I need it?
+
+				removePopulationUnit(pTargetUnit, false, NO_PROFESSION);
+				pTargetUnit->kill(false);
+			}
 		}
-		else if (iDyingLot >= aPopulationUnits.size() || pTargetUnit == NULL)
+		if (iDyingLot >= aPopulationUnits.size() || pTargetUnit == NULL)
 		{
 			if (getPopulation() > 1)
 			{
@@ -11947,6 +11972,10 @@ void CvCity::doLbD()
 	for (uint i = 0; i < m_aPopulationUnits.size(); ++i)
 	{
 		CvUnit* pLoopUnit = m_aPopulationUnits[i];
+
+		// Units with no movement left should be ignored since attempting to remove them (on lbd success) from the city will fail
+		if (pLoopUnit->movesLeft() == 0)
+			continue;
 
 		bool lbd_expert_successful = false;
 		bool lbd_free_successful = false;

@@ -22,6 +22,14 @@
     <English>%d1[ICON_GOLDENAGE] from food consumption</English>
   </TEXT>
   <TEXT>
+    <Tag>TXT_KEY_BUILDING_FOOD_STORAGE</Tag>
+    <English>Food Storage: %d1[ICON_FOOD]</English>
+  </TEXT>
+  <TEXT>
+    <Tag>TXT_KEY_CITY_FOOD_STORAGE</Tag>
+    <English>Food Storage</English>
+  </TEXT>
+  <TEXT>
     <Tag>TXT_KEY_MISC_DOMESTIC_DEMANDS_LACKING</Tag>
     <English> -%d1 from unfulfilled demands</English>
   </TEXT>
@@ -48,5 +56,17 @@
   <TEXT>
     <Tag>TXT_KEY_CHIEF_GOODY_EMPTY</Tag>
     <English>All we have to offer as a parting gift is the air that you already have taken for yourself</English>
+  </TEXT>
+  <TEXT>
+    <Tag>TXT_KEY_ARRIVAL_IN_AFRICA</Tag>
+    <English>(Due in Africa in %d2 [NUM2:turn:turns])</English>
+  </TEXT>
+  <TEXT>
+    <Tag>TXT_KEY_STARVED_TO_DEATH</Tag>
+    <English>Famine in %s2_city! A poor %s3_unit has perished from lack of food.</English>
+    <French>Starvation in %s2_city! A poor %s3_unit has perished from lack of food.</French>
+    <German>Starvation in %s2_city! A poor %s3_unit has perished from lack of food.</German>
+    <Italian>Starvation in %s2_city! A poor %s3_unit has perished from lack of food.</Italian>
+    <Spanish>Starvation in %s2_city! A poor %s3_unit has perished from lack of food.</Spanish>
   </TEXT>
 </Civ4GameText>

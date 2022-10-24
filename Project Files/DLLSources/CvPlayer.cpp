@@ -1235,9 +1235,16 @@ void CvPlayer::acquireCity(CvCity* pOldCity, bool bConquest, bool bTrade)
 	for (int i = 2; i < (int)aOldPopulationUnits.size(); i = i + 3)
 	{
 		CvUnit* pOldUnit = aOldPopulationUnits[i];
-		UnitTypes eNewUnitType = (UnitTypes)GC.getCivilizationInfo(getCivilizationType()).getCivilizationUnits(GC.getDefineINT("DEFAULT_POPULATION_UNIT"));
+		UnitTypes eNewUnitType = (UnitTypes) GC.getCivilizationInfo(getCivilizationType()).getCivilizationUnits(pOldUnit->getUnitClassType());
 		if (eNewUnitType != NO_UNIT)
 		{
+			//CvUnit* pNewUnit = initUnit(eNewUnitType, NO_PROFESSION, pCityPlot->getX_INLINE(), pCityPlot->getY_INLINE(), pOldUnit->AI_getUnitAIType());
+			// Assign the generic colonist AI rather than the profession specific AI on city takeover. This prevents inappropriate
+			// combinations of professions and unit AIs (Example: I recently observed a previous citizen that originally had UNITAI_SETTLER end up with the settler AI
+			// even though he was not equipped as a settler but a regular free colonist!)
+	//		CvUnit* const pNewUnit = initUnit(eNewUnitType, NO_PROFESSION, pCityPlot->getX_INLINE(), pCityPlot->getY_INLINE(), UNITAI_COLONIST);
+	//		pNewUnit->convert(pOldUnit, true); //kills old unit
+	//		aNewPopulationUnits.push_back(pNewUnit);
 			if (pOldUnit->getUnitInfo().LbD_canBecomeExpert() || pOldUnit->getUnitInfo().LbD_canGetFree())
 			{
 				CvUnit* pNewUnit = initUnit(eNewUnitType, NO_PROFESSION, pCityPlot->getX_INLINE(), pCityPlot->getY_INLINE(), pOldUnit->AI_getUnitAIType());
@@ -2267,6 +2274,8 @@ void CvPlayer::doTurn()
 	doAfricaStock();
 	doPortRoyalStock();
 	// Ramstormp - END
+	EXTRA_POWER_CHECK
+
 	doEvents();
 
 	EXTRA_POWER_CHECK
@@ -4064,9 +4073,13 @@ void CvPlayer::handleDiploEvent(DiploEventTypes eDiploEvent, PlayerTypes ePlayer
 					pSupportUnit = kPlayer.initUnit(DefaultSupportType, GC.getUnitInfo(DefaultSupportType).getDefaultProfession(), locationToAppear->getX_INLINE(), locationToAppear->getY_INLINE(), NO_UNITAI);
 				}
 
-				//sending message
-				CvWString szBuffer = gDLL->getText("TXT_KEY_REV_SUPPORT_ARRIVED", GC.getLeaderHeadInfo(GET_PLAYER(getParent()).getLeaderType()).getDescription());
-				gDLL->getInterfaceIFace()->addMessage(ePlayer, false, GC.getEVENT_MESSAGE_TIME(), szBuffer, "AS2D_DEAL_CANCELLED", MESSAGE_TYPE_MINOR_EVENT, pSupportUnit->getButton(), (ColorTypes)GC.getInfoTypeForString("COLOR_WHITE"), pSupportUnit->getX(), pSupportUnit->getY(), true, true);
+				// Suppress cppcheck warning
+				if (pSupportUnit != NULL)
+				{
+					//sending message
+					CvWString szBuffer = gDLL->getText("TXT_KEY_REV_SUPPORT_ARRIVED", GC.getLeaderHeadInfo(GET_PLAYER(getParent()).getLeaderType()).getDescription());
+					gDLL->getInterfaceIFace()->addMessage(ePlayer, false, GC.getEVENT_MESSAGE_TIME(), szBuffer, "AS2D_DEAL_CANCELLED", MESSAGE_TYPE_MINOR_EVENT, pSupportUnit->getButton(), (ColorTypes)GC.getInfoTypeForString("COLOR_WHITE"), pSupportUnit->getX(), pSupportUnit->getY(), true, true);
+				}
 			}
 		}
 		break;
@@ -4639,6 +4652,9 @@ bool CvPlayer::canTradeItem(PlayerTypes eWhoTo, TradeData item, bool bTestDenial
 	case TRADE_PEACE_TREATY:
 		return true;
 		break;
+
+	default:
+		FAssertMsg(false, "Invalid TradeData");
 	}
 
 	return false;
@@ -5159,13 +5175,17 @@ bool CvPlayer::canReceiveGoody(CvPlot* pPlot, GoodyTypes eGoody, const CvUnit* p
 			return false;
 		}
 
+		// WTP, ray, let us remove it - why should MP games play on different rules as SP games?
+		// it was perceived as a bug and I really feel it is overexagerrated anyways
+		/*
 		if ((GC.getUnitInfo(eUnit).getCombat() > 0) && !(GC.getUnitInfo(eUnit).isOnlyDefensive()))
 		{
-			if (GC.getGameINLINE().isNetworkMultiPlayer()) // PTSD, Ramstormp, was isGameMultiPlayer()
+			if (GC.getGameINLINE().isGameMultiPlayer())
 			{
 				return false;
 			}
 		}
+		*/
 
 		if (GC.getGameINLINE().isOption(GAMEOPTION_ONE_CITY_CHALLENGE) && isHuman())
 		{
@@ -5737,7 +5757,6 @@ void CvPlayer::doGoody(CvPlot* pPlot, CvUnit* pUnit)
 							}
 							// case Water Goody
 							// to ensure that Water Unit Goodies do not only trigger Units - unless Cargo is full
-		
 							if (isWaterGoody && (
 								!bCanTriggerUnitGoodies
 								|| pUnit == NULL
@@ -7824,7 +7843,8 @@ void CvPlayer::verifyAlive()
 
 				// TAC - RESPAWN Option - Ray - Start
 				// WTP, ray, fix for Colonial AI not being possible to eliminate a Colonial AI - Check for "No more Settler" removed because causing Problems with Settler is Europe
-				if (!isNative() && !isHuman() && GC.getDefineINT("KI_RESPAWN_OFF") == 1 && GC.getGameINLINE().getGameTurn() > iMinTurnForAIRespawningOff && (getNumUnits() < 5 || AI_getNumAIUnits(UNITAI_TRANSPORT_SEA) == 0))
+				// Added veto check for having at least a single settler
+				if (!isNative() && !isHuman() && GC.getGameINLINE().getGameTurn() > iMinTurnForAIRespawningOff && GC.getDefineINT("KI_RESPAWN_OFF") == 1 && AI_getNumAIUnits(UNITAI_SETTLER) == 0 && (getNumUnits() < 5 || AI_getNumAIUnits(UNITAI_TRANSPORT_SEA) == 0))
 				{
 					bKill = true;
 					bRespawnDeactivated = true;
@@ -17662,7 +17682,7 @@ bool CvPlayer::checkIndependence() const
 	{
 		return false;
 	}
-
+	
 	for (int iPlayer = 0; iPlayer < MAX_PLAYERS; ++iPlayer)
 	{
 		CvPlayer& kParent = GET_PLAYER((PlayerTypes) iPlayer);
@@ -19644,10 +19664,12 @@ void CvPlayer::doAIImmigrant(int iIndex)
 
 // TAC - AI Economy - Ray - START
 // R&R, ray improvement redistribution
-void CvPlayer::redistributeWood() {
-
-	// do nothing if Player has no cities
-	if (getNumCities() <1) {
+void CvPlayer::redistributeWood() 
+{
+	// do nothing if Player has no cities or just one
+	int citycount = getNumCities();
+	if (citycount <= 1) 
+	{
 		return;
 	}
 
@@ -19657,71 +19679,75 @@ void CvPlayer::redistributeWood() {
 		return;
 	}
 
-	int citycount = getNumCities();
-
 	//calculate total wood and stone of all cities
 	int totalwood = 0;
 	int totalstone = 0;
-	int iTotalPopulation = 0;
 
+	// Loop through cities first time to get ressources to distribute, but we leave a rest
 	CvCity* pLoopCity;
-
-	// Loop through cities first time to get all wood
 	int iLoop;
 	for (pLoopCity = firstCity(&iLoop); pLoopCity != NULL; pLoopCity = nextCity(&iLoop))
 	{
-		//add wood and stone
-		totalwood += pLoopCity->getYieldStored(YIELD_LUMBER);
-		totalstone += pLoopCity->getYieldStored(YIELD_STONE);
-		//add population
-		iTotalPopulation += pLoopCity->getPopulation();
-		//reset Lumber and Stone to 0 because already added to storage variables
-		pLoopCity->setYieldStored(YIELD_LUMBER, 0);
-		pLoopCity->setYieldStored(YIELD_STONE, 0);
-	}
-
-	int woodToDisbributePerCitizen = totalwood / iTotalPopulation;
-	int stoneToDisbributePerCitizen = totalstone / iTotalPopulation;
-
-	// Loop through cities second time to distribute all wood
-	int iLoop2;
-	for (pLoopCity = firstCity(&iLoop2); pLoopCity != NULL; pLoopCity = nextCity(&iLoop2))
-	{
-		// bigger cities get more
-		int iPopulationOfThisCity = pLoopCity->getPopulation();
-		// R&R, ray, small fix
-		int woodtodistribute = woodToDisbributePerCitizen * iPopulationOfThisCity;
-		int stonetodistribute = stoneToDisbributePerCitizen * iPopulationOfThisCity;
-		pLoopCity->setYieldStored(YIELD_LUMBER, woodtodistribute);
-		pLoopCity->setYieldStored(YIELD_STONE, stonetodistribute);
-		// substract the wood and stone distributed from the total amounts
-		totalwood -= woodtodistribute;
-		totalstone -= stonetodistribute;
-	}
-
-	// for safety, if there is some wood left, give it to the first city
-	if (totalwood > 0)
-	{
-		int iLoop3;
-		for (pLoopCity = firstCity(&iLoop3); pLoopCity != NULL; pLoopCity = nextCity(&iLoop3))
+		// WTP, ray, this may have caused negative storage bug
+		// thus we leave some in the city
+		int iRestToLeave = 50;
+		// for Lumber
+		if (pLoopCity->getYieldStored(YIELD_LUMBER) > iRestToLeave)
 		{
-			int woodalreadydistributed = pLoopCity->getYieldStored(YIELD_LUMBER);
-			pLoopCity->setYieldStored(YIELD_LUMBER, totalwood + woodalreadydistributed);
-			break;
+
+			totalwood += pLoopCity->getYieldStored(YIELD_LUMBER) - iRestToLeave;
+			pLoopCity->setYieldStored(YIELD_LUMBER, iRestToLeave);
 		}
-	}
-	// for safety, if there is some stone left, give it to the first city
-	if (totalstone > 0)
-	{
-		int iLoop4;
-		for (pLoopCity = firstCity(&iLoop4); pLoopCity != NULL; pLoopCity = nextCity(&iLoop4))
+		// for Stone
+		if (pLoopCity->getYieldStored(YIELD_STONE) > iRestToLeave)
 		{
-			int stonealreadydistributed = pLoopCity->getYieldStored(YIELD_STONE);
-			pLoopCity->setYieldStored(YIELD_STONE, totalstone + stonealreadydistributed);
-			break;
+			totalwood += pLoopCity->getYieldStored(YIELD_STONE) - iRestToLeave;
+			pLoopCity->setYieldStored(YIELD_STONE, iRestToLeave);
 		}
 	}
 
+	// now we distribute accordign to population
+	int iTotalPopulation = getTotalPopulation();
+	// should never happen, but let us be safe to avoid division by 0
+	if (iTotalPopulation != 0)
+	{
+		int woodToDisbributePerCitizen = totalwood / iTotalPopulation;
+		int stoneToDisbributePerCitizen = totalstone / iTotalPopulation;
+
+		// Loop through cities second time to distribute all wood
+		int iLoop2;
+		for (pLoopCity = firstCity(&iLoop2); pLoopCity != NULL; pLoopCity = nextCity(&iLoop2))
+		{
+			// bigger cities get more
+			int iPopulationOfThisCity = pLoopCity->getPopulation();
+		
+			// we distribute accordign to the Population Size
+			int woodtodistribute = woodToDisbributePerCitizen * iPopulationOfThisCity;
+			int stonetodistribute = stoneToDisbributePerCitizen * iPopulationOfThisCity;
+
+			// we dsitribte the caclulated ressources on to what it already has
+			pLoopCity->changeYieldStored(YIELD_LUMBER, woodtodistribute);
+			pLoopCity->changeYieldStored(YIELD_STONE, stonetodistribute);
+
+			// substract the distributed ressources from the total amounts
+			totalwood -= woodtodistribute;
+			totalstone -= stonetodistribute;
+		}
+	}
+
+	// for safety, if there are some ressources left, we add it to the first city
+	/*	CvCity* pFirstCity = firstCity();
+	if (pFirstCity != NULL)
+	{
+		if (totalwood > 0)
+		{
+			pFirstCity->changeYieldStored(YIELD_LUMBER, totalwood);
+		}
+		if (totalstone > 0)
+		{
+			pFirstCity->changeYieldStored(YIELD_STONE, totalstone);
+		}
+	}*/
 }
 // TAC - AI Economy - Ray - END
 

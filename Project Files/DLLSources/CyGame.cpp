@@ -710,7 +710,6 @@ void CyGame::setFatherTeam(int /*FatherTypes*/ eFather, int /*TeamTypes*/ eTeam)
 		m_pGame->setFatherTeam((FatherTypes) eFather, (TeamTypes) eTeam);
 	}
 }
-
 int CyGame::getFatherCategoryPosition(int /*FatherTypes*/ eFather)
 {
 	return (NULL != m_pGame ? m_pGame->getFatherCategoryPosition((FatherTypes)eFather) : -1);

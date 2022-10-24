@@ -18,16 +18,16 @@
             <iPriceChangeThreshold>1000</iPriceChangeThreshold>
             <iPriceCorrectionPercent>1</iPriceCorrectionPercent>
             <iEuropeVolumeAttrition>2</iEuropeVolumeAttrition>
-            <iAfricaBuyPriceLow>5</iAfricaBuyPriceLow>
-            <iAfricaBuyPriceHigh>6</iAfricaBuyPriceHigh>
-            <iAfricaSellPriceDifference>1</iAfricaSellPriceDifference>
-            <iPortRoyalBuyPriceLow>5</iPortRoyalBuyPriceLow>
-            <iPortRoyalBuyPriceHigh>6</iPortRoyalBuyPriceHigh>
-            <iPortRoyalSellPriceDifference>1</iPortRoyalSellPriceDifference>
-			<iEuropeStock>100</iEuropeStock>
-			<iAfricaStock>100</iAfricaStock>
-			<iPortRoyalStock>100</iPortRoyalStock>
-            <iNativeBuyPrice>-1</iNativeBuyPrice>
+            <iAfricaBuyPriceLow>1</iAfricaBuyPriceLow>
+            <iAfricaBuyPriceHigh>3</iAfricaBuyPriceHigh>
+            <iAfricaSellPriceDifference>8</iAfricaSellPriceDifference>
+            <iPortRoyalBuyPriceLow>1</iPortRoyalBuyPriceLow>
+            <iPortRoyalBuyPriceHigh>3</iPortRoyalBuyPriceHigh>
+            <iPortRoyalSellPriceDifference>8</iPortRoyalSellPriceDifference>
+		      	<iEuropeStock>100</iEuropeStock>
+		      	<iAfricaStock>20</iAfricaStock>
+		      	<iPortRoyalStock>100</iPortRoyalStock>
+            <iNativeBuyPrice>1</iNativeBuyPrice>
             <iNativeSellPrice>4</iNativeSellPrice>
             <iNativeConsumptionPercent>-1</iNativeConsumptionPercent>
             <iNativeHappy>0</iNativeHappy>
@@ -37,8 +37,8 @@
             <iCityChange>1</iCityChange>
             <iMinCity>0</iMinCity>
             <iAIWeightPercent>100</iAIWeightPercent>
-            <iAIBaseValue>6</iAIBaseValue>
-            <iNativeBaseValue>5</iNativeBaseValue>
+            <iAIBaseValue>1</iAIBaseValue>
+            <iNativeBaseValue>0</iNativeBaseValue>
             <iPower>0</iPower>
             <iAsset>1</iAsset>
             <ColorType>COLOR_YIELD_FOOD</ColorType>
@@ -67,9 +67,9 @@
             <iPortRoyalBuyPriceLow>4</iPortRoyalBuyPriceLow>
             <iPortRoyalBuyPriceHigh>5</iPortRoyalBuyPriceHigh>
             <iPortRoyalSellPriceDifference>1</iPortRoyalSellPriceDifference>
-			<iEuropeStock>100</iEuropeStock>
-			<iAfricaStock>100</iAfricaStock>
-			<iPortRoyalStock>100</iPortRoyalStock>
+			      <iEuropeStock>100</iEuropeStock>
+			      <iAfricaStock>100</iAfricaStock>
+			      <iPortRoyalStock>100</iPortRoyalStock>
             <iNativeBuyPrice>-1</iNativeBuyPrice>
             <iNativeSellPrice>2</iNativeSellPrice>
             <iNativeConsumptionPercent>20</iNativeConsumptionPercent>
@@ -110,9 +110,9 @@
             <iPortRoyalBuyPriceLow>1</iPortRoyalBuyPriceLow>
             <iPortRoyalBuyPriceHigh>2</iPortRoyalBuyPriceHigh>
             <iPortRoyalSellPriceDifference>3</iPortRoyalSellPriceDifference>
-			<iEuropeStock>100</iEuropeStock>
-			<iAfricaStock>100</iAfricaStock>
-			<iPortRoyalStock>100</iPortRoyalStock>
+	    		  <iEuropeStock>100</iEuropeStock>
+			      <iAfricaStock>100</iAfricaStock>
+		      	<iPortRoyalStock>100</iPortRoyalStock>
             <iNativeBuyPrice>-1</iNativeBuyPrice>
             <iNativeSellPrice>3</iNativeSellPrice>
             <iNativeConsumptionPercent>20</iNativeConsumptionPercent>
@@ -154,9 +154,9 @@
             <iPortRoyalBuyPriceLow>4</iPortRoyalBuyPriceLow>
             <iPortRoyalBuyPriceHigh>5</iPortRoyalBuyPriceHigh>
             <iPortRoyalSellPriceDifference>1</iPortRoyalSellPriceDifference>
-			<iEuropeStock>100</iEuropeStock>
-			<iAfricaStock>100</iAfricaStock>
-			<iPortRoyalStock>100</iPortRoyalStock>
+			      <iEuropeStock>100</iEuropeStock>
+			      <iAfricaStock>100</iAfricaStock>
+			      <iPortRoyalStock>100</iPortRoyalStock>
             <iNativeBuyPrice>-1</iNativeBuyPrice>
             <iNativeSellPrice>3</iNativeSellPrice>
             <iNativeConsumptionPercent>20</iNativeConsumptionPercent>
@@ -198,9 +198,9 @@
             <iPortRoyalBuyPriceLow>3</iPortRoyalBuyPriceLow>
             <iPortRoyalBuyPriceHigh>4</iPortRoyalBuyPriceHigh>
             <iPortRoyalSellPriceDifference>3</iPortRoyalSellPriceDifference>
-			<iEuropeStock>100</iEuropeStock>
-			<iAfricaStock>100</iAfricaStock>
-			<iPortRoyalStock>100</iPortRoyalStock>
+			      <iEuropeStock>100</iEuropeStock>
+			      <iAfricaStock>100</iAfricaStock>
+			      <iPortRoyalStock>100</iPortRoyalStock>
             <iNativeBuyPrice>-1</iNativeBuyPrice>
             <iNativeSellPrice>3</iNativeSellPrice>
             <iNativeConsumptionPercent>20</iNativeConsumptionPercent>
@@ -242,9 +242,9 @@
             <iPortRoyalBuyPriceLow>6</iPortRoyalBuyPriceLow>
             <iPortRoyalBuyPriceHigh>7</iPortRoyalBuyPriceHigh>
             <iPortRoyalSellPriceDifference>1</iPortRoyalSellPriceDifference>
-			<iEuropeStock>100</iEuropeStock>
-			<iAfricaStock>100</iAfricaStock>
-			<iPortRoyalStock>100</iPortRoyalStock>
+			      <iEuropeStock>100</iEuropeStock>
+			      <iAfricaStock>100</iAfricaStock>
+			      <iPortRoyalStock>100</iPortRoyalStock>
             <iNativeBuyPrice>6</iNativeBuyPrice>
             <iNativeSellPrice>10</iNativeSellPrice>
             <iNativeConsumptionPercent>50</iNativeConsumptionPercent>
@@ -286,9 +286,9 @@
             <iPortRoyalBuyPriceLow>6</iPortRoyalBuyPriceLow>
             <iPortRoyalBuyPriceHigh>7</iPortRoyalBuyPriceHigh>
             <iPortRoyalSellPriceDifference>1</iPortRoyalSellPriceDifference>
-			<iEuropeStock>100</iEuropeStock>
-			<iAfricaStock>100</iAfricaStock>
-			<iPortRoyalStock>100</iPortRoyalStock>
+			      <iEuropeStock>100</iEuropeStock>
+			      <iAfricaStock>100</iAfricaStock>
+			      <iPortRoyalStock>100</iPortRoyalStock>
             <iNativeBuyPrice>6</iNativeBuyPrice>
             <iNativeSellPrice>10</iNativeSellPrice>
             <iNativeConsumptionPercent>50</iNativeConsumptionPercent>
@@ -330,9 +330,9 @@
             <iPortRoyalBuyPriceLow>10</iPortRoyalBuyPriceLow>
             <iPortRoyalBuyPriceHigh>11</iPortRoyalBuyPriceHigh>
             <iPortRoyalSellPriceDifference>1</iPortRoyalSellPriceDifference>
-			<iEuropeStock>120</iEuropeStock>
-			<iAfricaStock>100</iAfricaStock>
-			<iPortRoyalStock>40</iPortRoyalStock>
+			      <iEuropeStock>120</iEuropeStock>
+			      <iAfricaStock>100</iAfricaStock>
+			      <iPortRoyalStock>40</iPortRoyalStock>
             <iNativeBuyPrice>10</iNativeBuyPrice>
             <iNativeSellPrice>30</iNativeSellPrice>
             <iNativeConsumptionPercent>-1</iNativeConsumptionPercent>
@@ -374,9 +374,9 @@
             <iPortRoyalBuyPriceLow>6</iPortRoyalBuyPriceLow>
             <iPortRoyalBuyPriceHigh>7</iPortRoyalBuyPriceHigh>
             <iPortRoyalSellPriceDifference>1</iPortRoyalSellPriceDifference>
-			<iEuropeStock>30</iEuropeStock>
-			<iAfricaStock>30</iAfricaStock>
-			<iPortRoyalStock>100</iPortRoyalStock>
+			      <iEuropeStock>30</iEuropeStock>
+			      <iAfricaStock>30</iAfricaStock>
+			      <iPortRoyalStock>100</iPortRoyalStock>
             <iNativeBuyPrice>-1</iNativeBuyPrice>
             <iNativeSellPrice>4</iNativeSellPrice>
             <iNativeConsumptionPercent>20</iNativeConsumptionPercent>
@@ -418,9 +418,9 @@
             <iPortRoyalBuyPriceLow>3</iPortRoyalBuyPriceLow>
             <iPortRoyalBuyPriceHigh>4</iPortRoyalBuyPriceHigh>
             <iPortRoyalSellPriceDifference>1</iPortRoyalSellPriceDifference>
-			<iEuropeStock>10</iEuropeStock>
-			<iAfricaStock>10</iAfricaStock>
-			<iPortRoyalStock>100</iPortRoyalStock>
+			      <iEuropeStock>10</iEuropeStock>
+			      <iAfricaStock>10</iAfricaStock>
+			      <iPortRoyalStock>100</iPortRoyalStock>
             <iNativeBuyPrice>-1</iNativeBuyPrice>
             <iNativeSellPrice>3</iNativeSellPrice>
             <iNativeConsumptionPercent>20</iNativeConsumptionPercent>
@@ -462,9 +462,9 @@
             <iPortRoyalBuyPriceLow>3</iPortRoyalBuyPriceLow>
             <iPortRoyalBuyPriceHigh>4</iPortRoyalBuyPriceHigh>
             <iPortRoyalSellPriceDifference>2</iPortRoyalSellPriceDifference>
-			<iEuropeStock>40</iEuropeStock>
-			<iAfricaStock>100</iAfricaStock>
-			<iPortRoyalStock>40</iPortRoyalStock>
+			      <iEuropeStock>40</iEuropeStock>
+			      <iAfricaStock>100</iAfricaStock>
+			      <iPortRoyalStock>40</iPortRoyalStock>
             <iNativeBuyPrice>-1</iNativeBuyPrice>
             <iNativeSellPrice>3</iNativeSellPrice>
             <iNativeConsumptionPercent>20</iNativeConsumptionPercent>
@@ -506,9 +506,9 @@
             <iPortRoyalBuyPriceLow>3</iPortRoyalBuyPriceLow>
             <iPortRoyalBuyPriceHigh>4</iPortRoyalBuyPriceHigh>
             <iPortRoyalSellPriceDifference>2</iPortRoyalSellPriceDifference>
-			<iEuropeStock>0</iEuropeStock>
-			<iAfricaStock>0</iAfricaStock>
-			<iPortRoyalStock>100</iPortRoyalStock>
+			      <iEuropeStock>0</iEuropeStock>
+			      <iAfricaStock>0</iAfricaStock>
+			      <iPortRoyalStock>100</iPortRoyalStock>
             <iNativeBuyPrice>-1</iNativeBuyPrice>
             <iNativeSellPrice>3</iNativeSellPrice>
             <iNativeConsumptionPercent>20</iNativeConsumptionPercent>
@@ -550,10 +550,10 @@
             <iPortRoyalBuyPriceLow>2</iPortRoyalBuyPriceLow>
             <iPortRoyalBuyPriceHigh>3</iPortRoyalBuyPriceHigh>
             <iPortRoyalSellPriceDifference>2</iPortRoyalSellPriceDifference>
-			<iEuropeStock>100</iEuropeStock>
-			<iAfricaStock>100</iAfricaStock>
-			<iPortRoyalStock>10</iPortRoyalStock>
-            <iNativeBuyPrice>-1</iNativeBuyPrice>
+			      <iEuropeStock>100</iEuropeStock>
+			      <iAfricaStock>100</iAfricaStock>
+			      <iPortRoyalStock>10</iPortRoyalStock>
+            <iNativeBuyPrice>1</iNativeBuyPrice>
             <iNativeSellPrice>3</iNativeSellPrice>
             <iNativeConsumptionPercent>20</iNativeConsumptionPercent>
             <iNativeHappy>0</iNativeHappy>
@@ -595,9 +595,9 @@
             <iPortRoyalBuyPriceLow>3</iPortRoyalBuyPriceLow>
             <iPortRoyalBuyPriceHigh>4</iPortRoyalBuyPriceHigh>
             <iPortRoyalSellPriceDifference>1</iPortRoyalSellPriceDifference>
-			<iEuropeStock>0</iEuropeStock>
-			<iAfricaStock>0</iAfricaStock>
-			<iPortRoyalStock>100</iPortRoyalStock>
+			      <iEuropeStock>0</iEuropeStock>
+			      <iAfricaStock>0</iAfricaStock>
+			      <iPortRoyalStock>40</iPortRoyalStock>
             <iNativeBuyPrice>-1</iNativeBuyPrice>
             <iNativeSellPrice>3</iNativeSellPrice>
             <iNativeConsumptionPercent>20</iNativeConsumptionPercent>
@@ -639,9 +639,9 @@
             <iPortRoyalBuyPriceLow>3</iPortRoyalBuyPriceLow>
             <iPortRoyalBuyPriceHigh>4</iPortRoyalBuyPriceHigh>
             <iPortRoyalSellPriceDifference>1</iPortRoyalSellPriceDifference>
-			<iEuropeStock>40</iEuropeStock>
-			<iAfricaStock>80</iAfricaStock>
-			<iPortRoyalStock>100</iPortRoyalStock>
+			      <iEuropeStock>40</iEuropeStock>
+			      <iAfricaStock>80</iAfricaStock>
+			      <iPortRoyalStock>100</iPortRoyalStock>
             <iNativeBuyPrice>-1</iNativeBuyPrice>
             <iNativeSellPrice>3</iNativeSellPrice>
             <iNativeConsumptionPercent>20</iNativeConsumptionPercent>
@@ -683,9 +683,9 @@
             <iPortRoyalBuyPriceLow>3</iPortRoyalBuyPriceLow>
             <iPortRoyalBuyPriceHigh>4</iPortRoyalBuyPriceHigh>
             <iPortRoyalSellPriceDifference>2</iPortRoyalSellPriceDifference>
-			<iEuropeStock>100</iEuropeStock>
-			<iAfricaStock>100</iAfricaStock>
-			<iPortRoyalStock>100</iPortRoyalStock>
+			      <iEuropeStock>100</iEuropeStock>
+			      <iAfricaStock>100</iAfricaStock>
+			      <iPortRoyalStock>100</iPortRoyalStock>
             <iNativeBuyPrice>-1</iNativeBuyPrice>
             <iNativeSellPrice>3</iNativeSellPrice>
             <iNativeConsumptionPercent>20</iNativeConsumptionPercent>
@@ -728,10 +728,10 @@
             <iPortRoyalBuyPriceLow>3</iPortRoyalBuyPriceLow>
             <iPortRoyalBuyPriceHigh>4</iPortRoyalBuyPriceHigh>
             <iPortRoyalSellPriceDifference>1</iPortRoyalSellPriceDifference>
-			<iEuropeStock>100</iEuropeStock>
-			<iAfricaStock>0</iAfricaStock>
-			<iPortRoyalStock>40</iPortRoyalStock>
-            <iNativeBuyPrice>-1</iNativeBuyPrice>
+			      <iEuropeStock>100</iEuropeStock>
+			      <iAfricaStock>0</iAfricaStock>
+			      <iPortRoyalStock>40</iPortRoyalStock>
+            <iNativeBuyPrice>1</iNativeBuyPrice>
             <iNativeSellPrice>4</iNativeSellPrice>
             <iNativeConsumptionPercent>20</iNativeConsumptionPercent>
             <iNativeHappy>0</iNativeHappy>
@@ -772,10 +772,10 @@
             <iPortRoyalBuyPriceLow>5</iPortRoyalBuyPriceLow>
             <iPortRoyalBuyPriceHigh>6</iPortRoyalBuyPriceHigh>
             <iPortRoyalSellPriceDifference>1</iPortRoyalSellPriceDifference>
-			<iEuropeStock>60</iEuropeStock>
-			<iAfricaStock>80</iAfricaStock>
-			<iPortRoyalStock>60</iPortRoyalStock>
-            <iNativeBuyPrice>-1</iNativeBuyPrice>
+			      <iEuropeStock>60</iEuropeStock>
+			      <iAfricaStock>80</iAfricaStock>
+			      <iPortRoyalStock>60</iPortRoyalStock>
+            <iNativeBuyPrice>1</iNativeBuyPrice>
             <iNativeSellPrice>5</iNativeSellPrice>
             <iNativeConsumptionPercent>20</iNativeConsumptionPercent>
             <iNativeHappy>0</iNativeHappy>
@@ -816,9 +816,9 @@
             <iPortRoyalBuyPriceLow>4</iPortRoyalBuyPriceLow>
             <iPortRoyalBuyPriceHigh>5</iPortRoyalBuyPriceHigh>
             <iPortRoyalSellPriceDifference>2</iPortRoyalSellPriceDifference>
-			<iEuropeStock>100</iEuropeStock>
-			<iAfricaStock>200</iAfricaStock>
-			<iPortRoyalStock>100</iPortRoyalStock>
+			      <iEuropeStock>100</iEuropeStock>
+			      <iAfricaStock>200</iAfricaStock>
+			      <iPortRoyalStock>100</iPortRoyalStock>
             <iNativeBuyPrice>-1</iNativeBuyPrice>
             <iNativeSellPrice>2</iNativeSellPrice>
             <iNativeConsumptionPercent>20</iNativeConsumptionPercent>
@@ -860,10 +860,10 @@
             <iPortRoyalBuyPriceLow>3</iPortRoyalBuyPriceLow>
             <iPortRoyalBuyPriceHigh>4</iPortRoyalBuyPriceHigh>
             <iPortRoyalSellPriceDifference>1</iPortRoyalSellPriceDifference>
-			<iEuropeStock>40</iEuropeStock>
-			<iAfricaStock>80</iAfricaStock>
-			<iPortRoyalStock>100</iPortRoyalStock>
-            <iNativeBuyPrice>-1</iNativeBuyPrice>
+			      <iEuropeStock>40</iEuropeStock>
+			      <iAfricaStock>80</iAfricaStock>
+			      <iPortRoyalStock>100</iPortRoyalStock>
+            <iNativeBuyPrice>1</iNativeBuyPrice>
             <iNativeSellPrice>3</iNativeSellPrice>
             <iNativeConsumptionPercent>20</iNativeConsumptionPercent>
             <iNativeHappy>0</iNativeHappy>
@@ -904,10 +904,10 @@
             <iPortRoyalBuyPriceLow>3</iPortRoyalBuyPriceLow>
             <iPortRoyalBuyPriceHigh>4</iPortRoyalBuyPriceHigh>
             <iPortRoyalSellPriceDifference>1</iPortRoyalSellPriceDifference>
-			<iEuropeStock>100</iEuropeStock>
-			<iAfricaStock>10</iAfricaStock>
-			<iPortRoyalStock>10</iPortRoyalStock>
-            <iNativeBuyPrice>-1</iNativeBuyPrice>
+			      <iEuropeStock>100</iEuropeStock>
+			      <iAfricaStock>10</iAfricaStock>
+			      <iPortRoyalStock>10</iPortRoyalStock>
+            <iNativeBuyPrice>1</iNativeBuyPrice>
             <iNativeSellPrice>3</iNativeSellPrice>
             <iNativeConsumptionPercent>50</iNativeConsumptionPercent>
             <iNativeHappy>0</iNativeHappy>
@@ -948,10 +948,10 @@
             <iPortRoyalBuyPriceLow>2</iPortRoyalBuyPriceLow>
             <iPortRoyalBuyPriceHigh>3</iPortRoyalBuyPriceHigh>
             <iPortRoyalSellPriceDifference>1</iPortRoyalSellPriceDifference>
-			<iEuropeStock>0</iEuropeStock>
-			<iAfricaStock>0</iAfricaStock>
-			<iPortRoyalStock>100</iPortRoyalStock>
-            <iNativeBuyPrice>-1</iNativeBuyPrice>
+			      <iEuropeStock>30</iEuropeStock>
+			      <iAfricaStock>0</iAfricaStock>
+			      <iPortRoyalStock>100</iPortRoyalStock>
+            <iNativeBuyPrice>1</iNativeBuyPrice>
             <iNativeSellPrice>3</iNativeSellPrice>
             <iNativeConsumptionPercent>20</iNativeConsumptionPercent>
             <iNativeHappy>0</iNativeHappy>
@@ -992,10 +992,10 @@
             <iPortRoyalBuyPriceLow>3</iPortRoyalBuyPriceLow>
             <iPortRoyalBuyPriceHigh>4</iPortRoyalBuyPriceHigh>
             <iPortRoyalSellPriceDifference>1</iPortRoyalSellPriceDifference>
-			<iEuropeStock>100</iEuropeStock>
-			<iAfricaStock>100</iAfricaStock>
-			<iPortRoyalStock>100</iPortRoyalStock>
-            <iNativeBuyPrice>-1</iNativeBuyPrice>
+			      <iEuropeStock>100</iEuropeStock>
+			      <iAfricaStock>100</iAfricaStock>
+			      <iPortRoyalStock>100</iPortRoyalStock>
+            <iNativeBuyPrice>1</iNativeBuyPrice>
             <iNativeSellPrice>2</iNativeSellPrice>
             <iNativeConsumptionPercent>20</iNativeConsumptionPercent>
             <iNativeHappy>0</iNativeHappy>
@@ -1036,9 +1036,9 @@
             <iPortRoyalBuyPriceLow>5</iPortRoyalBuyPriceLow>
             <iPortRoyalBuyPriceHigh>6</iPortRoyalBuyPriceHigh>
             <iPortRoyalSellPriceDifference>1</iPortRoyalSellPriceDifference>
-			<iEuropeStock>100</iEuropeStock>
-			<iAfricaStock>10</iAfricaStock>
-			<iPortRoyalStock>100</iPortRoyalStock>
+			      <iEuropeStock>100</iEuropeStock>
+			      <iAfricaStock>10</iAfricaStock>
+			      <iPortRoyalStock>100</iPortRoyalStock>
             <iNativeBuyPrice>-1</iNativeBuyPrice>
             <iNativeSellPrice>-1</iNativeSellPrice>
             <iNativeConsumptionPercent>50</iNativeConsumptionPercent>
@@ -1080,9 +1080,9 @@
             <iPortRoyalBuyPriceLow>3</iPortRoyalBuyPriceLow>
             <iPortRoyalBuyPriceHigh>4</iPortRoyalBuyPriceHigh>
             <iPortRoyalSellPriceDifference>1</iPortRoyalSellPriceDifference>
-			<iEuropeStock>0</iEuropeStock>
-			<iAfricaStock>100</iAfricaStock>
-			<iPortRoyalStock>80</iPortRoyalStock>
+			      <iEuropeStock>0</iEuropeStock>
+			      <iAfricaStock>100</iAfricaStock>
+			      <iPortRoyalStock>80</iPortRoyalStock>
             <iNativeBuyPrice>-1</iNativeBuyPrice>
             <iNativeSellPrice>3</iNativeSellPrice>
             <iNativeConsumptionPercent>20</iNativeConsumptionPercent>
@@ -1123,9 +1123,9 @@
             <iPortRoyalBuyPriceLow>2</iPortRoyalBuyPriceLow>
             <iPortRoyalBuyPriceHigh>3</iPortRoyalBuyPriceHigh>
             <iPortRoyalSellPriceDifference>1</iPortRoyalSellPriceDifference>
-			<iEuropeStock>100</iEuropeStock>
-			<iAfricaStock>100</iAfricaStock>
-			<iPortRoyalStock>100</iPortRoyalStock>
+			      <iEuropeStock>100</iEuropeStock>
+			      <iAfricaStock>100</iAfricaStock>
+			      <iPortRoyalStock>100</iPortRoyalStock>
             <iNativeBuyPrice>5</iNativeBuyPrice>
             <iNativeSellPrice>-1</iNativeSellPrice>
             <iNativeConsumptionPercent>40</iNativeConsumptionPercent>
@@ -1166,10 +1166,10 @@
             <iPortRoyalBuyPriceLow>9</iPortRoyalBuyPriceLow>
             <iPortRoyalBuyPriceHigh>10</iPortRoyalBuyPriceHigh>
             <iPortRoyalSellPriceDifference>2</iPortRoyalSellPriceDifference>
-			<iEuropeStock>100</iEuropeStock>
-			<iAfricaStock>100</iAfricaStock>
-			<iPortRoyalStock>100</iPortRoyalStock>
-            <iNativeBuyPrice>-1</iNativeBuyPrice>
+			      <iEuropeStock>100</iEuropeStock>
+			      <iAfricaStock>100</iAfricaStock>
+			      <iPortRoyalStock>100</iPortRoyalStock>
+            <iNativeBuyPrice>1</iNativeBuyPrice>
             <iNativeSellPrice>-1</iNativeSellPrice>
             <iNativeConsumptionPercent>50</iNativeConsumptionPercent>
             <iNativeHappy>0</iNativeHappy>
@@ -1210,10 +1210,10 @@
             <iPortRoyalBuyPriceLow>10</iPortRoyalBuyPriceLow>
             <iPortRoyalBuyPriceHigh>12</iPortRoyalBuyPriceHigh>
             <iPortRoyalSellPriceDifference>2</iPortRoyalSellPriceDifference>
-			<iEuropeStock>100</iEuropeStock>
-			<iAfricaStock>10</iAfricaStock>
-			<iPortRoyalStock>100</iPortRoyalStock>
-            <iNativeBuyPrice>-1</iNativeBuyPrice>
+			      <iEuropeStock>100</iEuropeStock>
+			      <iAfricaStock>10</iAfricaStock>
+			      <iPortRoyalStock>100</iPortRoyalStock>
+            <iNativeBuyPrice>1</iNativeBuyPrice>
             <iNativeSellPrice>-1</iNativeSellPrice>
             <iNativeConsumptionPercent>50</iNativeConsumptionPercent>
             <iNativeHappy>0</iNativeHappy>
@@ -1254,9 +1254,9 @@
             <iPortRoyalBuyPriceLow>7</iPortRoyalBuyPriceLow>
             <iPortRoyalBuyPriceHigh>8</iPortRoyalBuyPriceHigh>
             <iPortRoyalSellPriceDifference>2</iPortRoyalSellPriceDifference>
-			<iEuropeStock>120</iEuropeStock>
-			<iAfricaStock>10</iAfricaStock>
-			<iPortRoyalStock>10</iPortRoyalStock>
+			      <iEuropeStock>120</iEuropeStock>
+			      <iAfricaStock>10</iAfricaStock>
+			      <iPortRoyalStock>10</iPortRoyalStock>
             <iNativeBuyPrice>8</iNativeBuyPrice>
             <iNativeSellPrice>-1</iNativeSellPrice>
             <iNativeConsumptionPercent>50</iNativeConsumptionPercent>
@@ -1298,10 +1298,10 @@
             <iPortRoyalBuyPriceLow>7</iPortRoyalBuyPriceLow>
             <iPortRoyalBuyPriceHigh>8</iPortRoyalBuyPriceHigh>
             <iPortRoyalSellPriceDifference>2</iPortRoyalSellPriceDifference>
-			<iEuropeStock>100</iEuropeStock>
-			<iAfricaStock>40</iAfricaStock>
-			<iPortRoyalStock>100</iPortRoyalStock>
-            <iNativeBuyPrice>-1</iNativeBuyPrice>
+			      <iEuropeStock>100</iEuropeStock>
+			      <iAfricaStock>40</iAfricaStock>
+			      <iPortRoyalStock>100</iPortRoyalStock>
+            <iNativeBuyPrice>2</iNativeBuyPrice>
             <iNativeSellPrice>-1</iNativeSellPrice>
             <iNativeConsumptionPercent>50</iNativeConsumptionPercent>
             <iNativeHappy>3</iNativeHappy>
@@ -1342,9 +1342,9 @@
             <iPortRoyalBuyPriceLow>12</iPortRoyalBuyPriceLow>
             <iPortRoyalBuyPriceHigh>14</iPortRoyalBuyPriceHigh>
             <iPortRoyalSellPriceDifference>2</iPortRoyalSellPriceDifference>
-			<iEuropeStock>120</iEuropeStock>
-			<iAfricaStock>120</iAfricaStock>
-			<iPortRoyalStock>120</iPortRoyalStock>
+			      <iEuropeStock>120</iEuropeStock>
+			      <iAfricaStock>120</iAfricaStock>
+			      <iPortRoyalStock>120</iPortRoyalStock>
             <iNativeBuyPrice>20</iNativeBuyPrice>
             <iNativeSellPrice>-1</iNativeSellPrice>
             <iNativeConsumptionPercent>-1</iNativeConsumptionPercent>
@@ -1386,9 +1386,9 @@
             <iPortRoyalBuyPriceLow>14</iPortRoyalBuyPriceLow>
             <iPortRoyalBuyPriceHigh>16</iPortRoyalBuyPriceHigh>
             <iPortRoyalSellPriceDifference>2</iPortRoyalSellPriceDifference>
-			<iEuropeStock>100</iEuropeStock>
-			<iAfricaStock>10</iAfricaStock>
-			<iPortRoyalStock>60</iPortRoyalStock>
+			      <iEuropeStock>100</iEuropeStock>
+			      <iAfricaStock>10</iAfricaStock>
+			      <iPortRoyalStock>60</iPortRoyalStock>
             <iNativeBuyPrice>-1</iNativeBuyPrice>
             <iNativeSellPrice>-1</iNativeSellPrice>
             <iNativeConsumptionPercent>100</iNativeConsumptionPercent>
@@ -1431,10 +1431,10 @@
             <iPortRoyalBuyPriceLow>14</iPortRoyalBuyPriceLow>
             <iPortRoyalBuyPriceHigh>20</iPortRoyalBuyPriceHigh>
             <iPortRoyalSellPriceDifference>2</iPortRoyalSellPriceDifference>
-			<iEuropeStock>10</iEuropeStock>
-			<iAfricaStock>100</iAfricaStock>
-			<iPortRoyalStock>100</iPortRoyalStock>
-            <iNativeBuyPrice>-1</iNativeBuyPrice>
+			      <iEuropeStock>10</iEuropeStock>
+			      <iAfricaStock>100</iAfricaStock>
+			      <iPortRoyalStock>100</iPortRoyalStock>
+            <iNativeBuyPrice>1</iNativeBuyPrice>
             <iNativeSellPrice>10</iNativeSellPrice>
             <iNativeConsumptionPercent>25</iNativeConsumptionPercent>
             <iNativeHappy>0</iNativeHappy>
@@ -1475,10 +1475,10 @@
             <iPortRoyalBuyPriceLow>29</iPortRoyalBuyPriceLow>
             <iPortRoyalBuyPriceHigh>30</iPortRoyalBuyPriceHigh>
             <iPortRoyalSellPriceDifference>3</iPortRoyalSellPriceDifference>
-			<iEuropeStock>10</iEuropeStock>
-			<iAfricaStock>100</iAfricaStock>
-			<iPortRoyalStock>100</iPortRoyalStock>
-            <iNativeBuyPrice>-1</iNativeBuyPrice>
+			      <iEuropeStock>10</iEuropeStock>
+			      <iAfricaStock>100</iAfricaStock>
+			      <iPortRoyalStock>100</iPortRoyalStock>
+            <iNativeBuyPrice>1</iNativeBuyPrice>
             <iNativeSellPrice>20</iNativeSellPrice>
             <iNativeConsumptionPercent>25</iNativeConsumptionPercent>
             <iNativeHappy>0</iNativeHappy>
@@ -1519,10 +1519,10 @@
             <iPortRoyalBuyPriceLow>23</iPortRoyalBuyPriceLow>
             <iPortRoyalBuyPriceHigh>24</iPortRoyalBuyPriceHigh>
             <iPortRoyalSellPriceDifference>1</iPortRoyalSellPriceDifference>
-			<iEuropeStock>10</iEuropeStock>
-			<iAfricaStock>100</iAfricaStock>
-			<iPortRoyalStock>100</iPortRoyalStock>
-            <iNativeBuyPrice>-1</iNativeBuyPrice>
+			      <iEuropeStock>10</iEuropeStock>
+			      <iAfricaStock>100</iAfricaStock>
+			      <iPortRoyalStock>100</iPortRoyalStock>
+            <iNativeBuyPrice>1</iNativeBuyPrice>
             <iNativeSellPrice>11</iNativeSellPrice>
             <iNativeConsumptionPercent>25</iNativeConsumptionPercent>
             <iNativeHappy>0</iNativeHappy>
@@ -1563,10 +1563,10 @@
             <iPortRoyalBuyPriceLow>8</iPortRoyalBuyPriceLow>
             <iPortRoyalBuyPriceHigh>9</iPortRoyalBuyPriceHigh>
             <iPortRoyalSellPriceDifference>1</iPortRoyalSellPriceDifference>
-			<iEuropeStock>30</iEuropeStock>
-			<iAfricaStock>0</iAfricaStock>
-			<iPortRoyalStock>100</iPortRoyalStock>
-            <iNativeBuyPrice>-1</iNativeBuyPrice>
+			      <iEuropeStock>30</iEuropeStock>
+			      <iAfricaStock>0</iAfricaStock>
+			      <iPortRoyalStock>100</iPortRoyalStock>
+            <iNativeBuyPrice>1</iNativeBuyPrice>
             <iNativeSellPrice>-1</iNativeSellPrice>
             <iNativeConsumptionPercent>20</iNativeConsumptionPercent>
             <iNativeHappy>0</iNativeHappy>
@@ -1608,10 +1608,10 @@
             <iPortRoyalBuyPriceLow>8</iPortRoyalBuyPriceLow>
             <iPortRoyalBuyPriceHigh>9</iPortRoyalBuyPriceHigh>
             <iPortRoyalSellPriceDifference>1</iPortRoyalSellPriceDifference>
-			<iEuropeStock>50</iEuropeStock>
-			<iAfricaStock>50</iAfricaStock>
-			<iPortRoyalStock>50</iPortRoyalStock>
-            <iNativeBuyPrice>-1</iNativeBuyPrice>
+			      <iEuropeStock>50</iEuropeStock>
+			      <iAfricaStock>50</iAfricaStock>
+			      <iPortRoyalStock>50</iPortRoyalStock>
+            <iNativeBuyPrice>1</iNativeBuyPrice>
             <iNativeSellPrice>-1</iNativeSellPrice>
             <iNativeConsumptionPercent>20</iNativeConsumptionPercent>
             <iNativeHappy>0</iNativeHappy>
@@ -1653,9 +1653,9 @@
             <iPortRoyalBuyPriceLow>8</iPortRoyalBuyPriceLow>
             <iPortRoyalBuyPriceHigh>9</iPortRoyalBuyPriceHigh>
             <iPortRoyalSellPriceDifference>1</iPortRoyalSellPriceDifference>
-			<iEuropeStock>0</iEuropeStock>
-			<iAfricaStock>0</iAfricaStock>
-			<iPortRoyalStock>100</iPortRoyalStock>
+			      <iEuropeStock>15</iEuropeStock>
+			      <iAfricaStock>15</iAfricaStock>
+			      <iPortRoyalStock>100</iPortRoyalStock>
             <iNativeBuyPrice>9</iNativeBuyPrice>
             <iNativeSellPrice>-1</iNativeSellPrice>
             <iNativeConsumptionPercent>50</iNativeConsumptionPercent>
@@ -1697,9 +1697,9 @@
             <iPortRoyalBuyPriceLow>8</iPortRoyalBuyPriceLow>
             <iPortRoyalBuyPriceHigh>9</iPortRoyalBuyPriceHigh>
             <iPortRoyalSellPriceDifference>1</iPortRoyalSellPriceDifference>
-			<iEuropeStock>100</iEuropeStock>
-			<iAfricaStock>30</iAfricaStock>
-			<iPortRoyalStock>30</iPortRoyalStock>
+			      <iEuropeStock>100</iEuropeStock>
+			      <iAfricaStock>30</iAfricaStock>
+			      <iPortRoyalStock>30</iPortRoyalStock>
             <iNativeBuyPrice>8</iNativeBuyPrice>
             <iNativeSellPrice>-1</iNativeSellPrice>
             <iNativeConsumptionPercent>50</iNativeConsumptionPercent>
@@ -1742,9 +1742,9 @@
             <iPortRoyalBuyPriceLow>8</iPortRoyalBuyPriceLow>
             <iPortRoyalBuyPriceHigh>9</iPortRoyalBuyPriceHigh>
             <iPortRoyalSellPriceDifference>1</iPortRoyalSellPriceDifference>
-			<iEuropeStock>100</iEuropeStock>
-			<iAfricaStock>10</iAfricaStock>
-			<iPortRoyalStock>50</iPortRoyalStock>
+			      <iEuropeStock>100</iEuropeStock>
+			      <iAfricaStock>10</iAfricaStock>
+			      <iPortRoyalStock>50</iPortRoyalStock>
             <iNativeBuyPrice>9</iNativeBuyPrice>
             <iNativeSellPrice>-1</iNativeSellPrice>
             <iNativeConsumptionPercent>50</iNativeConsumptionPercent>
@@ -1787,10 +1787,10 @@
             <iPortRoyalBuyPriceLow>18</iPortRoyalBuyPriceLow>
             <iPortRoyalBuyPriceHigh>19</iPortRoyalBuyPriceHigh>
             <iPortRoyalSellPriceDifference>2</iPortRoyalSellPriceDifference>
-			<iEuropeStock>50</iEuropeStock>
-			<iAfricaStock>40</iAfricaStock>
-			<iPortRoyalStock>60</iPortRoyalStock>
-            <iNativeBuyPrice>-1</iNativeBuyPrice>
+			      <iEuropeStock>50</iEuropeStock>
+			      <iAfricaStock>40</iAfricaStock>
+			      <iPortRoyalStock>60</iPortRoyalStock>
+            <iNativeBuyPrice>4</iNativeBuyPrice>
             <iNativeSellPrice>-1</iNativeSellPrice>
             <iNativeConsumptionPercent>50</iNativeConsumptionPercent>
             <iNativeHappy>0</iNativeHappy>
@@ -1831,9 +1831,9 @@
             <iPortRoyalBuyPriceLow>8</iPortRoyalBuyPriceLow>
             <iPortRoyalBuyPriceHigh>9</iPortRoyalBuyPriceHigh>
             <iPortRoyalSellPriceDifference>1</iPortRoyalSellPriceDifference>
-			<iEuropeStock>100</iEuropeStock>
-			<iAfricaStock>10</iAfricaStock>
-			<iPortRoyalStock>10</iPortRoyalStock>
+			      <iEuropeStock>100</iEuropeStock>
+			      <iAfricaStock>10</iAfricaStock>
+			      <iPortRoyalStock>10</iPortRoyalStock>
             <iNativeBuyPrice>8</iNativeBuyPrice>
             <iNativeSellPrice>-1</iNativeSellPrice>
             <iNativeConsumptionPercent>50</iNativeConsumptionPercent>
@@ -1875,9 +1875,9 @@
             <iPortRoyalBuyPriceLow>8</iPortRoyalBuyPriceLow>
             <iPortRoyalBuyPriceHigh>9</iPortRoyalBuyPriceHigh>
             <iPortRoyalSellPriceDifference>1</iPortRoyalSellPriceDifference>
-			<iEuropeStock>100</iEuropeStock>
-			<iAfricaStock>10</iAfricaStock>
-			<iPortRoyalStock>50</iPortRoyalStock>
+			      <iEuropeStock>100</iEuropeStock>
+			      <iAfricaStock>10</iAfricaStock>
+			      <iPortRoyalStock>50</iPortRoyalStock>
             <iNativeBuyPrice>8</iNativeBuyPrice>
             <iNativeSellPrice>-1</iNativeSellPrice>
             <iNativeConsumptionPercent>50</iNativeConsumptionPercent>
@@ -1920,10 +1920,10 @@
             <iPortRoyalBuyPriceLow>11</iPortRoyalBuyPriceLow>
             <iPortRoyalBuyPriceHigh>12</iPortRoyalBuyPriceHigh>
             <iPortRoyalSellPriceDifference>2</iPortRoyalSellPriceDifference>
-			<iEuropeStock>100</iEuropeStock>
-			<iAfricaStock>0</iAfricaStock>
-			<iPortRoyalStock>40</iPortRoyalStock>
-            <iNativeBuyPrice>-1</iNativeBuyPrice>
+			      <iEuropeStock>100</iEuropeStock>
+			      <iAfricaStock>0</iAfricaStock>
+			      <iPortRoyalStock>40</iPortRoyalStock>
+            <iNativeBuyPrice>1</iNativeBuyPrice>
             <iNativeSellPrice>-1</iNativeSellPrice>
             <iNativeConsumptionPercent>50</iNativeConsumptionPercent>
             <iNativeHappy>0</iNativeHappy>
@@ -1965,9 +1965,9 @@
             <iPortRoyalBuyPriceLow>9</iPortRoyalBuyPriceLow>
             <iPortRoyalBuyPriceHigh>10</iPortRoyalBuyPriceHigh>
             <iPortRoyalSellPriceDifference>2</iPortRoyalSellPriceDifference>
-			<iEuropeStock>100</iEuropeStock>
-			<iAfricaStock>200</iAfricaStock>
-			<iPortRoyalStock>100</iPortRoyalStock>
+			      <iEuropeStock>100</iEuropeStock>
+			      <iAfricaStock>200</iAfricaStock>
+			      <iPortRoyalStock>100</iPortRoyalStock>
             <iNativeBuyPrice>8</iNativeBuyPrice>
             <iNativeSellPrice>-1</iNativeSellPrice>
             <iNativeConsumptionPercent>50</iNativeConsumptionPercent>
@@ -2010,9 +2010,9 @@
             <iPortRoyalBuyPriceLow>9</iPortRoyalBuyPriceLow>
             <iPortRoyalBuyPriceHigh>10</iPortRoyalBuyPriceHigh>
             <iPortRoyalSellPriceDifference>2</iPortRoyalSellPriceDifference>
-			<iEuropeStock>40</iEuropeStock>
-			<iAfricaStock>100</iAfricaStock>
-			<iPortRoyalStock>40</iPortRoyalStock>
+			      <iEuropeStock>40</iEuropeStock>
+			      <iAfricaStock>100</iAfricaStock>
+			      <iPortRoyalStock>40</iPortRoyalStock>
             <iNativeBuyPrice>8</iNativeBuyPrice>
             <iNativeSellPrice>-1</iNativeSellPrice>
             <iNativeConsumptionPercent>50</iNativeConsumptionPercent>
@@ -2055,9 +2055,9 @@
             <iPortRoyalBuyPriceLow>9</iPortRoyalBuyPriceLow>
             <iPortRoyalBuyPriceHigh>10</iPortRoyalBuyPriceHigh>
             <iPortRoyalSellPriceDifference>2</iPortRoyalSellPriceDifference>
-			<iEuropeStock>100</iEuropeStock>
-			<iAfricaStock>10</iAfricaStock>
-			<iPortRoyalStock>100</iPortRoyalStock>
+			      <iEuropeStock>100</iEuropeStock>
+			      <iAfricaStock>10</iAfricaStock>
+			      <iPortRoyalStock>100</iPortRoyalStock>
             <iNativeBuyPrice>8</iNativeBuyPrice>
             <iNativeSellPrice>-1</iNativeSellPrice>
             <iNativeConsumptionPercent>50</iNativeConsumptionPercent>
@@ -2099,9 +2099,9 @@
             <iPortRoyalBuyPriceLow>10</iPortRoyalBuyPriceLow>
             <iPortRoyalBuyPriceHigh>11</iPortRoyalBuyPriceHigh>
             <iPortRoyalSellPriceDifference>2</iPortRoyalSellPriceDifference>
-			<iEuropeStock>100</iEuropeStock>
-			<iAfricaStock>10</iAfricaStock>
-			<iPortRoyalStock>200</iPortRoyalStock>
+			      <iEuropeStock>50</iEuropeStock>
+			      <iAfricaStock>10</iAfricaStock>
+			      <iPortRoyalStock>200</iPortRoyalStock>
             <iNativeBuyPrice>10</iNativeBuyPrice>
             <iNativeSellPrice>-1</iNativeSellPrice>
             <iNativeConsumptionPercent>50</iNativeConsumptionPercent>
@@ -2143,9 +2143,9 @@
             <iPortRoyalBuyPriceLow>9</iPortRoyalBuyPriceLow>
             <iPortRoyalBuyPriceHigh>10</iPortRoyalBuyPriceHigh>
             <iPortRoyalSellPriceDifference>1</iPortRoyalSellPriceDifference>
-			<iEuropeStock>100</iEuropeStock>
-			<iAfricaStock>40</iAfricaStock>
-			<iPortRoyalStock>50</iPortRoyalStock>
+			      <iEuropeStock>100</iEuropeStock>
+			      <iAfricaStock>40</iAfricaStock>
+			      <iPortRoyalStock>50</iPortRoyalStock>
             <iNativeBuyPrice>10</iNativeBuyPrice>
             <iNativeSellPrice>-1</iNativeSellPrice>
             <iNativeConsumptionPercent>50</iNativeConsumptionPercent>
@@ -2187,9 +2187,9 @@
             <iPortRoyalBuyPriceLow>16</iPortRoyalBuyPriceLow>
             <iPortRoyalBuyPriceHigh>22</iPortRoyalBuyPriceHigh>
             <iPortRoyalSellPriceDifference>4</iPortRoyalSellPriceDifference>
-			<iEuropeStock>100</iEuropeStock>
-			<iAfricaStock>40</iAfricaStock>
-			<iPortRoyalStock>100</iPortRoyalStock>
+			      <iEuropeStock>100</iEuropeStock>
+			      <iAfricaStock>40</iAfricaStock>
+			      <iPortRoyalStock>100</iPortRoyalStock>
             <iNativeBuyPrice>-1</iNativeBuyPrice>
             <iNativeSellPrice>-1</iNativeSellPrice>
             <iNativeConsumptionPercent>50</iNativeConsumptionPercent>
@@ -2231,9 +2231,9 @@
             <iPortRoyalBuyPriceLow>8</iPortRoyalBuyPriceLow>
             <iPortRoyalBuyPriceHigh>10</iPortRoyalBuyPriceHigh>
             <iPortRoyalSellPriceDifference>2</iPortRoyalSellPriceDifference>
-			<iEuropeStock>100</iEuropeStock>
-			<iAfricaStock>0</iAfricaStock>
-			<iPortRoyalStock>40</iPortRoyalStock>
+			      <iEuropeStock>100</iEuropeStock>
+			      <iAfricaStock>0</iAfricaStock>
+			      <iPortRoyalStock>40</iPortRoyalStock>
             <iNativeBuyPrice>-1</iNativeBuyPrice>
             <iNativeSellPrice>-1</iNativeSellPrice>
             <iNativeConsumptionPercent>50</iNativeConsumptionPercent>
@@ -2274,10 +2274,10 @@
             <iPortRoyalBuyPriceLow>17</iPortRoyalBuyPriceLow>
             <iPortRoyalBuyPriceHigh>17</iPortRoyalBuyPriceHigh>
             <iPortRoyalSellPriceDifference>1</iPortRoyalSellPriceDifference>
-			<iEuropeStock>40</iEuropeStock>
-			<iAfricaStock>40</iAfricaStock>
-			<iPortRoyalStock>60</iPortRoyalStock>
-            <iNativeBuyPrice>-1</iNativeBuyPrice>
+			      <iEuropeStock>50</iEuropeStock>
+			      <iAfricaStock>50</iAfricaStock>
+		      	<iPortRoyalStock>60</iPortRoyalStock>
+            <iNativeBuyPrice>4</iNativeBuyPrice>
             <iNativeSellPrice>-1</iNativeSellPrice>
             <iNativeConsumptionPercent>40</iNativeConsumptionPercent>
             <iNativeHappy>0</iNativeHappy>
@@ -2317,9 +2317,9 @@
             <iPortRoyalBuyPriceLow>0</iPortRoyalBuyPriceLow>
             <iPortRoyalBuyPriceHigh>0</iPortRoyalBuyPriceHigh>
             <iPortRoyalSellPriceDifference>0</iPortRoyalSellPriceDifference>
-			<iEuropeStock>0</iEuropeStock>
-			<iAfricaStock>0</iAfricaStock>
-			<iPortRoyalStock>0</iPortRoyalStock>
+			      <iEuropeStock>0</iEuropeStock>
+			      <iAfricaStock>0</iAfricaStock>
+			      <iPortRoyalStock>0</iPortRoyalStock>
             <iNativeBuyPrice>-1</iNativeBuyPrice>
             <iNativeSellPrice>-1</iNativeSellPrice>
             <iNativeConsumptionPercent>-1</iNativeConsumptionPercent>
@@ -2360,9 +2360,9 @@
             <iPortRoyalBuyPriceLow>0</iPortRoyalBuyPriceLow>
             <iPortRoyalBuyPriceHigh>0</iPortRoyalBuyPriceHigh>
             <iPortRoyalSellPriceDifference>0</iPortRoyalSellPriceDifference>
-			<iEuropeStock>0</iEuropeStock>
-			<iAfricaStock>0</iAfricaStock>
-			<iPortRoyalStock>0</iPortRoyalStock>
+			      <iEuropeStock>0</iEuropeStock>
+			      <iAfricaStock>0</iAfricaStock>
+			      <iPortRoyalStock>0</iPortRoyalStock>
             <iNativeBuyPrice>-1</iNativeBuyPrice>
             <iNativeSellPrice>-1</iNativeSellPrice>
             <iNativeConsumptionPercent>-1</iNativeConsumptionPercent>
@@ -2403,9 +2403,9 @@
             <iPortRoyalBuyPriceLow>0</iPortRoyalBuyPriceLow>
             <iPortRoyalBuyPriceHigh>0</iPortRoyalBuyPriceHigh>
             <iPortRoyalSellPriceDifference>0</iPortRoyalSellPriceDifference>
-			<iEuropeStock>0</iEuropeStock>
-			<iAfricaStock>0</iAfricaStock>
-			<iPortRoyalStock>0</iPortRoyalStock>
+			      <iEuropeStock>0</iEuropeStock>
+			      <iAfricaStock>0</iAfricaStock>
+			      <iPortRoyalStock>0</iPortRoyalStock>
             <iNativeBuyPrice>-1</iNativeBuyPrice>
             <iNativeSellPrice>-1</iNativeSellPrice>
             <iNativeConsumptionPercent>-1</iNativeConsumptionPercent>
@@ -2446,9 +2446,9 @@
             <iPortRoyalBuyPriceLow>0</iPortRoyalBuyPriceLow>
             <iPortRoyalBuyPriceHigh>0</iPortRoyalBuyPriceHigh>
             <iPortRoyalSellPriceDifference>0</iPortRoyalSellPriceDifference>
-			<iEuropeStock>0</iEuropeStock>
-			<iAfricaStock>0</iAfricaStock>
-			<iPortRoyalStock>0</iPortRoyalStock>
+			      <iEuropeStock>0</iEuropeStock>
+			      <iAfricaStock>0</iAfricaStock>
+			      <iPortRoyalStock>0</iPortRoyalStock>
             <iNativeBuyPrice>-1</iNativeBuyPrice>
             <iNativeSellPrice>-1</iNativeSellPrice>
             <iNativeConsumptionPercent>-1</iNativeConsumptionPercent>
@@ -2489,9 +2489,9 @@
             <iPortRoyalBuyPriceLow>0</iPortRoyalBuyPriceLow>
             <iPortRoyalBuyPriceHigh>0</iPortRoyalBuyPriceHigh>
             <iPortRoyalSellPriceDifference>0</iPortRoyalSellPriceDifference>
-			<iEuropeStock>0</iEuropeStock>
-			<iAfricaStock>0</iAfricaStock>
-			<iPortRoyalStock>0</iPortRoyalStock>
+			      <iEuropeStock>0</iEuropeStock>
+			      <iAfricaStock>0</iAfricaStock>
+			      <iPortRoyalStock>0</iPortRoyalStock>
             <iNativeBuyPrice>-1</iNativeBuyPrice>
             <iNativeSellPrice>-1</iNativeSellPrice>
             <iNativeConsumptionPercent>-1</iNativeConsumptionPercent>
@@ -2532,9 +2532,9 @@
             <iPortRoyalBuyPriceLow>0</iPortRoyalBuyPriceLow>
             <iPortRoyalBuyPriceHigh>0</iPortRoyalBuyPriceHigh>
             <iPortRoyalSellPriceDifference>0</iPortRoyalSellPriceDifference>
-			<iEuropeStock>0</iEuropeStock>
-			<iAfricaStock>0</iAfricaStock>
-			<iPortRoyalStock>0</iPortRoyalStock>
+	 		      <iEuropeStock>0</iEuropeStock>
+			      <iAfricaStock>0</iAfricaStock>
+			      <iPortRoyalStock>0</iPortRoyalStock>
             <iNativeBuyPrice>-1</iNativeBuyPrice>
             <iNativeSellPrice>-1</iNativeSellPrice>
             <iNativeConsumptionPercent>-1</iNativeConsumptionPercent>
@@ -2575,9 +2575,9 @@
             <iPortRoyalBuyPriceLow>0</iPortRoyalBuyPriceLow>
             <iPortRoyalBuyPriceHigh>0</iPortRoyalBuyPriceHigh>
             <iPortRoyalSellPriceDifference>0</iPortRoyalSellPriceDifference>
-			<iEuropeStock>0</iEuropeStock>
-			<iAfricaStock>0</iAfricaStock>
-			<iPortRoyalStock>0</iPortRoyalStock>
+			      <iEuropeStock>0</iEuropeStock>
+			      <iAfricaStock>0</iAfricaStock>
+			      <iPortRoyalStock>0</iPortRoyalStock>
             <iNativeBuyPrice>-1</iNativeBuyPrice>
             <iNativeSellPrice>-1</iNativeSellPrice>
             <iNativeConsumptionPercent>-1</iNativeConsumptionPercent>
@@ -2618,9 +2618,9 @@
             <iPortRoyalBuyPriceLow>0</iPortRoyalBuyPriceLow>
             <iPortRoyalBuyPriceHigh>0</iPortRoyalBuyPriceHigh>
             <iPortRoyalSellPriceDifference>0</iPortRoyalSellPriceDifference>
-			<iEuropeStock>0</iEuropeStock>
-			<iAfricaStock>0</iAfricaStock>
-			<iPortRoyalStock>0</iPortRoyalStock>
+			      <iEuropeStock>0</iEuropeStock>
+			      <iAfricaStock>0</iAfricaStock>
+			      <iPortRoyalStock>0</iPortRoyalStock>
             <iNativeBuyPrice>-1</iNativeBuyPrice>
             <iNativeSellPrice>-1</iNativeSellPrice>
             <iNativeConsumptionPercent>-1</iNativeConsumptionPercent>

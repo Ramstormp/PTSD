@@ -3526,7 +3526,7 @@ bool CvPlayerAI::AI_counterPropose(PlayerTypes ePlayer, const CLinkList<TradeDat
 			if (pNode->m_data.m_eItemType == TRADE_GOLD)
 			{
 				int oldPrice = pNode->m_data.m_iData1;
-				int randomPriceChange = GC.getGameINLINE().getSorenRandNum(priceIncreaseMax, "Natives Price Change Sell");
+				int randomPriceChange = GC.getASyncRand().get(priceIncreaseMax, "Natives Price Change Sell");
 				if (randomPriceChange < priceIncreaseMax / 3)
 				{
 					randomPriceChange = priceIncreaseMax / 3;
@@ -3558,7 +3558,7 @@ bool CvPlayerAI::AI_counterPropose(PlayerTypes ePlayer, const CLinkList<TradeDat
 			if (pNode->m_data.m_eItemType == TRADE_GOLD)
 			{
 				int oldPrice = pNode->m_data.m_iData1;
-				int randomPriceChange = GC.getGameINLINE().getSorenRandNum(priceDecreaseMax, "Natives Price Change Buy");
+				int randomPriceChange = GC.getASyncRand().get(priceDecreaseMax, "Natives Price Change Buy");
 				if (randomPriceChange < priceDecreaseMax / 3)
 				{
 					randomPriceChange = priceDecreaseMax / 3;
@@ -6608,10 +6608,14 @@ void CvPlayerAI::AI_doCounter()
 	}
 	// TAC - AI Improved Navel AI - koma13 - END
 	// TAC - AI Revolution - koma13 - START
-	int iLastWave = AI_getLastWave();
+	const int iLastWave = AI_getLastWave();
 	if (iLastWave > -1)
 	{
-		AI_setLastWave(iLastWave + 1);
+		// Cap the max wave
+		if (iLastWave < GC.getHandicapInfo(GC.getGameINLINE().getHandicapType()).getWaveTurns())
+		{
+			AI_setLastWave(iLastWave + 1);
+		}
 	}
 	// TAC - AI Revolution - koma13 - END
 }
@@ -7391,15 +7395,26 @@ bool CvPlayerAI::AI_doDiploDemandTribute(PlayerTypes ePlayer)
 	}
 
 	TradeData item;
+	bool bItemValid = false;
+
 	int iReceiveGold = std::min(std::max(0, (kPlayer.getGold() - 50)), kPlayer.AI_goldTarget());
 	iReceiveGold -= (iReceiveGold % GC.getDefineINT("DIPLOMACY_VALUE_REMAINDER"));
+
 	if (iReceiveGold > 50)
 	{
 		setTradeItem(&item, TRADE_GOLD, iReceiveGold, NULL);
+		bItemValid = true;
 	}
 	else if (GET_TEAM(getTeam()).AI_mapTradeVal(kPlayer.getTeam()) > 100)
 	{
 		setTradeItem(&item, TRADE_MAPS, 0, NULL);
+		bItemValid = true;
+	}
+
+	// In case neither of the conditions above initialized item
+	if (!bItemValid)
+	{
+		return false;
 	}
 
 	if (!canTradeItem(ePlayer, item, true))
@@ -9419,7 +9434,7 @@ void CvPlayerAI::AI_updateYieldValues()
 	}
 }
 
-int CvPlayerAI::AI_transferYieldValue(const IDInfo target, YieldTypes eYield, int iAmount)
+int CvPlayerAI::AI_transferYieldValue(const IDInfo target, YieldTypes eYield, int iAmount) const
 {
 	FAssertMsg(eYield > NO_YIELD, "Index out of bounds");
 	FAssertMsg(eYield < NUM_YIELD_TYPES, "Index out of bounds");
@@ -9432,8 +9447,16 @@ int CvPlayerAI::AI_transferYieldValue(const IDInfo target, YieldTypes eYield, in
 	{
 		int iStored = pCity->getYieldStored(eYield);
 	
+	
 //		int iMaxCapacity = (eYield == YIELD_FOOD) ? pCity->growthThreshold() : pCity->getMaxYieldCapacity();
 		int iMaxCapacity = (eYield == YIELD_FOOD) ? pCity->getMaxFoodCapacity() : pCity->getMaxYieldCapacity(); // Ramstormp, Food Storage Separated
+
+		// WTP, ray, just to be save e.g. if getMaxYieldCapacity is really 0 - START
+		if (iMaxCapacity == 0)
+		{
+			iMaxCapacity = 300;
+		}
+		// WTP, ray, just to be save e.g. if getMaxYieldCapacity is really 0 - END
 
 		// transport feeder - start - Nightinggale
 		//int iMaintainLevel = pCity->getMaintainLevel(eYield);
@@ -9463,11 +9486,7 @@ int CvPlayerAI::AI_transferYieldValue(const IDInfo target, YieldTypes eYield, in
 			if (iSurplus > 0)
 			{
 				iValue = std::min(iSurplus, -iAmount);
-//VET BugFix - begin /
 
-				//int iMaxCapacity = (eYield == YIELD_FOOD) ? pCity->growthThreshold() : iMaxCapacity = pCity->getMaxYieldCapacity();
-				//FAssert(iMaxCapacity > 0);
-//VET BugFix - end /
 //VET NewCapacity - begin 4/8
 				if (GC.getNEW_CAPACITY())
 				{
@@ -9511,7 +9530,8 @@ int CvPlayerAI::AI_transferYieldValue(const IDInfo target, YieldTypes eYield, in
 //VET NewCapacity - end 6/8
 				iStored += (pCity->AI_getTransitYield(eYield) * 75) / 100;
 				// Erik: Adding this since I suspect a bug may cause this variable to be negative
-				FAssertMsg(iStored >= 0, "iStored expected to be >= 0");
+				//FAssertMsg(iStored >= 0, "iStored expected to be >= 0");
+				iStored = std::max(0, iStored);
 			}
 
 			iValue = iAmount * 100;
@@ -9519,7 +9539,14 @@ int CvPlayerAI::AI_transferYieldValue(const IDInfo target, YieldTypes eYield, in
 			if (GC.getNEW_CAPACITY())
 			{
 				int iMax = iMaxCapacity * 9 / 10;
-				iMax = std::max(1, iMax);
+
+				// WTP, ray, even if it should never happen, let us prevent iMax being 0 if iMaxCapacity for some reason is 1 above - START
+				if (iMax == 0)
+				{
+					iMax = 270;
+				}
+				// WTP, ray, even if it should never happen, let us prevent iMax being 0 if iMaxCapacity for some reason is 1 above - END
+
 				if (iTotalStored > iMax)
 				{
 					iValue *= 10;
@@ -11736,7 +11763,7 @@ int CvPlayerAI::AI_setUnitAIStatesRange(CvPlot* pPlot, int iRange, UnitAIStates 
 
 					if ((eValidUnitAIState == NO_UNITAI_STATE) || (pLoopUnit->AI_getUnitAIState() == eValidUnitAIState))
 					{
-						if (std::find(validUnitAITypes.begin(), validUnitAITypes.end(), pLoopUnit->AI_getUnitAIType()) != validUnitAITypes.end())
+						if (std::find(validUnitAITypes.begin(), validUnitAITypes.end(), pLoopUnit->AI_getUnitAIType()) == validUnitAITypes.end())
 						{
 							pLoopUnit->AI_setUnitAIState(eNewUnitAIState);
 							iCount++;
@@ -12234,7 +12261,9 @@ void CvPlayerAI::AI_doNativeArmy(TeamTypes eTeam)
 		{
 			int iValue = 0;
 
-			int iAreaPopulation = pArea->getPopulationPerPlayer(getID()) + pArea->getUnitsPerPlayer(getID());
+			// since we divide by area population, make sure it can't be zero
+			// one submitted savegame did trigger the zero population condition, hence crashed - Nightinggale
+			int iAreaPopulation = std::max(1, pArea->getPopulationPerPlayer(getID()) + pArea->getUnitsPerPlayer(getID()));
 
 			CvCity* pLoopCity = pLoopUnit->plot()->getPlotCity();
 			if (pLoopCity != NULL && pLoopCity->getOwnerINLINE() != getID())
@@ -12446,7 +12475,8 @@ void CvPlayerAI::AI_doMilitaryStrategy()
 
 	std::vector<UnitAITypes> militaryUnitAIs;
 
-	militaryUnitAIs.push_back(UNITAI_COUNTER);
+	// Counter units do not make use of UnitAIStates
+	//militaryUnitAIs.push_back(UNITAI_COUNTER);
 	militaryUnitAIs.push_back(UNITAI_OFFENSIVE);
 
 	CvTeamAI& kTeam = GET_TEAM(getTeam());
@@ -15554,7 +15584,7 @@ bool CvPlayerAI::AI_isPathDanger(const CvSelectionGroup* pGroup, const CvPlot* p
 		iPathLength -= iMovesLeft;
 	}
 	// NULL crash end
-
+		
 	// R&R, ray, commented out unnecessary Asserts, probably used for testing feature
 	// FAssert(iPathLength > 0);
 	// FAssert(iStart < iPathLength);

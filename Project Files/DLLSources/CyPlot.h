@@ -27,7 +27,6 @@ public:
 	bool isCoastalLand();
 	bool isWithinTeamCityRadius(int /*TeamTypes*/ eTeam, int /*PlayerTypes*/ eIgnorePlayer);
 	bool isLake();
-	bool isLargeRiver(); // Ramstormp, PTSD
 	bool isRiverSide();
 	bool isRiver();
 	bool isRiverConnection(int /*DirectionTypes*/ eDirection);

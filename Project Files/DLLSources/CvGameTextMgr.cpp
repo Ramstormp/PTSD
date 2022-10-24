@@ -3864,7 +3864,7 @@ void CvGameTextMgr::parseTraits(CvWStringBuffer &szHelpString, TraitTypes eTrait
 			{
 				szHelpString.append(L"  ");
 			}
-			szHelpString.append(gDLL->getText("TXT_KEY_FATHER_GROWTH_THRESHOLD_MODIFIER", kTrait.getPopGrowthThresholdModifier(), GC.getYieldInfo(YIELD_HEARTS).getChar()));
+			szHelpString.append(gDLL->getText("TXT_KEY_FATHER_GROWTH_THRESHOLD_MODIFIER", kTrait.getPopGrowthThresholdModifier(), GC.getYieldInfo(YIELD_HEARTS).getChar())); // Ramstormp, ptsd heart growth
 		}
 
 		if (kTrait.getCultureLevelModifier() != 0)
@@ -5883,7 +5883,19 @@ void CvGameTextMgr::setBuildingHelp(CvWStringBuffer &szBuffer, BuildingTypes eBu
 		szBuffer.append(NEWLINE);
 		szBuffer.append(gDLL->getText("TXT_KEY_BUILDING_YIELD_STORAGE", iYieldStorage));
 	}
-
+	// Ramstormp, PTSD, Food Storage - start
+	int iFoodStorage = kBuilding.getFoodStorage();
+	if (iFoodStorage > 0)
+	{
+		if (ePlayer != NO_PLAYER)
+		{
+			iFoodStorage *= GC.getGameSpeedInfo(GC.getGameINLINE().getGameSpeedType()).getStoragePercent();
+			iFoodStorage /= 100;
+		}
+		szBuffer.append(NEWLINE);
+		szBuffer.append(gDLL->getText("TXT_KEY_BUILDING_FOOD_STORAGE", iFoodStorage));
+	}
+	// Ramstormp - end
 	if (kBuilding.getStorageLossSellPercentage() > 0)
 	{
 		szBuffer.append(NEWLINE);
@@ -8303,7 +8315,17 @@ void CvGameTextMgr::setScoreHelp(CvWStringBuffer &szString, PlayerTypes ePlayer)
 
 void CvGameTextMgr::setCitizenHelp(CvWStringBuffer &szString, const CvCity& kCity, const CvUnit& kUnit)
 {
-	szString.append(kUnit.getName());
+	// WTP, ray, showing Profession Name in Citizen Help instead of Unit Name - START
+	if(kUnit.getProfession() != NO_PROFESSION) 
+	{
+		szString.append(gDLL->getText("TXT_KEY_CITIZEN_HELP_PROFESSION_NAME_DISPLAY", GC.getProfessionInfo(kUnit.getProfession()).getTextKeyWide()));
+	}
+
+	else
+	{
+		szString.append(gDLL->getText("TXT_KEY_CITIZEN_HELP_UNIT_NAME_DISPLAY", kUnit.getNameKey()));
+	}
+	// WTP, ray, showing Profession Name in Citizen Help instead of Unit Name - START
 
 	PlayerTypes ePlayer = kCity.getOwnerINLINE();
 	if (ePlayer == NO_PLAYER)

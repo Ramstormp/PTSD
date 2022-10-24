@@ -1373,13 +1373,18 @@ void CvGame::updateScore(bool bForce)
 			}
 		}
 
-		abPlayerScored[eBestPlayer] = true;
-
-		setRankPlayer(iI, eBestPlayer);
-		setPlayerScore(eBestPlayer, iBestScore);
-		if (GET_PLAYER(eBestPlayer).isAlive())
+		// Check added due to cppcheck detecting that
+		// abPlayerScored[eBestPlayer == -1] could potentially be written to
+		if (eBestPlayer != NO_PLAYER)
 		{
-			GET_PLAYER(eBestPlayer).updateScoreHistory(getGameTurn(), iBestScore);
+			abPlayerScored[eBestPlayer] = true;
+
+			setRankPlayer(iI, eBestPlayer);
+			setPlayerScore(eBestPlayer, iBestScore);
+			if (GET_PLAYER(eBestPlayer).isAlive())
+			{
+				GET_PLAYER(eBestPlayer).updateScoreHistory(getGameTurn(), iBestScore);
+			}
 		}
 	}
 
@@ -1415,11 +1420,15 @@ void CvGame::updateScore(bool bForce)
 			}
 		}
 
-		abTeamScored[eBestTeam] = true;
-
-		setRankTeam(iI, eBestTeam);
-		setTeamRank(eBestTeam, iI);
-		setTeamScore(eBestTeam, iBestScore);
+		// Check added due to cppcheck detecting that
+		// abTeamScored[NO_TEAM == -1] could potentially be written to
+		if (eBestTeam != NO_TEAM)
+		{ 
+			abTeamScored[eBestTeam] = true;
+			setRankTeam(iI, eBestTeam);
+			setTeamRank(eBestTeam, iI);
+			setTeamScore(eBestTeam, iBestScore);
+		}
 	}
 }
 
@@ -4638,13 +4647,18 @@ void CvGame::setWinner(TeamTypes eNewWinner, VictoryTypes eNewVictory)
 	{
 		m_eWinner = eNewWinner;
 		m_eVictory = eNewVictory;
-
 		if (getVictory() != NO_VICTORY)
 		{
 			if (GC.getVictoryInfo(getVictory()).isRevolution())
 			{
 				for (int iTeam = 0; iTeam < MAX_TEAMS; ++iTeam)
-				{
+				{	
+					// Ramstormp, PTSD, independent Indepenence 
+					if (!GET_TEAM((TeamTypes)iTeam).isHuman())
+					{
+						m_eWinner = NO_TEAM;
+					}
+					// Ramstormp - end
 					if (GET_TEAM((TeamTypes) iTeam).isParentOf(getWinner()))
 					{
 						GET_TEAM(getWinner()).makePeace((TeamTypes) iTeam);
@@ -4682,8 +4696,9 @@ void CvGame::setWinner(TeamTypes eNewWinner, VictoryTypes eNewVictory)
 		//gDLL->getInterfaceIFace()->setDirty(Center_DIRTY_BIT, true);
 
 		//gDLL->getEventReporterIFace()->victory(eNewWinner, eNewVictory); // Ramstormp, PTSD, go away
+		
+		//gDLL->getInterfaceIFace()->setDirty(Soundtrack_DIRTY_BIT, true);
 		// Ramstormp - END
-		gDLL->getInterfaceIFace()->setDirty(Soundtrack_DIRTY_BIT, true);
 	}
 }
 

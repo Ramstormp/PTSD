@@ -360,6 +360,7 @@ public:
 	bool isLeaderEverActive(LeaderHeadTypes eLeader) const;
 	bool isUnitEverActive(UnitTypes eUnit) const;
 	bool isBuildingEverActive(BuildingTypes eBuilding) const;
+
 	TeamTypes getFatherTeam(FatherTypes eFather) const;
 	int getFatherGameTurn(FatherTypes eFather) const;
 	void setFatherTeam(FatherTypes eFather, TeamTypes eTeam);

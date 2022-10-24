@@ -487,7 +487,13 @@ bool CvUnitAI::AI_europeUpdate()
 						AI_europe();
 					}
 					// TAC - AI Assault Sea Fix - koma13 - END
-					crossOcean(UNIT_TRAVEL_STATE_FROM_EUROPE);
+					else
+					{ 
+						// Added the else clause to prevent the assertion caused by attempting to
+						// call the below function twice (it is also called by AI_europe())
+						crossOcean(UNIT_TRAVEL_STATE_FROM_EUROPE);
+						finishMoves();
+					}
 				}
 
 				if (getUnitTravelState() == UNIT_TRAVEL_STATE_IN_AFRICA)
@@ -498,7 +504,11 @@ bool CvUnitAI::AI_europeUpdate()
 						AI_africa();
 					}
 					// TAC - AI Assault Sea Fix - koma13 - END
-					crossOcean(UNIT_TRAVEL_STATE_FROM_AFRICA);
+					else
+					{ 
+						crossOcean(UNIT_TRAVEL_STATE_FROM_AFRICA);
+						finishMoves();
+					}
 				}
 			}				
 			break;
@@ -509,6 +519,7 @@ bool CvUnitAI::AI_europeUpdate()
 				{
 					AI_sellYieldUnits(EUROPE);
 				}
+				else
 				crossOcean(UNIT_TRAVEL_STATE_FROM_EUROPE);
 			}
 			else if (getUnitTravelState() == UNIT_TRAVEL_STATE_IN_AFRICA)
@@ -1559,7 +1570,7 @@ void CvUnitAI::AI_settlerMove()
 		return;
 	}
 
-	if (AI_retreatToCity(false, true))
+	if (AI_retreatToCity(false, MAX_INT, true))
 	{
 		return;
 	}
@@ -2282,7 +2293,7 @@ void CvUnitAI::AI_defensiveMove()
 	// BETTER_BTS_AI_MOD, Settler AI, 09/18/09, jdog5000: START
 	if (!plot()->isOwned())
 	{
-		if (AI_group(UNITAI_SETTLER, 1, -1, -1, false, false, false, 2, true))
+		if (AI_group(UNITAI_SETTLER, 1, 1, -1, false, false, false, 2, true))
 		{
 			return;
 		}
@@ -4614,6 +4625,40 @@ void CvUnitAI::AI_transportSeaMove()
 	CvPlayerAI& kOwner = GET_PLAYER(getOwnerINLINE());
 	bool bEmpty = !getGroup()->hasCargo();
 
+	// If we don't have any cities and
+	// there are no settler in the new world, something may be very wrong. 
+	// Check if we have a settler waiting in Europe that we can use to
+	// restart our fledgling empire
+	if (kOwner.getNumCities() == 0)
+	{
+		// Note: Does not include units waiting in Europe,
+		// 
+		const int iTotalSettlerCount = kOwner.AI_totalUnitAIs(UNITAI_SETTLER);
+		if (iTotalSettlerCount > 0)
+		{
+			int iEuropeSettlerCount = 0;
+
+			for (int i = 0; i < kOwner.getNumEuropeUnits(); ++i)
+			{
+				const CvUnit* pUnit = kOwner.getEuropeUnit(i);
+					
+				if (pUnit->AI_getUnitAIType() == UNITAI_SETTLER)
+				{
+					++iEuropeSettlerCount;
+				}
+			}
+			
+			if (iTotalSettlerCount == iEuropeSettlerCount)
+			{
+				// All our settlers are in Europe, 
+				// Dump all cargo (units) and head straight to Europe
+				AI_sailToEurope(true);
+				return;
+			}
+		}
+
+	}
+
 	// TAC - AI Improved Naval AI - koma13 - START
 	if (AI_retreatFromDanger())
 	{
@@ -5744,11 +5789,6 @@ void CvUnitAI::AI_combatSeaMove()
 
 void CvUnitAI::AI_pirateMove()
 {
-	if (AI_goodyRange(baseMoves(), /*bIgnoreCity*/true))
-	{
-		return;
-	}
-
 	if (AI_anyAttack(2, 49))
 	{
 		return;
@@ -5797,6 +5837,21 @@ void CvUnitAI::AI_pirateMove()
 		{
 			return;
 		}
+	}
+
+	if (AI_exploreCoast(2))
+	{
+		return;
+	}
+
+	if (AI_exploreOcean(1))
+	{
+		return;
+	}
+
+	if (AI_exploreDeep())
+	{
+		return;
 	}
 
 	if (AI_moveTowardsOcean(1))
@@ -6462,6 +6517,7 @@ bool CvUnitAI::AI_europe()
 	CvPlayerAI& kOwner = GET_PLAYER(getOwnerINLINE());
 	
 	AI_sellYieldUnits(EUROPE);
+	AI_unloadUnits(EUROPE);
 
 	// TAC - AI King no Europe trading bugfix - koma13 - START
 	//kOwner.AI_doEurope();
@@ -6522,6 +6578,29 @@ bool CvUnitAI::AI_europe()
 
 	//Pick up units from Europe (FIFO)
 	std::deque<CvUnit*> aUnits;
+	for (int i = 0; i < kOwner.getNumEuropeUnits(); ++i)
+	{
+		aUnits.push_back(kOwner.getEuropeUnit(i));
+	}
+
+	// Pick up settlers first
+	// TODO: Refactor this into a list of priorities
+	while (!aUnits.empty() && !isFull())
+	{
+		CvUnit* pUnit = aUnits.front();
+		aUnits.pop_front();
+		if (pUnit->canLoadUnit(this, plot(), false) && pUnit->AI_getUnitAIType() == UNITAI_SETTLER)
+		{
+			kOwner.loadUnitFromEurope(pUnit, this);
+			if (getGroup()->getAutomateType() == AUTOMATE_FULL)
+			{
+				FAssert(pUnit->getGroup() != NULL);
+				pUnit->getGroup()->setAutomateType(AUTOMATE_FULL);
+			}
+		}
+	}
+
+	//Pick up units from Europe (FIFO)
 	for (int i = 0; i < kOwner.getNumEuropeUnits(); ++i)
 	{
 		aUnits.push_back(kOwner.getEuropeUnit(i));
@@ -7476,7 +7555,7 @@ void CvUnitAI::AI_setMovePriority(int iNewValue)
 	}
 }
 
-bool CvUnitAI::AI_hasAIChanged(int iNumTurns)
+bool CvUnitAI::AI_hasAIChanged(int iNumTurns) const
 {
 	if (getGameTurnCreated() == AI_getLastAIChangeTurn())
 	{
@@ -7490,7 +7569,7 @@ bool CvUnitAI::AI_hasAIChanged(int iNumTurns)
 	return false;
 }
 
-int CvUnitAI::AI_getLastAIChangeTurn()
+int CvUnitAI::AI_getLastAIChangeTurn() const
 {
 	return m_iLastAIChangeTurn;
 }
@@ -8104,6 +8183,13 @@ bool CvUnitAI::AI_unloadWhereNeeded(int iMaxPath)
 					int iValue = 100000;
 					int iNumAIUnits = pArea->getNumAIUnits(getOwnerINLINE(), AI_getUnitAIType()) - ((pArea == area()) ? iCount : 0);
 					FAssert(iNumAIUnits >= 0);
+
+					// dirty dirty workaround to avoid a crash
+					// TODO make a proper fix
+					if (iNumAIUnits < 0)
+					{
+						iNumAIUnits = 0;
+					}
 					
 					iValue *= 1 + pArea->getNumCities();
 					iValue /= 1 + iNumAIUnits;
@@ -8149,7 +8235,7 @@ bool CvUnitAI::AI_unloadWhereNeeded(int iMaxPath)
 bool CvUnitAI::AI_betterJob()
 {
 
-	CvCity* pCity = plot()->getPlotCity();
+	CvCity* const pCity = plot()->getPlotCity();
 	if (pCity == NULL)
 	{
 		return false;
@@ -8164,15 +8250,17 @@ bool CvUnitAI::AI_betterJob()
 	// Check if the unit can have its original profession assigned when leaving the city
 	// This prevents the crash that was reported in issue #394
 	if (!canHaveProfession(eOriginalProfession, false, plot(), /*bForceCheck*/true))
-	{	FAssertMsg(false, "Illegal Profession");
+	{
+		FAssertMsg(false, "Illegal Profession");
 		return false;
 	}
 
+	// TODO: Try to remove this
 	pCity->AI_setWorkforceHack(true);
 
 	std::vector<CvUnit*> units;
-	int iOriginalMovePriority = AI_getMovePriority();
-	UnitAITypes eOriginalAI = AI_getUnitAIType();
+	const int iOriginalMovePriority = AI_getMovePriority();
+	const UnitAITypes eOriginalAI = AI_getUnitAIType();
 	
 	bool bJoined=false;
 	if (canJoinCity(plot()))
@@ -8181,28 +8269,36 @@ bool CvUnitAI::AI_betterJob()
 		pCity->addPopulationUnit(this, NO_PROFESSION);
 	}
 
-	CvPlot * pPlot = plot();
+	CvPlot* const pPlot = plot();
 	CLLNode<IDInfo>* pUnitNode = pPlot->headUnitNode();
 	while (pUnitNode != NULL)
 	{
-		CvUnit* pLoopUnit = ::getUnit(pUnitNode->m_data);
+		CvUnit* const pLoopUnit = ::getUnit(pUnitNode->m_data);
 		pUnitNode = pPlot->nextUnitNode(pUnitNode);
 		
 		if (pLoopUnit != this && pLoopUnit->getOwnerINLINE() == getOwnerINLINE())
 		{
 			if (!pLoopUnit->AI_hasAIChanged(5) && pLoopUnit->canJoinCity(pPlot))
 			{
-				if (pLoopUnit->canHaveProfession(eOriginalProfession, true) && canHaveProfession(pLoopUnit->getProfession(), true))
+				const ProfessionTypes eLoopProfession = pLoopUnit->getProfession();
+
+				// Defensive check since it has been observed that units with NO_PROFESSION can be in this list!
+				// If this is the case then we'd end up with an AV further below when passing NO_PROFESSION to GC.getProfessionInfo
+				// TODO: Consider adding an assert check to track down why this is happening
+				if (eLoopProfession == NO_PROFESSION)
+					continue;
+
+				if (pLoopUnit->canHaveProfession(eOriginalProfession, true) && canHaveProfession(eLoopProfession, true))
 				{
 					units.push_back(pLoopUnit);
 				}
 			}
 		}
 	}
-	
+
 	for (int i = 0; i < pCity->getPopulation(); ++i)
 	{
-		CvUnit* pLoopUnit = pCity->getPopulationUnitByIndex(i);
+		CvUnit* const pLoopUnit = pCity->getPopulationUnitByIndex(i);
 		if (pLoopUnit != this && pLoopUnit->getProfession() != NO_PROFESSION)
 		{
 			if (pLoopUnit != this)
@@ -8219,15 +8315,17 @@ bool CvUnitAI::AI_betterJob()
 	}
 	
 	CvPlayerAI& kOwner = GET_PLAYER(getOwnerINLINE());
-	int iSuitability = kOwner.AI_professionSuitability(this, eOriginalProfession, plot());
+	const int iSuitability = kOwner.AI_professionSuitability(this, eOriginalProfession, plot());
 	
 	int iBestValue = 0;
 	CvUnit* pBestUnit = NULL;
 	
 	for (uint i = 0; i < units.size(); ++i)
 	{
-		CvUnit* pLoopUnit = units[i];
-		CvPlot* pLoopPlot = GC.getProfessionInfo(pLoopUnit->getProfession()).isWorkPlot() ? pCity->getPlotWorkedByUnit(pLoopUnit) : plot();
+		CvUnit* const pLoopUnit = units[i];
+		const ProfessionTypes eLoopProfession = pLoopUnit->getProfession();
+
+		const CvPlot* const pLoopPlot = GC.getProfessionInfo(eLoopProfession).isWorkPlot() ? pCity->getPlotWorkedByUnit(pLoopUnit) : plot();
 		int iOtherSuitability = kOwner.AI_professionSuitability(pLoopUnit, eOriginalProfession, pLoopPlot);
 		int iValue = 0;
 
@@ -8236,10 +8334,8 @@ bool CvUnitAI::AI_betterJob()
 			iValue = iOtherSuitability - iSuitability;
 		}
 
-		int iOriginalValue = iSuitability + kOwner.AI_professionSuitability(pLoopUnit, pLoopUnit->getProfession(), pLoopPlot);
-		
-		int iNewValue = kOwner.AI_professionSuitability(this, pLoopUnit->getProfession(), pLoopPlot) + kOwner.AI_professionSuitability(pLoopUnit, eOriginalProfession, pLoopPlot);
-		
+		const int iOriginalValue = iSuitability + kOwner.AI_professionSuitability(pLoopUnit, eLoopProfession, pLoopPlot);
+		const int iNewValue = kOwner.AI_professionSuitability(this, eLoopProfession, pLoopPlot) + kOwner.AI_professionSuitability(pLoopUnit, eOriginalProfession, pLoopPlot);
 		iValue = std::max(iValue, iNewValue - iOriginalValue);
 		
 		if (iValue > iBestValue)
@@ -9273,6 +9369,8 @@ bool CvUnitAI::AI_respondToPickup(int iMaxPath, UnitAITypes eUnitAI)
 							}
 							// TAC - AI Improved Naval AI - koma13 - END
 
+							int iBestDirectionValue = MAX_INT;
+
 							if (bValid)
 							{
 								CvPlot* pLoopPlot = NULL;
@@ -9283,7 +9381,6 @@ bool CvUnitAI::AI_respondToPickup(int iMaxPath, UnitAITypes eUnitAI)
 								}
 								else
 								{
-									int iBestDirectionValue = MAX_INT;
 									for (int iDirection = 0; iDirection < NUM_DIRECTION_TYPES; iDirection++)
 									{
 										CvPlot* pDirectionPlot = plotDirection(pMissionPlot->getX_INLINE(), pMissionPlot->getY_INLINE(), (DirectionTypes)iDirection);
@@ -9317,7 +9414,7 @@ bool CvUnitAI::AI_respondToPickup(int iMaxPath, UnitAITypes eUnitAI)
 									}
 									
 									iValue *= 1000;
-									iValue /= 100 + ((iPathTurns == 0) ? 0 : getPathCost());
+									iValue /= 100 + ((iPathTurns == 0) ? 1 : iBestDirectionValue);
 									
 									int iDistance = stepDistance(pLoopSelectionGroup->getX(), pLoopSelectionGroup->getY(), pMissionPlot->getX_INLINE(), pMissionPlot->getY_INLINE());
 									
@@ -13811,7 +13908,6 @@ bool CvUnitAI::AI_anyAttack(int iRange, int iOddsThreshold, int iMinStack, bool 
 	PROFILE_FUNC();
 
 	FAssert(canMove());
-	FAssert(canMove());
 
 	int iSearchRange = bFollow ? 1 : AI_searchRange(iRange);
 
@@ -13859,7 +13955,9 @@ bool CvUnitAI::AI_anyAttack(int iRange, int iOddsThreshold, int iMinStack, bool 
 								if (bCanBombard)
 								{
 									CvCity* pCity = bombardTarget(pLoopPlot);
-									FAssert(pCity != NULL);
+									// Note: bCanBombard can be true if a fort was found rather than a city
+									// If that's the case we simply ignore it for now (may want to revisit it though)
+									//FAssert(pCity != NULL);
 									if (pCity != NULL)
 									{
 										int iValue = getGroup()->AI_attackOdds(pCity->plot(), true);
@@ -17265,7 +17363,8 @@ bool CvUnitAI::AI_retreatToCity(bool bPrimary, int iMaxPath, bool bAvoidDanger)
 									{
 										iBestValue = iValue;
 										pBestPlot = getPathEndTurnPlot();
-										FAssert(!atPlot(pBestPlot));
+										// See comment further below
+										//FAssert(!atPlot(pBestPlot));
 									}
 								}
 							}
@@ -17305,8 +17404,13 @@ bool CvUnitAI::AI_retreatToCity(bool bPrimary, int iMaxPath, bool bAvoidDanger)
 
 	if (pBestPlot != NULL)
 	{
-		FAssert(!atPlot(pBestPlot));
-		getGroup()->pushMission(MISSION_MOVE_TO, pBestPlot->getX_INLINE(), pBestPlot->getY_INLINE(), ((iPass > 0) ? MOVE_IGNORE_DANGER : 0));
+		// Disabling these checks since there's nothing wrong with attempting to retreat and then determining that staying at the current plot 
+		// is the better choice
+		//FAssert(!atPlot(pBestPlot));
+		if (atPlot(pBestPlot))
+			getGroup()->pushMission(MISSION_SKIP);
+		else
+			getGroup()->pushMission(MISSION_MOVE_TO, pBestPlot->getX_INLINE(), pBestPlot->getY_INLINE(), ((iPass > 0) ? MOVE_IGNORE_DANGER : 0));
 		return true;
 	}
 

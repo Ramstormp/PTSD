@@ -80,7 +80,6 @@ public:
 	bool isWithinTeamCityRadius(TeamTypes eTeam, PlayerTypes eIgnorePlayer = NO_PLAYER) const;
 
 	DllExport bool isLake() const;
-	bool isLargeRiver() const;
 
 	bool isRiverMask() const;
 	DllExport bool isRiverCrossingFlowClockwise(DirectionTypes eDirection) const;
@@ -412,7 +411,7 @@ public:
 
 	RouteTypes getRevealedRouteType(TeamTypes eTeam, bool bDebug) const;
 	void setRevealedRouteType(TeamTypes eTeam, RouteTypes eNewValue);
-	
+
 	int getBuildProgress(BuildTypes eBuild) const;
 	bool changeBuildProgress(BuildTypes eBuild, int iChange, TeamTypes eTeam = NO_TEAM);
 

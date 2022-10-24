@@ -13,7 +13,7 @@ m_pGameTextMgr(NULL)
 	m_pGameTextMgr = &CvGameTextMgr::GetInstance();
 }
 CyGameTextMgr::CyGameTextMgr(CvGameTextMgr* pGameTextMgr) :
-m_pGameTextMgr(m_pGameTextMgr)
+m_pGameTextMgr(pGameTextMgr)
 {}
 void CyGameTextMgr::Reset()
 {
@@ -43,7 +43,6 @@ std::wstring CyGameTextMgr::getGoldStr(int /*PlayerTypes*/ iPlayer)
 	GAMETEXT.setGoldStr(szBuffer, ((PlayerTypes)iPlayer));
 	return szBuffer;
 }
-
 std::wstring CyGameTextMgr::getOOSSeeds(int /*PlayerTypes*/ iPlayer)
 {
 	CvWString szBuffer;
