@@ -154,6 +154,27 @@
             <bVisible>1</bVisible>
         </GameOptionInfo>
         <GameOptionInfo>
+            <Type>GAMEOPTION_DEACTIVATE_HEMISPHERE_RESTRICTIONS</Type>
+            <Description>TXT_KEY_GAMEOPTION_DEACTIVATE_HEMISPHERE_RESTRICTIONS</Description>
+            <Help>TXT_KEY_GAMEOPTION_DEACTIVATE_HEMISPHERE_RESTRICTIONS_HELP</Help>
+            <bDefault>0</bDefault>
+            <bVisible>1</bVisible>
+        </GameOptionInfo>
+        <GameOptionInfo>
+            <Type>GAMEOPTION_GOODIES_ALWAYS_DISPLAY_COLOURED_CIRCLE</Type>
+            <Description>TXT_KEY_GAMEOPTION_GOODIES_ALWAYS_DISPLAY_COLOURED_CIRCLE</Description>
+            <Help>TXT_KEY_GAMEOPTION_GOODIES_ALWAYS_DISPLAY_COLOURED_CIRCLE_HELP</Help>
+            <bDefault>0</bDefault>
+            <bVisible>1</bVisible>
+        </GameOptionInfo>
+        <GameOptionInfo>
+            <Type>GAMEOPTION_UNREST_TURNS_DEPEND_ON_CITY_SIZE</Type>
+            <Description>TXT_KEY_GAMEOPTION_UNREST_TURNS_DEPEND_ON_CITY_SIZE</Description>
+            <Help>TXT_KEY_GAMEOPTION_UNREST_TURNS_DEPEND_ON_CITY_SIZE_HELP</Help>
+            <bDefault>0</bDefault>
+            <bVisible>1</bVisible>
+        </GameOptionInfo>
+        <GameOptionInfo>
             <Type>GAMEOPTION_REMOVE_WORLD_BUILDER</Type>
             <Description>TXT_KEY_GAMEOPTION_REMOVE_WORLD_BUILDER</Description>
             <Help>TXT_KEY_GAMEOPTION_REMOVE_WORLD_BUILDER_HELP</Help>
@@ -166,6 +187,27 @@
             <Help>TXT_KEY_GAMEOPTION_TRIANGLE_TRADE_HELP</Help>
             <bDefault>1</bDefault>
             <bVisible>1</bVisible>
+         </GameOptionInfo>
+         <GameOptionInfo>
+            <Type>GAMEOPTION_4_PLOT_BORDERS</Type>
+            <Description>TXT_KEY_GAMEOPTION_4_PLOT_BORDERS</Description>
+            <Help>TXT_KEY_GAMEOPTION_4_PLOT_BORDERS_HELP</Help>
+            <bDefault>0</bDefault>
+            <bVisible>1</bVisible>
         </GameOptionInfo>
-    </GameOptionInfos>
+        <GameOptionInfo>
+            <Type>GAMEOPTION_NO_FATHER_RACE</Type>
+            <Description>TXT_KEY_GAMEOPTION_NO_FATHER_RACE</Description>
+            <Help>TXT_KEY_GAMEOPTION_NO_FATHER_RACE_HELP</Help>
+            <bDefault>1</bDefault>
+            <bVisible>1</bVisible>
+        </GameOptionInfo>    
+         <GameOptionInfo>
+            <Type>GAMEOPTION_IRREGULAR_BONUS_PLACEMENT</Type>
+            <Description>TXT_KEY_GAMEOPTION_IRREGULAR_BONUS_PLACEMENT</Description>
+            <Help>TXT_KEY_GAMEOPTION_NO_FATHER_RACE_HELP</Help>
+            <bDefault>1</bDefault>
+            <bVisible>1</bVisible>
+        </GameOptionInfo>    
+</GameOptionInfos>
 </Civ4GameOptionInfos>

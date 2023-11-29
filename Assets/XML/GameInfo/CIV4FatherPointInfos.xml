@@ -11,11 +11,11 @@
             <Description>TXT_KEY_FATHER_POINT_EXPLORATION</Description>
             <Button>,Art/Colonization_Civilizations_Leaders.dds,5,6</Button>
             <iFontButtonIndex>14</iFontButtonIndex>
-            <iLandTilePoints>5</iLandTilePoints>
-            <iWaterTilePoints>3</iWaterTilePoints>
-            <iMeetNativePoints>50</iMeetNativePoints>
-            <iScoutVillagePoints>50</iScoutVillagePoints>
-            <iGoodyPoints>100</iGoodyPoints>
+            <iLandTilePoints>1</iLandTilePoints>
+            <iWaterTilePoints>0</iWaterTilePoints>
+            <iMeetNativePoints>30</iMeetNativePoints>
+            <iScoutVillagePoints>30</iScoutVillagePoints>
+            <iGoodyPoints>60</iGoodyPoints>
             <iExperiencePoints>0</iExperiencePoints>
             <iConquerCityPoints>0</iConquerCityPoints>
             <iRazeCityPoints>0</iRazeCityPoints>
@@ -23,7 +23,12 @@
             <iEuropeTradeGoldPointPercent>0</iEuropeTradeGoldPointPercent>
             <iNativeTradeGoldPointPercent>0</iNativeTradeGoldPointPercent>
             <BuildingPoints/>
-            <YieldPoints/>
+            <YieldPoints>
+              <YieldPoint>
+                <YieldType>YIELD_EDUCATION</YieldType>
+                <iPoints>10</iPoints>
+              </YieldPoint>
+            </YieldPoints>
             <iProductionConversionPoints>3</iProductionConversionPoints>
         </FatherPointInfo>
         <FatherPointInfo>
@@ -244,6 +249,14 @@
                 <YieldPoint>
                     <YieldType>YIELD_BELLS</YieldType>
                     <iPoints>5</iPoints>
+                </YieldPoint>
+                <YieldPoint>
+                    <YieldType>YIELD_CULTURE</YieldType>
+                    <iPoints>2</iPoints>
+                </YieldPoint>
+                <YieldPoint>
+                    <YieldType>YIELD_LAW</YieldType>
+                    <iPoints>2</iPoints>
                 </YieldPoint>
             </YieldPoints>
             <iProductionConversionPoints>3</iProductionConversionPoints>

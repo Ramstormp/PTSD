@@ -87,7 +87,6 @@ public:
 	void verifyDeals();
 
 	DllExport void getGlobeviewConfigurationParameters(TeamTypes eTeam, bool& bStarsVisible, bool& bWorldIsRound);
-	int getSymbolID(int iSymbol);
 
 	int getProductionPerPopulation(HurryTypes eHurry);
 
@@ -100,6 +99,8 @@ public:
 	int countCivTeamsEverAlive() const;
 	int countHumanPlayersAlive() const;
 	int countHumanPlayersEverAlive() const;
+
+	static int countCivPlayerEuropeanAI();
 
 	int countTotalCivPower();
 
@@ -281,7 +282,7 @@ public:
 
 	bool isDestroyedCityName(const CvWString& szName) const;
 	void addDestroyedCityName(const CvWString& szName);
-	
+
 	bool isGreatGeneralBorn(CvWString& szName) const;
 	void addGreatGeneralBornName(const CvWString& szName);
 
@@ -305,16 +306,24 @@ public:
 	CvDeal* nextDeal(int *pIterIdx, bool bRev=false);
 
 	CvRandom& getMapRand();
+	const CvRandom& getMapRand() const;
 	int getMapRandNum(int iNum, const char* pszLog);
 
 	CvRandom& getSorenRand();
+	const CvRandom& getSorenRand() const;
 	int getSorenRandNum(int iNum, const char* pszLog);
 
 	DllExport int calculateSyncChecksum(CvString* pLogString);
 	DllExport int calculateOptionsChecksum();
 
 	void addReplayMessage(ReplayMessageTypes eType = NO_REPLAY_MESSAGE, PlayerTypes ePlayer = NO_PLAYER, CvWString pszText = L"",
-		int iPlotX = -1, int iPlotY = -1, ColorTypes eColor = NO_COLOR);
+		int iPlotX = -1, int iPlotY = -1, ColorTypes eColor = NO_COLOR)
+		{
+			addReplayMessage(eType, ePlayer, pszText, Coordinates(iPlotX, iPlotY), eColor);
+		}
+
+	void addReplayMessage(ReplayMessageTypes eType, PlayerTypes ePlayer, CvWString pszText,
+		const Coordinates coord, ColorTypes eColor = NO_COLOR);
 	void clearReplayMessageMap();
 	int getReplayMessageTurn(uint i) const;
 	ReplayMessageTypes getReplayMessageType(uint i) const;
@@ -368,6 +377,8 @@ public:
 	int getFatherCategoryPosition(FatherTypes eFather) const;
 
 	void changeYieldBoughtTotal(PlayerTypes eMainEurope, YieldTypes eYield, int iChange) const;
+	void changeYieldBoughtTotalAfrica(PlayerTypes eMainEurope, YieldTypes eYield, int iChange) const; // WTP, ray, Yields Traded Total for Africa and Port Royal - START
+	void changeYieldBoughtTotalPortRoyal(PlayerTypes eMainEurope, YieldTypes eYield, int iChange) const; // WTP, ray, Yields Traded Total for Africa and Port Royal - START
 
 	// < JAnimals Mod Start >
 	PlayerTypes getBarbarianPlayer();
@@ -394,6 +405,8 @@ public:
 	// R&R, ray, Correct Geographical Placement of Natives - END
 
 	void writeDesyncLog();
+
+	int getRemainingForcedPeaceTurns() const;
 
 protected:
 
@@ -453,8 +466,9 @@ protected:
 	EnumMap<UnitClassTypes, int> m_em_iUnitClassCreatedCount;
 	EnumMap<BuildingClassTypes, int> m_em_iBuildingClassCreatedCount;
 
-	EnumMapDefault<FatherTypes, TeamTypes, NO_TEAM> m_em_eFatherTeam;
-	EnumMapDefault<FatherTypes, int, -1> m_em_iFatherGameTurn;
+	EnumMap<FatherTypes, TeamTypes> m_em_eFatherTeam;
+	EnumMap<TeamTypes, FatherTypes, NO_FATHER> m_em_eFatherConvinced; // Ramstormp, PTSD, Everyone can have every dad
+	EnumMap<FatherTypes, int, -1> m_em_iFatherGameTurn;
 
 	EnumMap<SpecialUnitTypes, bool> m_em_bSpecialUnitValid;
 	EnumMap<SpecialBuildingTypes, bool> m_em_bSpecialBuildingValid;
@@ -465,7 +479,7 @@ protected:
 	std::vector<CvWString> m_aszGreatGeneralBorn;
 	std::vector<CvWString> m_aszGreatAdmiralBorn; // R&R, ray, Great Admirals - START
 	std::vector<CvWString> m_aszShipNamed; // TAC - Ship Names - Ray - Start
-	
+
 
 	FFreeListTrashArray<CvDeal> m_deals;
 

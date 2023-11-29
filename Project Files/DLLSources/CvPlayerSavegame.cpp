@@ -27,6 +27,7 @@ const int defaultNativeAngerModifier = 0;
 const int defaultFreeExperience = 0;
 const int defaultWorkerSpeedModifier = 0;
 const int defaultImprovementUpgradeRateModifier = 0;
+const int defaultImprovementUpgradeDurationModifier = 0; // WTP, ray, Improvement Growth Modifier - START
 const int defaultMilitaryProductionModifier = 0;
 const int defaultCityDefenseModifier = 0;
 const int defaultHighestUnitLevel = 1;
@@ -46,17 +47,23 @@ const int defaultSeaCombatExperience = 0;
 const int defaultTimerNativeMerc = 0;
 const int defaultTimerEuropeanWars = 0;
 const int defaultTimerEuropeanPeace = 0;
+const int defaultTimerRoyalInterventions = 0; // WTP, ray, Royal Intervention, START
+const int defaultTimerPrivateersDiploEvent = 0; // WTP, ray, Privateers DLL Diplo Event - START
 const int defaultTimerPrisonsCrowded = 0;
 const int defaultTimerRevolutionaryNoble = 0;
 const int defaultTimerBishop = 0;
 const int defaultTimerChurchDemand = 0;
 const int defaultTimerChurchWar = 0;
+const int defaultTimerColonialInterventionInNativeWar = 0; //WTP, ray, Colonial Intervention In Native War - START
+const int defaultTimerColoniesAndNativeAlliesWar = 0; // WTP, ray, Big Colonies and Native Allies War - START
 const int defaultTimerSmugglingShip = 0;
 const int defaultTimerRanger = 0;
 const int defaultTimerConquistador = 0;
 const int defaultTimerPirates = 0;
 const int defaultTimerContinentalGuard = 0;
 const int defaultTimerMortar = 0;
+const int defaultTimerUsedShips = 0; //WTP, ray Kings Used Ship - START
+const int defaultTimerForeignImmigrants = 0; // WTP, ray, Foreign Kings, buy Immigrants - START
 const int defaultTimerNativeSlave = 0;
 const int defaultTimerAfricanSlaves = 0;
 const int defaultTimerStealingImmigrant = 0;
@@ -65,7 +72,10 @@ const int defaultChurchFavoursReceived = 0;
 const int defaultKingNumUnitMultiplier = 100;
 const int defaultMissionarySuccessPercent = 100;
 const int defaultNativeTradePostSuccessPercent = 100; // WTP, ray, Native Trade Posts - START
+const int defaultMaxYieldTradeAmount = 0; // Ramstormp, PTSD, Trade in Chunks
 const int defaultTimeNoTrade = 0;
+
+const int defaultIDSecondPlayerFrenchNativeWar = 0;
 
 const bool defaultAlive = false;
 const bool defaultWillingToBargain = false;
@@ -97,8 +107,16 @@ const int defaultFatherPointMultiplier = 100;
 const int defaultMissionaryRateModifier = 0;
 const int defaultNativeTradeModifier = 0;
 
+const int defaultTotalPlayerAfricaSellProfitModifierInPercent = 0; // WTP, Africa and Port Royal Profit Modifiers - START
+const int defaultTotalPlayerPortRoyalSellProfitModifierInPercent = 0; // WTP, Africa and Port Royal Profit Modifiers - START
+const int defaultTotalPlayerDomesticMarketProfitModifierInPercent = 0; // WTP, ray, Domestic Market Profit Modifier - START
 
-// 
+const int defaultOppressometerDiscriminationModifier = GLOBAL_DEFINE_OPPRESSOMETER_DISCRIMINATION_MODIFIER_BASE_COLONIZERS;
+const int defaultOppressometerForcedLaborModifier = GLOBAL_DEFINE_OPPRESSOMETER_FORCED_LABOR_MODIFIER_BASE;
+
+const unsigned long defaultRandomSeed = 0;
+
+//
 enum SavegameVariableTypes
 {
 	PlayerSave_END,
@@ -123,6 +141,7 @@ enum SavegameVariableTypes
 	PlayerSave_FreeExperience,
 	PlayerSave_WorkerSpeedModifier,
 	PlayerSave_ImprovementUpgradeRateModifier,
+	PlayerSave_ImprovementUpgradeDurationModifier, // WTP, ray, Improvement Growth Modifier - START
 	PlayerSave_MilitaryProductionModifier,
 	PlayerSave_CityDefenseModifier,
 	PlayerSave_HighestUnitLevel,
@@ -141,17 +160,23 @@ enum SavegameVariableTypes
 	PlayerSave_TimerNativeMerc,
 	PlayerSave_TimerEuropeanWars,
 	PlayerSave_TimerEuropeanPeace,
+	PlayerSave_TimerRoyalInterventions, // WTP, ray, Royal Intervention, START
+	PlayerSave_TimerPrivateersDiploEvent, // WTP, ray, Privateers DLL Diplo Event - START
 	PlayerSave_TimerPrisonsCrowded,
 	PlayerSave_TimerRevolutionaryNoble,
 	PlayerSave_TimerBishop,
 	PlayerSave_TimerChurchDemand,
 	PlayerSave_TimerChurchWar,
+	PlayerSave_TimerColonialInterventionInNativeWar, //WTP, ray, Colonial Intervention In Native War - START
+	PlayerSave_TimerColoniesAndNativeAlliesWar, // WTP, ray, Big Colonies and Native Allies War - START
 	PlayerSave_TimerSmugglingShip,
 	PlayerSave_TimerRanger,
 	PlayerSave_TimerConquistador,
 	PlayerSave_TimerPirates,
 	PlayerSave_TimerContinentalGuard,
 	PlayerSave_TimerMortar,
+	PlayerSave_TimerUsedShips, //WTP, ray Kings Used Ship - START
+	PlayerSave_TimerForeignImmigrants, // WTP, ray, Foreign Kings, buy Immigrants - START
 	PlayerSave_TimerNativeSlave,
 	PlayerSave_TimerAfricanSlaves,
 	PlayerSave_TimerStealingImmigrant,
@@ -160,7 +185,10 @@ enum SavegameVariableTypes
 	PlayerSave_KingNumUnitMultiplier,
 	PlayerSave_MissionarySuccessPercent,
 	PlayerSave_NativeTradePostSuccessPercent, // WTP, ray, Native Trade Posts - START
+	PlayerSave_MaxYieldTradeAmount, // Ramstormp, PTSD, Trade in Chunks
 	PlayerSave_TimeNoTrade,
+
+	PlayerSave_iDSecondPlayerFrenchNativeWar, //WTP, ray, Colonial Intervention In Native War - START
 
 	PlayerSave_Alive,
 	PlayerSave_WillingToBargain,
@@ -190,12 +218,16 @@ enum SavegameVariableTypes
 	PlayerSave_YieldAfricaBuyPrice,
 	PlayerSave_YieldPortRoyalBuyPrice,
 	PlayerSave_YieldTradedTotal,
+	PlayerSave_YieldTradedTotalAfrica, // WTP, ray, Yields Traded Total for Africa and Port Royal - START
+	PlayerSave_YieldTradedTotalPortRoyal, // WTP, ray, Yields Traded Total for Africa and Port Royal - START
 	PlayerSave_YieldBoughtTotal,
+	PlayerSave_YieldBoughtTotalAfrica, // WTP, ray, Yields Traded Total for Africa and Port Royal - START
+	PlayerSave_YieldBoughtTotalPortRoyal, // WTP, ray, Yields Traded Total for Africa and Port Royal - START
 	PlayerSave_TaxYieldModifierCount,
 	// Ramstormp, PTSD, Europe Stock
-	PlayerSave_EuropeWarehouseYield,
-	PlayerSave_AfricaWarehouseYield,
-	PlayerSave_PortRoyalWarehouseYield,
+	PlayerSave_EuropeWarehouseStock,
+	PlayerSave_AfricaWarehouseStock,
+	PlayerSave_PortRoyalWarehouseStock,
 	// Ramstormp - END
 	PlayerSave_YieldScoreTotal,
 
@@ -250,6 +282,10 @@ enum SavegameVariableTypes
 	PlayerSave_MissionaryRateModifier,
 	PlayerSave_NativeTradeModifier,
 
+	PlayerSave_TotalPlayerAfricaSellProfitModifierInPercent, // WTP, Africa and Port Royal Profit Modifiers - START
+	PlayerSave_TotalPlayerPortRoyalSellProfitModifierInPercent, // WTP, Africa and Port Royal Profit Modifiers - START
+	PlayerSave_TotalPlayerDomesticMarketProfitModifierInPercent,// WTP, ray, Domestic Market Profit Modifier - START
+
 	PlayerSave_TradeGroups,
 	PlayerSave_selectionGroups,
 	PlayerSave_eventsTriggered,
@@ -274,6 +310,11 @@ enum SavegameVariableTypes
 	PlayerSave_chievesTurn,
 	PlayerSave_triggersFired,
 	PlayerSave_CacheUpdate,
+
+	PlayerSave_OppressometerDiscriminationModifier,
+	PlayerSave_OppressometerForcedLaborModifier,
+
+	PlayerSave_RandomSeed,
 
 	NUM_SAVE_ENUM_VALUES,
 };
@@ -304,6 +345,7 @@ const char* getSavedEnumNamePlayer(SavegameVariableTypes eType)
 	case PlayerSave_FreeExperience: return "PlayerSave_FreeExperience";
 	case PlayerSave_WorkerSpeedModifier: return "PlayerSave_WorkerSpeedModifier";
 	case PlayerSave_ImprovementUpgradeRateModifier: return "PlayerSave_ImprovementUpgradeRateModifier";
+	case PlayerSave_ImprovementUpgradeDurationModifier: return "PlayerSave_ImprovementUpgradeDurationModifier"; // WTP, ray, Improvement Growth Modifier - START
 	case PlayerSave_MilitaryProductionModifier: return "PlayerSave_MilitaryProductionModifier";
 	case PlayerSave_CityDefenseModifier: return "PlayerSave_CityDefenseModifier";
 	case PlayerSave_HighestUnitLevel: return "PlayerSave_HighestUnitLevel";
@@ -322,26 +364,36 @@ const char* getSavedEnumNamePlayer(SavegameVariableTypes eType)
 	case PlayerSave_TimerNativeMerc: return "PlayerSave_TimerNativeMerc";
 	case PlayerSave_TimerEuropeanWars: return "PlayerSave_TimerEuropeanWars";
 	case PlayerSave_TimerEuropeanPeace: return "PlayerSave_TimerEuropeanPeace";
+	case PlayerSave_TimerRoyalInterventions: return "PlayerSave_TimerRoyalInterventions"; // WTP, ray, Royal Intervention, START
+	case PlayerSave_TimerPrivateersDiploEvent: return "PlayerSave_TimerPrivateersDiploEvent"; // WTP, ray, Privateers DLL Diplo Event - START
 	case PlayerSave_TimerPrisonsCrowded: return "PlayerSave_TimerPrisonsCrowded";
 	case PlayerSave_TimerRevolutionaryNoble: return "PlayerSave_TimerRevolutionaryNoble";
 	case PlayerSave_TimerBishop: return "PlayerSave_TimerBishop";
 	case PlayerSave_TimerChurchDemand: return "PlayerSave_TimerChurchDemand";
 	case PlayerSave_TimerChurchWar: return "PlayerSave_TimerChurchWar";
+	case PlayerSave_TimerColonialInterventionInNativeWar: return "PlayerSave_TimerColonialInterventionInNativeWar";	//WTP, ray, Colonial Intervention In Native War - START
+	case PlayerSave_TimerColoniesAndNativeAlliesWar: return "PlayerSave_TimerColoniesAndNativeAlliesWar";	// WTP, ray, Big Colonies and Native Allies War - START
 	case PlayerSave_TimerSmugglingShip: return "PlayerSave_TimerSmugglingShip";
 	case PlayerSave_TimerRanger: return "PlayerSave_TimerRanger";
 	case PlayerSave_TimerConquistador: return "PlayerSave_TimerConquistador";
 	case PlayerSave_TimerPirates: return "PlayerSave_TimerPirates";
 	case PlayerSave_TimerContinentalGuard: return "PlayerSave_TimerContinentalGuard";
 	case PlayerSave_TimerMortar: return "PlayerSave_TimerMortar";
+	case PlayerSave_TimerUsedShips: return "PlayerSave_TimerUsedShips";	//WTP, ray Kings Used Ship - START
+	case PlayerSave_TimerForeignImmigrants: return "PlayerSave_TimerForeignImmigrants";	// WTP, ray, Foreign Kings, buy Immigrants - START
 	case PlayerSave_TimerNativeSlave: return "PlayerSave_TimerNativeSlave";
 	case PlayerSave_TimerAfricanSlaves: return "PlayerSave_TimerAfricanSlaves";
 	case PlayerSave_TimerStealingImmigrant: return "PlayerSave_TimerStealingImmigrant";
 	case PlayerSave_ChurchFavoursReceived: return "PlayerSave_ChurchFavoursReceived";
+	case PlayerSave_RandomSeed: return "PlayerSave_RandomSeed";
 
 	case PlayerSave_KingNumUnitMultiplier: return "PlayerSave_KingNumUnitMultiplier";
 	case PlayerSave_MissionarySuccessPercent: return "PlayerSave_MissionarySuccessPercent";
 	case PlayerSave_NativeTradePostSuccessPercent: return "PlayerSave_NativeTradePostSuccessPercent"; // WTP, ray, Native Trade Posts - START
+	case PlayerSave_MaxYieldTradeAmount: return "PlayerSave_MaxYieldTradeAmount"; //Ramstormp, PTSD, Trade in Chunks
 	case PlayerSave_TimeNoTrade: return "PlayerSave_TimeNoTrade";
+
+	case PlayerSave_iDSecondPlayerFrenchNativeWar: return "PlayerSave_iDSecondPlayerFrenchNativeWar"; //WTP, ray, Colonial Intervention In Native War - START
 
 	case PlayerSave_Alive: return "PlayerSave_Alive";
 	case PlayerSave_WillingToBargain: return "PlayerSave_WillingToBargain";
@@ -359,7 +411,7 @@ const char* getSavedEnumNamePlayer(SavegameVariableTypes eType)
 	case PlayerSave_CurrentEra: return "PlayerSave_CurrentEra";
 	case PlayerSave_Parent: return "PlayerSave_Parent";
 	case PlayerSave_ImmigrationConversion: return "PlayerSave_ImmigrationConversion";
-	
+
 	case PlayerSave_LandPlotYield: return "PlayerSave_LandPlotYield";
 	case PlayerSave_SeaPlotYield: return "PlayerSave_SeaPlotYield";
 	case PlayerSave_YieldRateModifier: return "PlayerSave_YieldRateModifier";
@@ -371,14 +423,17 @@ const char* getSavedEnumNamePlayer(SavegameVariableTypes eType)
 	case PlayerSave_YieldAfricaBuyPrice: return "PlayerSave_YieldAfricaBuyPrice";
 	case PlayerSave_YieldPortRoyalBuyPrice: return "PlayerSave_YieldPortRoyalBuyPrice";
 	case PlayerSave_YieldTradedTotal: return "PlayerSave_YieldTradedTotal";
+	case PlayerSave_YieldTradedTotalAfrica: return "PlayerSave_YieldTradedTotalAfrica";	// WTP, ray, Yields Traded Total for Africa and Port Royal - START
+	case PlayerSave_YieldTradedTotalPortRoyal: return "PlayerSave_YieldTradedTotalPortRoyal"; // WTP, ray, Yields Traded Total for Africa and Port Royal - START
 	case PlayerSave_YieldBoughtTotal: return "PlayerSave_YieldBoughtTotal";
+	case PlayerSave_YieldBoughtTotalAfrica: return "PlayerSave_YieldBoughtTotalAfrica"; // WTP, ray, Yields Traded Total for Africa and Port Royal - START
+	case PlayerSave_YieldBoughtTotalPortRoyal: return "PlayerSave_YieldBoughtTotalPortRoyal"; // WTP, ray, Yields Traded Total for Africa and Port Royal - START
 	case PlayerSave_TaxYieldModifierCount: return "PlayerSave_TaxYieldModifierCount";
 		// Ramstormp, PTSD, Europe Stock - START
-	case PlayerSave_EuropeWarehouseYield: return "PlayerSave_EuropeWarehouseYield";
-	case PlayerSave_AfricaWarehouseYield: return "PlayerSave_AfricaWarehouseYield";
-	case PlayerSave_PortRoyalWarehouseYield: return "PlayerSave_PortRoyalWarehouseYield";
+	case PlayerSave_EuropeWarehouseStock: return "PlayerSave_EuropeWarehouseStock";
+	case PlayerSave_AfricaWarehouseStock: return "PlayerSave_AfricaWarehouseStock";
+	case PlayerSave_PortRoyalWarehouseStock: return "PlayerSave_PortRoyalWarehouseStock";
 		// Ramstormp - END
-
 	case PlayerSave_YieldScoreTotal: return "PlayerSave_YieldScoreTotal";
 
 	case PlayerSave_YieldEuropeTradable: return "PlayerSave_YieldEuropeTradable";
@@ -402,7 +457,7 @@ const char* getSavedEnumNamePlayer(SavegameVariableTypes eType)
 	case PlayerSave_MissionaryThresholdMultiplier: return "PlayerSave_MissionaryThresholdMultiplier";
 	case PlayerSave_ProfessionEquipmentModifier: return "PlayerSave_ProfessionEquipmentModifier";
 	case PlayerSave_TraitCount: return "PlayerSave_TraitCount";
-	
+
 	case PlayerSave_ScriptData: return "PlayerSave_ScriptData";
 
 	case PlayerSave_Civics: return "PlayerSave_Civics";
@@ -432,13 +487,17 @@ const char* getSavedEnumNamePlayer(SavegameVariableTypes eType)
 	case PlayerSave_MissionaryRateModifier: return "PlayerSave_MissionaryRateModifier";
 	case PlayerSave_NativeTradeModifier: return "PlayerSave_NativeTradeModifier";
 
+	case PlayerSave_TotalPlayerAfricaSellProfitModifierInPercent: return "PlayerSave_TotalPlayerAfricaSellProfitModifierInPercent"; // WTP, Africa and Port Royal Profit Modifiers - START
+	case PlayerSave_TotalPlayerPortRoyalSellProfitModifierInPercent: return "PlayerSave_TotalPlayerPortRoyalSellProfitModifierInPercent"; // WTP, Africa and Port Royal Profit Modifiers - START
+	case PlayerSave_TotalPlayerDomesticMarketProfitModifierInPercent: return "PlayerSave_TotalPlayerDomesticMarketProfitModifierInPercent"; // WTP, ray, Domestic Market Profit Modifier - START
+
 	case PlayerSave_TradeGroups: return "PlayerSave_TradeGroups";
 	case PlayerSave_selectionGroups: return "PlayerSave_selectionGroups";
 	case PlayerSave_eventsTriggered: return "PlayerSave_eventsTriggered";
 	case PlayerSave_listGameMessages: return "PlayerSave_listGameMessages";
 	case PlayerSave_listPopups: return "PlayerSave_listPopups";
 	case PlayerSave_listDiplomacy: return "PlayerSave_listDiplomacy";
-	
+
 	case PlayerSave_mapScoreHistory: return "PlayerSave_mapScoreHistory";
 	case PlayerSave_mapEconomyHistory: return "PlayerSave_mapEconomyHistory";
 	case PlayerSave_mapIndustryHistory: return "PlayerSave_mapIndustryHistory";
@@ -457,7 +516,10 @@ const char* getSavedEnumNamePlayer(SavegameVariableTypes eType)
 	case PlayerSave_triggersFired: return "PlayerSave_triggersFired";
 	case PlayerSave_CacheUpdate: return "PlayerSave_CacheUpdate";
 
+	case PlayerSave_OppressometerDiscriminationModifier: return "PlayerSave_OppressometerDiscriminationModifier";
+	case PlayerSave_OppressometerForcedLaborModifier: return "PlayerSave_OppressometerForcedLaborModifier";
 	}
+	FAssertMsg(0, "Missing case");
 	return "";
 }
 
@@ -470,7 +532,7 @@ int getNumSavedEnumValuesPlayer()
 void CvPlayer::resetSavedData(PlayerTypes eID, bool bConstructorCall)
 {
 	m_iNumCombatsWon = defaultNumCombatsWon;
-	m_iNumSeaCombatsWon = defaultNumSeaCombatsWon; 
+	m_iNumSeaCombatsWon = defaultNumSeaCombatsWon;
 	m_iStartingX = defaultStartingX;
 	m_iStartingY = defaultStartingY;
 	m_iTotalPopulation = defaultTotalPopulation;
@@ -491,6 +553,7 @@ void CvPlayer::resetSavedData(PlayerTypes eID, bool bConstructorCall)
 	m_iFreeExperience = defaultFreeExperience;
 	m_iWorkerSpeedModifier = defaultWorkerSpeedModifier;
 	m_iImprovementUpgradeRateModifier = defaultImprovementUpgradeRateModifier;
+	m_iImprovementUpgradeDurationModifier = defaultImprovementUpgradeDurationModifier; // WTP, ray, Improvement Growth Modifier - START
 	m_iMilitaryProductionModifier = defaultMilitaryProductionModifier;
 	m_iCityDefenseModifier = defaultCityDefenseModifier;
 	m_iHighestUnitLevel = defaultHighestUnitLevel;
@@ -509,17 +572,22 @@ void CvPlayer::resetSavedData(PlayerTypes eID, bool bConstructorCall)
 	m_iTimerNativeMerc = defaultTimerNativeMerc;
 	m_iTimerEuropeanWars = defaultTimerEuropeanWars;
 	m_iTimerEuropeanPeace = defaultTimerEuropeanPeace;
+	m_iTimerRoyalInterventions = defaultTimerRoyalInterventions; // WTP, ray, Royal Intervention, START
+	m_iTimerPrivateersDiploEvent = defaultTimerPrivateersDiploEvent; // WTP, ray, Privateers DLL Diplo Event - START
 	m_iTimerPrisonsCrowded = defaultTimerPrisonsCrowded;
 	m_iTimerRevolutionaryNoble = defaultTimerRevolutionaryNoble;
 	m_iTimerBishop = defaultTimerBishop;
 	m_iTimerChurchDemand = defaultTimerChurchDemand;
 	m_iTimerChurchWar = defaultTimerChurchWar;
+	m_iTimerColonialInterventionInNativeWar = defaultTimerColonialInterventionInNativeWar; //WTP, ray, Colonial Intervention In Native War - START
+	m_iTimerColoniesAndNativeAlliesWar = defaultTimerColoniesAndNativeAlliesWar; // WTP, ray, Big Colonies and Native Allies War - START
 	m_iTimerSmugglingShip = defaultTimerSmugglingShip;
 	m_iTimerRanger = defaultTimerRanger;
 	m_iTimerConquistador = defaultTimerConquistador;
 	m_iTimerPirates = defaultTimerPirates;
 	m_iTimerContinentalGuard = defaultTimerContinentalGuard;
 	m_iTimerMortar = defaultTimerMortar;
+	m_iTimerUsedShips = defaultTimerUsedShips; //WTP, ray Kings Used Ship
 	m_iTimerNativeSlave = defaultTimerNativeSlave;
 	m_iTimerAfricanSlaves = defaultTimerAfricanSlaves;
 	m_iTimerStealingImmigrant = defaultTimerStealingImmigrant;
@@ -528,7 +596,10 @@ void CvPlayer::resetSavedData(PlayerTypes eID, bool bConstructorCall)
 	m_iKingNumUnitMultiplier = defaultKingNumUnitMultiplier;
 	m_iMissionarySuccessPercent = defaultMissionarySuccessPercent;
 	m_iNativeTradePostSuccessPercent = defaultNativeTradePostSuccessPercent; // WTP, ray, Native Trade Posts - START
+	m_iMaxYieldTradeAmount = defaultMaxYieldTradeAmount; // Ramstormp, PTSD, Trade in Chunks
 	m_iTimeNoTrade = defaultTimeNoTrade;
+
+	m_iDSecondPlayerFrenchNativeWar = defaultIDSecondPlayerFrenchNativeWar; //WTP, ray, Colonial Intervention In Native War - START
 
 	m_bAlive = defaultAlive;
 	m_bWillingToBargain = defaultWillingToBargain;
@@ -556,6 +627,9 @@ void CvPlayer::resetSavedData(PlayerTypes eID, bool bConstructorCall)
 	m_eParent= defaultParent;
 	m_eImmigrationConversion= defaultImmigrationConversion;
 
+	m_iOppressometerDiscriminationModifier = defaultOppressometerDiscriminationModifier;
+	m_iOppressometerForcedLaborModifier = defaultOppressometerForcedLaborModifier;
+
 	m_em_iLandPlotYield.reset();
 	m_em_iSeaPlotYield.reset();
 	m_em_iYieldRateModifier.reset();
@@ -567,12 +641,16 @@ void CvPlayer::resetSavedData(PlayerTypes eID, bool bConstructorCall)
 	m_em_iYieldAfricaBuyPrice.reset();
 	m_em_iYieldPortRoyalBuyPrice.reset();
 	m_em_iYieldTradedTotal.reset();
+	m_em_iYieldTradedTotalAfrica.reset(); // WTP, ray, Yields Traded Total for Africa and Port Royal - START
+	m_em_iYieldTradedTotalPortRoyal.reset(); // WTP, ray, Yields Traded Total for Africa and Port Royal - START
 	m_em_iYieldBoughtTotal.reset();
+	m_em_iYieldBoughtTotalAfrica.reset(); // WTP, ray, Yields Traded Total for Africa and Port Royal - START
+	m_em_iYieldBoughtTotalPortRoyal.reset(); // WTP, ray, Yields Traded Total for Africa and Port Royal - START
 	m_em_iTaxYieldModifierCount.reset();
 	// Ramstormp, PTSD, Europe Stock - START
-	m_em_iEuropeWarehouseYield.reset();
-	m_em_iAfricaWarehouseYield.reset();
-	m_em_iPortRoyalWarehouseYield.reset();
+	m_em_iEuropeWarehouseStock.reset();
+	m_em_iAfricaWarehouseStock.reset();
+	m_em_iPortRoyalWarehouseStock.reset();
 	// Ramstormp - END
 	m_em_iYieldScoreTotal.reset();
 
@@ -629,6 +707,10 @@ void CvPlayer::resetSavedData(PlayerTypes eID, bool bConstructorCall)
 	m_iFatherPointMultiplier = defaultFatherPointMultiplier;
 	m_iMissionaryRateModifier = defaultMissionaryRateModifier;
 	m_iNativeTradeModifier = defaultNativeTradeModifier;
+
+	m_iTotalPlayerAfricaSellProfitModifierInPercent = defaultTotalPlayerAfricaSellProfitModifierInPercent; // WTP, Africa and Port Royal Profit Modifiers - START
+	m_iTotalPlayerPortRoyalSellProfitModifierInPercent = defaultTotalPlayerPortRoyalSellProfitModifierInPercent; // WTP, Africa and Port Royal Profit Modifiers - START
+	m_iTotalPlayerDomesticMarketProfitModifierInPercent = defaultTotalPlayerDomesticMarketProfitModifierInPercent; // WTP, ray, Domestic Market Profit Modifier - START
 
 	m_aTradeGroups.reset();
 	m_selectionGroups.removeAll();
@@ -693,11 +775,12 @@ void CvPlayer::read(CvSavegameReader reader)
 		case PlayerSave_DomesticGreatGeneralRateModifier: reader.Read(m_iDomesticGreatGeneralRateModifier); break;
 		case PlayerSave_ImmigrationThresholdMultiplier: reader.Read(m_iImmigrationThresholdMultiplier); break;
 		case PlayerSave_RevolutionEuropeUnitThresholdMultiplier: reader.Read(m_iRevolutionEuropeUnitThresholdMultiplier); break;
-		
+
 		case PlayerSave_NativeAngerModifier: reader.Read(m_iNativeAngerModifier); break;
 		case PlayerSave_FreeExperience: reader.Read(m_iFreeExperience); break;
 		case PlayerSave_WorkerSpeedModifier: reader.Read(m_iWorkerSpeedModifier); break;
 		case PlayerSave_ImprovementUpgradeRateModifier: reader.Read(m_iImprovementUpgradeRateModifier); break;
+		case PlayerSave_ImprovementUpgradeDurationModifier: reader.Read(m_iImprovementUpgradeDurationModifier); break; // WTP, ray, Improvement Growth Modifier - START
 		case PlayerSave_MilitaryProductionModifier: reader.Read(m_iMilitaryProductionModifier); break;
 		case PlayerSave_CityDefenseModifier: reader.Read(m_iCityDefenseModifier); break;
 		case PlayerSave_HighestUnitLevel: reader.Read(m_iHighestUnitLevel); break;
@@ -716,26 +799,36 @@ void CvPlayer::read(CvSavegameReader reader)
 		case PlayerSave_TimerNativeMerc: reader.Read(m_iTimerNativeMerc); break;
 		case PlayerSave_TimerEuropeanWars: reader.Read(m_iTimerEuropeanWars); break;
 		case PlayerSave_TimerEuropeanPeace: reader.Read(m_iTimerEuropeanPeace); break;
+		case PlayerSave_TimerRoyalInterventions: reader.Read(m_iTimerRoyalInterventions); break; // WTP, ray, Royal Intervention, START
+		case PlayerSave_TimerPrivateersDiploEvent: reader.Read(m_iTimerPrivateersDiploEvent); break; // WTP, ray, Privateers DLL Diplo Event - START
 		case PlayerSave_TimerPrisonsCrowded: reader.Read(m_iTimerPrisonsCrowded); break;
 		case PlayerSave_TimerRevolutionaryNoble: reader.Read(m_iTimerRevolutionaryNoble); break;
 		case PlayerSave_TimerBishop: reader.Read(m_iTimerBishop); break;
 		case PlayerSave_TimerChurchDemand: reader.Read(m_iTimerChurchDemand); break;
 		case PlayerSave_TimerChurchWar: reader.Read(m_iTimerChurchWar); break;
+		case PlayerSave_TimerColonialInterventionInNativeWar: reader.Read(m_iTimerColonialInterventionInNativeWar); break;	//WTP, ray, Colonial Intervention In Native War - START
+		case PlayerSave_TimerColoniesAndNativeAlliesWar: reader.Read(m_iTimerColoniesAndNativeAlliesWar); break;	// WTP, ray, Big Colonies and Native Allies War - START
 		case PlayerSave_TimerSmugglingShip: reader.Read(m_iTimerSmugglingShip); break;
 		case PlayerSave_TimerRanger: reader.Read(m_iTimerRanger); break;
 		case PlayerSave_TimerConquistador: reader.Read(m_iTimerConquistador); break;
 		case PlayerSave_TimerPirates: reader.Read(m_iTimerPirates); break;
 		case PlayerSave_TimerContinentalGuard: reader.Read(m_iTimerContinentalGuard); break;
 		case PlayerSave_TimerMortar: reader.Read(m_iTimerMortar); break;
+		case PlayerSave_TimerUsedShips: reader.Read(m_iTimerUsedShips); break;	//WTP, ray Kings Used Ship - START
+		case PlayerSave_TimerForeignImmigrants: reader.Read(m_iTimerForeignImmigrants); break;	// WTP, ray, Foreign Kings, buy Immigrants - START
 		case PlayerSave_TimerNativeSlave: reader.Read(m_iTimerNativeSlave); break;
 		case PlayerSave_TimerAfricanSlaves: reader.Read(m_iTimerAfricanSlaves); break;
 		case PlayerSave_TimerStealingImmigrant: reader.Read(m_iTimerStealingImmigrant); break;
 		case PlayerSave_ChurchFavoursReceived: reader.Read(m_iChurchFavoursReceived); break;
+		case PlayerSave_RandomSeed: reader.Read(m_ulRandomSeed); break;
 
 		case PlayerSave_KingNumUnitMultiplier: reader.Read(m_iKingNumUnitMultiplier); break;
 		case PlayerSave_MissionarySuccessPercent: reader.Read(m_iMissionarySuccessPercent); break;
 		case PlayerSave_NativeTradePostSuccessPercent: reader.Read(m_iNativeTradePostSuccessPercent); break; // WTP, ray, Native Trade Posts - START)
+		case PlayerSave_MaxYieldTradeAmount: reader.Read(m_iMaxYieldTradeAmount); break; // Ramstormp, PTSD, Trade in Chunks
 		case PlayerSave_TimeNoTrade: reader.Read(m_iTimeNoTrade); break;
+
+		case PlayerSave_iDSecondPlayerFrenchNativeWar: reader.Read(m_iDSecondPlayerFrenchNativeWar); break;	// WTP, ray, Big Colonies and Native Allies War - START
 
 		case PlayerSave_Alive: reader.Read(m_bAlive); break;
 		case PlayerSave_WillingToBargain: reader.Read(m_bWillingToBargain); break;
@@ -768,12 +861,16 @@ void CvPlayer::read(CvSavegameReader reader)
 		case PlayerSave_YieldAfricaBuyPrice: reader.Read(m_em_iYieldAfricaBuyPrice); break;
 		case PlayerSave_YieldPortRoyalBuyPrice: reader.Read(m_em_iYieldPortRoyalBuyPrice); break;
 		case PlayerSave_YieldTradedTotal: reader.Read(m_em_iYieldTradedTotal); break;
+		case PlayerSave_YieldTradedTotalAfrica: reader.Read(m_em_iYieldTradedTotalAfrica); break; // WTP, ray, Yields Traded Total for Africa and Port Royal - START
+		case PlayerSave_YieldTradedTotalPortRoyal: reader.Read(m_em_iYieldTradedTotalPortRoyal); break; // WTP, ray, Yields Traded Total for Africa and Port Royal - START
 		case PlayerSave_YieldBoughtTotal: reader.Read(m_em_iYieldBoughtTotal); break;
+		case PlayerSave_YieldBoughtTotalAfrica: reader.Read(m_em_iYieldBoughtTotalAfrica); break; // WTP, ray, Yields Traded Total for Africa and Port Royal - START
+		case PlayerSave_YieldBoughtTotalPortRoyal: reader.Read(m_em_iYieldBoughtTotalPortRoyal); break; // WTP, ray, Yields Traded Total for Africa and Port Royal - START
 		case PlayerSave_TaxYieldModifierCount: reader.Read(m_em_iTaxYieldModifierCount); break;
 			// Ramstormp, PTSD, Europe Stock - START
-		case PlayerSave_EuropeWarehouseYield: reader.Read(m_em_iEuropeWarehouseYield); break;
-		case PlayerSave_AfricaWarehouseYield: reader.Read(m_em_iAfricaWarehouseYield); break;
-		case PlayerSave_PortRoyalWarehouseYield: reader.Read(m_em_iPortRoyalWarehouseYield); break;
+		case PlayerSave_EuropeWarehouseStock: reader.Read(m_em_iEuropeWarehouseStock); break;
+		case PlayerSave_AfricaWarehouseStock: reader.Read(m_em_iAfricaWarehouseStock); break;
+		case PlayerSave_PortRoyalWarehouseStock: reader.Read(m_em_iPortRoyalWarehouseStock); break;
 			// Ramstormp - END
 		case PlayerSave_YieldScoreTotal: reader.Read(m_em_iYieldScoreTotal); break;
 
@@ -784,7 +881,7 @@ void CvPlayer::read(CvSavegameReader reader)
 		case PlayerSave_ImprovementCount: reader.Read(m_em_iImprovementCount); break;
 		case PlayerSave_FreeBuildingCount: reader.Read(m_em_iFreeBuildingCount); break;
 		case PlayerSave_UnitClassCount: reader.Read(m_em_iUnitClassCount); break;
-		case PlayerSave_UnitClassMaking: reader.Read(m_em_iUnitClassMaking); break;
+		case PlayerSave_UnitClassMaking: reader.Read(m_em_iUnitClassMaking); break; // recalculated later. Only kept for savegame compatibility
 		case PlayerSave_UnitClassImmigrated: reader.Read(m_em_iUnitClassImmigrated); break;
 		case PlayerSave_UnitMoveChange: reader.Read(m_em_iUnitMoveChange); break;
 		case PlayerSave_UnitStrengthModifier: reader.Read(m_em_iUnitStrengthModifier); break;
@@ -805,7 +902,7 @@ void CvPlayer::read(CvSavegameReader reader)
 
 		case PlayerSave_ImprovementYieldChange: reader.Read(m_em_iImprovementYieldChange); break;
 		case PlayerSave_BuildingYieldChange: reader.Read(m_em_iBuildingYieldChange); break;
-		
+
 		case PlayerSave_groupCycle: reader.Read(m_groupCycle); break;
 		case PlayerSave_CityNames: reader.Read(m_aszCityNames); break;
 		case PlayerSave_cities: reader.Read(m_cities); break;
@@ -828,6 +925,10 @@ void CvPlayer::read(CvSavegameReader reader)
 		case PlayerSave_FatherPointMultiplier: reader.Read(m_iFatherPointMultiplier); break;
 		case PlayerSave_MissionaryRateModifier: reader.Read(m_iMissionaryRateModifier); break;
 		case PlayerSave_NativeTradeModifier: reader.Read(m_iNativeTradeModifier); break;
+
+		case PlayerSave_TotalPlayerAfricaSellProfitModifierInPercent: reader.Read(m_iTotalPlayerAfricaSellProfitModifierInPercent); break; // WTP, Africa and Port Royal Profit Modifiers - START
+		case PlayerSave_TotalPlayerPortRoyalSellProfitModifierInPercent: reader.Read(m_iTotalPlayerPortRoyalSellProfitModifierInPercent); break; // WTP, Africa and Port Royal Profit Modifiers - START
+		case PlayerSave_TotalPlayerDomesticMarketProfitModifierInPercent: reader.Read(m_iTotalPlayerDomesticMarketProfitModifierInPercent); break; // WTP, ray, Domestic Market Profit Modifier - START
 
 		case PlayerSave_TradeGroups: reader.Read(m_aTradeGroups); break;
 		case PlayerSave_selectionGroups: reader.Read(m_selectionGroups); break;
@@ -853,13 +954,16 @@ void CvPlayer::read(CvSavegameReader reader)
 		case PlayerSave_chievesTurn: reader.Read(m_achievesTurn); break;
 		case PlayerSave_triggersFired: reader.Read(m_triggersFired); break;
 
+		case PlayerSave_OppressometerDiscriminationModifier: reader.Read(m_iOppressometerDiscriminationModifier); break;
+		case PlayerSave_OppressometerForcedLaborModifier: reader.Read(m_iOppressometerForcedLaborModifier); break;
+
 		case PlayerSave_CacheUpdate:
 			// Updating cache prior to reading anything, which relies on cache to load properly or set other caches
 			// Cities in particular relies on cached values in CvPlayer
 
 			// The CivEffect cache isn't saved. Instead it's recalculated on load.
 			// This will make it adapt to changed xml settings.
-			CivEffect()->rebuildCivEffectCache();
+			CivEffect().rebuildCivEffectCache();
 			break;
 		}
 	}
@@ -867,7 +971,7 @@ void CvPlayer::read(CvSavegameReader reader)
 	// Get the NetID from the initialization structure
 	setNetID(gDLL->getAssignedNetworkID(getID()));
 
-	
+
 
 	Update_cache_YieldEquipmentAmount(); // cache CvPlayer::getYieldEquipmentAmount - Nightinggale
 
@@ -881,6 +985,8 @@ void CvPlayer::read(CvSavegameReader reader)
 
 void CvPlayer::write(CvSavegameWriter writer)
 {
+	LogIntentHelper helper(writer, "CvPlayer");
+
 	writer.AssignClassType(SAVEGAME_CLASS_PLAYER);
 
 	// Write the data.
@@ -889,7 +995,7 @@ void CvPlayer::write(CvSavegameWriter writer)
 	// If nothing is saved, the loading code will use the default values.
 	// Less data saved/loaded means smaller savegames.
 	writer.Write(PlayerSave_NumCombatsWon, m_iNumCombatsWon, defaultNumCombatsWon);
-	writer.Write(PlayerSave_NumSeaCombatsWon, m_iNumSeaCombatsWon, defaultNumSeaCombatsWon); 
+	writer.Write(PlayerSave_NumSeaCombatsWon, m_iNumSeaCombatsWon, defaultNumSeaCombatsWon);
 	writer.Write(PlayerSave_StartingX, m_iStartingX, defaultStartingX);
 	writer.Write(PlayerSave_StartingY, m_iStartingY, defaultStartingY);
 	writer.Write(PlayerSave_TotalPopulation, m_iTotalPopulation, defaultTotalPopulation);
@@ -905,11 +1011,12 @@ void CvPlayer::write(CvSavegameWriter writer)
 	writer.Write(PlayerSave_DomesticGreatGeneralRateModifier, m_iDomesticGreatGeneralRateModifier, defaultDomesticGreatGeneralRateModifier);
 	writer.Write(PlayerSave_ImmigrationThresholdMultiplier, m_iImmigrationThresholdMultiplier, defaultImmigrationThresholdMultiplier);
 	writer.Write(PlayerSave_RevolutionEuropeUnitThresholdMultiplier, m_iRevolutionEuropeUnitThresholdMultiplier, defaultRevolutionEuropeUnitThresholdMultiplier);
-	
+
 	writer.Write(PlayerSave_NativeAngerModifier, m_iNativeAngerModifier, defaultNativeAngerModifier);
 	writer.Write(PlayerSave_FreeExperience, m_iFreeExperience, defaultFreeExperience);
 	writer.Write(PlayerSave_WorkerSpeedModifier, m_iWorkerSpeedModifier, defaultWorkerSpeedModifier);
 	writer.Write(PlayerSave_ImprovementUpgradeRateModifier, m_iImprovementUpgradeRateModifier, defaultImprovementUpgradeRateModifier);
+	writer.Write(PlayerSave_ImprovementUpgradeDurationModifier, m_iImprovementUpgradeDurationModifier, defaultImprovementUpgradeDurationModifier); // WTP, ray, Improvement Growth Modifier - START
 	writer.Write(PlayerSave_MilitaryProductionModifier, m_iMilitaryProductionModifier, defaultMilitaryProductionModifier);
 	writer.Write(PlayerSave_CityDefenseModifier, m_iCityDefenseModifier, defaultCityDefenseModifier);
 	writer.Write(PlayerSave_HighestUnitLevel, m_iHighestUnitLevel, defaultHighestUnitLevel);
@@ -928,26 +1035,35 @@ void CvPlayer::write(CvSavegameWriter writer)
 	writer.Write(PlayerSave_TimerNativeMerc, m_iTimerNativeMerc, defaultTimerNativeMerc);
 	writer.Write(PlayerSave_TimerEuropeanWars, m_iTimerEuropeanWars, defaultTimerEuropeanWars);
 	writer.Write(PlayerSave_TimerEuropeanPeace, m_iTimerEuropeanPeace, defaultTimerEuropeanPeace);
+	writer.Write(PlayerSave_TimerRoyalInterventions, m_iTimerRoyalInterventions, defaultTimerRoyalInterventions); // WTP, ray, Royal Intervention, START
+	writer.Write(PlayerSave_TimerPrivateersDiploEvent, m_iTimerPrivateersDiploEvent, defaultTimerPrivateersDiploEvent); // WTP, ray, Privateers DLL Diplo Event - START
 	writer.Write(PlayerSave_TimerPrisonsCrowded, m_iTimerPrisonsCrowded, defaultTimerPrisonsCrowded);
 	writer.Write(PlayerSave_TimerRevolutionaryNoble, m_iTimerRevolutionaryNoble, defaultTimerRevolutionaryNoble);
 	writer.Write(PlayerSave_TimerBishop, m_iTimerBishop, defaultTimerBishop);
 	writer.Write(PlayerSave_TimerChurchDemand, m_iTimerChurchDemand, defaultTimerChurchDemand);
 	writer.Write(PlayerSave_TimerChurchWar, m_iTimerChurchWar, defaultTimerChurchWar);
+	writer.Write(PlayerSave_TimerColonialInterventionInNativeWar, m_iTimerColonialInterventionInNativeWar, defaultTimerColonialInterventionInNativeWar); //WTP, ray, Colonial Intervention In Native War - START
+	writer.Write(PlayerSave_TimerColoniesAndNativeAlliesWar, m_iTimerColoniesAndNativeAlliesWar, defaultTimerColoniesAndNativeAlliesWar); // WTP, ray, Big Colonies and Native Allies War - START
 	writer.Write(PlayerSave_TimerSmugglingShip, m_iTimerSmugglingShip, defaultTimerSmugglingShip);
 	writer.Write(PlayerSave_TimerRanger, m_iTimerRanger, defaultTimerRanger);
 	writer.Write(PlayerSave_TimerConquistador, m_iTimerConquistador, defaultTimerConquistador);
 	writer.Write(PlayerSave_TimerPirates, m_iTimerPirates, defaultTimerPirates);
 	writer.Write(PlayerSave_TimerContinentalGuard, m_iTimerContinentalGuard, defaultTimerContinentalGuard);
 	writer.Write(PlayerSave_TimerMortar, m_iTimerMortar, defaultTimerMortar);
+	writer.Write(PlayerSave_TimerUsedShips, m_iTimerUsedShips, defaultTimerUsedShips); //WTP, ray Kings Used Ship - START
+	writer.Write(PlayerSave_TimerForeignImmigrants, m_iTimerForeignImmigrants , defaultTimerForeignImmigrants); // WTP, ray, Foreign Kings, buy Immigrants - START
 	writer.Write(PlayerSave_TimerNativeSlave, m_iTimerNativeSlave, defaultTimerNativeSlave);
 	writer.Write(PlayerSave_TimerAfricanSlaves, m_iTimerAfricanSlaves, defaultTimerAfricanSlaves);
 	writer.Write(PlayerSave_TimerStealingImmigrant, m_iTimerStealingImmigrant, defaultTimerStealingImmigrant);
 	writer.Write(PlayerSave_ChurchFavoursReceived, m_iChurchFavoursReceived, defaultChurchFavoursReceived);
-
+	writer.Write(PlayerSave_RandomSeed, m_ulRandomSeed, defaultRandomSeed);
 	writer.Write(PlayerSave_KingNumUnitMultiplier, m_iKingNumUnitMultiplier, defaultKingNumUnitMultiplier);
 	writer.Write(PlayerSave_MissionarySuccessPercent, m_iMissionarySuccessPercent, defaultMissionarySuccessPercent);
 	writer.Write(PlayerSave_NativeTradePostSuccessPercent, m_iNativeTradePostSuccessPercent, defaultNativeTradePostSuccessPercent); // WTP, ray, Native Trade Posts - START
+	writer.Write(PlayerSave_MaxYieldTradeAmount, m_iMaxYieldTradeAmount, defaultMaxYieldTradeAmount);// Ramstormp, PTSD, Trade in Chunks
 	writer.Write(PlayerSave_TimeNoTrade, m_iTimeNoTrade, defaultTimeNoTrade);
+
+	writer.Write(PlayerSave_iDSecondPlayerFrenchNativeWar, m_iDSecondPlayerFrenchNativeWar, defaultIDSecondPlayerFrenchNativeWar); //WTP, ray, Colonial Intervention In Native War - START
 
 	writer.Write(PlayerSave_Alive, m_bAlive, defaultAlive);
 	writer.Write(PlayerSave_WillingToBargain, m_bWillingToBargain, defaultWillingToBargain);
@@ -955,7 +1071,7 @@ void CvPlayer::write(CvSavegameWriter writer)
 	writer.Write(PlayerSave_TurnActive, m_bTurnActive, defaultTurnActive);
 	writer.Write(PlayerSave_AutoMoves, m_bAutoMoves, defaultAutoMoves);
 	writer.Write(PlayerSave_EndTurn, m_bEndTurn, defaultEndTurn);
-	writer.Write(PlayerSave_PbemNewTurn, m_bPbemNewTurn && GC.getGameINLINE().isPbem(), defaultPbemNewTurn); 
+	writer.Write(PlayerSave_PbemNewTurn, m_bPbemNewTurn && GC.getGameINLINE().isPbem(), defaultPbemNewTurn);
 	writer.Write(PlayerSave_ExtendedGame, m_bExtendedGame, defaultExtendedGame);
 	writer.Write(PlayerSave_FoundedFirstCity, m_bFoundedFirstCity, defaultFoundedFirstCity);
 	writer.Write(PlayerSave_Strike, m_bStrike, defaultStrike);
@@ -977,12 +1093,16 @@ void CvPlayer::write(CvSavegameWriter writer)
 	writer.Write(PlayerSave_YieldAfricaBuyPrice, m_em_iYieldAfricaBuyPrice);
 	writer.Write(PlayerSave_YieldPortRoyalBuyPrice, m_em_iYieldPortRoyalBuyPrice);
 	writer.Write(PlayerSave_YieldTradedTotal, m_em_iYieldTradedTotal);
+	writer.Write(PlayerSave_YieldTradedTotalAfrica, m_em_iYieldTradedTotalAfrica); // WTP, ray, Yields Traded Total for Africa and Port Royal - START
+	writer.Write(PlayerSave_YieldTradedTotalPortRoyal, m_em_iYieldTradedTotalPortRoyal); // WTP, ray, Yields Traded Total for Africa and Port Royal - START
 	writer.Write(PlayerSave_YieldBoughtTotal, m_em_iYieldBoughtTotal);
+	writer.Write(PlayerSave_YieldBoughtTotalAfrica, m_em_iYieldBoughtTotalAfrica); // WTP, ray, Yields Traded Total for Africa and Port Royal - START
+	writer.Write(PlayerSave_YieldBoughtTotalPortRoyal, m_em_iYieldBoughtTotalPortRoyal); // WTP, ray, Yields Traded Total for Africa and Port Royal - START
 	writer.Write(PlayerSave_TaxYieldModifierCount, m_em_iTaxYieldModifierCount);
 	// Ramstormp, PTSD, Europe Stock - START
-	writer.Write(PlayerSave_EuropeWarehouseYield, m_em_iEuropeWarehouseYield);
-	writer.Write(PlayerSave_AfricaWarehouseYield, m_em_iAfricaWarehouseYield);
-	writer.Write(PlayerSave_PortRoyalWarehouseYield, m_em_iPortRoyalWarehouseYield);
+	writer.Write(PlayerSave_EuropeWarehouseStock, m_em_iEuropeWarehouseStock);
+	writer.Write(PlayerSave_AfricaWarehouseStock, m_em_iAfricaWarehouseStock);
+	writer.Write(PlayerSave_PortRoyalWarehouseStock, m_em_iPortRoyalWarehouseStock);
 	// Ramstormp - END
 	writer.Write(PlayerSave_YieldScoreTotal, m_em_iYieldScoreTotal);
 
@@ -993,7 +1113,7 @@ void CvPlayer::write(CvSavegameWriter writer)
 	writer.Write(PlayerSave_ImprovementCount, m_em_iImprovementCount);
 	writer.Write(PlayerSave_FreeBuildingCount, m_em_iFreeBuildingCount);
 	writer.Write(PlayerSave_UnitClassCount, m_em_iUnitClassCount);
-	writer.Write(PlayerSave_UnitClassMaking, m_em_iUnitClassMaking);
+	// no save m_em_iUnitClassMaking
 	writer.Write(PlayerSave_UnitClassImmigrated, m_em_iUnitClassImmigrated);
 	writer.Write(PlayerSave_UnitMoveChange, m_em_iUnitMoveChange);
 	writer.Write(PlayerSave_UnitStrengthModifier, m_em_iUnitStrengthModifier);
@@ -1029,6 +1149,10 @@ void CvPlayer::write(CvSavegameWriter writer)
 	writer.Write(PlayerSave_FatherPointMultiplier, m_iFatherPointMultiplier, defaultFatherPointMultiplier);
 	writer.Write(PlayerSave_MissionaryRateModifier, m_iMissionaryRateModifier, defaultMissionaryRateModifier);
 	writer.Write(PlayerSave_NativeTradeModifier, m_iNativeTradeModifier, defaultNativeTradeModifier);
+
+	writer.Write(PlayerSave_TotalPlayerAfricaSellProfitModifierInPercent, m_iTotalPlayerAfricaSellProfitModifierInPercent, defaultTotalPlayerAfricaSellProfitModifierInPercent); // WTP, Africa and Port Royal Profit Modifiers - START
+	writer.Write(PlayerSave_TotalPlayerPortRoyalSellProfitModifierInPercent, m_iTotalPlayerPortRoyalSellProfitModifierInPercent, defaultTotalPlayerPortRoyalSellProfitModifierInPercent); // WTP, Africa and Port Royal Profit Modifiers - START
+	writer.Write(PlayerSave_TotalPlayerDomesticMarketProfitModifierInPercent, m_iTotalPlayerDomesticMarketProfitModifierInPercent, defaultTotalPlayerDomesticMarketProfitModifierInPercent); // WTP, ray, Domestic Market Profit Modifier - START
 
 	writer.Write(PlayerSave_TradeGroups, m_aTradeGroups);
 	writer.Write(PlayerSave_selectionGroups, m_selectionGroups);
@@ -1086,6 +1210,11 @@ void CvPlayer::write(CvSavegameWriter writer)
 	writer.Write(PlayerSave_chievesGained, m_achievesGained);
 	writer.Write(PlayerSave_chievesTurn, m_achievesTurn);
 	writer.Write(PlayerSave_triggersFired, m_triggersFired);
+
+	// don't set a default here, this might have different defaults for different player types
+	writer.Write(PlayerSave_OppressometerDiscriminationModifier, m_iOppressometerDiscriminationModifier);
+	// don't set a default here, this might have different defaults for different player types
+	writer.Write(PlayerSave_OppressometerForcedLaborModifier, m_iOppressometerForcedLaborModifier);
 
 
 	// forces a cache update on read

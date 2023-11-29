@@ -4,10 +4,6 @@
 
 // set the default values
 	const int defaultID = 0 ;
-	const int defaultX = 0 ;
-	const int defaultY = 0 ;
-	const int defaultRallyX = INVALID_PLOT_COORD;
-	const int defaultRallyY = INVALID_PLOT_COORD;
 	const int defaultGameTurnFounded = 0 ;
 	const int defaultGameTurnAcquired = 0 ;
 	const int defaultHighestPopulation = 0 ;
@@ -24,7 +20,6 @@
 	const int defaultDefenseDamage = 0 ;
 	const int defaultLastDefenseDamage = 0 ;
 	const int defaultOccupationTimer = 0 ;
-	const int defaultAbandonTimer = 0; // Ramstormp, PTSD, Give Abandoned cities time to decay
 	const int defaultCultureUpdateTimer = 0 ;
 	const int defaultCitySizeBoost = 0 ;
 	const int defaultHammers = 0 ;
@@ -37,6 +32,12 @@
 	const int defaultCityHappiness = 0; // WTP, ray, Happiness - START
 	const int defaultCityUnHappiness = 0; // WTP, ray, Happiness - START
 	const int defaultCityTimerFestivitiesOrUnrest = 0; // WTP, ray, Happiness - START
+	const int defaultCityLaw = 0; // WTP, ray, Crime and Law - START
+	const int defaultCityCrime= 0; // WTP, ray, Crime and Law - START
+	const int defaultDomesticDemandEventDuration = 0; // WTP, ray Domestic Market Events - START
+	const int defaultDomesticDemandEventTimer = 0; // WTP, ray Domestic Market Events - START
+	const int defaultDomesticDemandEventPriceModifier = 0; // WTP, ray Domestic Market Events - START
+	const int defaultDomesticDemandEventDemandModifier = 0; // WTP, ray Domestic Market Events - START
 	const int defaultTeachUnitMultiplier = 100 ;
 	const int defaultEducationThresholdMultiplier = 100 ;
 	const int defaultPopulationRank = -1;
@@ -47,6 +48,7 @@
 	const bool defaultProductionAutomated = false;
 	const bool defaultWallOverride = false;
 	const bool defaultPopulationRankValid = false;
+	const bool defaultHasHurried = false;
 
 	const PlayerTypes defaultOwner = NO_PLAYER;
 	const PlayerTypes defaultPreviousOwner = NO_PLAYER;
@@ -58,15 +60,16 @@
 	const PlayerTypes defaultTradePostPlayer = NO_PLAYER; // WTP, ray, Native Trade Posts - START
 	const YieldTypes defaultPreferredYieldAtCityPlot = NO_YIELD;
 
-// 
+	const int defaultOppressometer = 0;
+	const int defaultOppressometerGrowthModifier = 100;
+
+//
 enum SavegameVariableTypes
 {
 	CitySave_END,
 	CitySave_ID,
-	CitySave_X,
-	CitySave_Y,
-	CitySave_RallyX,
-	CitySave_RallyY,
+	CitySave_Coordinates,
+	CitySave_RallyCoordinates,
 	CitySave_GameTurnFounded,
 	CitySave_GameTurnAcquired,
 	CitySave_HighestPopulation,
@@ -83,7 +86,6 @@ enum SavegameVariableTypes
 	CitySave_DefenseDamage,
 	CitySave_LastDefenseDamage,
 	CitySave_OccupationTimer,
-	CitySave_AbandonTimer, // Ramstormp, PTSD, Give Abandoned Cities time to decay
 	CitySave_CultureUpdateTimer,
 	CitySave_CitySizeBoost,
 	CitySave_Hammers,
@@ -94,6 +96,9 @@ enum SavegameVariableTypes
 	CitySave_CityHealth, // R&R, ray, Health
 	CitySave_CityHappiness, // WTP, ray, Happiness - START
 	CitySave_CityUnHappiness, // WTP, ray, Happiness - START
+	CitySave_CityTimerFestivitiesOrUnrest, // WTP, ray, Happiness - START
+	CitySave_CityLaw, // WTP, ray, Crime and Law - START
+	CitySave_CityCrime, // WTP, ray, Crime and Law - START
 	CitySave_TeachUnitMultiplier,
 	CitySave_EducationThresholdMultiplier,
 	CitySave_PopulationRank,
@@ -104,6 +109,7 @@ enum SavegameVariableTypes
 	CitySave_ProductionAutomated,
 	CitySave_WallOverride,
 	CitySave_PopulationRankValid,
+	CitySave_HasHurried,
 
 	CitySave_Owner,
 	CitySave_PreviousOwner,
@@ -164,15 +170,21 @@ enum SavegameVariableTypes
 
 	CitySave_DomainFreeExperience,
 	CitySave_DomainProductionModifier,
-	
+
 	CitySave_orderQueue,
 
 	CitySave_WorkingPlot,
 	CitySave_TradePostGold,
 
-	CitySave_CityTimerFestivitiesOrUnrest, // WTP, ray, Happiness - START
+	CitySave_DomesticDemandEventDuration, // WTP, ray Domestic Market Events - START
+	CitySave_DomesticDemandEventTimer, // WTP, ray Domestic Market Events - START
+	CitySave_DomesticDemandEventPriceModifier, // WTP, ray Domestic Market Events - START
+	CitySave_DomesticDemandEventDemandModifier, // WTP, ray Domestic Market Events - START
 
 	CitySave_tradeAutoExports,
+
+	CitySave_Oppressometer,
+	CitySave_OppressometerGrowthModifier,
 
 	NUM_CITYSAVE_ENUM_VALUES,
 };
@@ -183,10 +195,8 @@ const char* getSavedEnumNameCity(SavegameVariableTypes eType)
 	{
 		case CitySave_END: return "CitySave_END";
 		case CitySave_ID: return "CitySave_ID";
-		case CitySave_X: return "CitySave_X";
-		case CitySave_Y: return "CitySave_Y";
-		case CitySave_RallyX: return "CitySave_RallyX";
-		case CitySave_RallyY: return "CitySave_RallyY";
+		case CitySave_Coordinates: return "CitySave_Coordinates";
+		case CitySave_RallyCoordinates: return "CitySave_RallyCoordinates";
 		case CitySave_GameTurnFounded: return "CitySave_GameTurnFounded";
 		case CitySave_GameTurnAcquired: return "CitySave_GameTurnAcquired";
 		case CitySave_HighestPopulation: return "CitySave_HighestPopulation";
@@ -212,9 +222,15 @@ const char* getSavedEnumNameCity(SavegameVariableTypes eType)
 		case CitySave_WorksWaterCount: return "CitySave_WorksWaterCount";
 		case CitySave_RebelSentiment: return "CitySave_RebelSentiment";
 		case CitySave_CityHealth: return "CitySave_CityHealth";
-		case CitySave_CityHappiness: return "CitySave_m_iCityHappiness"; // WTP, ray, Happiness - START
-		case CitySave_CityUnHappiness: return "CitySave_m_iCityUnhappiness"; // WTP, ray, Happiness - START
+		case CitySave_CityHappiness: return "CitySave_CityHappiness"; // WTP, ray, Happiness - START
+		case CitySave_CityUnHappiness: return "CitySave_CityUnhappiness"; // WTP, ray, Happiness - START
 		case CitySave_CityTimerFestivitiesOrUnrest: return "CitySave_CityTimerFestivitiesOrUnrest"; // WTP, ray, Happiness - START
+		case CitySave_CityLaw: return "CitySave_CityLaw"; // WTP, ray, Crime and Law - START
+		case CitySave_CityCrime: return "CitySave_CityCrime"; // WTP, ray, Crime and Law - START
+		case CitySave_DomesticDemandEventDuration: return "CitySave_DomesticDemandEventDuration"; // WTP, ray Domestic Market Events - START
+		case CitySave_DomesticDemandEventTimer: return "CitySave_DomesticDemandEventTimer"; // WTP, ray Domestic Market Events - START
+		case CitySave_DomesticDemandEventPriceModifier: return "CitySave_DomesticDemandEventPriceModifier"; // WTP, ray Domestic Market Events - START
+		case CitySave_DomesticDemandEventDemandModifier: return "CitySave_DomesticDemandEventDemandModifier"; // WTP, ray Domestic Market Events - START
 		case CitySave_TeachUnitMultiplier: return "CitySave_TeachUnitMultiplier";
 		case CitySave_EducationThresholdMultiplier: return "CitySave_EducationThresholdMultiplier";
 		case CitySave_PopulationRank: return "CitySave_PopulationRank";
@@ -290,7 +306,11 @@ const char* getSavedEnumNameCity(SavegameVariableTypes eType)
 		case CitySave_orderQueue: return "CitySave_orderQueue";
 
 		case CitySave_WorkingPlot: return "CitySave_WorkingPlot";
+
+		case CitySave_Oppressometer: return "CitySave_Oppressometer";
+		case CitySave_OppressometerGrowthModifier: return "CitySave_OppressometerGrowthModifier";
 	}
+	FAssertMsg(0, "Missing case");
 	return "";
 }
 
@@ -302,11 +322,15 @@ int getNumSavedEnumValuesCity()
 // assign everything to default values
 void CvCity::resetSavedData(int iID, PlayerTypes eOwner, int iX, int iY, bool bConstructorCall)
 {
+	Coordinates resetCoord(iX, iY);
+	resetSavedData(iID, eOwner, resetCoord, bConstructorCall);
+}
+
+void CvCity::resetSavedData(int iID, PlayerTypes eOwner, Coordinates resetCoord, bool bConstructorCall)
+{
 	m_iID = iID,
-	m_iX = iX;
-	m_iY = iY;
-	m_iRallyX = defaultRallyX;
-	m_iRallyY = defaultRallyY;
+	m_coord = resetCoord;
+	m_rallyCoordinates.resetInvalid();
 	m_iGameTurnFounded = defaultGameTurnFounded;
 	m_iGameTurnAcquired = defaultGameTurnAcquired;
 	m_iHighestPopulation = defaultHighestPopulation;
@@ -323,7 +347,6 @@ void CvCity::resetSavedData(int iID, PlayerTypes eOwner, int iX, int iY, bool bC
 	m_iDefenseDamage = defaultDefenseDamage;
 	m_iLastDefenseDamage = defaultLastDefenseDamage;
 	m_iOccupationTimer = defaultOccupationTimer;
-	m_iAbandonTimer = defaultAbandonTimer; // Ramstormp, PTSD, Give Abandoned cities time to decay
 	m_iCultureUpdateTimer = defaultCultureUpdateTimer;
 	m_iCitySizeBoost = defaultCitySizeBoost;
 	m_iHammers = defaultHammers;
@@ -333,9 +356,24 @@ void CvCity::resetSavedData(int iID, PlayerTypes eOwner, int iX, int iY, bool bC
 	m_iWorksWaterCount = defaultWorksWaterCount;
 	m_iRebelSentiment = defaultRebelSentiment;
 	m_iCityHealth = defaultCityHealth; // R&R, ray, Health
+	m_iCityHarbourSpace = GLOBAL_DEFINE_BASE_HARBOUR_SPACES_WITHOUT_BUILDINGS; // WTP, ray, new Harbour System - START
+	m_iCityBarracksSpace = GLOBAL_DEFINE_BASE_BARRACKS_SPACES_WITHOUT_BUILDINGS; // WTP, ray, new Barracks System - START
 	m_iCityHappiness = defaultCityHappiness; // WTP, ray, Happiness - START
 	m_iCityUnHappiness = defaultCityUnHappiness; // WTP, ray, Happiness - START
 	m_iCityTimerFestivitiesOrUnrest = defaultCityTimerFestivitiesOrUnrest; // WTP, ray, Happiness - START
+
+	// WTP, ray, Crime and Law - START
+	m_iCityLaw = defaultCityLaw;
+	m_iCityCrime = defaultCityCrime;
+	// WTP, ray, Crime and Law - START
+
+	// WTP, ray Domestic Market Events - START
+	m_iDomesticDemandEventDuration = defaultDomesticDemandEventDuration;
+	m_iDomesticDemandEventTimer = defaultDomesticDemandEventTimer;
+	m_iDomesticDemandEventPriceModifier = defaultDomesticDemandEventPriceModifier;
+	m_iDomesticDemandEventDemandModifier = defaultDomesticDemandEventDemandModifier;
+	// WTP, ray Domestic Market Events - END
+
 	m_iTeachUnitMultiplier = defaultTeachUnitMultiplier;
 	m_iEducationThresholdMultiplier = defaultEducationThresholdMultiplier;
 	m_iPopulationRank = defaultPopulationRank;
@@ -346,6 +384,7 @@ void CvCity::resetSavedData(int iID, PlayerTypes eOwner, int iX, int iY, bool bC
 	m_bProductionAutomated = defaultProductionAutomated;
 	m_bWallOverride = defaultWallOverride;
 	m_bPopulationRankValid = defaultPopulationRankValid;
+	m_bHasHurried = defaultHasHurried;
 
 	m_eOwner = eOwner;
 	m_ePreviousOwner = defaultPreviousOwner;
@@ -413,6 +452,9 @@ void CvCity::resetSavedData(int iID, PlayerTypes eOwner, int iX, int iY, bool bC
 	m_em_iWorkingPlot.reset();
 	m_aEventsOccured.clear();
 	m_aBuildingYieldChange.clear();
+
+	m_iOppressometer = defaultOppressometer;
+	m_iOppressometerGrowthModifier = defaultOppressometerGrowthModifier;
 }
 
 void CvCity::read(CvSavegameReader reader)
@@ -426,134 +468,137 @@ void CvCity::read(CvSavegameReader reader)
 	// As long as each variable has a CitySavegameVariables "header", order doesn't matter.
 	// Variables can be read in any order and any number of variables can be skipped.
 	bool bContinue = true;
+
 	while (bContinue)
 	{
 		SavegameVariableTypes eType;
 		reader.Read(eType);
+
 
 		switch (eType)
 		{
 		case CitySave_END:
 			bContinue = false;
 			break;
-		case CitySave_ID: reader.Read(m_iID); break;
-		case CitySave_X: reader.Read(m_iX); break;
-		case CitySave_Y: reader.Read(m_iY); break;
-		case CitySave_RallyX: reader.Read(m_iRallyX); break;
-		case CitySave_RallyY: reader.Read(m_iRallyY); break;
-		case CitySave_GameTurnFounded: reader.Read(m_iGameTurnFounded); break;
-		case CitySave_GameTurnAcquired: reader.Read(m_iGameTurnAcquired); break;
-		case CitySave_HighestPopulation: reader.Read(m_iHighestPopulation); break;
-		case CitySave_WorkingPopulation: reader.Read(m_iWorkingPopulation); break;
-		case CitySave_NumBuildings: reader.Read(m_iNumBuildings); break;
-		case CitySave_HealRate: reader.Read(m_iHealRate); break;
-		case CitySave_FoodKept: reader.Read(m_iFoodKept); break;
-		case CitySave_MaxFoodKeptPercent: reader.Read(m_iMaxFoodKeptPercent); break;
-		case CitySave_OverflowProduction: reader.Read(m_iOverflowProduction); break;
-		case CitySave_MilitaryProductionModifier: reader.Read(m_iMilitaryProductionModifier); break;
-		case CitySave_BuildingDefense: reader.Read(m_iBuildingDefense); break;
-		case CitySave_BuildingBombardDefense: reader.Read(m_iBuildingBombardDefense); break;
-		case CitySave_FreeExperience: reader.Read(m_iFreeExperience); break;
-		case CitySave_DefenseDamage: reader.Read(m_iDefenseDamage); break;
-		case CitySave_LastDefenseDamage: reader.Read(m_iLastDefenseDamage); break;
-		case CitySave_OccupationTimer: reader.Read(m_iOccupationTimer); break;
-		case CitySave_AbandonTimer: reader.Read(m_iAbandonTimer); break; // Ramstormp, PTSD, Give Abandoned cities time to decay
-		case CitySave_CultureUpdateTimer: reader.Read(m_iCultureUpdateTimer); break;
-		case CitySave_CitySizeBoost: reader.Read(m_iCitySizeBoost); break;
-		case CitySave_Hammers: reader.Read(m_iHammers); break;
-		case CitySave_MissionaryRate: reader.Read(m_iMissionaryRate); break;
-		case CitySave_NativeTradeRate: reader.Read(m_iNativeTradeRate); break;
-		case CitySave_TradePostGold: reader.Read(m_iTradePostGold); break;
-		case CitySave_WorksWaterCount: reader.Read(m_iWorksWaterCount); break;
-		case CitySave_RebelSentiment: reader.Read(m_iRebelSentiment); break;
-		case CitySave_CityHealth: reader.Read(m_iCityHealth); break; // R&R, ray, Health
-		case CitySave_CityHappiness: reader.Read(m_iCityHappiness); break; // WTP, ray, Happiness - START
-		case CitySave_CityUnHappiness: reader.Read(m_iCityUnHappiness); break; // WTP, ray, Happiness - START
-		case CitySave_CityTimerFestivitiesOrUnrest: reader.Read(m_iCityTimerFestivitiesOrUnrest); break; // WTP, ray, Happiness - START
-		case CitySave_TeachUnitMultiplier: reader.Read(m_iTeachUnitMultiplier); break;
-		case CitySave_EducationThresholdMultiplier: reader.Read(m_iEducationThresholdMultiplier); break;
-		case CitySave_PopulationRank: reader.Read(m_iPopulationRank); break;
+		case CitySave_ID                                         : reader.Read(m_iID)                                       ; break;
+		case CitySave_Coordinates                                : reader.Read(m_coord)                                     ; break;
+		case CitySave_RallyCoordinates                           : reader.Read(m_rallyCoordinates)                          ; break;
+		case CitySave_GameTurnFounded                            : reader.Read(m_iGameTurnFounded)                          ; break;
+		case CitySave_GameTurnAcquired                           : reader.Read(m_iGameTurnAcquired)                         ; break;
+		case CitySave_HighestPopulation                          : reader.Read(m_iHighestPopulation)                        ; break;
+		case CitySave_WorkingPopulation                          : reader.Read(m_iWorkingPopulation)                        ; break;
+		case CitySave_NumBuildings                               : reader.Read(m_iNumBuildings)                             ; break;
+		case CitySave_HealRate                                   : reader.Read(m_iHealRate)                                 ; break;
+		case CitySave_FoodKept                                   : reader.Read(m_iFoodKept)                                 ; break;
+		case CitySave_MaxFoodKeptPercent                         : reader.Read(m_iMaxFoodKeptPercent)                       ; break;
+		case CitySave_OverflowProduction                         : reader.Read(m_iOverflowProduction)                       ; break;
+		case CitySave_MilitaryProductionModifier                 : reader.Read(m_iMilitaryProductionModifier)               ; break;
+		case CitySave_BuildingDefense                            : reader.Read(m_iBuildingDefense)                          ; break;
+		case CitySave_BuildingBombardDefense                     : reader.Read(m_iBuildingBombardDefense)                   ; break;
+		case CitySave_FreeExperience                             : reader.Read(m_iFreeExperience)                           ; break;
+		case CitySave_DefenseDamage                              : reader.Read(m_iDefenseDamage)                            ; break;
+		case CitySave_LastDefenseDamage                          : reader.Read(m_iLastDefenseDamage)                        ; break;
+		case CitySave_OccupationTimer                            : reader.Read(m_iOccupationTimer)                          ; break;
+		case CitySave_CultureUpdateTimer                         : reader.Read(m_iCultureUpdateTimer)                       ; break;
+		case CitySave_CitySizeBoost                              : reader.Read(m_iCitySizeBoost)                            ; break;
+		case CitySave_Hammers                                    : reader.Read(m_iHammers)                                  ; break;
+		case CitySave_MissionaryRate                             : reader.Read(m_iMissionaryRate)                           ; break;
+		case CitySave_NativeTradeRate                            : reader.Read(m_iNativeTradeRate)                          ; break;
+		case CitySave_TradePostGold                              : reader.Read(m_iTradePostGold)                            ; break;
+		case CitySave_WorksWaterCount                            : reader.Read(m_iWorksWaterCount)                          ; break;
+		case CitySave_RebelSentiment                             : reader.Read(m_iRebelSentiment)                           ; break;
+		case CitySave_CityHealth                                 : reader.Read(m_iCityHealth)                               ; break; // R&R, ray, Health
+		case CitySave_CityHappiness                              : reader.Read(m_iCityHappiness)                            ; break; // WTP, ray, Happiness - START
+		case CitySave_CityUnHappiness                            : reader.Read(m_iCityUnHappiness)                          ; break; // WTP, ray, Happiness - START
+		case CitySave_CityTimerFestivitiesOrUnrest               : reader.Read(m_iCityTimerFestivitiesOrUnrest)             ; break; // WTP, ray, Happiness - START
+		case CitySave_CityLaw                                    : reader.Read(m_iCityLaw)                                  ; break; // WTP, ray, Crime and Law - START
+		case CitySave_CityCrime                                  : reader.Read(m_iCityCrime)                                ; break; // WTP, ray, Crime and Law - START
+		case CitySave_DomesticDemandEventDuration                : reader.Read(m_iDomesticDemandEventDuration)              ; break; // WTP, ray Domestic Market Events - START
+		case CitySave_DomesticDemandEventTimer                   : reader.Read(m_iDomesticDemandEventTimer)                 ; break; // WTP, ray Domestic Market Events - START
+		case CitySave_DomesticDemandEventPriceModifier           : reader.Read(m_iDomesticDemandEventPriceModifier)         ; break; // WTP, ray Domestic Market Events - START
+		case CitySave_DomesticDemandEventDemandModifier          : reader.Read(m_iDomesticDemandEventDemandModifier)        ; break; // WTP, ray Domestic Market Events - START
+		case CitySave_TeachUnitMultiplier                        : reader.Read(m_iTeachUnitMultiplier)                      ; break;
+		case CitySave_EducationThresholdMultiplier               : reader.Read(m_iEducationThresholdMultiplier)             ; break;
+		case CitySave_PopulationRank                             : reader.Read(m_iPopulationRank)                           ; break;
 
-		case CitySave_StirredUp: reader.Read(m_bStirredUp); break; // R&R, ray , Stirring Up Natives
-		case CitySave_NeverLost: reader.Read(m_bNeverLost); break;
-		case CitySave_Bombarded: reader.Read(m_bBombarded); break;
-		case CitySave_ProductionAutomated: reader.Read(m_bProductionAutomated); break;
-		case CitySave_WallOverride: reader.Read(m_bWallOverride); break;
-		case CitySave_PopulationRankValid: reader.Read(m_bPopulationRankValid); break;
+		case CitySave_StirredUp                                  : reader.Read(m_bStirredUp)                                ; break; // R&R, ray , Stirring Up Natives
+		case CitySave_NeverLost                                  : reader.Read(m_bNeverLost)                                ; break;
+		case CitySave_Bombarded                                  : reader.Read(m_bBombarded)                                ; break;
+		case CitySave_ProductionAutomated                        : reader.Read(m_bProductionAutomated)                      ; break;
+		case CitySave_WallOverride                               : reader.Read(m_bWallOverride)                             ; break;
+		case CitySave_PopulationRankValid                        : reader.Read(m_bPopulationRankValid)                      ; break;
+		case CitySave_HasHurried                                 : reader.Read(m_bHasHurried)                               ; break;
 
-		case CitySave_Owner: reader.Read(m_eOwner); break;
-		case CitySave_PreviousOwner: reader.Read(m_ePreviousOwner); break;
-		case CitySave_OriginalOwner: reader.Read(m_eOriginalOwner); break;
-		case CitySave_CultureLevel: reader.Read(m_eCultureLevel); break;
-		case CitySave_TeachUnitClass: reader.Read(m_eTeachUnitClass); break;
+		case CitySave_Owner                                      : reader.Read(m_eOwner)                                    ; break;
+		case CitySave_PreviousOwner                              : reader.Read(m_ePreviousOwner)                            ; break;
+		case CitySave_OriginalOwner                              : reader.Read(m_eOriginalOwner)                            ; break;
+		case CitySave_CultureLevel                               : reader.Read(m_eCultureLevel)                             ; break;
+		case CitySave_TeachUnitClass                             : reader.Read(m_eTeachUnitClass)                           ; break;
 
+		case CitySave_CustomHouseSellThreshold                   : reader.Read(m_em_iCustomHouseSellThreshold)              ; break;
+		case CitySave_CustomHouseNeverSell                       : reader.Read(m_em_bCustomHouseNeverSell)                  ; break;
+		case CitySave_OrderedStudents                            : reader.Read(m_em_iOrderedStudents)                       ; break;
+		case CitySave_OrderedStudentsRepeat                      : reader.Read(m_em_bOrderedStudentsRepeat)                 ; break;
+		case CitySave_tradeImports                               : reader.Read(m_em_bTradeImports)                          ; break;
+		case CitySave_tradeExports                               : reader.Read(m_em_bTradeExports)                          ; break;
+		case CitySave_tradeAutoExports                           : reader.Read(m_em_bTradeAutoExport)                       ; break;
+		case CitySave_tradeThreshold                             : reader.Read(m_em_iTradeThreshold)                        ; break;
+		case CitySave_tradeImportsMaintain                       : reader.Read(m_em_bTradeImportsMaintain)                  ; break;
+		case CitySave_tradeStopAutoImport                        : reader.Read(m_em_bTradeStopAutoImport)                   ; break;
+		case CitySave_tradeMaxThreshold                          : reader.Read(m_em_iTradeMaxThreshold)                     ; break;
 
-		case CitySave_CustomHouseSellThreshold: reader.Read(m_em_iCustomHouseSellThreshold); break;
-		case CitySave_CustomHouseNeverSell: reader.Read(m_em_bCustomHouseNeverSell); break;
-		case CitySave_OrderedStudents: reader.Read(m_em_iOrderedStudents); break;
-		case CitySave_OrderedStudentsRepeat: reader.Read(m_em_bOrderedStudentsRepeat); break;
-		case CitySave_tradeImports: reader.Read(m_em_bTradeImports); break;
-		case CitySave_tradeExports: reader.Read(m_em_bTradeExports); break;
-		case CitySave_tradeAutoExports: reader.Read(m_em_bTradeAutoExport); break;
-		case CitySave_tradeThreshold: reader.Read(m_em_iTradeThreshold); break;
-		case CitySave_tradeImportsMaintain: reader.Read(m_em_bTradeImportsMaintain); break;
-		case CitySave_tradeStopAutoImport: reader.Read(m_em_bTradeStopAutoImport); break;
-		case CitySave_tradeMaxThreshold: reader.Read(m_em_iTradeMaxThreshold); break;
+		case CitySave_MissionaryPlayer                           : reader.Read(m_eMissionaryPlayer)                         ; break;
+		case CitySave_TradePostPlayer                            : reader.Read(m_eTradePostPlayer)                          ; break; // WTP, ray, Native Trade Posts - START
+		case CitySave_PreferredYieldAtCityPlot                   : reader.Read(m_ePreferredYieldAtCityPlot)                 ; break;
 
-		case CitySave_MissionaryPlayer: reader.Read(m_eMissionaryPlayer); break;
-		case CitySave_TradePostPlayer: reader.Read(m_eTradePostPlayer); break; // WTP, ray, Native Trade Posts - START
-		case CitySave_PreferredYieldAtCityPlot: reader.Read(m_ePreferredYieldAtCityPlot); break;
+		case CitySave_LandPlotYield                              : reader.Read(m_em_iLandPlotYield)                         ; break;
+		case CitySave_SeaPlotYield                               : reader.Read(m_em_iSeaPlotYield)                          ; break;
+		case CitySave_RiverPlotYield                             : reader.Read(m_em_iRiverPlotYield)                        ; break;
+		case CitySave_YieldRateModifier                          : reader.Read(m_em_iYieldRateModifier)                     ; break;
+		case CitySave_YieldStored                                : reader.Read(m_em_iYieldStored)                           ; break;
+		case CitySave_YieldRushed                                : reader.Read(m_em_iYieldRushed)                           ; break;
+		case CitySave_YieldBuyPrice                              : reader.Read(m_em_iYieldBuyPrice)                         ; break;
 
-		case CitySave_LandPlotYield: reader.Read(m_em_iLandPlotYield); break;
-		case CitySave_SeaPlotYield: reader.Read(m_em_iSeaPlotYield); break;
-		case CitySave_RiverPlotYield: reader.Read(m_em_iRiverPlotYield); break;
-		case CitySave_YieldRateModifier: reader.Read(m_em_iYieldRateModifier); break;
-		case CitySave_YieldStored: reader.Read(m_em_iYieldStored);
-			for(int i=3;i<NUM_YIELD_TYPES;i++)//without YIELD_FOOD, YIELD_LUMBER, YIELD_STONE
-			{
-				if (GC.getYieldInfo((YieldTypes)i).isCargo())
-					{m_iTotalYieldStored += m_em_iYieldStored.get((YieldTypes)i);}
-			} break;
-		case CitySave_YieldRushed: reader.Read(m_em_iYieldRushed); break;
-		case CitySave_YieldBuyPrice: reader.Read(m_em_iYieldBuyPrice); break;
+		case CitySave_BaseYieldRank                              : reader.Read(m_em_iBaseYieldRank)                         ; break;
+		case CitySave_BaseYieldRankValid                         : reader.Read(m_em_bBaseYieldRankValid)                    ; break;
+		case CitySave_YieldRank                                  : reader.Read(m_em_iYieldRank)                             ; break;
+		case CitySave_YieldRankValid                             : reader.Read(m_em_bYieldRankValid)                        ; break;
 
-		case CitySave_BaseYieldRank: reader.Read(m_em_iBaseYieldRank); break;
-		case CitySave_BaseYieldRankValid: reader.Read(m_em_bBaseYieldRankValid); break;
-		case CitySave_YieldRank: reader.Read(m_em_iYieldRank); break;
-		case CitySave_YieldRankValid: reader.Read(m_em_bYieldRankValid); break;
+		case CitySave_BuildingProduction                         : reader.Read(m_em_iBuildingProduction)                    ; break;
+		case CitySave_BuildingProductionTime                     : reader.Read(m_em_iBuildingProductionTime)                ; break;
+		case CitySave_BuildingOriginalOwner                      : reader.Read(m_em_eBuildingOriginalOwner)                 ; break;
+		case CitySave_BuildingOriginalTime                       : reader.Read(m_em_iBuildingOriginalTime)                  ; break;
+		case CitySave_UnitProduction                             : reader.Read(m_em_iUnitProduction)                        ; break;
+		case CitySave_UnitProductionTime                         : reader.Read(m_em_iUnitProductionTime)                    ; break;
+		case CitySave_SpecialistWeights                          : reader.Read(m_em_iSpecialistWeights)                     ; break;
+		case CitySave_UnitCombatFreeExperience                   : reader.Read(m_em_iUnitCombatFreeExperience)              ; break;
+		case CitySave_FreePromotionCount                         : reader.Read(m_em_iFreePromotionCount)                    ; break;
+		case CitySave_HasRealBuilding                            : reader.Read(m_em_bHasRealBuilding)                       ; break;
+		case CitySave_HasFreeBuilding                            : reader.Read(m_em_bHasFreeBuilding)                       ; break;
 
-		case CitySave_BuildingProduction: reader.Read(m_em_iBuildingProduction); break;
-		case CitySave_BuildingProductionTime: reader.Read(m_em_iBuildingProductionTime); break;
-		case CitySave_BuildingOriginalOwner: reader.Read(m_em_eBuildingOriginalOwner); break;
-		case CitySave_BuildingOriginalTime: reader.Read(m_em_iBuildingOriginalTime); break;
-		case CitySave_UnitProduction: reader.Read(m_em_iUnitProduction); break;
-		case CitySave_UnitProductionTime: reader.Read(m_em_iUnitProductionTime); break;
-		case CitySave_SpecialistWeights: reader.Read(m_em_iSpecialistWeights); break;
-		case CitySave_UnitCombatFreeExperience: reader.Read(m_em_iUnitCombatFreeExperience); break;
-		case CitySave_FreePromotionCount: reader.Read(m_em_iFreePromotionCount); break;
-		case CitySave_HasRealBuilding: reader.Read(m_em_bHasRealBuilding); break;
-		case CitySave_HasFreeBuilding: reader.Read(m_em_bHasFreeBuilding); break;
+		case CitySave_Name                                       : reader.Read(m_szName)                                    ; break;
+	 	case CitySave_ScriptData                                 : reader.Read(m_szScriptData)                              ; break;
+		case CitySave_PopulationUnits                            : reader.Read(m_aPopulationUnits)                          ; break;
+		case CitySave_EventsOccured                              : reader.Read(m_aEventsOccured)                            ; break;
+		case CitySave_BuildingYieldChange                        : reader.Read(m_aBuildingYieldChange)                      ; break;
+		case CitySave_Culture                                    : reader.Read(m_em_iCulture)                               ; break;
+		case CitySave_EverOwned                                  : reader.Read(m_em_bEverOwned)                             ; break;
+		case CitySave_Revealed                                   : reader.Read(m_em_bRevealed)                              ; break;
+		case CitySave_ScoutVisited                               : reader.Read(m_em_bScoutVisited)                          ; break;
 
-		case CitySave_Name: reader.Read(m_szName); break;
-	 	case CitySave_ScriptData: reader.Read(m_szScriptData); break;
-		case CitySave_PopulationUnits: reader.Read(m_aPopulationUnits); break;
-		case CitySave_EventsOccured: reader.Read(m_aEventsOccured); break;
-		case CitySave_BuildingYieldChange: reader.Read(m_aBuildingYieldChange); break;
-		case CitySave_Culture: reader.Read(m_em_iCulture); break;
-		case CitySave_EverOwned: reader.Read(m_em_bEverOwned); break;
-		case CitySave_Revealed: reader.Read(m_em_bRevealed); break;
-		case CitySave_ScoutVisited: reader.Read(m_em_bScoutVisited); break;
-		
-		case CitySave_DomainFreeExperience: reader.Read(m_em_iDomainFreeExperience); break;
-		case CitySave_DomainProductionModifier: reader.Read(m_em_iDomainProductionModifier); break;
+		case CitySave_DomainFreeExperience                       : reader.Read(m_em_iDomainFreeExperience)                  ; break;
+		case CitySave_DomainProductionModifier                   : reader.Read(m_em_iDomainProductionModifier)              ; break;
 
-		case CitySave_orderQueue: reader.Read(m_orderQueue); break;
+		case CitySave_orderQueue                                 : reader.Read(m_orderQueue)                                ; break;
 
-		case CitySave_WorkingPlot: reader.Read(m_em_iWorkingPlot); break;
+		case CitySave_WorkingPlot                                : reader.Read(m_em_iWorkingPlot)                           ; break;
 
+		case CitySave_Oppressometer                              : reader.Read(m_iOppressometer)                            ; break;
+		case CitySave_OppressometerGrowthModifier                : reader.Read(m_iOppressometerGrowthModifier)              ; break;
 		}
-		
+
 	}
+
 	// BUG WORKAROUND. Reset any yield, which stores negative amount
 	// ideally this shouldn't be here, but it makes the asserts and error message
 	// trigger when the bug triggers again rather than triggering if the bug happened prior to saving
@@ -563,16 +608,31 @@ void CvCity::read(CvSavegameReader reader)
 	for (YieldTypes eYield = FIRST_YIELD; eYield < NUM_YIELD_TYPES; ++eYield)
 	{
 		m_em_iYieldStored.keepMax(eYield, 0);
+
+		// make sure we won't read corrupted extreme domestic prices - Nightinggale
+		const CvYieldInfo& kInfo = GC.getInfo(eYield);
+		int iMaxPrice = (kInfo.getBuyPriceHigh() * 2) + 10;
+		if (getYieldBuyPrice(eYield) > iMaxPrice)
+		{
+			setYieldBuyPrice(eYield, iMaxPrice);
+		}
+
+		if (kInfo.isCargo() && !kInfo.isIgnoredForStorageCapacity())
+		{
+			m_iTotalYieldStored += m_em_iYieldStored.get(eYield);
+		}
 	}
 
 	UpdateBuildingAffectedCache(); // building affected cache - Nightinggale
 	this->setAutoThresholdCache(); // transport feeder - Nightinggale
 	cache_storageLossTradeValues_usingRawData(); //caching storage loss trade values
-	
+
 }
 
 void CvCity::write(CvSavegameWriter writer)
 {
+	LogIntentHelper helper(writer, "CvCity");
+
 	writer.AssignClassType(SAVEGAME_CLASS_CITY);
 
 	// Write the data.
@@ -581,10 +641,8 @@ void CvCity::write(CvSavegameWriter writer)
 	// If nothing is saved, the loading code will use the default values.
 	// Less data saved/loaded means smaller savegames.
 	writer.Write(CitySave_ID, m_iID, defaultID);
-	writer.Write(CitySave_X, m_iX, defaultX);
-	writer.Write(CitySave_Y, m_iY, defaultY);
-	writer.Write(CitySave_RallyX, m_iRallyX, defaultRallyX);
-	writer.Write(CitySave_RallyY, m_iRallyY, defaultRallyY);
+	writer.Write(CitySave_Coordinates, m_coord);
+	writer.Write(CitySave_RallyCoordinates, m_rallyCoordinates);
 	writer.Write(CitySave_GameTurnFounded, m_iGameTurnFounded, defaultGameTurnFounded);
 	writer.Write(CitySave_GameTurnAcquired, m_iGameTurnAcquired, defaultGameTurnAcquired);
 	writer.Write(CitySave_HighestPopulation, m_iHighestPopulation, defaultHighestPopulation);
@@ -601,7 +659,6 @@ void CvCity::write(CvSavegameWriter writer)
 	writer.Write(CitySave_DefenseDamage, m_iDefenseDamage, defaultDefenseDamage);
 	writer.Write(CitySave_LastDefenseDamage, m_iLastDefenseDamage, defaultLastDefenseDamage);
 	writer.Write(CitySave_OccupationTimer, m_iOccupationTimer, defaultOccupationTimer);
-	writer.Write(CitySave_AbandonTimer, m_iAbandonTimer, defaultAbandonTimer); // Ramstormp, PTSD, Give Abandoned cities time to decay
 	writer.Write(CitySave_CultureUpdateTimer, m_iCultureUpdateTimer, defaultCultureUpdateTimer);
 	writer.Write(CitySave_CitySizeBoost, m_iCitySizeBoost, defaultCitySizeBoost);
 	writer.Write(CitySave_Hammers, m_iHammers, defaultHammers);
@@ -614,6 +671,12 @@ void CvCity::write(CvSavegameWriter writer)
 	writer.Write(CitySave_CityHappiness, m_iCityHappiness, defaultCityHappiness); // WTP, ray, Happiness - START
 	writer.Write(CitySave_CityUnHappiness, m_iCityUnHappiness, defaultCityUnHappiness); // WTP, ray, Happiness - START
 	writer.Write(CitySave_CityTimerFestivitiesOrUnrest, m_iCityTimerFestivitiesOrUnrest, defaultCityTimerFestivitiesOrUnrest); // WTP, ray, Happiness - START
+	writer.Write(CitySave_CityLaw, m_iCityLaw, defaultCityLaw); // WTP, ray, Crime and Law - START
+	writer.Write(CitySave_CityCrime, m_iCityCrime, defaultCityCrime); // WTP, ray, Crime and Law - START
+	writer.Write(CitySave_DomesticDemandEventDuration, m_iDomesticDemandEventDuration, defaultDomesticDemandEventDuration); // WTP, ray Domestic Market Events - START
+	writer.Write(CitySave_DomesticDemandEventTimer, m_iDomesticDemandEventTimer, defaultDomesticDemandEventTimer); // WTP, ray Domestic Market Events - START
+	writer.Write(CitySave_DomesticDemandEventPriceModifier, m_iDomesticDemandEventPriceModifier, defaultDomesticDemandEventPriceModifier); // WTP, ray Domestic Market Events - START
+	writer.Write(CitySave_DomesticDemandEventDemandModifier, m_iDomesticDemandEventDemandModifier, defaultDomesticDemandEventDemandModifier); // WTP, ray Domestic Market Events - START
 	writer.Write(CitySave_TeachUnitMultiplier, m_iTeachUnitMultiplier, defaultTeachUnitMultiplier);
 	writer.Write(CitySave_EducationThresholdMultiplier, m_iEducationThresholdMultiplier, defaultEducationThresholdMultiplier);
 	writer.Write(CitySave_PopulationRank, m_iPopulationRank, defaultPopulationRank);
@@ -624,10 +687,11 @@ void CvCity::write(CvSavegameWriter writer)
 	writer.Write(CitySave_ProductionAutomated, m_bProductionAutomated, defaultProductionAutomated);
 	writer.Write(CitySave_WallOverride, m_bWallOverride, defaultWallOverride);
 	writer.Write(CitySave_PopulationRankValid, m_bPopulationRankValid, defaultPopulationRankValid);
+	writer.Write(CitySave_HasHurried, m_bHasHurried, defaultHasHurried);
 
 	writer.Write(CitySave_Owner, m_eOwner, defaultOwner);
-	writer.Write(CitySave_PreviousOwner, m_ePreviousOwner, defaultPreviousOwner); 
-	writer.Write(CitySave_OriginalOwner, m_eOriginalOwner, defaultOriginalOwner); 
+	writer.Write(CitySave_PreviousOwner, m_ePreviousOwner, defaultPreviousOwner);
+	writer.Write(CitySave_OriginalOwner, m_eOriginalOwner, defaultOriginalOwner);
 	writer.Write(CitySave_CultureLevel, m_eCultureLevel, defaultCultureLevel);
 	writer.Write(CitySave_TeachUnitClass, m_eTeachUnitClass, defaultTeachUnitClass);
 
@@ -646,7 +710,7 @@ void CvCity::write(CvSavegameWriter writer)
 	writer.Write(CitySave_MissionaryPlayer, m_eMissionaryPlayer, defaultMissionaryPlayer);
 	writer.Write(CitySave_TradePostPlayer, m_eTradePostPlayer, defaultTradePostPlayer); // WTP, ray, Native Trade Posts - START
 	writer.Write(CitySave_PreferredYieldAtCityPlot, m_ePreferredYieldAtCityPlot, defaultPreferredYieldAtCityPlot);
-		
+
 	writer.Write(CitySave_LandPlotYield, m_em_iLandPlotYield);
 	writer.Write(CitySave_SeaPlotYield, m_em_iSeaPlotYield);
 	writer.Write(CitySave_RiverPlotYield, m_em_iRiverPlotYield);
@@ -660,7 +724,7 @@ void CvCity::write(CvSavegameWriter writer)
 	writer.Write(CitySave_YieldRank, m_em_iYieldRank);
 	writer.Write(CitySave_YieldRankValid, m_em_bYieldRankValid);
 
-	
+
 	writer.Write(CitySave_BuildingProduction, m_em_iBuildingProduction);
 	writer.Write(CitySave_BuildingProductionTime, m_em_iBuildingProductionTime);
 	writer.Write(CitySave_BuildingOriginalOwner, m_em_eBuildingOriginalOwner);
@@ -689,6 +753,9 @@ void CvCity::write(CvSavegameWriter writer)
 	writer.Write(CitySave_orderQueue, m_orderQueue);
 
 	writer.Write(CitySave_WorkingPlot, m_em_iWorkingPlot);
+
+	writer.Write(CitySave_Oppressometer, m_iOppressometer, defaultOppressometer);
+	writer.Write(CitySave_OppressometerGrowthModifier, m_iOppressometerGrowthModifier, defaultOppressometerGrowthModifier);
 
 	writer.Write(CitySave_END);
 }

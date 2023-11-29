@@ -21,7 +21,7 @@
 #include <MMSystem.h>
 #if defined _DEBUG && !defined USE_MEMMANAGER
 //#define USE_MEMMANAGER
-#include <crtdbg.h>
+//#include <crtdbg.h>
 #endif
 #include <vector>
 #include <list>
@@ -55,13 +55,13 @@ class NiColorA
 {
 public:
 	NiColorA(float fr, float fg, float fb, float fa) : r(fr), g(fg), b(fb), a(fa) {}
-	NiColorA() {}
+	NiColorA() /* advc: */ : r(0), g(0), b(0), a(0) {}
 	float r, g, b, a;
 };
 class NiPoint2
 {
 public:
-	NiPoint2() {}
+	NiPoint2() /* advc: */ : x(-1), y(-1) {}
 	NiPoint2(float fx, float fy) : x(fx),y(fy) {}
 
 	float x, y;
@@ -160,9 +160,12 @@ typedef wchar_t          wchar;
 #define M_PI       3.14159265358979323846
 #define fM_PI		3.141592654f		//!< Pi (float)
 
+// Unused and disabled for now to avoid cppcheck complaining
+/*
 __forceinline DWORD FtoDW( float f ) { return *(DWORD*)&f; }
 __forceinline float DWtoF( dword n ) { return *(float*)&n; }
 __forceinline float MaxFloat() { return DWtoF(0x7f7fffff); }
+*/
 
 /// bitmap - start - Nightinggale
 // variableless versions assuming the argument to be 0
@@ -257,9 +260,30 @@ class PyObject;
 namespace boost
 {
 	class noncopyable {};
+
+	namespace detail
+	{
+		template< typename T1 >
+		struct is_same_part_1
+		{
+			template<typename T2>  struct part_2 { enum { value = false }; };
+			template<>             struct part_2<T1> { enum { value = true }; };
+		};
+	}
+
+	template< typename T1, typename T2 >
+	struct is_same
+	{
+		enum { value = detail::is_same_part_1<T1>::template part_2<T2>::value };
+	};
 }
 
 #endif // IntelliSense workaround
+
+// setting this to false will provide the path to the exe dir instead
+// this is usually not needed as it's the working directory
+std::string GetDLLPath(bool bLoadDLLPath = true);
+
 
 #include "CvMacros.h"
 #include "FAssert.h"
@@ -275,18 +299,15 @@ namespace boost
 #include "CvStructs.h"
 #include "NetworkDataPacking.h"
 #include "CvDLLUtilityIFaceBase.h"
-
-#include "JustInTimeArray.h"
-#include "BoolArray.h"
-#include "PlayerArray.h"
-#include "PlayerBoolArray.h"
-#include "InfoArray.h"
-#include "InfoCacheArray.h"
+#include "AlertWindow.h"
 
 #include "CvGlobalConstants.h"
+#include "CvEnumsFunctions.h"
+#include "EnumMapSpecialization.h"
 
+#include "JustInTimeArray.h"
+#include "InfoArray.h"
 #include "EnumMap.h"
-#include "EnumMap2D.h"
 
 #include "CvGlobals.h"
 
@@ -308,7 +329,7 @@ namespace boost
 #include "CvDeal.h"
 #include "CvDLLEntityIFaceBase.h"
 #include "CvGame.h"
-#include "CyGlobalContext.h"
+#include "CvArtFileMgr.h"
 #include "CvSelectionGroup.h"
 #include "CvTalkingHeadMessage.h"
 #include "CvCityAI.h"

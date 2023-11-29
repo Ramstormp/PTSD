@@ -23,12 +23,7 @@ void CyUnitPythonInterface1(python::class_<CyUnit>& x)
 		.def("canDoCommand", &CyUnit::canDoCommand, "bool (eCommand, iData1, iData2, bTestVisible = False) - can the unit perform eCommand?")
 		.def("doCommand", &CyUnit::doCommand, "void (eCommand, iData1, iData2) - force the unit to perform eCommand")
 		.def("getPathEndTurnPlot", &CyUnit::getPathEndTurnPlot, python::return_value_policy<python::manage_new_object>(), "CyPlot* ()")
-		
-		// TAC - AI Improved Naval AI - koma13 - START
-		//.def("generatePath", &CyUnit::generatePath, "bool (CyPlot* pToPlot, int iFlags = 0, bool bReuse = false, int* piPathTurns = NULL)")
-		.def("generatePath", &CyUnit::generatePath, "bool (CyPlot* pToPlot, int iFlags = 0, bool bReuse = false, int* piPathTurns = NULL, bool bIgnoreDanger = true)")
-		// TAC - AI Improved Naval AI - koma13 - END
-
+		.def("generatePath", &CyUnit::generatePath, "bool (CyPlot* pToPlot, int iFlags = 0, bool bReuse = false, int* piPathTurns = NULL)")
 		.def("canEnterTerritory", &CyUnit::canEnterTerritory, "bool (int (PlayerTypes) ePlayer, bool bIgnoreRightOfPassage)")
 		.def("canEnterArea", &CyUnit::canEnterArea, "bool (int (PlayerTypes) ePlayer, CyArea* pArea, bool bIgnoreRightOfPassage)")
 		.def("canMoveInto", &CyUnit::canMoveInto, "bool (CyPlot* pPlot, bool bAttack, bool bDeclareWar, bool bIgnoreLoad)")
@@ -111,10 +106,16 @@ void CyUnitPythonInterface1(python::class_<CyUnit>& x)
 		.def("canFight", &CyUnit::canFight, "bool ()")
 		.def("canAttack", &CyUnit::canAttack, "bool ()")
 		.def("canDefend", &CyUnit::canDefend, "bool (CyPlot* pPlot)")
-		// TAC - LbD - Ray - START
-		.def("getLbDrounds", &CyUnit::getLbDrounds, "int ()")
-		.def("getLastLbDProfession", &CyUnit::getLastLbDProfession, "int ()")
-		// TAC - LbD - Ray - END
+		.def("getLbDrounds", &CyUnit::getLbDrounds, "int ()") // TAC - LbD - Ray - START
+		.def("getLastLbDProfession", &CyUnit::getLastLbDProfession, "int ()") // TAC - LbD - Ray - START
+		// WTP, ray, helper methods for Python Event System - Spawning Units and Barbarians on Plots - START
+		.def("spawnOwnPlayerUnitOnPlotOfUnit", &CyUnit::spawnOwnPlayerUnitOnPlotOfUnit, "void (int /*UnitClassTypes*/ iIndex)")
+		.def("spawnBarbarianUnitOnPlotOfUnit", &CyUnit::spawnBarbarianUnitOnPlotOfUnit, "void (int /*UnitClassTypes*/ iIndex)")
+		.def("spawnOwnPlayerUnitOnAdjacentPlotOfUnit", &CyUnit::spawnOwnPlayerUnitOnAdjacentPlotOfUnit, "void (int /*UnitClassTypes*/ iIndex)")
+		.def("spawnBarbarianUnitOnAdjacentPlotOfUnit", &CyUnit::spawnBarbarianUnitOnAdjacentPlotOfUnit, "void (int /*UnitClassTypes*/ iIndex)")
+		.def("isOwnPlayerUnitOnAdjacentPlotOfUnit", &CyUnit::isOwnPlayerUnitOnAdjacentPlotOfUnit, "bool (int /*UnitClassTypes*/ iIndex)")
+		.def("isBarbarianUnitOnAdjacentPlotOfUnit", &CyUnit::isBarbarianUnitOnAdjacentPlotOfUnit, "bool (int /*UnitClassTypes*/ iIndex)")
+		// WTP, ray, helper methods for Python Event System - Spawning Units and Barbarians on Plots - END
 
 		// WTP, ray, saving 1 more Profession for Fisher Issue - START
 		.def("getLbDroundsBefore", &CyUnit::getLbDroundsBefore, "int ()")

@@ -86,11 +86,16 @@ class CvCongressAdvisor:
 
 		self.MyFathers = []
 		self.MySortedFathers = []
-		
+		activeTeam = gc.getGame().getActiveTeam()
+
 		for iFather in range(gc.getNumFatherInfos()):
 			Father = gc.getFatherInfo(iFather)
-			if (gc.getGame().getFatherTeam(iFather) == self.team.getID()):
-				self.MyFathers.append(iFather)
+			if gc.getGame().isOption(GameOptionTypes.GAMEOPTION_NO_FATHER_RACE):
+				if (gc.getTeam(gc.getGame().getActiveTeam()).isFatherConvinced(iFather)):
+					self.MyFathers.append(iFather)
+			else:
+				if (gc.getGame().getFatherTeam(iFather) == self.team.getID()):
+						self.MyFathers.append(iFather)
 
 		FatherCountText = localText.getText("TXT_KEY_MEMBERS", (CyGameTextMgr().getInterfaceTimeStr(gc.getGame().getActivePlayer()), len(self.MyFathers)))
 		FatherCountText = localText.changeTextColor(FatherCountText, gc.getInfoTypeForString("COLOR_FONT_GOLD"))

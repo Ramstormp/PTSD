@@ -52,6 +52,7 @@
             <iMaxGoldAskPercent>20</iMaxGoldAskPercent>
             <iMinGoldAskPercent>10</iMinGoldAskPercent>
             <iNBMOD_REF_Weight>50</iNBMOD_REF_Weight>
+            <iOppressometerGrowthHandicap>50</iOppressometerGrowthHandicap>
             <Waves>
                 <Wave>10</Wave>
                 <Wave>20</Wave>
@@ -64,13 +65,6 @@
                 <GoodyType>GOODY_SCOUT</GoodyType>
                 <GoodyType>GOODY_SCOUT</GoodyType>
                 <GoodyType>GOODY_TREASURE</GoodyType>
-                <GoodyType>GOODY_TREASURE</GoodyType>
-                <GoodyType>GOODY_TREASURE</GoodyType>
-                <GoodyType>GOODY_TREASURE</GoodyType>
-                <GoodyType>GOODY_TREASURE</GoodyType>
-                <GoodyType>GOODY_TREASURE</GoodyType>
-                <GoodyType>GOODY_TREASURE</GoodyType>
-                <GoodyType>GOODY_TREASURE</GoodyType>
                 <GoodyType>GOODY_BURIAL_GROUNDS</GoodyType>
                 <GoodyType>GOODY_BURIAL_GROUNDS</GoodyType>
                 <GoodyType>GOODY_BURIAL_GROUNDS</GoodyType>
@@ -83,6 +77,22 @@
                 <GoodyType>GOODY_HIGH_GOLD</GoodyType>
                 <GoodyType>GOODY_HIGH_GOLD</GoodyType>
                 <GoodyType>GOODY_HIGH_GOLD</GoodyType>
+                <GoodyType>GOODY_HIGH_GOLD</GoodyType>
+                <GoodyType>GOODY_HIGH_GOLD</GoodyType>
+                <GoodyType>GOODY_HIGH_GOLD</GoodyType>
+                <GoodyType>GOODY_HIGH_GOLD</GoodyType>
+                <GoodyType>GOODY_HIGH_GOLD</GoodyType>
+                <GoodyType>GOODY_HIGH_GOLD</GoodyType>
+                <GoodyType>GOODY_HIGH_GOLD</GoodyType>
+                <GoodyType>GOODY_HIGH_GOLD</GoodyType>
+                <GoodyType>GOODY_LOW_GOLD</GoodyType>
+                <GoodyType>GOODY_LOW_GOLD</GoodyType>
+                <GoodyType>GOODY_LOW_GOLD</GoodyType>
+                <GoodyType>GOODY_LOW_GOLD</GoodyType>
+                <GoodyType>GOODY_LOW_GOLD</GoodyType>
+                <GoodyType>GOODY_LOW_GOLD</GoodyType>
+                <GoodyType>GOODY_LOW_GOLD</GoodyType>
+                <GoodyType>GOODY_LOW_GOLD</GoodyType>   
                 <GoodyType>GOODY_LOW_GOLD</GoodyType>
                 <GoodyType>GOODY_LOW_GOLD</GoodyType>
                 <GoodyType>GOODY_LOW_GOLD</GoodyType>
@@ -110,8 +120,15 @@
                 <GoodyType>GOODY_NATIVE_SLAVE</GoodyType>
                 <GoodyType>GOODY_NATIVE_MERC</GoodyType>
                 <GoodyType>GOODY_COLONIST</GoodyType>
+                <GoodyType>GOODY_MESTIZZO</GoodyType>
+                <GoodyType>GOODY_MULATTO</GoodyType>
                 <GoodyType>GOODY_CONQUISTADOR</GoodyType>
+                <GoodyType>GOODY_BUCCANNEER</GoodyType>
+                <GoodyType>GOODY_SLAVE_HUNTER</GoodyType>
+                <GoodyType>GOODY_SLAVE_MASTER</GoodyType>
                 <GoodyType>GOODY_CHRISTIAN_MISSIONARY</GoodyType>
+                <GoodyType>GOODY_FAILED_MISSIONARY</GoodyType>
+                <GoodyType>GOODY_FAILED_TRADER</GoodyType>
                 <GoodyType>GOODY_RANGER</GoodyType>
                 <GoodyType>GOODY_NATIVE_TRADER</GoodyType>
                 <GoodyType>GOODY_SHIPWRECKED</GoodyType>
@@ -160,7 +177,7 @@
                 <GoodyType>GOODY_GREAT_WHITE</GoodyType>
                 <GoodyType>GOODY_MOBY_DICK</GoodyType>
                 <GoodyType>GOODY_KRAKEN_ARMS</GoodyType>
-                <GoodyType>GOODY_ORCA_SCHOOOL</GoodyType>
+                <GoodyType>GOODY_ORCA_SCHOOL</GoodyType>
                 <GoodyType>GOODY_HOSTILE_WEAK</GoodyType>
                 <GoodyType>GOODY_HOSTILE_WEAK</GoodyType>
                 <GoodyType>GOODY_HOSTILE_WEAK</GoodyType>
@@ -193,8 +210,8 @@
             <iAIKingCombatModifier>50</iAIKingCombatModifier>
             <iAIRebelModifier>50</iAIRebelModifier>
             <iAIGrowthPercent>110</iAIGrowthPercent>
-            <iAITrainPercent>80</iAITrainPercent>
-            <iAIConstructPercent>90</iAIConstructPercent>
+            <iAITrainPercent>110</iAITrainPercent>
+            <iAIConstructPercent>110</iAIConstructPercent>
             <iAIUnitUpgradePercent>50</iAIUnitUpgradePercent>
             <iAIHurryPercent>80</iAIHurryPercent>
             <iAIImmigration>0</iAIImmigration>
@@ -213,10 +230,11 @@
             <iEuropePriceThresholdMultiplier>120</iEuropePriceThresholdMultiplier>
             <iNativePacifismPercent>90</iNativePacifismPercent>
             <iMissionFailureThresholdPercent>97</iMissionFailureThresholdPercent>
-            <iInitMaxTaxRate>50</iInitMaxTaxRate>
+            <iInitMaxTaxRate>45</iInitMaxTaxRate>
             <iMaxGoldAskPercent>30</iMaxGoldAskPercent>
             <iMinGoldAskPercent>10</iMinGoldAskPercent>
             <iNBMOD_REF_Weight>75</iNBMOD_REF_Weight>
+            <iOppressometerGrowthHandicap>75</iOppressometerGrowthHandicap>
             <Waves>
                 <Wave>10</Wave>
                 <Wave>20</Wave>
@@ -229,13 +247,6 @@
                 <GoodyType>GOODY_SCOUT</GoodyType>
                 <GoodyType>GOODY_SCOUT</GoodyType>
                 <GoodyType>GOODY_TREASURE</GoodyType>
-                <GoodyType>GOODY_TREASURE</GoodyType>
-                <GoodyType>GOODY_TREASURE</GoodyType>
-                <GoodyType>GOODY_TREASURE</GoodyType>
-                <GoodyType>GOODY_TREASURE</GoodyType>
-                <GoodyType>GOODY_TREASURE</GoodyType>
-                <GoodyType>GOODY_TREASURE</GoodyType>
-                <GoodyType>GOODY_TREASURE</GoodyType>
                 <GoodyType>GOODY_BURIAL_GROUNDS</GoodyType>
                 <GoodyType>GOODY_BURIAL_GROUNDS</GoodyType>
                 <GoodyType>GOODY_BURIAL_GROUNDS</GoodyType>
@@ -248,6 +259,22 @@
                 <GoodyType>GOODY_HIGH_GOLD</GoodyType>
                 <GoodyType>GOODY_HIGH_GOLD</GoodyType>
                 <GoodyType>GOODY_HIGH_GOLD</GoodyType>
+                <GoodyType>GOODY_HIGH_GOLD</GoodyType>
+                <GoodyType>GOODY_HIGH_GOLD</GoodyType>
+                <GoodyType>GOODY_HIGH_GOLD</GoodyType>
+                <GoodyType>GOODY_HIGH_GOLD</GoodyType>
+                <GoodyType>GOODY_HIGH_GOLD</GoodyType>
+                <GoodyType>GOODY_HIGH_GOLD</GoodyType>
+                <GoodyType>GOODY_HIGH_GOLD</GoodyType>
+                <GoodyType>GOODY_HIGH_GOLD</GoodyType>
+                <GoodyType>GOODY_LOW_GOLD</GoodyType>
+                <GoodyType>GOODY_LOW_GOLD</GoodyType>
+                <GoodyType>GOODY_LOW_GOLD</GoodyType>
+                <GoodyType>GOODY_LOW_GOLD</GoodyType>
+                <GoodyType>GOODY_LOW_GOLD</GoodyType>
+                <GoodyType>GOODY_LOW_GOLD</GoodyType>
+                <GoodyType>GOODY_LOW_GOLD</GoodyType>
+                <GoodyType>GOODY_LOW_GOLD</GoodyType>
                 <GoodyType>GOODY_LOW_GOLD</GoodyType>
                 <GoodyType>GOODY_LOW_GOLD</GoodyType>
                 <GoodyType>GOODY_LOW_GOLD</GoodyType>
@@ -275,8 +302,15 @@
                 <GoodyType>GOODY_NATIVE_SLAVE</GoodyType>
                 <GoodyType>GOODY_NATIVE_MERC</GoodyType>
                 <GoodyType>GOODY_COLONIST</GoodyType>
+                <GoodyType>GOODY_MESTIZZO</GoodyType>
+                <GoodyType>GOODY_MULATTO</GoodyType>
                 <GoodyType>GOODY_CONQUISTADOR</GoodyType>
+                <GoodyType>GOODY_BUCCANNEER</GoodyType>
+                <GoodyType>GOODY_SLAVE_HUNTER</GoodyType>
+                <GoodyType>GOODY_SLAVE_MASTER</GoodyType>
                 <GoodyType>GOODY_CHRISTIAN_MISSIONARY</GoodyType>
+                <GoodyType>GOODY_FAILED_MISSIONARY</GoodyType>
+                <GoodyType>GOODY_FAILED_TRADER</GoodyType>
                 <GoodyType>GOODY_RANGER</GoodyType>
                 <GoodyType>GOODY_NATIVE_TRADER</GoodyType>
                 <GoodyType>GOODY_SHIPWRECKED</GoodyType>
@@ -325,7 +359,7 @@
                 <GoodyType>GOODY_GREAT_WHITE</GoodyType>
                 <GoodyType>GOODY_MOBY_DICK</GoodyType>
                 <GoodyType>GOODY_KRAKEN_ARMS</GoodyType>
-                <GoodyType>GOODY_ORCA_SCHOOOL</GoodyType>
+                <GoodyType>GOODY_ORCA_SCHOOL</GoodyType>
                 <GoodyType>GOODY_HOSTILE_WEAK</GoodyType>
                 <GoodyType>GOODY_HOSTILE_WEAK</GoodyType>
                 <GoodyType>GOODY_HOSTILE_WEAK</GoodyType>
@@ -357,9 +391,9 @@
             <iAINativeCombatModifier>50</iAINativeCombatModifier>
             <iAIKingCombatModifier>50</iAIKingCombatModifier>
             <iAIRebelModifier>50</iAIRebelModifier>
-            <iAIGrowthPercent>110</iAIGrowthPercent>
-            <iAITrainPercent>60</iAITrainPercent>
-            <iAIConstructPercent>70</iAIConstructPercent>
+            <iAIGrowthPercent>100</iAIGrowthPercent>
+            <iAITrainPercent>100</iAITrainPercent>
+            <iAIConstructPercent>100</iAIConstructPercent>
             <iAIUnitUpgradePercent>50</iAIUnitUpgradePercent>
             <iAIHurryPercent>80</iAIHurryPercent>
             <iAIImmigration>10</iAIImmigration>
@@ -381,7 +415,8 @@
             <iInitMaxTaxRate>50</iInitMaxTaxRate>
             <iMaxGoldAskPercent>40</iMaxGoldAskPercent>
             <iMinGoldAskPercent>20</iMinGoldAskPercent>
-            <iNBMOD_REF_Weight>80</iNBMOD_REF_Weight>
+            <iNBMOD_REF_Weight>100</iNBMOD_REF_Weight>
+            <iOppressometerGrowthHandicap>100</iOppressometerGrowthHandicap>
             <Waves>
                 <Wave>10</Wave>
                 <Wave>30</Wave>
@@ -394,13 +429,6 @@
                 <GoodyType>GOODY_SCOUT</GoodyType>
                 <GoodyType>GOODY_SCOUT</GoodyType>
                 <GoodyType>GOODY_TREASURE</GoodyType>
-                <GoodyType>GOODY_TREASURE</GoodyType>
-                <GoodyType>GOODY_TREASURE</GoodyType>
-                <GoodyType>GOODY_TREASURE</GoodyType>
-                <GoodyType>GOODY_TREASURE</GoodyType>
-                <GoodyType>GOODY_TREASURE</GoodyType>
-                <GoodyType>GOODY_TREASURE</GoodyType>
-                <GoodyType>GOODY_TREASURE</GoodyType>
                 <GoodyType>GOODY_BURIAL_GROUNDS</GoodyType>
                 <GoodyType>GOODY_BURIAL_GROUNDS</GoodyType>
                 <GoodyType>GOODY_BURIAL_GROUNDS</GoodyType>
@@ -413,6 +441,22 @@
                 <GoodyType>GOODY_HIGH_GOLD</GoodyType>
                 <GoodyType>GOODY_HIGH_GOLD</GoodyType>
                 <GoodyType>GOODY_HIGH_GOLD</GoodyType>
+                <GoodyType>GOODY_HIGH_GOLD</GoodyType>
+                <GoodyType>GOODY_HIGH_GOLD</GoodyType>
+                <GoodyType>GOODY_HIGH_GOLD</GoodyType>
+                <GoodyType>GOODY_HIGH_GOLD</GoodyType>
+                <GoodyType>GOODY_HIGH_GOLD</GoodyType>
+                <GoodyType>GOODY_HIGH_GOLD</GoodyType>
+                <GoodyType>GOODY_HIGH_GOLD</GoodyType>
+                <GoodyType>GOODY_HIGH_GOLD</GoodyType>
+                <GoodyType>GOODY_LOW_GOLD</GoodyType>
+                <GoodyType>GOODY_LOW_GOLD</GoodyType>
+                <GoodyType>GOODY_LOW_GOLD</GoodyType>
+                <GoodyType>GOODY_LOW_GOLD</GoodyType>
+                <GoodyType>GOODY_LOW_GOLD</GoodyType>
+                <GoodyType>GOODY_LOW_GOLD</GoodyType>
+                <GoodyType>GOODY_LOW_GOLD</GoodyType>
+                <GoodyType>GOODY_LOW_GOLD</GoodyType>
                 <GoodyType>GOODY_LOW_GOLD</GoodyType>
                 <GoodyType>GOODY_LOW_GOLD</GoodyType>
                 <GoodyType>GOODY_LOW_GOLD</GoodyType>
@@ -440,8 +484,15 @@
                 <GoodyType>GOODY_NATIVE_SLAVE</GoodyType>
                 <GoodyType>GOODY_NATIVE_MERC</GoodyType>
                 <GoodyType>GOODY_COLONIST</GoodyType>
+                <GoodyType>GOODY_MESTIZZO</GoodyType>
+                <GoodyType>GOODY_MULATTO</GoodyType>
                 <GoodyType>GOODY_CONQUISTADOR</GoodyType>
+                <GoodyType>GOODY_BUCCANNEER</GoodyType>
+                <GoodyType>GOODY_SLAVE_HUNTER</GoodyType>
+                <GoodyType>GOODY_SLAVE_MASTER</GoodyType>
                 <GoodyType>GOODY_CHRISTIAN_MISSIONARY</GoodyType>
+                <GoodyType>GOODY_FAILED_MISSIONARY</GoodyType>
+                <GoodyType>GOODY_FAILED_TRADER</GoodyType>
                 <GoodyType>GOODY_RANGER</GoodyType>
                 <GoodyType>GOODY_NATIVE_TRADER</GoodyType>
                 <GoodyType>GOODY_SHIPWRECKED</GoodyType>
@@ -490,7 +541,7 @@
                 <GoodyType>GOODY_GREAT_WHITE</GoodyType>
                 <GoodyType>GOODY_MOBY_DICK</GoodyType>
                 <GoodyType>GOODY_KRAKEN_ARMS</GoodyType>
-                <GoodyType>GOODY_ORCA_SCHOOOL</GoodyType>
+                <GoodyType>GOODY_ORCA_SCHOOL</GoodyType>
                 <GoodyType>GOODY_HOSTILE_WEAK</GoodyType>
                 <GoodyType>GOODY_HOSTILE_WEAK</GoodyType>
                 <GoodyType>GOODY_HOSTILE_WEAK</GoodyType>
@@ -522,9 +573,9 @@
             <iAINativeCombatModifier>50</iAINativeCombatModifier>
             <iAIKingCombatModifier>50</iAIKingCombatModifier>
             <iAIRebelModifier>50</iAIRebelModifier>
-            <iAIGrowthPercent>100</iAIGrowthPercent>
-            <iAITrainPercent>55</iAITrainPercent>
-            <iAIConstructPercent>60</iAIConstructPercent>
+            <iAIGrowthPercent>90</iAIGrowthPercent>
+            <iAITrainPercent>90</iAITrainPercent>
+            <iAIConstructPercent>90</iAIConstructPercent>
             <iAIUnitUpgradePercent>50</iAIUnitUpgradePercent>
             <iAIHurryPercent>80</iAIHurryPercent>
             <iAIImmigration>10</iAIImmigration>
@@ -543,10 +594,11 @@
             <iEuropePriceThresholdMultiplier>90</iEuropePriceThresholdMultiplier>
             <iNativePacifismPercent>70</iNativePacifismPercent>
             <iMissionFailureThresholdPercent>91</iMissionFailureThresholdPercent>
-            <iInitMaxTaxRate>60</iInitMaxTaxRate>
+            <iInitMaxTaxRate>55</iInitMaxTaxRate>
             <iMaxGoldAskPercent>45</iMaxGoldAskPercent>
             <iMinGoldAskPercent>20</iMinGoldAskPercent>
-            <iNBMOD_REF_Weight>90</iNBMOD_REF_Weight>
+            <iNBMOD_REF_Weight>110</iNBMOD_REF_Weight>
+            <iOppressometerGrowthHandicap>110</iOppressometerGrowthHandicap>
             <Waves>
                 <Wave>20</Wave>
                 <Wave>30</Wave>
@@ -559,13 +611,6 @@
                 <GoodyType>GOODY_SCOUT</GoodyType>
                 <GoodyType>GOODY_SCOUT</GoodyType>
                 <GoodyType>GOODY_TREASURE</GoodyType>
-                <GoodyType>GOODY_TREASURE</GoodyType>
-                <GoodyType>GOODY_TREASURE</GoodyType>
-                <GoodyType>GOODY_TREASURE</GoodyType>
-                <GoodyType>GOODY_TREASURE</GoodyType>
-                <GoodyType>GOODY_TREASURE</GoodyType>
-                <GoodyType>GOODY_TREASURE</GoodyType>
-                <GoodyType>GOODY_TREASURE</GoodyType>
                 <GoodyType>GOODY_BURIAL_GROUNDS</GoodyType>
                 <GoodyType>GOODY_BURIAL_GROUNDS</GoodyType>
                 <GoodyType>GOODY_BURIAL_GROUNDS</GoodyType>
@@ -578,6 +623,22 @@
                 <GoodyType>GOODY_HIGH_GOLD</GoodyType>
                 <GoodyType>GOODY_HIGH_GOLD</GoodyType>
                 <GoodyType>GOODY_HIGH_GOLD</GoodyType>
+                <GoodyType>GOODY_HIGH_GOLD</GoodyType>
+                <GoodyType>GOODY_HIGH_GOLD</GoodyType>
+                <GoodyType>GOODY_HIGH_GOLD</GoodyType>
+                <GoodyType>GOODY_HIGH_GOLD</GoodyType>
+                <GoodyType>GOODY_HIGH_GOLD</GoodyType>
+                <GoodyType>GOODY_HIGH_GOLD</GoodyType>
+                <GoodyType>GOODY_HIGH_GOLD</GoodyType>
+                <GoodyType>GOODY_HIGH_GOLD</GoodyType>
+                <GoodyType>GOODY_LOW_GOLD</GoodyType>
+                <GoodyType>GOODY_LOW_GOLD</GoodyType>
+                <GoodyType>GOODY_LOW_GOLD</GoodyType>
+                <GoodyType>GOODY_LOW_GOLD</GoodyType>
+                <GoodyType>GOODY_LOW_GOLD</GoodyType>
+                <GoodyType>GOODY_LOW_GOLD</GoodyType>
+                <GoodyType>GOODY_LOW_GOLD</GoodyType>
+                <GoodyType>GOODY_LOW_GOLD</GoodyType>
                 <GoodyType>GOODY_LOW_GOLD</GoodyType>
                 <GoodyType>GOODY_LOW_GOLD</GoodyType>
                 <GoodyType>GOODY_LOW_GOLD</GoodyType>
@@ -605,8 +666,15 @@
                 <GoodyType>GOODY_NATIVE_SLAVE</GoodyType>
                 <GoodyType>GOODY_NATIVE_MERC</GoodyType>
                 <GoodyType>GOODY_COLONIST</GoodyType>
+                <GoodyType>GOODY_MESTIZZO</GoodyType>
+                <GoodyType>GOODY_MULATTO</GoodyType>
                 <GoodyType>GOODY_CONQUISTADOR</GoodyType>
+                <GoodyType>GOODY_BUCCANNEER</GoodyType>
+                <GoodyType>GOODY_SLAVE_HUNTER</GoodyType>
+                <GoodyType>GOODY_SLAVE_MASTER</GoodyType>
                 <GoodyType>GOODY_CHRISTIAN_MISSIONARY</GoodyType>
+                <GoodyType>GOODY_FAILED_MISSIONARY</GoodyType>
+                <GoodyType>GOODY_FAILED_TRADER</GoodyType>
                 <GoodyType>GOODY_RANGER</GoodyType>
                 <GoodyType>GOODY_NATIVE_TRADER</GoodyType>
                 <GoodyType>GOODY_SHIPWRECKED</GoodyType>
@@ -655,7 +723,7 @@
                 <GoodyType>GOODY_GREAT_WHITE</GoodyType>
                 <GoodyType>GOODY_MOBY_DICK</GoodyType>
                 <GoodyType>GOODY_KRAKEN_ARMS</GoodyType>
-                <GoodyType>GOODY_ORCA_SCHOOOL</GoodyType>
+                <GoodyType>GOODY_ORCA_SCHOOL</GoodyType>
                 <GoodyType>GOODY_HOSTILE_WEAK</GoodyType>
                 <GoodyType>GOODY_HOSTILE_WEAK</GoodyType>
                 <GoodyType>GOODY_HOSTILE_WEAK</GoodyType>
@@ -687,9 +755,9 @@
             <iAINativeCombatModifier>50</iAINativeCombatModifier>
             <iAIKingCombatModifier>50</iAIKingCombatModifier>
             <iAIRebelModifier>50</iAIRebelModifier>
-            <iAIGrowthPercent>95</iAIGrowthPercent>
-            <iAITrainPercent>50</iAITrainPercent>
-            <iAIConstructPercent>55</iAIConstructPercent>
+            <iAIGrowthPercent>75</iAIGrowthPercent>
+            <iAITrainPercent>75</iAITrainPercent>
+            <iAIConstructPercent>75</iAIConstructPercent>
             <iAIUnitUpgradePercent>50</iAIUnitUpgradePercent>
             <iAIHurryPercent>80</iAIHurryPercent>
             <iAIImmigration>10</iAIImmigration>
@@ -701,17 +769,18 @@
             <iAIKingUnitThresholdPercent>200</iAIKingUnitThresholdPercent>
             <iAIAnimalLandMaxPercent>1</iAIAnimalLandMaxPercent>
             <iAIAnimalSeaMaxPercent>1</iAIAnimalSeaMaxPercent>
-            <iAIAnimalLandNumTurnsNoSpawn>5</iAIAnimalLandNumTurnsNoSpawn>
-            <iAIAnimalSeaNumTurnsNoSpawn>5</iAIAnimalSeaNumTurnsNoSpawn>
+            <iAIAnimalLandNumTurnsNoSpawn>0</iAIAnimalLandNumTurnsNoSpawn>
+            <iAIAnimalSeaNumTurnsNoSpawn>0</iAIAnimalSeaNumTurnsNoSpawn>
             <iKingNumUnitMultiplier>109</iKingNumUnitMultiplier>
             <iKingGoldThresholdPercent>2</iKingGoldThresholdPercent>
             <iEuropePriceThresholdMultiplier>80</iEuropePriceThresholdMultiplier>
             <iNativePacifismPercent>60</iNativePacifismPercent>
             <iMissionFailureThresholdPercent>89</iMissionFailureThresholdPercent>
-            <iInitMaxTaxRate>65</iInitMaxTaxRate>
+            <iInitMaxTaxRate>60</iInitMaxTaxRate>
             <iMaxGoldAskPercent>50</iMaxGoldAskPercent>
             <iMinGoldAskPercent>25</iMinGoldAskPercent>
-            <iNBMOD_REF_Weight>100</iNBMOD_REF_Weight>
+            <iNBMOD_REF_Weight>125</iNBMOD_REF_Weight>
+            <iOppressometerGrowthHandicap>125</iOppressometerGrowthHandicap>
             <Waves>
                 <Wave>20</Wave>
                 <Wave>30</Wave>
@@ -724,13 +793,6 @@
                 <GoodyType>GOODY_SCOUT</GoodyType>
                 <GoodyType>GOODY_SCOUT</GoodyType>
                 <GoodyType>GOODY_TREASURE</GoodyType>
-                <GoodyType>GOODY_TREASURE</GoodyType>
-                <GoodyType>GOODY_TREASURE</GoodyType>
-                <GoodyType>GOODY_TREASURE</GoodyType>
-                <GoodyType>GOODY_TREASURE</GoodyType>
-                <GoodyType>GOODY_TREASURE</GoodyType>
-                <GoodyType>GOODY_TREASURE</GoodyType>
-                <GoodyType>GOODY_TREASURE</GoodyType>
                 <GoodyType>GOODY_BURIAL_GROUNDS</GoodyType>
                 <GoodyType>GOODY_BURIAL_GROUNDS</GoodyType>
                 <GoodyType>GOODY_BURIAL_GROUNDS</GoodyType>
@@ -743,6 +805,22 @@
                 <GoodyType>GOODY_HIGH_GOLD</GoodyType>
                 <GoodyType>GOODY_HIGH_GOLD</GoodyType>
                 <GoodyType>GOODY_HIGH_GOLD</GoodyType>
+                <GoodyType>GOODY_HIGH_GOLD</GoodyType>
+                <GoodyType>GOODY_HIGH_GOLD</GoodyType>
+                <GoodyType>GOODY_HIGH_GOLD</GoodyType>
+                <GoodyType>GOODY_HIGH_GOLD</GoodyType>
+                <GoodyType>GOODY_HIGH_GOLD</GoodyType>
+                <GoodyType>GOODY_HIGH_GOLD</GoodyType>
+                <GoodyType>GOODY_HIGH_GOLD</GoodyType>
+                <GoodyType>GOODY_HIGH_GOLD</GoodyType>
+                <GoodyType>GOODY_LOW_GOLD</GoodyType>
+                <GoodyType>GOODY_LOW_GOLD</GoodyType>
+                <GoodyType>GOODY_LOW_GOLD</GoodyType>
+                <GoodyType>GOODY_LOW_GOLD</GoodyType>
+                <GoodyType>GOODY_LOW_GOLD</GoodyType>
+                <GoodyType>GOODY_LOW_GOLD</GoodyType>
+                <GoodyType>GOODY_LOW_GOLD</GoodyType>
+                <GoodyType>GOODY_LOW_GOLD</GoodyType>
                 <GoodyType>GOODY_LOW_GOLD</GoodyType>
                 <GoodyType>GOODY_LOW_GOLD</GoodyType>
                 <GoodyType>GOODY_LOW_GOLD</GoodyType>
@@ -770,8 +848,15 @@
                 <GoodyType>GOODY_NATIVE_SLAVE</GoodyType>
                 <GoodyType>GOODY_NATIVE_MERC</GoodyType>
                 <GoodyType>GOODY_COLONIST</GoodyType>
+                <GoodyType>GOODY_MESTIZZO</GoodyType>
+                <GoodyType>GOODY_MULATTO</GoodyType>
                 <GoodyType>GOODY_CONQUISTADOR</GoodyType>
+                <GoodyType>GOODY_BUCCANNEER</GoodyType>
+                <GoodyType>GOODY_SLAVE_HUNTER</GoodyType>
+                <GoodyType>GOODY_SLAVE_MASTER</GoodyType>
                 <GoodyType>GOODY_CHRISTIAN_MISSIONARY</GoodyType>
+                <GoodyType>GOODY_FAILED_MISSIONARY</GoodyType>
+                <GoodyType>GOODY_FAILED_TRADER</GoodyType>
                 <GoodyType>GOODY_RANGER</GoodyType>
                 <GoodyType>GOODY_NATIVE_TRADER</GoodyType>
                 <GoodyType>GOODY_SHIPWRECKED</GoodyType>
@@ -820,7 +905,11 @@
                 <GoodyType>GOODY_GREAT_WHITE</GoodyType>
                 <GoodyType>GOODY_MOBY_DICK</GoodyType>
                 <GoodyType>GOODY_KRAKEN_ARMS</GoodyType>
-                <GoodyType>GOODY_ORCA_SCHOOOL</GoodyType>
+                <GoodyType>GOODY_ORCA_SCHOOL</GoodyType>
+                <GoodyType>GOODY_HOSTILE_WEAK</GoodyType>
+                <GoodyType>GOODY_HOSTILE_WEAK</GoodyType>
+                <GoodyType>GOODY_HOSTILE_WEAK</GoodyType>
+                <GoodyType>GOODY_HOSTILE_WEAK</GoodyType>
                 <GoodyType>GOODY_HOSTILE_WEAK</GoodyType>
                 <GoodyType>GOODY_HOSTILE_WEAK</GoodyType>
                 <GoodyType>GOODY_HOSTILE_WEAK</GoodyType>
@@ -852,9 +941,9 @@
             <iAINativeCombatModifier>50</iAINativeCombatModifier>
             <iAIKingCombatModifier>50</iAIKingCombatModifier>
             <iAIRebelModifier>50</iAIRebelModifier>
-            <iAIGrowthPercent>92</iAIGrowthPercent>
-            <iAITrainPercent>45</iAITrainPercent>
-            <iAIConstructPercent>40</iAIConstructPercent>
+            <iAIGrowthPercent>60</iAIGrowthPercent>
+            <iAITrainPercent>60</iAITrainPercent>
+            <iAIConstructPercent>60</iAIConstructPercent>
             <iAIUnitUpgradePercent>50</iAIUnitUpgradePercent>
             <iAIHurryPercent>80</iAIHurryPercent>
             <iAIImmigration>10</iAIImmigration>
@@ -866,17 +955,18 @@
             <iAIKingUnitThresholdPercent>190</iAIKingUnitThresholdPercent>
             <iAIAnimalLandMaxPercent>1</iAIAnimalLandMaxPercent>
             <iAIAnimalSeaMaxPercent>1</iAIAnimalSeaMaxPercent>
-            <iAIAnimalLandNumTurnsNoSpawn>0</iAIAnimalLandNumTurnsNoSpawn>
-            <iAIAnimalSeaNumTurnsNoSpawn>0</iAIAnimalSeaNumTurnsNoSpawn>
+            <iAIAnimalLandNumTurnsNoSpawn>5</iAIAnimalLandNumTurnsNoSpawn>
+            <iAIAnimalSeaNumTurnsNoSpawn>5</iAIAnimalSeaNumTurnsNoSpawn>
             <iKingNumUnitMultiplier>110</iKingNumUnitMultiplier>
             <iKingGoldThresholdPercent>2</iKingGoldThresholdPercent>
             <iEuropePriceThresholdMultiplier>70</iEuropePriceThresholdMultiplier>
             <iNativePacifismPercent>40</iNativePacifismPercent>
             <iMissionFailureThresholdPercent>87</iMissionFailureThresholdPercent>
-            <iInitMaxTaxRate>70</iInitMaxTaxRate>
+            <iInitMaxTaxRate>65</iInitMaxTaxRate>
             <iMaxGoldAskPercent>50</iMaxGoldAskPercent>
             <iMinGoldAskPercent>25</iMinGoldAskPercent>
-            <iNBMOD_REF_Weight>100</iNBMOD_REF_Weight>
+            <iNBMOD_REF_Weight>150</iNBMOD_REF_Weight>
+            <iOppressometerGrowthHandicap>150</iOppressometerGrowthHandicap>
             <Waves>
                 <Wave>30</Wave>
                 <Wave>30</Wave>
@@ -889,13 +979,6 @@
                 <GoodyType>GOODY_SCOUT</GoodyType>
                 <GoodyType>GOODY_SCOUT</GoodyType>
                 <GoodyType>GOODY_TREASURE</GoodyType>
-                <GoodyType>GOODY_TREASURE</GoodyType>
-                <GoodyType>GOODY_TREASURE</GoodyType>
-                <GoodyType>GOODY_TREASURE</GoodyType>
-                <GoodyType>GOODY_TREASURE</GoodyType>
-                <GoodyType>GOODY_TREASURE</GoodyType>
-                <GoodyType>GOODY_TREASURE</GoodyType>
-                <GoodyType>GOODY_TREASURE</GoodyType>
                 <GoodyType>GOODY_BURIAL_GROUNDS</GoodyType>
                 <GoodyType>GOODY_BURIAL_GROUNDS</GoodyType>
                 <GoodyType>GOODY_BURIAL_GROUNDS</GoodyType>
@@ -908,6 +991,22 @@
                 <GoodyType>GOODY_HIGH_GOLD</GoodyType>
                 <GoodyType>GOODY_HIGH_GOLD</GoodyType>
                 <GoodyType>GOODY_HIGH_GOLD</GoodyType>
+                <GoodyType>GOODY_HIGH_GOLD</GoodyType>
+                <GoodyType>GOODY_HIGH_GOLD</GoodyType>
+                <GoodyType>GOODY_HIGH_GOLD</GoodyType>
+                <GoodyType>GOODY_HIGH_GOLD</GoodyType>
+                <GoodyType>GOODY_HIGH_GOLD</GoodyType>
+                <GoodyType>GOODY_HIGH_GOLD</GoodyType>
+                <GoodyType>GOODY_HIGH_GOLD</GoodyType>
+                <GoodyType>GOODY_HIGH_GOLD</GoodyType>
+                <GoodyType>GOODY_LOW_GOLD</GoodyType>
+                <GoodyType>GOODY_LOW_GOLD</GoodyType>
+                <GoodyType>GOODY_LOW_GOLD</GoodyType>
+                <GoodyType>GOODY_LOW_GOLD</GoodyType>
+                <GoodyType>GOODY_LOW_GOLD</GoodyType>
+                <GoodyType>GOODY_LOW_GOLD</GoodyType>
+                <GoodyType>GOODY_LOW_GOLD</GoodyType>
+                <GoodyType>GOODY_LOW_GOLD</GoodyType>
                 <GoodyType>GOODY_LOW_GOLD</GoodyType>
                 <GoodyType>GOODY_LOW_GOLD</GoodyType>
                 <GoodyType>GOODY_LOW_GOLD</GoodyType>
@@ -935,8 +1034,15 @@
                 <GoodyType>GOODY_NATIVE_SLAVE</GoodyType>
                 <GoodyType>GOODY_NATIVE_MERC</GoodyType>
                 <GoodyType>GOODY_COLONIST</GoodyType>
+                <GoodyType>GOODY_MESTIZZO</GoodyType>
+                <GoodyType>GOODY_MULATTO</GoodyType>
                 <GoodyType>GOODY_CONQUISTADOR</GoodyType>
+                <GoodyType>GOODY_BUCCANNEER</GoodyType>
+                <GoodyType>GOODY_SLAVE_HUNTER</GoodyType>
+                <GoodyType>GOODY_SLAVE_MASTER</GoodyType>
                 <GoodyType>GOODY_CHRISTIAN_MISSIONARY</GoodyType>
+                <GoodyType>GOODY_FAILED_MISSIONARY</GoodyType>
+                <GoodyType>GOODY_FAILED_TRADER</GoodyType>
                 <GoodyType>GOODY_RANGER</GoodyType>
                 <GoodyType>GOODY_NATIVE_TRADER</GoodyType>
                 <GoodyType>GOODY_SHIPWRECKED</GoodyType>
@@ -985,7 +1091,11 @@
                 <GoodyType>GOODY_GREAT_WHITE</GoodyType>
                 <GoodyType>GOODY_MOBY_DICK</GoodyType>
                 <GoodyType>GOODY_KRAKEN_ARMS</GoodyType>
-                <GoodyType>GOODY_ORCA_SCHOOOL</GoodyType>
+                <GoodyType>GOODY_ORCA_SCHOOL</GoodyType>
+                <GoodyType>GOODY_HOSTILE_WEAK</GoodyType>
+                <GoodyType>GOODY_HOSTILE_WEAK</GoodyType>
+                <GoodyType>GOODY_HOSTILE_WEAK</GoodyType>
+                <GoodyType>GOODY_HOSTILE_WEAK</GoodyType>
                 <GoodyType>GOODY_HOSTILE_WEAK</GoodyType>
                 <GoodyType>GOODY_HOSTILE_WEAK</GoodyType>
                 <GoodyType>GOODY_HOSTILE_WEAK</GoodyType>
@@ -1017,8 +1127,8 @@
             <iAINativeCombatModifier>50</iAINativeCombatModifier>
             <iAIKingCombatModifier>50</iAIKingCombatModifier>
             <iAIRebelModifier>50</iAIRebelModifier>
-            <iAIGrowthPercent>80</iAIGrowthPercent>
-            <iAITrainPercent>40</iAITrainPercent>
+            <iAIGrowthPercent>50</iAIGrowthPercent>
+            <iAITrainPercent>50</iAITrainPercent>
             <iAIConstructPercent>50</iAIConstructPercent>
             <iAIUnitUpgradePercent>50</iAIUnitUpgradePercent>
             <iAIHurryPercent>80</iAIHurryPercent>
@@ -1041,7 +1151,8 @@
             <iInitMaxTaxRate>70</iInitMaxTaxRate>
             <iMaxGoldAskPercent>60</iMaxGoldAskPercent>
             <iMinGoldAskPercent>30</iMinGoldAskPercent>
-            <iNBMOD_REF_Weight>110</iNBMOD_REF_Weight>
+            <iNBMOD_REF_Weight>175</iNBMOD_REF_Weight>
+            <iOppressometerGrowthHandicap>175</iOppressometerGrowthHandicap>
             <Waves>
                 <Wave>30</Wave>
                 <Wave>30</Wave>
@@ -1054,13 +1165,6 @@
                 <GoodyType>GOODY_SCOUT</GoodyType>
                 <GoodyType>GOODY_SCOUT</GoodyType>
                 <GoodyType>GOODY_TREASURE</GoodyType>
-                <GoodyType>GOODY_TREASURE</GoodyType>
-                <GoodyType>GOODY_TREASURE</GoodyType>
-                <GoodyType>GOODY_TREASURE</GoodyType>
-                <GoodyType>GOODY_TREASURE</GoodyType>
-                <GoodyType>GOODY_TREASURE</GoodyType>
-                <GoodyType>GOODY_TREASURE</GoodyType>
-                <GoodyType>GOODY_TREASURE</GoodyType>
                 <GoodyType>GOODY_BURIAL_GROUNDS</GoodyType>
                 <GoodyType>GOODY_BURIAL_GROUNDS</GoodyType>
                 <GoodyType>GOODY_BURIAL_GROUNDS</GoodyType>
@@ -1073,6 +1177,22 @@
                 <GoodyType>GOODY_HIGH_GOLD</GoodyType>
                 <GoodyType>GOODY_HIGH_GOLD</GoodyType>
                 <GoodyType>GOODY_HIGH_GOLD</GoodyType>
+                <GoodyType>GOODY_HIGH_GOLD</GoodyType>
+                <GoodyType>GOODY_HIGH_GOLD</GoodyType>
+                <GoodyType>GOODY_HIGH_GOLD</GoodyType>
+                <GoodyType>GOODY_HIGH_GOLD</GoodyType>
+                <GoodyType>GOODY_HIGH_GOLD</GoodyType>
+                <GoodyType>GOODY_HIGH_GOLD</GoodyType>
+                <GoodyType>GOODY_HIGH_GOLD</GoodyType>
+                <GoodyType>GOODY_HIGH_GOLD</GoodyType>
+                <GoodyType>GOODY_LOW_GOLD</GoodyType>
+                <GoodyType>GOODY_LOW_GOLD</GoodyType>
+                <GoodyType>GOODY_LOW_GOLD</GoodyType>
+                <GoodyType>GOODY_LOW_GOLD</GoodyType>
+                <GoodyType>GOODY_LOW_GOLD</GoodyType>
+                <GoodyType>GOODY_LOW_GOLD</GoodyType>
+                <GoodyType>GOODY_LOW_GOLD</GoodyType>
+                <GoodyType>GOODY_LOW_GOLD</GoodyType>
                 <GoodyType>GOODY_LOW_GOLD</GoodyType>
                 <GoodyType>GOODY_LOW_GOLD</GoodyType>
                 <GoodyType>GOODY_LOW_GOLD</GoodyType>
@@ -1100,8 +1220,15 @@
                 <GoodyType>GOODY_NATIVE_SLAVE</GoodyType>
                 <GoodyType>GOODY_NATIVE_MERC</GoodyType>
                 <GoodyType>GOODY_COLONIST</GoodyType>
+                <GoodyType>GOODY_MESTIZZO</GoodyType>
+                <GoodyType>GOODY_MULATTO</GoodyType>
                 <GoodyType>GOODY_CONQUISTADOR</GoodyType>
+                <GoodyType>GOODY_BUCCANNEER</GoodyType>
+                <GoodyType>GOODY_SLAVE_HUNTER</GoodyType>
+                <GoodyType>GOODY_SLAVE_MASTER</GoodyType>
                 <GoodyType>GOODY_CHRISTIAN_MISSIONARY</GoodyType>
+                <GoodyType>GOODY_FAILED_MISSIONARY</GoodyType>
+                <GoodyType>GOODY_FAILED_TRADER</GoodyType>
                 <GoodyType>GOODY_RANGER</GoodyType>
                 <GoodyType>GOODY_NATIVE_TRADER</GoodyType>
                 <GoodyType>GOODY_SHIPWRECKED</GoodyType>
@@ -1150,7 +1277,11 @@
                 <GoodyType>GOODY_GREAT_WHITE</GoodyType>
                 <GoodyType>GOODY_MOBY_DICK</GoodyType>
                 <GoodyType>GOODY_KRAKEN_ARMS</GoodyType>
-                <GoodyType>GOODY_ORCA_SCHOOOL</GoodyType>
+                <GoodyType>GOODY_ORCA_SCHOOL</GoodyType>
+                <GoodyType>GOODY_HOSTILE_WEAK</GoodyType>
+                <GoodyType>GOODY_HOSTILE_WEAK</GoodyType>
+                <GoodyType>GOODY_HOSTILE_WEAK</GoodyType>
+                <GoodyType>GOODY_HOSTILE_WEAK</GoodyType>
                 <GoodyType>GOODY_HOSTILE_WEAK</GoodyType>
                 <GoodyType>GOODY_HOSTILE_WEAK</GoodyType>
                 <GoodyType>GOODY_HOSTILE_WEAK</GoodyType>
@@ -1163,4 +1294,3 @@
         </HandicapInfo>
     </HandicapInfos>
 </Civ4HandicapInfo>
-

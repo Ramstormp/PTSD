@@ -46,9 +46,9 @@
             <Description>TXT_KEY_WORLDSIZE_STANDARD</Description>
             <Help>TXT_KEY_WORLDSIZE_STANDARD_HELP</Help>
             <iDefaultPlayers>13</iDefaultPlayers>
-            <iDefaultNativePlayers>7</iDefaultNativePlayers>
+            <iDefaultNativePlayers>8</iDefaultNativePlayers>
             <iUnitNameModifier>20</iUnitNameModifier>
-            <iTargetNumCities>5</iTargetNumCities>
+            <iTargetNumCities>6</iTargetNumCities>
             <iBuildingClassPrereqModifier>0</iBuildingClassPrereqModifier>
             <iGridWidth>40</iGridWidth>
             <iGridHeight>64</iGridHeight>
@@ -63,7 +63,7 @@
             <Description>TXT_KEY_WORLDSIZE_LARGE</Description>
             <Help>TXT_KEY_WORLDSIZE_LARGE_HELP</Help>
             <iDefaultPlayers>16</iDefaultPlayers>
-            <iDefaultNativePlayers>9</iDefaultNativePlayers>
+            <iDefaultNativePlayers>11</iDefaultNativePlayers>
             <iUnitNameModifier>10</iUnitNameModifier>
             <iTargetNumCities>6</iTargetNumCities>
             <iBuildingClassPrereqModifier>0</iBuildingClassPrereqModifier>
@@ -73,24 +73,41 @@
             <iFeatureGrainChange>1</iFeatureGrainChange>
             <iFatherPercent>140</iFatherPercent>
             <iAdvancedStartPointsMod>110</iAdvancedStartPointsMod>
-            <iAIImmigrationModifier>150</iAIImmigrationModifier>
+            <iAIImmigrationModifier>100</iAIImmigrationModifier>
         </WorldInfo>
         <WorldInfo>
             <Type>WORLDSIZE_HUGE</Type>
             <Description>TXT_KEY_WORLDSIZE_HUGE</Description>
             <Help>TXT_KEY_WORLDSIZE_HUGE_HELP</Help>
-            <iDefaultPlayers>18</iDefaultPlayers>
-            <iDefaultNativePlayers>12</iDefaultNativePlayers>
+            <iDefaultPlayers>20</iDefaultPlayers>
+            <iDefaultNativePlayers>13</iDefaultNativePlayers>
             <iUnitNameModifier>0</iUnitNameModifier>
-            <iTargetNumCities>6</iTargetNumCities>
+            <iTargetNumCities>7</iTargetNumCities>
             <iBuildingClassPrereqModifier>0</iBuildingClassPrereqModifier>
-            <iGridWidth>64</iGridWidth>
+            <iGridWidth>58</iGridWidth>
             <iGridHeight>100</iGridHeight>
             <iTerrainGrainChange>1</iTerrainGrainChange>
             <iFeatureGrainChange>1</iFeatureGrainChange>
             <iFatherPercent>150</iFatherPercent>
             <iAdvancedStartPointsMod>120</iAdvancedStartPointsMod>
-            <iAIImmigrationModifier>200</iAIImmigrationModifier>
+            <iAIImmigrationModifier>100</iAIImmigrationModifier>
+        </WorldInfo>
+        <WorldInfo>
+            <Type>WORLDSIZE_MASSIVE</Type>
+            <Description>TXT_KEY_WORLDSIZE_MASSIVE</Description>
+            <Help>TXT_KEY_WORLDSIZE_MASSIVE_HELP</Help>
+            <iDefaultPlayers>39</iDefaultPlayers>
+            <iDefaultNativePlayers>31</iDefaultNativePlayers>
+            <iUnitNameModifier>0</iUnitNameModifier>
+            <iTargetNumCities>6</iTargetNumCities>
+            <iBuildingClassPrereqModifier>0</iBuildingClassPrereqModifier>
+            <iGridWidth>85</iGridWidth>
+            <iGridHeight>137</iGridHeight>
+            <iTerrainGrainChange>1</iTerrainGrainChange>
+            <iFeatureGrainChange>1</iFeatureGrainChange>
+            <iFatherPercent>150</iFatherPercent>
+            <iAdvancedStartPointsMod>120</iAdvancedStartPointsMod>
+            <iAIImmigrationModifier>100</iAIImmigrationModifier>
         </WorldInfo>
         <WorldInfo>
             <Type>WORLDSIZE_GIGANTIC</Type>
@@ -101,13 +118,13 @@
             <iUnitNameModifier>0</iUnitNameModifier>
             <iTargetNumCities>8</iTargetNumCities>
             <iBuildingClassPrereqModifier>0</iBuildingClassPrereqModifier>
-            <iGridWidth>110</iGridWidth>
-            <iGridHeight>215</iGridHeight>
+            <iGridWidth>127</iGridWidth>
+            <iGridHeight>184</iGridHeight>
             <iTerrainGrainChange>1</iTerrainGrainChange>
             <iFeatureGrainChange>1</iFeatureGrainChange>
             <iFatherPercent>150</iFatherPercent>
             <iAdvancedStartPointsMod>120</iAdvancedStartPointsMod>
-            <iAIImmigrationModifier>200</iAIImmigrationModifier>
+            <iAIImmigrationModifier>100</iAIImmigrationModifier>
         </WorldInfo>
     </WorldInfos>
 </Civ4WorldInfo>

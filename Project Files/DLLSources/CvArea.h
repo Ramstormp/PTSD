@@ -74,6 +74,7 @@ public:
 	int getNumImprovements(ImprovementTypes eImprovement) const;
 	void changeNumImprovements(ImprovementTypes eImprovement, int iChange);
 	bool isEuropePlayer() const;	// TAC - AI Explore from Ship endless loop fix - koma13
+	bool isIsland() const;
 
 protected:
 	int m_iID;
@@ -92,9 +93,9 @@ protected:
 	EnumMap<TeamTypes  , int> m_em_iNumRevealedTiles;
 	EnumMap<TeamTypes  , AreaAITypes> m_em_eAreaAIType;
 	IDInfo* m_aTargetCities;
-	EnumMap2D<PlayerTypes, YieldTypes , short> m_em2_iYieldRateModifier;
-	EnumMap2D<PlayerTypes, UnitAITypes, int  > m_em2_iNumTrainAIUnits;
-	EnumMap2D<PlayerTypes, UnitAITypes, int  > m_em2_iNumAIUnits;
+	EnumMap<PlayerTypes, EnumMap<YieldTypes , short> > m_em2_iYieldRateModifier;
+	EnumMap<PlayerTypes, EnumMap<UnitAITypes, int  > > m_em2_iNumTrainAIUnits;
+	EnumMap<PlayerTypes, EnumMap<UnitAITypes, int  > > m_em2_iNumAIUnits;
 	EnumMap<BonusTypes, int> m_em_iNumBonuses;
 	EnumMap<ImprovementTypes, int> m_em_iNumImprovements;
 public:
@@ -113,7 +114,7 @@ inline int  CvArea :: getNumCities()                            const { return m
 inline int  CvArea :: getNumStartingPlots()                     const { return m_iNumStartingPlots; }
 inline bool CvArea :: isWater()                                 const { return m_bWater; }
 inline int  CvArea :: getNumUnrevealedTiles(TeamTypes eIndex)   const { return ( getNumTiles() - getNumRevealedTiles(eIndex) ); }
-
+inline bool CvArea :: isIsland()								const { return getNumTiles() < NUM_CITY_PLOTS_2_PLOTS; }
 
 
 

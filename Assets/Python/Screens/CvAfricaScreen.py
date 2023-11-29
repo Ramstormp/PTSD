@@ -78,7 +78,7 @@ class CvAfricaScreen:
 		self.SAIL_WEST_STropic = 34
 		self.SAIL_WEST_STemperate = 35
 		self.SAIL_WEST_SFrigid = 36
-		self.SectorNames = dict([(0, 'NFrigid'), (1, 'NTemperate'), (2, 'NTropic'), (3, 'STropic'), (4, 'STemperate'), (5, 'SFrigid')])		
+		self.SectorNames = dict([(0, 'NFrigid'), (1, 'NTemperate'), (2, 'NTropic'), (3, 'STropic'), (4, 'STemperate'), (5, 'SFrigid')])
 		# R&R, vetiarvind, Navigation Sectors - END
 
 		self.bBookIntro, self.bBookOutro = false, false
@@ -179,7 +179,7 @@ class CvAfricaScreen:
 		self.NUM_YIELDS = len(self.YieldList)
 		## R&R, Robert Surcouf,  Multiple rows of Yields if necessary START
 		#self.NUM_YIELDS_IN_A_ROW = 26 -> Two rows if num > 26
-		self.NUM_YIELDS_IN_A_ROW = 26
+		self.NUM_YIELDS_IN_A_ROW = 33
 		
 		# Window reduction for small resolutions
 		# Sometimes yield boxes are too large ...
@@ -195,7 +195,7 @@ class CvAfricaScreen:
 		self.BOX_H = self.BOX_W * 6 / 5 - ((self.XResolution * 9) / (self.YResolution * 16) )* self.BOX_W / 10 
 		##self.BOX_X = (self.XResolution - self.BOX_W * self.NUM_YIELDS_IN_A_ROW ) / 2  
 		#self.BOX_X = (self.XResolution - self.BOX_W * self.NUM_YIELDS) / 2
-		self.BOX_Y = self.YResolution -2* self.BOX_H  -self.STANDARD_MARGIN +15
+		self.BOX_Y = self.YResolution -3* self.BOX_H  -self.STANDARD_MARGIN + 25
 		#self.BOX_Y = self.YResolution - self.BOX_H - self.STANDARD_MARGIN
 		## R&R, Robert Surcouf,  Multiple rows of Yields if necessary END 
 		self.INBOUND_SHIP_W = self.YResolution / 20
@@ -405,24 +405,27 @@ class CvAfricaScreen:
 			iProfession = unit.getProfession()
 			iUnitArtStyle = gc.getCivilizationInfo(player.getCivilizationType()).getUnitArtStyleType()
 			screen.setImageButtonAt(self.getNextWidgetName(), "LoadingList", UnitInfo.getUnitArtStylesArtInfo(0, iProfession, iUnitArtStyle).getFullLengthIcon(), iX, 0, self.INPORT_SHIP_W, self.INPORT_SHIP_H, WidgetTypes.WIDGET_SHIP_CARGO_AFRICA, unit.getID(), -1)
-## Ramstormp, PTSD, Triangle Trade - Lower the Hold Boxes - START	
+## Ramstormp, PTSD, Triangle Trade - Lower the Hold Boxes - START
 			if (player.isHuman() and iCargoSpace > 0):
-				for i in range (iCargoSpace / 2 + iCargoSpace % 2):
-					screen.addDDSGFCAt(self.getNextWidgetName(), "LoadingList", ArtFileMgr.getInterfaceArtInfo("INTERFACE_EUROPE_BOX_CARGO").getPath(), iX_Space , self.INPORT_SHIP_H * 7 / 12, self.CARGO_ICON_SIZE, self.CARGO_ICON_SIZE, WidgetTypes.WIDGET_SHIP_CARGO, unit.getID(), -1, False)
-					iX_Space += self.CARGO_SPACING
-				
-				for i in range(iCargoSpace / 2):
-					if gc.getGame().isOption(GameOptionTypes.GAMEOPTION_TRIANGLE_TRADE):
+				for j in range (iCargoSpace):
+					if (unit.isTroopShip()):
+						screen.addDDSGFCAt(self.getNextWidgetName(), "LoadingList", ArtFileMgr.getInterfaceArtInfo("INTERFACE_EUROPE_BOX_CARGO_TROOPS").getPath(), iX_Space , self.INPORT_SHIP_H * 7 / 12, self.CARGO_ICON_SIZE, self.CARGO_ICON_SIZE, WidgetTypes.WIDGET_SHIP_CARGO, unit.getID(), -1, False)
+					elif (unit.isTreasureShip()):
+						if(j%3== 1): 
+							screen.addDDSGFCAt(self.getNextWidgetName(), "LoadingList", ArtFileMgr.getInterfaceArtInfo("INTERFACE_EUROPE_BOX_CARGO_TREASURE_M").getPath(), iX_Space , self.INPORT_SHIP_H * 7 / 12, self.CARGO_ICON_SIZE, self.CARGO_ICON_SIZE, WidgetTypes.WIDGET_SHIP_CARGO, unit.getID(), -1, False)
+						elif(j%3 == 2):
+							screen.addDDSGFCAt(self.getNextWidgetName(), "LoadingList", ArtFileMgr.getInterfaceArtInfo("INTERFACE_EUROPE_BOX_CARGO_TREASURE_R").getPath(), iX_Space , self.INPORT_SHIP_H * 7 / 12, self.CARGO_ICON_SIZE, self.CARGO_ICON_SIZE, WidgetTypes.WIDGET_SHIP_CARGO, unit.getID(), -1, False)
+						else:
+							screen.addDDSGFCAt(self.getNextWidgetName(), "LoadingList", ArtFileMgr.getInterfaceArtInfo("INTERFACE_EUROPE_BOX_CARGO_TREASURE_L").getPath(), iX_Space , self.INPORT_SHIP_H * 7 / 12, self.CARGO_ICON_SIZE, self.CARGO_ICON_SIZE, WidgetTypes.WIDGET_SHIP_CARGO, unit.getID(), -1, False)
+					elif (unit.specialCargo() != SpecialUnitTypes.NO_SPECIALUNIT):
+						screen.addDDSGFCAt(self.getNextWidgetName(), "LoadingList", ArtFileMgr.getInterfaceArtInfo("INTERFACE_EUROPE_BOX_CARGO").getPath(), iX_Space , self.INPORT_SHIP_H * 7 / 12, self.CARGO_ICON_SIZE, self.CARGO_ICON_SIZE, WidgetTypes.WIDGET_SHIP_CARGO, unit.getID(), -1, False)
+					elif (j >= (iCargoSpace / 2 + iCargoSpace % 2) or unit.isSlaveShip()):
 						screen.addDDSGFCAt(self.getNextWidgetName(), "LoadingList", ArtFileMgr.getInterfaceArtInfo("INTERFACE_EUROPE_BOX_CARGO_HOLD").getPath(), iX_Space , self.INPORT_SHIP_H * 7 / 12, self.CARGO_ICON_SIZE, self.CARGO_ICON_SIZE, WidgetTypes.WIDGET_SHIP_CARGO, unit.getID(), -1, False)
 					else:
-						screen.addDDSGFCAt(self.getNextWidgetName(), "LoadingList", ArtFileMgr.getInterfaceArtInfo("INTERFACE_EUROPE_BOX_CARGO").getPath(), iX_Space , self.INPORT_SHIP_H * 7 / 12, self.CARGO_ICON_SIZE, self.CARGO_ICON_SIZE, WidgetTypes.WIDGET_SHIP_CARGO, unit.getID(), -1, False)	
+						screen.addDDSGFCAt(self.getNextWidgetName(), "LoadingList", ArtFileMgr.getInterfaceArtInfo("INTERFACE_EUROPE_BOX_CARGO_GOODS").getPath(), iX_Space , self.INPORT_SHIP_H * 7 / 12, self.CARGO_ICON_SIZE, self.CARGO_ICON_SIZE, WidgetTypes.WIDGET_SHIP_CARGO, unit.getID(), -1, False)
 					iX_Space += self.CARGO_SPACING
-			
-			else:
-				for i in range(iCargoSpace):
-					screen.addDDSGFCAt(self.getNextWidgetName(), "LoadingList", ArtFileMgr.getInterfaceArtInfo("INTERFACE_EUROPE_BOX_CARGO").getPath(), iX_Space , self.INPORT_SHIP_H * 7 / 12, self.CARGO_ICON_SIZE, self.CARGO_ICON_SIZE, WidgetTypes.WIDGET_SHIP_CARGO, unit.getID(), -1, False)
-					iX_Space += self.CARGO_SPACING
-						
+					iX_TreasureSpace = 0
+				
 			for i in range(plot.getNumUnits()):
 				loopUnit = plot.getUnit(i)
 				transportUnit = loopUnit.getTransportUnit()
@@ -432,16 +435,23 @@ class CvAfricaScreen:
 						iWidgetId = self.YIELD_CARGO_BUTTON_ID
 						if (gc.getUnitInfo(loopUnit.getUnitType()).isTreasure()):
 							YieldOnBoard = True
-						elif (loopUnit.getYield() != YieldTypes.NO_YIELD) and player.isYieldAfricaTradable(loopUnit.getYield()):
+							#iX_TreasureSpace = self.CARGO_SPACING * (loopUnit.getBerthSize() - 1)
+						elif (loopUnit.getYield() != YieldTypes.NO_YIELD) and player.isYieldEuropeTradable(loopUnit.getYield()):
 							YieldOnBoard = True
+							iX_TreasureSpace = 0
 					else:
 						szText = ""
 						iWidgetId = self.UNIT_CARGO_BUTTON_ID
-				
+					
 					screen.addDragableButtonAt("LoadingList", self.getNextWidgetName(), loopUnit.getButton(), "", iX_Cargo , self.INPORT_SHIP_H * 7 / 12, self.CARGO_ICON_SIZE, self.CARGO_ICON_SIZE, WidgetTypes.WIDGET_SHIP_CARGO, loopUnit.getID(), transportUnit.getID(), ButtonStyles.BUTTON_STYLE_LABEL)
-					iX_Cargo += self.CARGO_SPACING
+					iX_Cargo += self.CARGO_SPACING + iX_TreasureSpace
+					if (gc.getUnitInfo(loopUnit.getUnitType()).isTreasure()):
+						for j in range(2):
+							screen.addDragableButtonAt("LoadingList", self.getNextWidgetName(),  ArtFileMgr.getInterfaceArtInfo("SCREEN_GOLD_PILE").getPath(), "", iX_Cargo , self.INPORT_SHIP_H * 7 / 12, self.CARGO_ICON_SIZE*8/9, self.CARGO_ICON_SIZE*8/9, WidgetTypes.WIDGET_SHIP_CARGO, loopUnit.getID(), transportUnit.getID(), ButtonStyles.BUTTON_STYLE_LABEL)
+							iX_Cargo += self.CARGO_SPACING
+						#iX_Cargo += self.CARGO_SPACING
 					iCargoCount += 1
-# Ramstormp - END
+# Ramstormp - END	
 			if (YieldOnBoard):
 				screen.setImageButtonAt(self.getNextWidgetName(), "LoadingList", gc.getActionInfo(gc.getInfoTypeForString("COMMAND_YIELD_TRADE")).getButton(), iX + self.INPORT_SHIP_W * 15 / 16 - self.CARGO_ICON_SIZE * 5 / 4, self.INPORT_SHIP_H * 9 / 20, self.CARGO_ICON_SIZE * 5 / 4, self.CARGO_ICON_SIZE * 5 / 4, WidgetTypes.WIDGET_GENERAL, self.SELL_ALL, unit.getID())
 			elif (iCargoCount == 0) and (gc.getUnitInfo(unit.getUnitType()).getEuropeCost() > 0) and (iSeaUnitCount > 1) and (self.iSellShip > 0):
@@ -621,25 +631,31 @@ class CvAfricaScreen:
 		iY = self.BOX_Y -10
 		for iYield in self.YieldList:
 			kYield = gc.getYieldInfo(iYield)
-			iStock = self.playerEurope.getAfricaWarehouseYield(iYield) #PTSD, Ramstormp, EuropeStock
-			iSellPrice = self.playerEurope.getYieldAfricaSellPrice(iYield)  
-	
+			iSellPrice = self.playerEurope.getYieldAfricaSellPrice(iYield)
+			iStock = self.playerEurope.getAfricaWarehouseStock(iYield) #PTSD, Ramstormp, EuropeStock
+			iBuyPrice = self.playerEurope.getYieldAfricaBuyPrice(iYield)
 			#player.setYieldEuropeTradable(iYield, false)
 			#screen.addDDSGFC(self.getNextWidgetName(), ArtFileMgr.getInterfaceArtInfo("INTERFACE_EUROPE_SHADOW_BOX").getPath(), iX, self.BOX_Y, self.BOX_W, self.BOX_H, WidgetTypes.WIDGET_MOVE_CARGO_TO_TRANSPORT, iYield, -1)
 			#screen.addDDSGFC(self.getNextWidgetName(), ArtFileMgr.getInterfaceArtInfo("INTERFACE_EUROPE_BOX_PRICE").getPath(), iX, self.BOX_Y, self.BOX_W, self.BOX_H, WidgetTypes.WIDGET_MOVE_CARGO_TO_TRANSPORT, iYield, -1)
-			screen.addDDSGFC(self.getNextWidgetName(), ArtFileMgr.getInterfaceArtInfo("INTERFACE_EUROPE_SHADOW_BOX").getPath(), iX,iY, self.BOX_W, self.BOX_H, WidgetTypes.WIDGET_MOVE_CARGO_TO_TRANSPORT_AFRICA, iYield, -1)
-			screen.addDDSGFC(self.getNextWidgetName(), ArtFileMgr.getInterfaceArtInfo("INTERFACE_EUROPE_BOX_PRICE").getPath(), iX, iY, self.BOX_W, self.BOX_H, WidgetTypes.WIDGET_MOVE_CARGO_TO_TRANSPORT_AFRICA, iYield, -1)
-			szPrices = u"<font=2>%d/%d</font>" % (iSellPrice, iStock) #Ramstormp, PTSD, Europe Stock
+			#screen.addDDSGFC(self.getNextWidgetName(), ArtFileMgr.getInterfaceArtInfo("INTERFACE_EUROPE_SHADOW_BOX").getPath(), iX,iY, self.BOX_W, self.BOX_H, WidgetTypes.WIDGET_MOVE_CARGO_TO_TRANSPORT_AFRICA, iYield, -1)
+			screen.addDDSGFC(self.getNextWidgetName(), ArtFileMgr.getInterfaceArtInfo("INTERFACE_EUROPE_BOX_PRICE").getPath(), iX, iY, self.BOX_W*16/15, self.BOX_H*16/15, WidgetTypes.WIDGET_MOVE_CARGO_TO_TRANSPORT_AFRICA, iYield, -1)
+			szPrices = u"<font=2>%d/%d</font>" % (iBuyPrice, iSellPrice)
+			szStock = u"<font=3>%d</font>" % (iStock)
+			szStockShadow = u"<font=3>%d</font>" % (iStock)
+			szStock = u"<color=119,255,255>" + szStock + u"</color>"
+			szStockShadow = u"<color=60,50,50>" + szStockShadow + u"</color>"
 			szIcons = self.getNextWidgetName()
 			if not player.isYieldAfricaTradable(iYield) and self.iBoycott > 0:
 				szPrices = u"<color=255,0,0>" + szPrices + u"</color>"
-				screen.setImageButton(szIcons, gc.getYieldInfo(iYield).getIcon(), iX + self.BOX_W / 12, iY + self.BOX_H / 3, self.BOX_W * 5 / 6, self.BOX_W * 5 / 6, WidgetTypes.WIDGET_GENERAL, self.BOYCOTT, iYield)
-				#screen.setImageButton(szIcons, gc.getYieldInfo(iYield).getIcon(), iX + self.BOX_W / 12, self.BOX_Y + self.BOX_H / 3, self.BOX_W * 5 / 6, self.BOX_W * 5 / 6, WidgetTypes.WIDGET_GENERAL, self.BOYCOTT, iYield)
+				screen.setImageButton(szIcons, gc.getYieldInfo(iYield).getIcon(), iX + self.BOX_W / 6, iY + self.BOX_H / 4, self.BOX_W * 4 / 6, self.BOX_W * 4 / 6, WidgetTypes.WIDGET_GENERAL, self.BOYCOTT, iYield)
+				#screen.setImageButton(szIcons, gc.getYieldInfo(iYield).getIcon(), iX + self.BOX_W / 6, self.BOX_Y + self.BOX_H / 4, self.BOX_W * 4 / 6, self.BOX_W * 4 / 6, WidgetTypes.WIDGET_GENERAL, self.BOYCOTT, iYield)
 			else:
-				screen.addDragableButton(szIcons, gc.getYieldInfo(iYield).getIcon(), "", iX + self.BOX_W / 12, iY + self.BOX_H / 3, self.BOX_W * 5 / 6, self.BOX_W * 5 / 6, WidgetTypes.WIDGET_MOVE_CARGO_TO_TRANSPORT_AFRICA, iYield, -1, ButtonStyles.BUTTON_STYLE_IMAGE )
+				screen.addDragableButton(szIcons, gc.getYieldInfo(iYield).getIcon(), "", iX + self.BOX_W / 6, iY + self.BOX_H / 4, self.BOX_W * 4 / 6, self.BOX_W * 4 / 6, WidgetTypes.WIDGET_MOVE_CARGO_TO_TRANSPORT_AFRICA, iYield, -1, ButtonStyles.BUTTON_STYLE_IMAGE )
 				#screen.addDragableButton(szIcons, gc.getYieldInfo(iYield).getIcon(), "", iX + self.BOX_W / 12, self.BOX_Y + self.BOX_H / 3, self.BOX_W * 5 / 6, self.BOX_W * 5 / 6, WidgetTypes.WIDGET_MOVE_CARGO_TO_TRANSPORT, iYield, -1, ButtonStyles.BUTTON_STYLE_IMAGE )
 			#screen.setLabel("EuropePrices" + str(iYield), "Background", szPrices, CvUtil.FONT_CENTER_JUSTIFY, iX + self.BOX_W / 2, self.BOX_Y + self.BOX_H / 12, 0, FontTypes.GAME_FONT, WidgetTypes.WIDGET_MOVE_CARGO_TO_TRANSPORT, iYield, -1)
-			screen.setLabel("AfricaPrices" + str(iYield), "Background", szPrices, CvUtil.FONT_CENTER_JUSTIFY, iX + self.BOX_W / 2, iY + self.BOX_H / 12, 0, FontTypes.GAME_FONT, WidgetTypes.WIDGET_MOVE_CARGO_TO_TRANSPORT_AFRICA, iYield, -1)
+			screen.setLabel("AfricaPrices" + str(iYield), "Background", szPrices, CvUtil.FONT_CENTER_JUSTIFY, iX + self.BOX_W / 2, iY + self.BOX_H / 56, 0, FontTypes.GAME_FONT, WidgetTypes.WIDGET_MOVE_CARGO_TO_TRANSPORT_AFRICA, iYield, -1)
+			screen.setLabel("AfricaStockShadow" + str(iYield), "Background", szStockShadow, CvUtil.FONT_CENTER_JUSTIFY, iX + self.BOX_W / 2 - 1, iY + self.BOX_H * 7/ 11 - 1, 0, FontTypes.GAME_FONT, WidgetTypes.WIDGET_MOVE_CARGO_TO_TRANSPORT, iYield, -1)
+			screen.setLabel("AfricaStock" + str(iYield), "Background", szStock, CvUtil.FONT_CENTER_JUSTIFY, iX + self.BOX_W / 2, iY + self.BOX_H * 7 / 11, 0, FontTypes.GAME_FONT, WidgetTypes.WIDGET_MOVE_CARGO_TO_TRANSPORT, iYield, -1)
 			screen.moveBackward("AfricaPrices" + str(iYield))
 	
 			iX += self.BOX_W
@@ -954,8 +970,10 @@ class CvAfricaScreen:
 		player = gc.getPlayer(gc.getGame().getActivePlayer())
 		pTransport = player.getUnit(iUnit)
 				
-		if self.EuropePlotList == []:
-			self.getPlotLists(pTransport)
+		# WTP, ray, this is a problem now if we have different rules for Ships sailing to the new world
+		# the Plot List needs to be regenerated every time, not just if it is empty
+		#if self.EuropePlotList == []:
+		self.getPlotLists(pTransport)
 				
 		self.createBox(self.DIALOG_X, self.DIALOG_Y, self.DIALOG_W, self.DIALOG_H, true)
 		
@@ -1025,18 +1043,19 @@ class CvAfricaScreen:
 		player = gc.getPlayer(gc.getGame().getActivePlayer())
 		pTransport = player.getUnit(iUnit)
 		
-		self.createBox(self.SELL_SHIP_X, self.SELL_SHIP_Y, self.SELL_SHIP_W, self.SELL_SHIP_H, true) 
-		screen.addDDSGFCAt("SellShipEurope", "DialogPanel", "Art/Interface/Screens/Europe/Background.dds", self.SELL_SHIP_IMAGE_X, self.SELL_SHIP_IMAGE_Y, self.SELL_SHIP_IMAGE_W, self.SELL_SHIP_IMAGE_H, WidgetTypes.WIDGET_GENERAL, -1, -1, false)
-		screen.setLabelAt(self.getNextWidgetName(), "SellShipEurope", u"<font=4>" + localText.getText("TXT_KEY_EU_SELL_LABEL", ()) + u"</font>", CvUtil.FONT_LEFT_JUSTIFY, self.STANDARD_MARGIN, self.STANDARD_MARGIN * 3 / 2, 0, FontTypes.TITLE_FONT, WidgetTypes.WIDGET_GENERAL, -1, -1)
-		self.createBorder(0, 0, self.SELL_SHIP_IMAGE_W, self.SELL_SHIP_IMAGE_H, self.BORDER_SIZE, "SellShipEurope", true)
-		screen.addDDSGFCAt(self.getNextWidgetName(), "SellShipEurope", self.getMirrorShipIcon(pTransport), self.SELL_SHIP_IMAGE_W / 4, self.SELL_SHIP_IMAGE_W / 16, self.SELL_SHIP_IMAGE_W / 2, self.SELL_SHIP_IMAGE_W * 7 / 8, WidgetTypes.WIDGET_SHIP_CARGO_AFRICA, pTransport.getID(), -1, false)
+		if player.getNumShips() > 1:
+			self.createBox(self.SELL_SHIP_X, self.SELL_SHIP_Y, self.SELL_SHIP_W, self.SELL_SHIP_H, true) 
+			screen.addDDSGFCAt("SellShipEurope", "DialogPanel", "Art/Interface/Screens/Europe/Background.dds", self.SELL_SHIP_IMAGE_X, self.SELL_SHIP_IMAGE_Y, self.SELL_SHIP_IMAGE_W, self.SELL_SHIP_IMAGE_H, WidgetTypes.WIDGET_GENERAL, -1, -1, false)
+			screen.setLabelAt(self.getNextWidgetName(), "SellShipEurope", u"<font=4>" + localText.getText("TXT_KEY_EU_SELL_LABEL", ()) + u"</font>", CvUtil.FONT_LEFT_JUSTIFY, self.STANDARD_MARGIN, self.STANDARD_MARGIN * 3 / 2, 0, FontTypes.TITLE_FONT, WidgetTypes.WIDGET_GENERAL, -1, -1)
+			self.createBorder(0, 0, self.SELL_SHIP_IMAGE_W, self.SELL_SHIP_IMAGE_H, self.BORDER_SIZE, "SellShipEurope", true)
+			screen.addDDSGFCAt(self.getNextWidgetName(), "SellShipEurope", self.getMirrorShipIcon(pTransport), self.SELL_SHIP_IMAGE_W / 4, self.SELL_SHIP_IMAGE_W / 16, self.SELL_SHIP_IMAGE_W / 2, self.SELL_SHIP_IMAGE_W * 7 / 8, WidgetTypes.WIDGET_SHIP_CARGO_AFRICA, pTransport.getID(), -1, false)
+				
+			szMessage = localText.getText("TXT_KEY_EU_SELL_MESSAGE", (pTransport.getName(), self.getShipSellPrice(iUnit)))
+			screen.addMultilineText("DialogMessage", szMessage, self.SELL_SHIP_X + self.SELL_SHIP_IMAGE_X, self.SELL_SHIP_MESSAGE_Y, self.SELL_SHIP_IMAGE_W, self.SELL_SHIP_MESSAGE_H, WidgetTypes.WIDGET_GENERAL, -1, -1, CvUtil.FONT_LEFT_JUSTIFY)
 			
-		szMessage = localText.getText("TXT_KEY_EU_SELL_MESSAGE", (pTransport.getName(), self.getShipSellPrice(iUnit)))
-		screen.addMultilineText("DialogMessage", szMessage, self.SELL_SHIP_X + self.SELL_SHIP_IMAGE_X, self.SELL_SHIP_MESSAGE_Y, self.SELL_SHIP_IMAGE_W, self.SELL_SHIP_MESSAGE_H, WidgetTypes.WIDGET_GENERAL, -1, -1, CvUtil.FONT_LEFT_JUSTIFY)
-		
-		screen.setButtonGFC("DialogButton", u"<font=3>" + localText.getText("TXT_KEY_EU_DIALOG_ACCEPT", ()) + u"</font>", "", self.SELL_SHIP_BUTTON_X, self.SELL_SHIP_BUTTON_Y, self.SELL_SHIP_BUTTON_W, self.SELL_SHIP_BUTTON_H, WidgetTypes.WIDGET_GENERAL, self.SELL_SHIP_EXEC, iUnit, ButtonStyles.BUTTON_STYLE_STANDARD)
-		
-	
+			screen.setButtonGFC("DialogButton", u"<font=3>" + localText.getText("TXT_KEY_EU_DIALOG_ACCEPT", ()) + u"</font>", "", self.SELL_SHIP_BUTTON_X, self.SELL_SHIP_BUTTON_Y, self.SELL_SHIP_BUTTON_W, self.SELL_SHIP_BUTTON_H, WidgetTypes.WIDGET_GENERAL, self.SELL_SHIP_EXEC, iUnit, ButtonStyles.BUTTON_STYLE_STANDARD)
+
+
 	def liftBoycott(self, iYield):
 		screen = self.getScreen()
 		player = gc.getPlayer(gc.getGame().getActivePlayer())
@@ -1252,9 +1271,9 @@ class CvAfricaScreen:
 
 		while (city):
 			if (city.isCoastal(gc.getMIN_WATER_SIZE_FOR_OCEAN()) and city.isEuropeAccessable()):
-				if unit.getGroup().generatePath(plotEast, city.plot(), 0, false, None, true):
+				if unit.getGroup().generatePath(plotEast, city.plot(), 0, false, None):
 					self.CityPlotList.append([city, None])
-				elif unit.getGroup().generatePath(plotWest, city.plot(), 0, false, None, true):
+				elif unit.getGroup().generatePath(plotWest, city.plot(), 0, false, None):
 					self.CityPlotList.append([city, None])
 			(city, iter) = player.nextCity(iter, false)
 	
@@ -1355,7 +1374,7 @@ class CvAfricaScreen:
 					szText += u"<font=2>%d %s</font>" % (currentCargoDictionary[iCargoUnit][cargo], szCargoName)
 					szText += localText.getText("[COLOR_REVERT]", ())
 		
-		#szText += self.travelMessage(iUnit) ## Ramstormp, PTSD, No destination message because of Triangle trade
+		szText += self.travelMessage(iUnit)
 
 		return szText
 	
@@ -1398,10 +1417,10 @@ class CvAfricaScreen:
 				CyAudioGame().Destroy2DSound(self.iSoundID)
 
 			if self.iThisWinter:
-				unitsVolume = 0.6
-				screen.setSoundId(self.playSound("AS2D_SS_TUNDRALOOP"))
+				unitsVolume = 1.0
+				screen.setSoundId(self.playSound("AS2D_SS_DESERTLOOP"))
 			else:
-				unitsVolume = 0.35
+				unitsVolume = 0.75
 				screen.setSoundId(self.playSound("AS2D_SS_AFRICALOOP"))
 
 			CyAudioGame().Set2DSoundVolume(self.iSoundID, unitsVolume)
@@ -1449,10 +1468,12 @@ class CvAfricaScreen:
 	
 		return iBoycottPrice
 	
-	## R&R, vetiarvind, Price dependent tax increase - START	
-	def getYieldScore(self, iYield):		
+	## R&R, vetiarvind, Price dependent tax increase - START
+	def getYieldScore(self, iYield):
 		player = gc.getPlayer(gc.getGame().getActivePlayer())
-		iScore = player.getYieldScoreTotalINT(iYield)
+		# WTP, ray fixing that the value is read from wrong player
+		playerEurope = gc.getPlayer(player.getParent())
+		iScore = playerEurope.getYieldScoreTotalINT(iYield)
 		return iScore
 	
 	def getTotalYieldsScore(self):

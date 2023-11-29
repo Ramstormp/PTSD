@@ -73,19 +73,20 @@ public:
 	bool shareAdjacentArea( const CvPlot* pPlot) const;
 	bool isAdjacentToLand() const;
 	bool isCoastalLand(int iMinWaterSize = -1) const;
-	bool hasAnyOtherWaterPlotsThanJustLargeRivers() const;
+	bool hasDeepWaterCoast() const;
+	bool hasOtherAdjacentOceanOrDeepWaterCoast() const; //WTP, ray, Safety Check for Deep Water Coast if there is Ocean or Deep Coast adjacent - START
 	bool isAdjacentWaterPassable(CvPlot* pPlot) const;
 
 	bool isVisibleWorked() const;
 	bool isWithinTeamCityRadius(TeamTypes eTeam, PlayerTypes eIgnorePlayer = NO_PLAYER) const;
 
 	DllExport bool isLake() const;
-	bool isLargeRiver() const;
 
 	bool isRiverMask() const;
 	DllExport bool isRiverCrossingFlowClockwise(DirectionTypes eDirection) const;
 	bool isRiverSide() const;
 	bool isRiver() const;
+	bool isFreshWater() const; // WTP, ray, Health Overhaul
 	bool isRiverConnection(DirectionTypes eDirection) const;
 
 	CvPlot* getNearestLandPlotInternal(int iDistance) const;
@@ -97,7 +98,7 @@ public:
 	int getPlotVisibility() const;
 	int getUnitVisibilityBonus() const;
 	void changeAdjacentSight(TeamTypes eTeam, int iRange, bool bIncrement, CvUnit* pUnit);
-	bool canSeePlot(CvPlot *plot, TeamTypes eTeam, int iRange, DirectionTypes eFacingDirection) const;
+	bool canSeePlot(const CvPlot *plot, TeamTypes eTeam, int iRange, DirectionTypes eFacingDirection) const;
 	bool canSeeDisplacementPlot(TeamTypes eTeam, int dx, int dy, int originalDX, int originalDY, bool firstPlot, bool outerRing) const;
 	bool shouldProcessDisplacementPlot(int dx, int dy, DirectionTypes eFacingDirection) const;
 	void updateSight(bool bIncrement);
@@ -145,7 +146,8 @@ public:
 	// Super Forts end
 
 	int defenseModifier(TeamTypes eDefender, bool bHelp = false) const;
-	int movementCost(const CvUnit* pUnit, const CvPlot* pFromPlot) const;
+	int movementCost(const CvUnit* pUnit, const CvPlot* pFromPlot,														// Exposed to Python
+		bool bAssumeRevealed = false) const; // advc.001i, WTP: default is false rather than true
 
 	bool isAdjacentOwned() const;
 	bool isAdjacentPlayer(PlayerTypes ePlayer, bool bLandOnly = false) const;
@@ -182,7 +184,13 @@ public:
 	// R&R, ray, Monasteries and Forts - START
 	bool isFort() const;
 	bool isMonastery() const;
+	bool isCanal() const;
 	// R&R, ray, Monasteries and Forts - END
+
+	//R&R mod, vetiarvind, super forts merge, refactor checks for activating monastery and forts - start
+	CvUnit* getFortDefender();
+	CvUnit* getMonasteryMissionary();
+	//R&R mod, vetiarvind, super forts merge, refactor checks for activating monastery and forts - end
 
 	bool isOccupation() const;
 	bool isBeingWorked() const;
@@ -211,24 +219,40 @@ public:
 #ifdef _USRDLL
 	inline int getX_INLINE() const
 	{
-		return m_iX;
+		// return m_iX;
+		return m_coord.x();
 	}
 #endif
 	DllExport int getY() const;
 #ifdef _USRDLL
 	inline int getY_INLINE() const
 	{
-		return m_iY;
+		// return m_iY;
+		return m_coord.y();
 	}
 #endif
+	inline const Coordinates& coord() const
+	{
+		return m_coord;
+	}
 	bool at(int iX, int iY) const;
+	bool at(Coordinates coord) const;
 	int getIndex() const;
 	int getLatitude() const;
+	int getSignedLatitude() const; //ray, Norther and Southern Hemisphere, using hint of f1rpo
+	bool isSouthernHemisphere() const; //ray, Norther and Southern Hemisphere, using hint of f1rpo
+	bool isNorthernHemisphere() const; //ray, Norther and Southern Hemisphere, using hint of f1rpo
 	int getFOWIndex() const;
 	CvArea* area() const;
 	CvArea* waterArea() const;
 	CvArea* secondWaterArea() const;
 	int getArea() const;
+	// <advc>
+	//inline CvArea& getArea() const { return *m_pArea; }
+	// (This had called CvMap::getArea in BtS)
+	//	inline CvArea* area() const { return m_pArea; }													// Exposed to Python
+	inline bool isArea(CvArea const& kArea) const { return (area() == &kArea); }
+	//inline bool sameArea(CvPlot const& kPlot) const { return isArea(kPlot.getArea()); }
 	void setArea(int iNewValue);
 
 	//WTP, ray, Large Rivers - Nightinggale addition - start
@@ -241,7 +265,7 @@ public:
 
 	//WTP, Nightinggale - Terrain locator - start
 	template <typename T>
-	bool hasNearbyPlotWith(const InfoArray<T>& kInfo, int iRange = 1, bool bEmptyReturnVal = true) const;
+	bool hasNearbyPlotWith(const InfoArray1<T>& kInfo, int iRange = 1, bool bEmptyReturnVal = true) const;
 
 	// function to avoid using an InfoArray, though it only works when searching for a single value
 	// use InfoArray if searching for multiple as it will be faster
@@ -309,6 +333,7 @@ public:
 	void setOwner(PlayerTypes eNewValue, bool bCheckUnits);
 	PlotTypes getPlotType() const;
 	DllExport bool isWater() const;
+	bool hasLargeRiver() const;
 	bool isEurope() const;
 	bool isFlatlands() const;
 	DllExport bool isHills() const;
@@ -345,7 +370,7 @@ public:
 	void changeRiverCrossingCount(int iChange);
 	const EnumMap<YieldTypes, short> getYield() const;
 	DllExport int getYield(YieldTypes eIndex) const;
-	
+
 	// TAC - AI Improved Naval AI - koma13 - START
 	int getDangerMap(PlayerTypes eIndex) const;
 	void setDangerMap(PlayerTypes eIndex, int iNewValue);
@@ -412,7 +437,7 @@ public:
 
 	RouteTypes getRevealedRouteType(TeamTypes eTeam, bool bDebug) const;
 	void setRevealedRouteType(TeamTypes eTeam, RouteTypes eNewValue);
-	
+
 	int getBuildProgress(BuildTypes eBuild) const;
 	bool changeBuildProgress(BuildTypes eBuild, int iChange, TeamTypes eTeam = NO_TEAM);
 
@@ -496,8 +521,7 @@ protected:
 
 	void updateImpassable();
 
-	short m_iX;
-	short m_iY;
+	Coordinates m_coord;
 	int m_iArea;
 	mutable CvArea *m_pPlotArea;
 	short m_iFeatureVariety;
@@ -562,9 +586,9 @@ protected:
 	signed char m_seeThroughLevelCache;
 	signed char m_iPlotVisibilityCache;
 	signed char m_iUnitVisibilityBonusCache;
-	EnumMap<TeamTypes  , short> m_em_iVisibilityCount;
-	EnumMap<TeamTypes  , PlayerTypes> m_em_eRevealedOwner;
-	TeamBoolArray m_pab_Revealed;
+	EnumMap<TeamTypes, short      > m_em_iVisibilityCount;
+	EnumMap<TeamTypes, PlayerTypes> m_em_eRevealedOwner;
+	EnumMap<TeamTypes, bool       > m_em_bRevealed;
 	RevealedPlotDataArray m_aeRevealedImprovementRouteTypes;
 
 	char* m_szScriptData;
@@ -580,8 +604,8 @@ protected:
 
 	CvPlotBuilder* m_pPlotBuilder;		// builds bonuses and improvements
 
-	EnumMap2D<PlayerTypes, CultureLevelTypes, char> m_em2_iCultureRangeCities;
-	EnumMap2D<TeamTypes, InvisibleTypes, short> m_em2_iInvisibleVisibilityCount;
+	EnumMap<PlayerTypes, EnumMap<CultureLevelTypes, char > > m_em2_iCultureRangeCities;
+	EnumMap<TeamTypes  , EnumMap<InvisibleTypes   , short> > m_em2_iInvisibleVisibilityCount;
 
 	CLinkList<IDInfo> m_units;
 
@@ -590,16 +614,12 @@ protected:
 
 	void processArea(CvArea* pArea, int iChange);
 	void doImprovementUpgrade();
-	//R&R mod, vetiarvind, super forts merge, refactor checks for activating monastery and forts - start
-	CvUnit* getFortDefender();
-	CvUnit* getMonasteryMissionary();
-	//R&R mod, vetiarvind, super forts merge, refactor checks for activating monastery and forts - end
-	// R&R, ray, Monasteries and Forts - START	
+	// R&R, ray, Monasteries and Forts - START
 	void doFort();
 	void doMonastery();
-	// R&R, ray, Monasteries and Forts - END	
+	// R&R, ray, Monasteries and Forts - END
 	//R&R mod, vetiarvind, super forts merge, refactor checks for activating monastery and forts - start
-	void doUpgradeNonWorkerImprovements();// R&R mod, vetiarvind, monasteries and forts upgrade bug fix 
+	void doUpgradeNonWorkerImprovements();// R&R mod, vetiarvind, monasteries and forts upgrade bug fix
 	//R&R mod, vetiarvind, super forts merge, refactor checks for activating monastery and forts - end
 	ColorTypes plotMinimapColor();
 
@@ -610,6 +630,17 @@ protected:
 public:
 	void setYieldCache();
 	// Cache the computation of the max visibility range
+
+	// WTP, ray, helper methods for Python Event System - Spawning Units and Barbarians on Plots - START
+	void spawnPlayerUnitOnPlot(int /*PlayerTypes*/ iPlayer, int /*UnitClassTypes*/ iIndex) const;
+	void spawnBarbarianUnitOnPlot(int /*UnitClassTypes*/ iIndex) const; // careful with this, because will take over City for Barbarians
+	void spawnPlayerUnitOnAdjacentPlot(int /*PlayerTypes*/ iPlayer, int /*UnitClassTypes*/ iIndex) const;
+	void spawnBarbarianUnitOnAdjacentPlot(int /*UnitClassTypes*/ iIndex) const;
+
+	bool isPlayerUnitOnAdjacentPlot(int /*PlayerTypes*/ iPlayer, int /*UnitClassTypes*/ iIndex) const;
+	bool isBarbarianUnitOnAdjacentPlot(int /*UnitClassTypes*/ iIndex) const;
+	// WTP, ray, helper methods for Python Event System - Spawning Units and Barbarians on Plots - END
+
 protected:
 	// plot visibility cache
 	void setSeeFromLevelCache();

@@ -29,12 +29,7 @@ public:
 	bool canDoCommand(CommandTypes eCommand, int iData1, int iData2, bool bTestVisible);
 	void doCommand(CommandTypes eCommand, int iData1, int iData2);
 	CyPlot* getPathEndTurnPlot();
-	
-	// TAC - AI Improved Naval AI - koma13 - START
-	//bool generatePath(CyPlot* pToPlot, int iFlags = 0, bool bReuse = false, int* piPathTurns = NULL);
-	bool generatePath(CyPlot* pToPlot, int iFlags = 0, bool bReuse = false, int* piPathTurns = NULL, bool bIgnoreDanger = true);
-	// TAC - AI Improved Naval AI - koma13 - END
-
+	bool generatePath(CyPlot* pToPlot, int iFlags = 0, bool bReuse = false, int* piPathTurns = NULL);
 	bool canEnterTerritory(int /*PlayerTypes*/ ePlayer, bool bIgnoreRightOfPassage);
 	bool canEnterArea(int /*PlayerTypes*/ ePlayer, CyArea* pArea, bool bIgnoreRightOfPassage);
 	bool canMoveInto(CyPlot* pPlot, bool bAttack, bool bDeclareWar, bool bIgnoreLoad);
@@ -220,6 +215,8 @@ public:
 	int getExtraDomesticBonusPercent();	
 	int getPillageChange() const;
 	int getAnimalGoldChange() const; //WTP, ray, Animal Promotions increase gold from Animals
+	int getSlaveRevoltReductionBonus() const; //WTP, ray, Slave Hunter and Slave Master
+	int getSlaveWorkerProductionBonus() const; //WTP, ray, Slave Hunter and Slave Master
 	int getUpgradeDiscount() const; 
 	int getExperiencePercent() const;
 	int getImmobileTimer() const;
@@ -273,6 +270,12 @@ public:
 	void setYieldStored(int iAmount);
 	int /*YieldTypes*/ getYield();
 	bool isGoods();
+	// Ramstormp, PTSD, Hold Boxes for Galleons and Slave Barques etc. - start
+	bool isTreasureShip();
+	bool isSlaveShip();
+	bool isTroopShip();
+	int getBerthSize();
+	// Ramstormp - end
 	int getUnitTravelTimer() const;
 	void setUnitTravelTimer(int iValue);
 	int /*UnitTravelStates*/ getUnitTravelState();
@@ -288,6 +291,16 @@ public:
 	int getLbDrounds();
 	int getLastLbDProfession();
 	// TAC - LbD - Ray - END
+
+	// WTP, ray, helper methods for Python Event System - Spawning Units and Barbarians on Plots - START
+	void spawnOwnPlayerUnitOnPlotOfUnit(int /*UnitClassTypes*/ iIndex) const;
+	void spawnBarbarianUnitOnPlotOfUnit(int /*UnitClassTypes*/ iIndex) const;
+	void spawnOwnPlayerUnitOnAdjacentPlotOfUnit(int /*UnitClassTypes*/ iIndex) const;
+	void spawnBarbarianUnitOnAdjacentPlotOfUnit(int /*UnitClassTypes*/ iIndex) const;
+
+	bool isOwnPlayerUnitOnAdjacentPlotOfUnit(int /*UnitClassTypes*/ iIndex) const;
+	bool isBarbarianUnitOnAdjacentPlotOfUnit(int /*UnitClassTypes*/ iIndex) const;
+	// WTP, ray, helper methods for Python Event System - Spawning Units and Barbarians on Plots - END
 
 	// WTP, ray, saving 1 more Profession for Fisher Issue - START
 	int getLbDroundsBefore();

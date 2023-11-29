@@ -151,6 +151,16 @@ int CyTeam::getFatherPoints(int /*FatherPointTypes*/ ePointType)
 {
 	return m_pTeam ? m_pTeam->getFatherPoints((FatherPointTypes) ePointType) : -1;
 }
+// Ramstormp, PTSD, Everyone can have every dad - start
+bool CyTeam::isFatherConvinced(int /*FatherTypes*/ eFather) const
+{
+	return m_pTeam ? m_pTeam->isFatherConvinced((FatherTypes)eFather) : false;
+}
+void CyTeam::setFatherConvinced(int /*FatherTypes*/ eFather, bool bValue) const
+{
+	m_pTeam->setFatherConvinced((FatherTypes)eFather, true);
+}
+// Ramstormp - end
 
 // TAC - Python Export - koma13 - START
 bool CyTeam::isFatherIgnore(int /*FatherTypes*/ eFather) const

@@ -151,7 +151,7 @@
     </Define>
     <Define>
         <DefineName>FLAG_OFFSET_X</DefineName>
-        <fDefineFloatVal>-0.467</fDefineFloatVal>
+        <fDefineFloatVal>-0.667</fDefineFloatVal>
     </Define>
     <Define>
         <DefineName>FLAG_OFFSET_Y</DefineName>
@@ -159,7 +159,7 @@
     </Define>
     <Define>
         <DefineName>FLAG_OFFSET2_X</DefineName>
-        <fDefineFloatVal>-0.6</fDefineFloatVal>
+        <fDefineFloatVal>-0.8</fDefineFloatVal>
     </Define>
     <Define>
         <DefineName>FLAG_OFFSET2_Y</DefineName>
@@ -187,11 +187,11 @@
     </Define>
     <Define>
         <DefineName>FOW_WAS_VISIBLE_COLOR</DefineName>
-        <fDefineFloatVal>0.23</fDefineFloatVal>
+        <fDefineFloatVal>0.63</fDefineFloatVal>
     </Define>
     <Define>
         <DefineName>FOW_MINIMAP_WAS_VISIBLE_COLOR</DefineName>
-        <fDefineFloatVal>0.31</fDefineFloatVal>
+        <fDefineFloatVal>0.63</fDefineFloatVal>
     </Define>
     <Define>
         <DefineName>CITY_SCREEN_FOG_ENABLED</DefineName>
@@ -259,6 +259,6 @@
     </Define>
     <Define>
         <DefineName>MAX_EVENT_TEXT</DefineName>
-        <iDefineIntVal>6</iDefineIntVal>
+        <iDefineIntVal>10</iDefineIntVal>
     </Define>
 </Civ4Defines>

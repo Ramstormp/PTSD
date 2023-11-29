@@ -184,11 +184,11 @@
         </InterfaceArtInfo>
         <InterfaceArtInfo>
             <Type>MAINMENU_LOAD</Type>
-            <Path>Art/Interface/Screens/Loading/LoadingScreenBG.dds</Path>
+            <Path>Art/Interface/Screens/Loading/Woodcutters.dds</Path>
         </InterfaceArtInfo>
         <InterfaceArtInfo>
             <Type>MAINMENU_SLIDESHOW_LOAD</Type>
-            <Path>Art/Interface/Screens/Loading/LoadingScreenBGslideshow.dds</Path>
+            <Path>Art/Interface/Screens/Loading/Woodcutters.dds</Path>
         </InterfaceArtInfo>
         <InterfaceArtInfo>
             <Type>MAINMENU_LOAD_BTS</Type>
@@ -356,23 +356,23 @@
         </InterfaceArtInfo>
         <InterfaceArtInfo>
             <Type>WORLDBUILDER_PLOT_TYPE_MOUNTAIN</Type>
-            <Path>Art/Interface/Buttons/WorldBuilder/Plot_Type_Mountain.dds</Path>
+            <Path>Art/Interface/Buttons/Peak.dds</Path>
         </InterfaceArtInfo>
         <InterfaceArtInfo>
             <Type>WORLDBUILDER_PLOT_TYPE_HILL</Type>
-            <Path>Art/Interface/Buttons/WorldBuilder/Plot_Type_Hill.dds</Path>
+            <Path>Art/Interface/Buttons/Hills.dds</Path>
         </InterfaceArtInfo>
         <InterfaceArtInfo>
             <Type>WORLDBUILDER_PLOT_TYPE_PLAINS</Type>
-            <Path>Art/Interface/Buttons/WorldBuilder/Plot_Type_Plains.dds</Path>
+            <Path>Art/Interface/Buttons/Grassland.dds</Path>
         </InterfaceArtInfo>
         <InterfaceArtInfo>
             <Type>WORLDBUILDER_PLOT_TYPE_OCEAN</Type>
-            <Path>Art/Interface/Buttons/WorldBuilder/Plot_Type_Ocean.dds</Path>
+            <Path>Art/Interface/Buttons/Ocean.dds</Path>
         </InterfaceArtInfo>
         <InterfaceArtInfo>
             <Type>WORLDBUILDER_RIVER_PLACEMENT</Type>
-            <Path>Art/Interface/Buttons/WorldBuilder/River_Placement.dds</Path>
+            <Path>Art/Interface/Buttons/River_Placement.dds</Path>
         </InterfaceArtInfo>
         <InterfaceArtInfo>
             <Type>WORLDBUILDER_LOAD</Type>
@@ -562,10 +562,6 @@
             <Type>INTERFACE_EUROPE_BOX_CARGO</Type>
             <Path>Art/Interface/Screens/Europe/box_cargo.dds</Path>
         </InterfaceArtInfo>
-<InterfaceArtInfo>
-            <Type>INTERFACE_EUROPE_BOX_CARGO_HOLD</Type>
-            <Path>Art/Interface/Screens/Europe/box_cargo_hold.dds</Path>
-        </InterfaceArtInfo>
         <InterfaceArtInfo>
             <Type>INTERFACE_EUROPE_BOX_PRICE</Type>
             <Path>Art/Interface/Screens/Europe/box_prices.dds</Path>
@@ -625,7 +621,51 @@
         <InterfaceArtInfo>
             <Type>INTERFACE_SCROLL_BG</Type>
             <Path>Art/Interface/Screens/City_Management/ScrollBG.dds</Path>
+        </InterfaceArtInfo>	
+        <InterfaceArtInfo>
+            <Type>INTERFACE_SCROLL_BG_GRASS</Type>
+            <Path>Art/Interface/Screens/City_Management/ScrollBG_Grasland.dds</Path>
         </InterfaceArtInfo>
+        <InterfaceArtInfo>
+            <Type>INTERFACE_SCROLL_BG_PLAINS_FERTILE</Type>
+            <Path>Art/Interface/Screens/City_Management/ScrollBG_Plains_Fertile.dds</Path>
+        </InterfaceArtInfo>
+        <InterfaceArtInfo>
+            <Type>INTERFACE_SCROLL_BG_ROCK_STEPPES</Type>
+            <Path>Art/Interface/Screens/City_Management/ScrollBG_Rock_Steppes.dds</Path>
+        </InterfaceArtInfo>
+        <InterfaceArtInfo>
+            <Type>INTERFACE_SCROLL_BG_WETLAND</Type>
+            <Path>Art/Interface/Screens/City_Management/ScrollBG_Wetland.dds</Path>
+        </InterfaceArtInfo>
+        <InterfaceArtInfo>
+            <Type>INTERFACE_SCROLL_BG_PLAINS</Type>
+            <Path>Art/Interface/Screens/City_Management/ScrollBG_Plains.dds</Path>
+        </InterfaceArtInfo>
+        <InterfaceArtInfo>
+            <Type>INTERFACE_SCROLL_BG_DESERT</Type>
+            <Path>Art/Interface/Screens/City_Management/ScrollBG_Desert.dds</Path>
+        </InterfaceArtInfo>
+        <InterfaceArtInfo>
+            <Type>INTERFACE_SCROLL_BG_SHRUBLAND</Type>
+            <Path>Art/Interface/Screens/City_Management/ScrollBG_Shrubland.dds</Path>
+        </InterfaceArtInfo>
+        <InterfaceArtInfo>
+            <Type>INTERFACE_SCROLL_BG_SAVANNAH</Type>
+            <Path>Art/Interface/Screens/City_Management/ScrollBG_Savannah.dds</Path>
+        </InterfaceArtInfo>
+       <InterfaceArtInfo>
+            <Type>INTERFACE_GRASS_FOG_BG</Type>
+            <Path>Art/Interface/Screens/City_Management/BGgrassFogFull.dds</Path>
+        </InterfaceArtInfo>
+      <InterfaceArtInfo>
+        <Type>INTERFACE_GRASS_BG</Type>
+        <Path>Art/Interface/Screens/City_Management/BGgrassFull.dds</Path>
+      </InterfaceArtInfo>
+      <InterfaceArtInfo>
+        <Type>INTERFACE_JUNGLE_BG</Type>
+        <Path>Art/Interface/Screens/City_Management/BgJungleFull.dds</Path>
+      </InterfaceArtInfo>
         <InterfaceArtInfo>
             <Type>INTERFACE_CITY_LEFT_ARROW</Type>
             <Path>Art/Interface/Screens/City_Management/ArrowLEFT.dds</Path>
@@ -782,6 +822,10 @@
             <Type>INTERFACE_CITY_CITIZEN_LOCK</Type>
             <Path>Art/Interface/Game Hud/Actions/Locked.dds</Path>
         </InterfaceArtInfo>
+      <InterfaceArtInfo>
+        <Type>INTERFACE_CITY_CITIZEN_LOCK_GLOW</Type>
+        <Path>Art/Interface/Screens/City_Management/LockedGlow.dds</Path>
+      </InterfaceArtInfo>
         <InterfaceArtInfo>
             <Type>INTERFACE_CITIZEN_SLOT</Type>
             <Path>Art/Interface/Screens/City_Management/Placeholder_Dude.dds</Path>
@@ -819,6 +863,18 @@
             <Path>Art/Interface/Screens/City_Management/button_teaching.dds</Path>
         </InterfaceArtInfo>
         <InterfaceArtInfo>
+            <Type>INTERFACE_HAPPINESS_BUTTON</Type>
+            <Path>Art/Interface/Game Hud/Actions/Happiness_Advisor_Button.dds</Path>
+        </InterfaceArtInfo>
+        <InterfaceArtInfo>
+            <Type>INTERFACE_DOMESTIC_DEMAND_BUTTON</Type>
+            <Path>Art/Interface/Game Hud/Actions/Domestic_Market_Advisor_Button.dds</Path>
+        </InterfaceArtInfo>
+        <InterfaceArtInfo>
+            <Type>INTERFACE_LAW_BUTTON</Type>
+            <Path>Art/Interface/Game Hud/Actions/Law_Advisor_Button.dds</Path>
+        </InterfaceArtInfo>
+        <InterfaceArtInfo>
             <Type>INTERFACE_CUSTOM_HOUSE</Type>
             <Path>Art/Interface/Screens/City_Management/button_custom.dds</Path>
         </InterfaceArtInfo>
@@ -826,5 +882,33 @@
             <Type>INTERFACE_DOMESTIC_MARKET</Type>
             <Path>Art/Interface/Screens/City_Management/button_market.dds</Path>
         </InterfaceArtInfo>
+         <InterfaceArtInfo>
+            <Type>INTERFACE_SHOW_OR_HIDE_YIELDS</Type>
+            <Path>Art/Interface/Game Hud/Actions/Toggle_Goods_Rows.dds</Path>
+        </InterfaceArtInfo>
+        <InterfaceArtInfo>
+            <Type>INTERFACE_EUROPE_BOX_CARGO_HOLD</Type>
+            <Path>Art/Interface/Screens/Europe/box_cargo_hold.dds</Path>
+        </InterfaceArtInfo>
+        <InterfaceArtInfo>
+            <Type>INTERFACE_EUROPE_BOX_CARGO_TROOPS</Type>
+            <Path>Art/Interface/Screens/Europe/box_cargo_troops.dds</Path>
+        </InterfaceArtInfo>
+        <InterfaceArtInfo>
+            <Type>INTERFACE_EUROPE_BOX_CARGO_TREASURE_L</Type>
+            <Path>Art/Interface/Screens/Europe/box_cargo_treasure_L.dds</Path>
+        </InterfaceArtInfo>
+        <InterfaceArtInfo>
+            <Type>INTERFACE_EUROPE_BOX_CARGO_TREASURE_M</Type>
+            <Path>Art/Interface/Screens/Europe/box_cargo_treasure_M.dds</Path>
+        </InterfaceArtInfo>
+        <InterfaceArtInfo>
+            <Type>INTERFACE_EUROPE_BOX_CARGO_TREASURE_R</Type>
+            <Path>Art/Interface/Screens/Europe/box_cargo_treasure_R.dds</Path>
+        </InterfaceArtInfo>
+      <InterfaceArtInfo>
+        <Type>INTERFACE_EUROPE_BOX_CARGO_GOODS</Type>
+        <Path>Art/Interface/Screens/Europe/box_cargo_goods.dds</Path>
+      </InterfaceArtInfo>
     </InterfaceArtInfos>
 </Civ4ArtDefines>

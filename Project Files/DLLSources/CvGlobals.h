@@ -120,8 +120,6 @@ class CvTradeScreenInfo; // trade screen type - Nightinggale
 
 class CivEffectInfo;
 
-#include "InfoCacheArray.h"
-#include "EnumTypeCacheArray.h"
 #include "Profile.h"
 
 class CvGlobals
@@ -165,10 +163,10 @@ public:
 	DllExport CvInterface* getInterfacePtr();
 	DllExport int getMaxCivPlayers() const;
 #ifdef _USRDLL
-	CvMap& getMapINLINE() { return *m_map; }				// inlined for perf reasons, do not use outside of dll
+	CvMap& getMap() { return *m_map; }
 	CvGameAI& getGameINLINE() { return *m_game; }			// inlined for perf reasons, do not use outside of dll
+	const CvGameAI& getGameConst() const { return *m_game; }
 #endif
-	DllExport CvMap& getMap();
 	DllExport CvGameAI& getGame();
 	DllExport CvGameAI *getGamePointer();
 	DllExport CvRandom& getASyncRand();
@@ -182,7 +180,7 @@ public:
 	DllExport FAStar& getRouteFinder();
 	DllExport FAStar& getBorderFinder();
 	DllExport FAStar& getAreaFinder();
-	
+
 	NiPoint3& getPt3Origin();
 
 	DllExport std::vector<CvInterfaceModeInfo*>& getInterfaceModeInfo();
@@ -322,6 +320,7 @@ public:
 	DllExport int getNumCivilizationInfos();
 	DllExport std::vector<CvCivilizationInfo*>& getCivilizationInfo();
 	DllExport CvCivilizationInfo& getCivilizationInfo(CivilizationTypes eCivilizationNum);
+	CvCivilizationInfo& getInfo(CivilizationTypes eCivilizationNum);
 
 	DllExport int getNumLeaderHeadInfos();
 	DllExport std::vector<CvLeaderHeadInfo*>& getLeaderHeadInfo();
@@ -347,9 +346,9 @@ public:
 	std::vector<CvWorldPickerInfo*>& getWorldPickerInfo();
 	DllExport	CvWorldPickerInfo& getWorldPickerInfo(int iIndex);
 
-	DllExport int getNumUnitInfos();
-	DllExport std::vector<CvUnitInfo*>& getUnitInfo();
-	DllExport	CvUnitInfo& getUnitInfo(UnitTypes eUnitNum);
+	int getNumUnitInfos() const;
+	std::vector<CvUnitInfo*>& getUnitInfo();
+	CvUnitInfo& getUnitInfo(UnitTypes eUnitNum);
 
 	int getNumSpecialUnitInfos();
 	std::vector<CvSpecialUnitInfo*>& getSpecialUnitInfo();
@@ -385,6 +384,7 @@ public:
 	DllExport int getNumFatherPointInfos();
 	std::vector<CvFatherPointInfo*>& getFatherPointInfo();
 	DllExport CvFatherPointInfo& getFatherPointInfo(FatherPointTypes e);
+	CvFatherPointInfo& getInfo(FatherPointTypes e);
 
 	int getNumUnitCombatInfos();
 	std::vector<CvInfoBase*>& getUnitCombatInfo();
@@ -426,6 +426,7 @@ public:
 
 	std::vector<CvYieldInfo*>& getYieldInfo();
 	DllExport	CvYieldInfo& getYieldInfo(YieldTypes eYieldNum);
+	CvYieldInfo& getInfo(YieldTypes eYieldNum);
 
 	DllExport int getNumRouteInfos();
 	std::vector<CvRouteInfo*>& getRouteInfo();
@@ -465,13 +466,15 @@ public:
 	std::vector<CvBuildingClassInfo*>& getBuildingClassInfo();
 	CvBuildingClassInfo& getBuildingClassInfo(BuildingClassTypes eBuildingClassNum);
 
-	DllExport int getNumBuildingInfos();
-	DllExport std::vector<CvBuildingInfo*>& getBuildingInfo();
-	DllExport CvBuildingInfo& getBuildingInfo(BuildingTypes eBuildingNum);
+	int getNumBuildingInfos() const;
+	int getNumBuildingInfosFakeExe() const;
+	std::vector<CvBuildingInfo*>& getBuildingInfo();
+	CvBuildingInfo& getBuildingInfo(BuildingTypes eBuildingNum);
 
 	DllExport int getNumSpecialBuildingInfos();
 	std::vector<CvSpecialBuildingInfo*>& getSpecialBuildingInfo();
 	DllExport CvSpecialBuildingInfo& getSpecialBuildingInfo(SpecialBuildingTypes eSpecialBuildingNum);
+	CvSpecialBuildingInfo& getInfo(SpecialBuildingTypes eSpecialBuilding);
 
 	DllExport int getNumUnitClassInfos();
 	std::vector<CvUnitClassInfo*>& getUnitClassInfo();
@@ -565,7 +568,6 @@ public:
 	//Androrc End
 	DllExport int getNUM_ENGINE_DIRTY_BITS() const;
 	DllExport int getNUM_INTERFACE_DIRTY_BITS() const;
-	DllExport int getNUM_YIELD_TYPES() const;
 	DllExport int getNUM_FORCECONTROL_TYPES() const;
 	DllExport int getNUM_INFOBAR_TYPES() const;
 	DllExport int getNUM_HEALTHBAR_TYPES() const;
@@ -631,15 +633,10 @@ public:
 	DllExport void setDefineFLOAT( const char * szName, float fValue );
 	DllExport void setDefineSTRING( const char * szName, const char * szValue );
 
-	int getMOVE_DENOMINATOR();
-	int getFOOD_CONSUMPTION_PER_POPULATION();
-	int getFOOD_CONSUMPTION_PER_CITY_DEFENDER(); // Ramstormp, PTSD, Guards eat Food too
 	int getMAX_HIT_POINTS();
 	int getHILLS_EXTRA_DEFENSE();
 	int getRIVER_ATTACK_MODIFIER();
 	int getAMPHIB_ATTACK_MODIFIER();
-	int getHILLS_EXTRA_MOVEMENT();
-	int getPEAK_EXTRA_MOVEMENT();
 	DllExport int getMAX_PLOT_LIST_ROWS();
 	DllExport int getUNIT_MULTISELECT_MAX();
 	DllExport int getEVENT_MESSAGE_TIME();
@@ -661,8 +658,6 @@ public:
 	int getAI_TRANSPORT_DANGER_RANGE();
 	int getAI_LOST_TRANSPORT_MEMORY_COUNT();
 	// TAC - AI Improved Navel AI - koma13 - END
-	int getNEW_CAPACITY(); //VET NewCapacity - 1/2
-
 	// R&R, ray, caching globals from Global Defines Alt - START
 	int getPLOT_VISIBILITY_RANGE();
 	int getUNIT_VISIBILITY_RANGE();
@@ -670,6 +665,7 @@ public:
 	int getCITY_YIELD_DECAY_PERCENT();
 	int getIMMIGRATION_THRESHOLD();
 	int getIMMIGRATION_THRESHOLD_INCREASE();
+	int getIMMIGRATION_THRESHOLD_MODIFIER_UNITS_ON_DOCK();
 	int getTAX_TRADE_THRESHOLD();
 	int getTAX_TRADE_THRESHOLD_TAX_RATE_PERCENT();
 	int getTAX_INCREASE_CHANCE();
@@ -687,6 +683,8 @@ public:
 	int getWILD_ANIMAL_REWARD_RANDOM_BASE();
 	// Max Cross Limit
 	int getIMMIGRATION_MAX_CROSS_LIMIT();
+	// WTP, ray Domestic Market Events - START
+	int getENABLE_DOMESTIC_DEMAND_EVENTS();
 	// NBMOD REF
 	int getNBMOD_REF_ENABLE();
 	int getNBMOD_REF_RANDOM_SHIPS();
@@ -755,6 +753,7 @@ public:
 	int getMIN_ROUND_EUROPE_WARS();
 	int getBASE_CHANCE_EUROPE_WARS();
 	int getBASE_CHANCE_EUROPE_PEACE();
+	int getBASE_CHANCE_ROYAL_INTERVENTIONS();// WTP, ray, Royal Intervention, START
 	int getMIN_ROUND_PRISONS_CROWDED();
 	int getPRISONS_CROWDED_CHANCE();
 	int getMIN_ROUND_REVOLUTIONARY_NOBLE();
@@ -768,12 +767,17 @@ public:
 	int getAFRICAN_SLAVES_CHANCE();
 	int getMIN_ROUND_BISHOP();
 	int getBISHOP_CHANCE();
+	int getMIN_ROUND_COLONIAL_INTERVENTION_NATIVE_WAR(); //WTP, ray, Colonial Intervention In Native War - START
+	int getCOLONIAL_INTERVENTION_NATIVE_WAR_CHANCE(); //WTP, ray, Colonial Intervention In Native War - START
+	int getCOLONIAL_INTERVENTION_NATIVE_WAR_GOLD_TO_PAY_PER_UNIT(); //WTP, ray, Colonial Intervention In Native War - START
+	int getMIN_ROUND_COLONIES_AND_NATIVE_ALLIES_WAR(); // WTP, ray, Big Colonies and Native Allies War - START
+	int getBASE_CHANCE_COLONIES_AND_NATIVE_ALLIES_WAR(); // WTP, ray, Big Colonies and Native Allies War - START
 	int getMIN_ROUND_PIRATES();
 	int getBASE_CHANCE_PIRATES();
 	int getBASE_CHANCE_CONTINENTAL_GUARD();
 	int getBASE_CHANCE_MORTAR();
 	int getCHURCH_CONTACT_CHANCE();
-	int getMIN_ROUND_CHURCH_CONTACT();	
+	int getMIN_ROUND_CHURCH_CONTACT();
 	int getBASE_CHANCE_CHURCH_WAR();
 	int getMIN_ROUND_CHURCH_WAR();
 	int getPRICE_MILITIA();
@@ -787,9 +791,13 @@ public:
 	int getTIMER_NATIVE_MERC();
 	int getTIMER_EUROPEAN_WARS();
 	int getTIMER_EUROPEAN_PEACE();
+	int getTIMER_ROYAL_INTERVENTIONS(); // WTP, ray, Royal Intervention, START
+	int getTIMER_PRIVATEERS_DIPLO_EVENT(); // WTP, ray, Privateers DLL Diplo Event - START
 	int getTIMER_PRISONS_CROWDED();
 	int getTIMER_REVOLUTIONARY_NOBLE();
 	int getTIMER_BISHOP();
+	int getTIMER_COLONIAL_INTERVENTION_NATIVE_WAR(); //WTP, ray, Colonial Intervention In Native War - START
+	int getTIMER_COLONIES_AND_NATIVE_ALLIES_WAR(); // WTP, ray, Big Colonies and Native Allies War - START
 	int getTIMER_CHURCH_DEMAND();
 	int getTIMER_CHURCH_WAR();
 	int getTIMER_SMUGGLING_SHIP();
@@ -804,6 +812,8 @@ public:
 	int getNATIVE_POTENTIAL_RAID_TARGET_THRESHOLD();
 	int getNATIVE_GOODS_RAID_PERCENT();
 	int getRANDOM_NATIVE_RAID_BASECHANCE();
+	int getNATIVE_PRODUCTION_RAID_MIN();
+	int getNATIVE_PRODUCTION_RAID_RANDOM();
 	int getNATIVE_SPARE_AI_TREASURE_CHANCE();
 	// Roundwise Native Income
 	int getPER_ROUND_PER_VILLAGE_INCOME_MAX();
@@ -817,22 +827,19 @@ public:
 	int getTAX_TRADE_INCREASE_CHANCE_KING_ATTITUDE_BASE();
 	// R&R, ray, caching globals from Global Defines Alt - END
 
-	// cache ship profession - start - Nightinggale
-	int getPROFESSION_WHALING_BOAT_WORKING();
-	int getPROFESSION_FISHING_BOAT_WORKING();
-	// cache ship profession - end - Nightinggale
-
-	// R&R, ray, enhanced caching Whaling and Fishing - START
-	int getUNITCLASS_WHALING_BOAT();
-	int getUNITCLASS_FISHING_BOAT();
-	// R&R, ray, enhanced caching Whaling and Fishing - END
-
 	// R&R, ray, Health - START
 	int getMIN_POP_NEG_HEALTH();
 	int getPOP_DIVISOR_NEG_HEALTH();
 	int getMAX_CITY_HEALTH();
 	int getLOWEST_CITY_HEALTH();
 	// R&R, ray, Health - END
+
+	// WTP, ray, Health Overhaul - START
+	int getSWEET_WATER_CITY_LOCATION_HEALTH_BONUS();
+	int getCOASTAL_CITY_LOCATION_HEALTH_BONUS();
+	int getHILL_CITY_LOCATION_HEALTH_BONUS();
+	int getBAD_CITY_LOCATION_HEALTH_MALUS();
+	// WTP, ray, Health Overhaul - END
 
 	// WTP, ray, Happiness - START
 	int getMIN_POP_NEG_HAPPINESS();
@@ -846,16 +853,42 @@ public:
 	int getMIN_BALANCE_UNREST_UNHAPPINESS();
 	int getMIN_BALANCE_FESTIVITIES_HAPPINESS();
 	int getTURNS_UNREST_UNHAPPINESS();
-	int getFOUNDING_FAHTER_POINTS_FESTIVITIES_HAPPINESS();
+	int getFOUNDING_FATHER_POINTS_FESTIVITIES_HAPPINESS();
 	int getTIMER_FESTIVITIES_OR_UNRESTS();
 	// WTP, ray, Happiness - END
+
+	// WTP, ray, Crime and Law - START
+	int getMIN_POP_CRIME();
+	int getPOP_DIVISOR_CRIME();
+	int getPER_EUROPEAN_AT_WAR_CRIME();
+	int getCRIME_PERCENT_BONUS_FACTOR_OVERFLOW();
+	// WTP, ray, Crime and Law - END
+
+	//WTP, ray, Slave Hunter and Slave Master - START
+	int getMAX_SLAVE_REVOLT_REDUCTION_BONUS_PER_CITY();
+	int getMAX_SLAVE_WORKER_PRODUCTION_BONUS_PER_CITY();
+	//WTP, ray, Slave Hunter and Slave Master - END
 
     int getMAX_TREASURE_AMOUNT(); // WTP, merge Treasures, of Raubwuerger - START
 	int getTRADE_POST_GOLD_PER_NATIVE(); // WTP, ray, Native Trade Posts - START
 
 	// softcoding enum values
 
+	int getOPPRESSOMETER_DISCRIMINATION_MODIFIER_BASE_COLONIZERS();
+	int getOPPRESSOMETER_DISCRIMINATION_MODIFIER_BASE_NATIVES();
+	int getOPPRESSOMETER_FORCED_LABOR_MODIFIER_BASE();
+	int getOPPRESSOMETER_DECAY_RATE_BASE();
+
+
 	void postXMLLoad(bool bFirst);
+
+	/// GameFont XML control - start - Nightinggale
+	int getSymbolID(FontSymbols eSymbol) const;
+
+	void setupGameFontChars();
+	int getFontSymbolBonusOffset() const;
+	int getFontSymbolCustomOffset() const;
+	/// GameFont XML control - end - Nightinggale
 
 	DllExport float getCAMERA_MIN_YAW();
 	DllExport float getCAMERA_MAX_YAW();
@@ -957,10 +990,12 @@ public:
 	void deleteInfoArrays();
 
 	void cleanInfoStrings();
-	
-	const YieldTypeArray& getUnitYieldDemandTypes() const { return m_acUnitYieldDemandTypes; }
+
+	const InfoArray<YieldTypes>& getDomesticDemandYieldTypes() const { return m_iaDomesticDemandYieldTypes; }
 
 	void setCityCatchmentRadius(int iSetting);
+
+	bool isMainThread() const;
 
 	ProfilerManager& getProfiler() { return m_ProfileManager; }
 
@@ -1176,15 +1211,10 @@ protected:
 
 	FVariableSystem* m_VarSystem;
 
-	int m_iMOVE_DENOMINATOR;
-	int m_iFOOD_CONSUMPTION_PER_POPULATION;
-	int m_iFOOD_CONSUMPTION_PER_CITY_DEFENDER; // Ramstormp, PTSD, Guards eat food too
 	int m_iMAX_HIT_POINTS;
 	int m_iHILLS_EXTRA_DEFENSE;
 	int m_iRIVER_ATTACK_MODIFIER;
 	int m_iAMPHIB_ATTACK_MODIFIER;
-	int m_iHILLS_EXTRA_MOVEMENT;
-	int m_iPEAK_EXTRA_MOVEMENT;
 	int m_iMAX_PLOT_LIST_ROWS;
 	int m_iUNIT_MULTISELECT_MAX;
 	int m_iEVENT_MESSAGE_TIME;
@@ -1202,20 +1232,20 @@ protected:
 	int m_iPEAK_SEE_FROM_CHANGE;
 	int m_iHILLS_SEE_FROM_CHANGE;
 	int m_iMAX_REBEL_YIELD_MODIFIER;
-	int m_iNEW_CAPACITY; //VET NewCapacity - 2/2
 	// TAC - AI Improved Navel AI - koma13 - START
 	int m_iAI_TRANSPORT_DANGER_RANGE;
 	int m_iAI_LOST_TRANSPORT_MEMORY_COUNT;
 	// TAC - AI Improved Navel AI - koma13 - END
 
 	// R&R, ray, caching globals from Global Defines Alt - START
-	// Caching Vanilla variables 
+	// Caching Vanilla variables
 	int m_PLOT_VISIBILITY_RANGE;
 	int m_UNIT_VISIBILITY_RANGE;
 	int m_MIN_CITY_YIELD_DECAY;
 	int m_CITY_YIELD_DECAY_PERCENT;
 	int m_IMMIGRATION_THRESHOLD;
 	int m_IMMIGRATION_THRESHOLD_INCREASE;
+	int m_IMMIGRATION_THRESHOLD_MODIFIER_UNITS_ON_DOCK;
 	int m_TAX_TRADE_THRESHOLD;
 	int m_TAX_TRADE_THRESHOLD_TAX_RATE_PERCENT;
 	int m_TAX_INCREASE_CHANCE;
@@ -1225,7 +1255,7 @@ protected:
 	// Domestic Market
 	int m_PRICE_DIFF_EUROPE_DOMESTIC_LUXURY_GOODS;
 	int m_DOMESTIC_SALES_MESSAGES;
-	// Wild Animals	
+	// Wild Animals
 	int m_WILD_ANIMAL_LAND_TERRAIN_NATIVE_WEIGHT;
 	int m_WILD_ANIMAL_LAND_UNIT_VARIATION_WEIGHT;
 	int m_WILD_ANIMAL_SEA_TERRAIN_NATIVE_WEIGHT;
@@ -1233,6 +1263,8 @@ protected:
 	int m_WILD_ANIMAL_REWARD_RANDOM_BASE;
 	// Max Cross Limit
 	int m_IMMIGRATION_MAX_CROSS_LIMIT;
+	// WTP, ray Domestic Market Events - START
+	int m_ENABLE_DOMESTIC_DEMAND_EVENTS;
 	// NBMOD REF
 	int m_NBMOD_REF_ENABLE;
 	int m_NBMOD_REF_RANDOM_SHIPS;
@@ -1301,6 +1333,7 @@ protected:
 	int m_MIN_ROUND_EUROPE_WARS;
 	int m_BASE_CHANCE_EUROPE_WARS;
 	int m_BASE_CHANCE_EUROPE_PEACE;
+	int m_BASE_CHANCE_ROYAL_INTERVENTIONS; // WTP, ray, Royal Intervention, START
 	int m_MIN_ROUND_PRISONS_CROWDED;
 	int m_PRISONS_CROWDED_CHANCE;
 	int m_MIN_ROUND_REVOLUTIONARY_NOBLE;
@@ -1318,6 +1351,11 @@ protected:
 	int m_AFRICAN_SLAVES_CHANCE;
 	int m_MIN_ROUND_BISHOP;
 	int m_BISHOP_CHANCE;
+	int m_MIN_ROUND_COLONIAL_INTERVENTION_NATIVE_WAR; //WTP, ray, Colonial Intervention In Native War - START
+	int m_COLONIAL_INTERVENTION_NATIVE_WAR_CHANCE; //WTP, ray, Colonial Intervention In Native War - START
+	int m_COLONIAL_INTERVENTION_NATIVE_WAR_GOLD_TO_PAY_PER_UNIT; //WTP, ray, Colonial Intervention In Native War - START
+	int m_MIN_ROUND_COLONIES_AND_NATIVE_ALLIES_WAR; // WTP, ray, Big Colonies and Native Allies War - START
+	int m_BASE_CHANCE_COLONIES_AND_NATIVE_ALLIES_WAR; // WTP, ray, Big Colonies and Native Allies War - START
 	int m_BASE_CHANCE_CHURCH_WAR;
 	int m_MIN_ROUND_CHURCH_WAR;
 	int m_CHURCH_CONTACT_CHANCE;
@@ -1332,9 +1370,13 @@ protected:
 	int m_TIMER_NATIVE_MERC;
 	int m_TIMER_EUROPEAN_WARS;
 	int m_TIMER_EUROPEAN_PEACE;
+	int m_TIMER_ROYAL_INTERVENTIONS; // WTP, ray, Royal Intervention, START
+	int m_TIMER_PRIVATEERS_DIPLO_EVENT; // WTP, ray, Privateers DLL Diplo Event - START
 	int m_TIMER_PRISONS_CROWDED;
 	int m_TIMER_REVOLUTIONARY_NOBLE;
 	int m_TIMER_BISHOP;
+	int m_TIMER_COLONIAL_INTERVENTION_NATIVE_WAR; //WTP, ray, Colonial Intervention In Native War - START
+	int m_TIMER_COLONIES_AND_NATIVE_ALLIES_WAR; // WTP, ray, Big Colonies and Native Allies War - START
 	int m_TIMER_CHURCH_DEMAND;
 	int m_TIMER_CHURCH_WAR;
 	int m_TIMER_SMUGGLING_SHIP;
@@ -1350,6 +1392,8 @@ protected:
 	int m_NATIVE_POTENTIAL_RAID_TARGET_THRESHOLD;
 	int m_NATIVE_GOODS_RAID_PERCENT;
 	int m_RANDOM_NATIVE_RAID_BASECHANCE;
+	int m_NATIVE_PRODUCTION_RAID_MIN;
+	int m_NATIVE_PRODUCTION_RAID_RANDOM;
 	int m_NATIVE_SPARE_AI_TREASURE_CHANCE;
 	// Roundwise Native Income
 	int m_PER_ROUND_PER_VILLAGE_INCOME_MAX;
@@ -1363,13 +1407,6 @@ protected:
 	int m_TAX_TRADE_INCREASE_CHANCE_KING_ATTITUDE_BASE;
 	// R&R, ray, caching globals from Global Defines Alt - END
 
-	// cache ship profession - start - Nightinggale
-	int m_PROFESSION_WHALING_BOAT_WORKING;
-	int m_PROFESSION_FISHING_BOAT_WORKING;
-	int m_UNITCLASS_WHALING_BOAT; // R&R, ray
-	int m_UNITCLASS_FISHING_BOAT; // R&R, ray
-	// cache ship profession - end - Nightinggale
-
 	// R&R, ray, Health - START
 	int m_MIN_POP_NEG_HEALTH;
 	int m_POP_DIVISOR_NEG_HEALTH;
@@ -1377,7 +1414,14 @@ protected:
 	int m_LOWEST_CITY_HEALTH;
 	// R&R, ray, Health - END
 
-	YieldTypeArray m_acUnitYieldDemandTypes;
+	// WTP, ray, Health Overhaul - START
+	int m_SWEET_WATER_CITY_LOCATION_HEALTH_BONUS;
+	int m_COASTAL_CITY_LOCATION_HEALTH_BONUS;
+	int m_HILL_CITY_LOCATION_HEALTH_BONUS;
+	int m_BAD_CITY_LOCATION_HEALTH_MALUS;
+	// WTP, ray, Health Overhaul - END
+
+	InfoArray<YieldTypes> m_iaDomesticDemandYieldTypes;
 
 	// WTP, ray, Happiness - START
 	int m_MIN_POP_NEG_HAPPINESS;
@@ -1391,9 +1435,30 @@ protected:
 	int m_MIN_BALANCE_UNREST_UNHAPPINESS;
 	int m_MIN_BALANCE_FESTIVITIES_HAPPINESS;
 	int m_TURNS_UNREST_UNHAPPINESS;
-	int m_FOUNDING_FAHTER_POINTS_FESTIVITIES_HAPPINESS;
+	int m_FOUNDING_FATHER_POINTS_FESTIVITIES_HAPPINESS;
 	int m_TIMER_FESTIVITIES_OR_UNRESTS;
 	// WTP, ray, Happiness - END
+
+	// WTP, ray, Crime and Law - START
+	int m_MIN_POP_CRIME;
+	int m_POP_DIVISOR_CRIME;
+	int m_PER_EUROPEAN_AT_WAR_CRIME;
+	int m_CRIME_PERCENT_BONUS_FACTOR_OVERFLOW;
+	// WTP, ray, Crime and Law - END
+
+	//WTP, ray, Slave Hunter and Slave Master - START
+	int m_MAX_SLAVE_REVOLT_REDUCTION_BONUS_PER_CITY;
+	int m_MAX_SLAVE_WORKER_PRODUCTION_BONUS_PER_CITY;
+	//WTP, ray, Slave Hunter and Slave Master - END
+
+	int m_iOPPRESSOMETER_DISCRIMINATION_MODIFIER_BASE_COLONIZERS;
+	int m_iOPPRESSOMETER_DISCRIMINATION_MODIFIER_BASE_NATIVES;
+	int m_iOPPRESSOMETER_FORCED_LABOR_MODIFIER_BASE;
+	int m_iOPPRESSOMETER_DECAY_RATE_BASE;
+
+	/// GameFont XML control - start - Nightinggale
+	FontSymbols  m_aiGameFontCustomSymbolID[MAX_NUM_SYMBOLS];
+	/// GameFont XML control - end - Nightinggale
 
 	int m_MAX_TREASURE_AMOUNT; // WTP, merge Treasures, of Raubwuerger
 	int m_TRADE_POST_GOLD_PER_NATIVE; // WTP, ray, Native Trade Posts - START
@@ -1433,7 +1498,7 @@ protected:
 	int m_iUSE_ON_UPDATE_CALLBACK;
 	int m_iUSE_ON_UNIT_CREATED_CALLBACK;
 	int m_iUSE_ON_UNIT_LOST_CALLBACK;
-	
+
 	ProfilerManager m_ProfileManager;
 
 	// K-Mod \ RaR
@@ -1443,12 +1508,14 @@ protected:
 	bool m_bUSE_DO_GROWTH_CALLBACK;
 	bool m_bUSE_DO_CULTURE_CALLBACK;
 	bool m_bUSE_DO_PLOT_CULTURE_CALLBACK;
-	bool m_bUSE_DO_PRODUCTION_CALLBACK;	
+	bool m_bUSE_DO_PRODUCTION_CALLBACK;
 	bool m_bUSE_AI_CHOOSE_PRODUCTION_CALLBACK;
 	bool m_bUSE_DO_PILLAGE_GOLD_CALLBACK;
 	bool m_bUSE_GET_EXPERIENCE_NEEDED_CALLBACK;
 	bool m_bUSE_DO_COMBAT_CALLBACK;
 	// K-Mod \ RaR end
+
+	const DWORD m_iThreadID;
 
 	// DLL interface
 	CvDLLUtilityIFaceBase* m_pDLL;
@@ -1468,15 +1535,24 @@ protected:
 
 		inline bool getUSE_AI_UNIT_UPDATE_CALLBACK() { return m_bUSE_AI_UNIT_UPDATE_CALLBACK; }
 		inline bool getUSE_AI_DO_DIPLO_CALLBACK() { return m_bUSE_AI_DO_DIPLO_CALLBACK; }
-		inline bool getUSE_AI_DO_WAR_CALLBACK() { return m_bUSE_AI_DO_WAR_CALLBACK; }		
+		inline bool getUSE_AI_DO_WAR_CALLBACK() { return m_bUSE_AI_DO_WAR_CALLBACK; }
 		inline bool getUSE_DO_GROWTH_CALLBACK() { return m_bUSE_DO_GROWTH_CALLBACK; }
 		inline bool getUSE_DO_CULTURE_CALLBACK() { return m_bUSE_DO_CULTURE_CALLBACK; }
 		inline bool getUSE_DO_PLOT_CULTURE_CALLBACK() { return m_bUSE_DO_PLOT_CULTURE_CALLBACK; }
-		inline bool getUSE_DO_PRODUCTION_CALLBACK() { return m_bUSE_DO_PRODUCTION_CALLBACK; }		
+		inline bool getUSE_DO_PRODUCTION_CALLBACK() { return m_bUSE_DO_PRODUCTION_CALLBACK; }
 		inline bool getUSE_AI_CHOOSE_PRODUCTION_CALLBACK() { return m_bUSE_AI_CHOOSE_PRODUCTION_CALLBACK; }
 		inline bool getUSE_DO_PILLAGE_GOLD_CALLBACK() { return m_bUSE_DO_PILLAGE_GOLD_CALLBACK; }
 		inline bool getUSE_GET_EXPERIENCE_NEEDED_CALLBACK() { return m_bUSE_GET_EXPERIENCE_NEEDED_CALLBACK; }
 		inline bool getUSE_DO_COMBAT_CALLBACK() { return m_bUSE_DO_COMBAT_CALLBACK; }
+
+public:
+	void setExeXmlLengthOverride(bool bEnabled)
+	{
+		m_bExeXmlLengthOverride = bEnabled;
+	}
+
+protected:
+	bool m_bExeXmlLengthOverride;
 };
 
 extern CvGlobals gGlobals;	// for debugging
@@ -1581,22 +1657,6 @@ bool writeInfoArray(FDataStreamBase* pStream,  std::vector<T*>& array)
 // The following functions are copied from CvGlobals.cpp as they are ideal candidates for inlining
 // Nightinggale
 
-inline int CvGlobals::getMOVE_DENOMINATOR()
-{
-	return m_iMOVE_DENOMINATOR;
-}
-
-inline int CvGlobals::getFOOD_CONSUMPTION_PER_POPULATION()
-{
-	return m_iFOOD_CONSUMPTION_PER_POPULATION;
-}
-
-// Ramstormp, PTSD, Guards eat food too - start
-inline int CvGlobals::getFOOD_CONSUMPTION_PER_CITY_DEFENDER()
-{
-	return m_iFOOD_CONSUMPTION_PER_CITY_DEFENDER;
-}
-// Ramstormp - END
 inline int CvGlobals::getMAX_HIT_POINTS()
 {
 	return m_iMAX_HIT_POINTS;
@@ -1615,16 +1675,6 @@ inline int CvGlobals::getRIVER_ATTACK_MODIFIER()
 inline int CvGlobals::getAMPHIB_ATTACK_MODIFIER()
 {
 	return m_iAMPHIB_ATTACK_MODIFIER;
-}
-
-inline int CvGlobals::getHILLS_EXTRA_MOVEMENT()
-{
-	return m_iHILLS_EXTRA_MOVEMENT;
-}
-
-inline int CvGlobals::getPEAK_EXTRA_MOVEMENT()
-{
-	return m_iPEAK_EXTRA_MOVEMENT;
 }
 
 inline int CvGlobals::getMAX_PLOT_LIST_ROWS()
@@ -1709,10 +1759,6 @@ inline int CvGlobals::getMAX_REBEL_YIELD_MODIFIER()
 {
 	return m_iMAX_REBEL_YIELD_MODIFIER;
 }
-inline int CvGlobals::getNEW_CAPACITY() //VET NewCapacity - 3/3
-{
-	return m_iNEW_CAPACITY;
-}
 
 // TAC - AI Improved Navel AI - koma13 - START
 inline int CvGlobals::getAI_TRANSPORT_DANGER_RANGE()
@@ -1751,6 +1797,10 @@ inline int CvGlobals::getIMMIGRATION_THRESHOLD()
 inline int CvGlobals::getIMMIGRATION_THRESHOLD_INCREASE()
 {
 	return m_IMMIGRATION_THRESHOLD_INCREASE;
+}
+inline int CvGlobals::getIMMIGRATION_THRESHOLD_MODIFIER_UNITS_ON_DOCK()
+{
+	return m_IMMIGRATION_THRESHOLD_MODIFIER_UNITS_ON_DOCK;
 }
 inline int CvGlobals::getTAX_TRADE_THRESHOLD()
 {
@@ -1809,6 +1859,13 @@ inline int CvGlobals::getIMMIGRATION_MAX_CROSS_LIMIT()
 {
 	return m_IMMIGRATION_MAX_CROSS_LIMIT;
 }
+
+// WTP, ray Domestic Market Events - START
+inline int CvGlobals::getENABLE_DOMESTIC_DEMAND_EVENTS()
+{
+	return m_ENABLE_DOMESTIC_DEMAND_EVENTS;
+}
+
 // NBMOD REF
 inline int CvGlobals::getNBMOD_REF_ENABLE()
 {
@@ -2064,6 +2121,12 @@ inline int CvGlobals::getBASE_CHANCE_EUROPE_PEACE()
 {
 	return m_BASE_CHANCE_EUROPE_PEACE;
 }
+// WTP, ray, Royal Intervention, START
+inline int CvGlobals::getBASE_CHANCE_ROYAL_INTERVENTIONS()
+{
+	return m_BASE_CHANCE_ROYAL_INTERVENTIONS;
+}
+// WTP, ray, Royal Intervention, END
 inline int CvGlobals::getMIN_ROUND_PRISONS_CROWDED()
 {
 	return m_MIN_ROUND_PRISONS_CROWDED;
@@ -2132,6 +2195,32 @@ inline int CvGlobals::getBISHOP_CHANCE()
 {
 	return m_BISHOP_CHANCE;
 }
+//WTP, ray, Colonial Intervention In Native War - START
+inline int CvGlobals::getMIN_ROUND_COLONIAL_INTERVENTION_NATIVE_WAR()
+{
+	return m_MIN_ROUND_COLONIAL_INTERVENTION_NATIVE_WAR;
+}
+inline int CvGlobals::getCOLONIAL_INTERVENTION_NATIVE_WAR_CHANCE()
+{
+	return m_COLONIAL_INTERVENTION_NATIVE_WAR_CHANCE;
+}
+inline int CvGlobals::getCOLONIAL_INTERVENTION_NATIVE_WAR_GOLD_TO_PAY_PER_UNIT()
+{
+	return m_COLONIAL_INTERVENTION_NATIVE_WAR_GOLD_TO_PAY_PER_UNIT;
+}
+//WTP, ray, Colonial Intervention In Native War - END
+
+// WTP, ray, Big Colonies and Native Allies War - START
+inline int CvGlobals::getMIN_ROUND_COLONIES_AND_NATIVE_ALLIES_WAR()
+{
+	return m_MIN_ROUND_COLONIES_AND_NATIVE_ALLIES_WAR;
+}
+inline int CvGlobals::getBASE_CHANCE_COLONIES_AND_NATIVE_ALLIES_WAR()
+{
+	return m_BASE_CHANCE_COLONIES_AND_NATIVE_ALLIES_WAR;
+}
+// WTP, ray, Big Colonies and Native Allies War - END
+
 inline int CvGlobals::getPRICE_MILITIA()
 {
 	return m_PRICE_MILITIA;
@@ -2170,6 +2259,19 @@ inline int CvGlobals::getTIMER_EUROPEAN_PEACE()
 {
 	return m_TIMER_EUROPEAN_PEACE;
 }
+// WTP, ray, Royal Intervention, START
+inline int CvGlobals::getTIMER_ROYAL_INTERVENTIONS()
+{
+	return m_TIMER_ROYAL_INTERVENTIONS;
+}
+// WTP, ray, Royal Intervention, END
+
+// WTP, ray, Privateers DLL Diplo Event - START
+inline int CvGlobals::getTIMER_PRIVATEERS_DIPLO_EVENT()
+{
+	return m_TIMER_PRIVATEERS_DIPLO_EVENT;
+}
+// WTP, ray, Privateers DLL Diplo Event - END
 inline int CvGlobals::getTIMER_PRISONS_CROWDED()
 {
 	return m_TIMER_PRISONS_CROWDED;
@@ -2182,6 +2284,20 @@ inline int CvGlobals::getTIMER_BISHOP()
 {
 	return m_TIMER_BISHOP;
 }
+//WTP, ray, Colonial Intervention In Native War - START
+inline int CvGlobals::getTIMER_COLONIAL_INTERVENTION_NATIVE_WAR()
+{
+	return m_TIMER_COLONIAL_INTERVENTION_NATIVE_WAR;
+}
+//WTP, ray, Colonial Intervention In Native War - END
+
+// WTP, ray, Big Colonies and Native Allies War - START
+inline int CvGlobals::getTIMER_COLONIES_AND_NATIVE_ALLIES_WAR()
+{
+	return m_TIMER_COLONIES_AND_NATIVE_ALLIES_WAR;
+}
+// WTP, ray, Big Colonies and Native Allies War - END
+
 inline int CvGlobals::getTIMER_CHURCH_DEMAND()
 {
 	return m_TIMER_CHURCH_DEMAND;
@@ -2240,6 +2356,14 @@ inline int CvGlobals::getRANDOM_NATIVE_RAID_BASECHANCE()
 {
 	return m_RANDOM_NATIVE_RAID_BASECHANCE;
 }
+inline int CvGlobals::getNATIVE_PRODUCTION_RAID_MIN()
+{
+	return m_NATIVE_PRODUCTION_RAID_MIN;
+}
+inline int CvGlobals::getNATIVE_PRODUCTION_RAID_RANDOM()
+{
+	return m_NATIVE_PRODUCTION_RAID_RANDOM;
+}
 inline int CvGlobals::getNATIVE_SPARE_AI_TREASURE_CHANCE()
 {
 	return m_NATIVE_SPARE_AI_TREASURE_CHANCE;
@@ -2277,30 +2401,6 @@ inline int CvGlobals::getTAX_TRADE_INCREASE_CHANCE_KING_ATTITUDE_BASE()
 }
 // R&R, ray, caching globals from Global Defines Alt - END
 
-// cache ship profession - start - Nightinggale
-inline int CvGlobals::getPROFESSION_WHALING_BOAT_WORKING()
-{
-	return m_PROFESSION_WHALING_BOAT_WORKING;
-}
-
-inline int CvGlobals::getPROFESSION_FISHING_BOAT_WORKING()
-{
-	return m_PROFESSION_FISHING_BOAT_WORKING;
-}
-// cache ship profession - end - Nightinggale
-
-// R&R, ray, enhanced caching Whaling and Fishing - START
-inline int CvGlobals::getUNITCLASS_WHALING_BOAT()
-{
-	return m_UNITCLASS_WHALING_BOAT;
-}
-
-inline int CvGlobals::getUNITCLASS_FISHING_BOAT()
-{
-	return m_UNITCLASS_FISHING_BOAT;
-}
-// R&R, ray, enhanced caching Whaling and Fishing - END
-
 // R&R, ray, Health - START
 inline int CvGlobals::getMIN_POP_NEG_HEALTH()
 {
@@ -2322,6 +2422,30 @@ inline int CvGlobals::getLOWEST_CITY_HEALTH()
 	return m_LOWEST_CITY_HEALTH;
 }
 // R&R, ray, Health - END
+
+
+// WTP, ray, Health Overhaul - START
+inline int CvGlobals::getSWEET_WATER_CITY_LOCATION_HEALTH_BONUS()
+{
+	return m_SWEET_WATER_CITY_LOCATION_HEALTH_BONUS;
+}
+
+inline int CvGlobals::getCOASTAL_CITY_LOCATION_HEALTH_BONUS()
+{
+	return m_COASTAL_CITY_LOCATION_HEALTH_BONUS;
+}
+
+inline int CvGlobals::getHILL_CITY_LOCATION_HEALTH_BONUS()
+{
+	return m_HILL_CITY_LOCATION_HEALTH_BONUS;
+}
+
+inline int CvGlobals::getBAD_CITY_LOCATION_HEALTH_MALUS()
+{
+	return m_BAD_CITY_LOCATION_HEALTH_MALUS;
+}
+// WTP, ray, Health Overhaul - END
+
 
 // WTP, ray, Happiness - START
 inline int CvGlobals::getMIN_POP_NEG_HAPPINESS()
@@ -2374,9 +2498,9 @@ inline int CvGlobals::getTURNS_UNREST_UNHAPPINESS()
 	return m_TURNS_UNREST_UNHAPPINESS;
 }
 
-inline int CvGlobals::getFOUNDING_FAHTER_POINTS_FESTIVITIES_HAPPINESS()
+inline int CvGlobals::getFOUNDING_FATHER_POINTS_FESTIVITIES_HAPPINESS()
 {
-	return m_FOUNDING_FAHTER_POINTS_FESTIVITIES_HAPPINESS;
+	return m_FOUNDING_FATHER_POINTS_FESTIVITIES_HAPPINESS;
 }
 
 inline int CvGlobals::getTIMER_FESTIVITIES_OR_UNRESTS()
@@ -2384,6 +2508,40 @@ inline int CvGlobals::getTIMER_FESTIVITIES_OR_UNRESTS()
 	return m_TIMER_FESTIVITIES_OR_UNRESTS;
 }
 // WTP, ray, Happiness - END
+
+// WTP, ray, Crime and Law - START
+inline int CvGlobals::getMIN_POP_CRIME()
+{
+	return m_MIN_POP_CRIME;
+}
+
+inline int CvGlobals::getPOP_DIVISOR_CRIME()
+{
+	return m_POP_DIVISOR_CRIME;
+}
+
+inline int CvGlobals::getPER_EUROPEAN_AT_WAR_CRIME()
+{
+	return m_PER_EUROPEAN_AT_WAR_CRIME;
+}
+
+inline int CvGlobals::getCRIME_PERCENT_BONUS_FACTOR_OVERFLOW()
+{
+	return m_CRIME_PERCENT_BONUS_FACTOR_OVERFLOW;
+}
+// WTP, ray, Crime and Law - END
+
+//WTP, ray, Slave Hunter and Slave Master - START
+inline int CvGlobals::getMAX_SLAVE_REVOLT_REDUCTION_BONUS_PER_CITY()
+{
+	return m_MAX_SLAVE_REVOLT_REDUCTION_BONUS_PER_CITY;
+}
+
+inline int CvGlobals::getMAX_SLAVE_WORKER_PRODUCTION_BONUS_PER_CITY()
+{
+	return m_MAX_SLAVE_WORKER_PRODUCTION_BONUS_PER_CITY;
+}
+//WTP, ray, Slave Hunter and Slave Master - END
 
 // WTP, merge Treasures, of Raubwuerger - START
 inline int CvGlobals::getMAX_TREASURE_AMOUNT()
@@ -2398,6 +2556,28 @@ inline int CvGlobals::getTRADE_POST_GOLD_PER_NATIVE()
 	return m_TRADE_POST_GOLD_PER_NATIVE;
 }
 // WTP, ray, Native Trade Posts - END
+
+inline int CvGlobals::getOPPRESSOMETER_DISCRIMINATION_MODIFIER_BASE_COLONIZERS()
+{
+	return m_iOPPRESSOMETER_DISCRIMINATION_MODIFIER_BASE_COLONIZERS;
+}
+
+inline int CvGlobals::getOPPRESSOMETER_DISCRIMINATION_MODIFIER_BASE_NATIVES()
+{
+	return m_iOPPRESSOMETER_DISCRIMINATION_MODIFIER_BASE_NATIVES;
+}
+
+inline int CvGlobals::getOPPRESSOMETER_FORCED_LABOR_MODIFIER_BASE()
+{
+	return m_iOPPRESSOMETER_FORCED_LABOR_MODIFIER_BASE;
+}
+
+inline int CvGlobals::getOPPRESSOMETER_DECAY_RATE_BASE()
+{
+	return m_iOPPRESSOMETER_DECAY_RATE_BASE;
+}
+
+
 
 inline float CvGlobals::getCAMERA_MIN_YAW()
 {
@@ -2614,11 +2794,6 @@ inline int CvGlobals::getNUM_ENGINE_DIRTY_BITS() const
 inline int CvGlobals::getNUM_INTERFACE_DIRTY_BITS() const
 {
 	return NUM_INTERFACE_DIRTY_BITS;
-}
-
-inline int CvGlobals::getNUM_YIELD_TYPES() const
-{
-	return NUM_YIELD_TYPES;
 }
 
 inline int CvGlobals::getNUM_FORCECONTROL_TYPES() const

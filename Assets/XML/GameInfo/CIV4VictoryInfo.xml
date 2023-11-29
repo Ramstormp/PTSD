@@ -106,26 +106,5 @@
             <iTotalProductionRate>10000</iTotalProductionRate>
             <VictoryMovie/>
         </VictoryInfo>
-<VictoryInfo>
-            <Type>VICTORY_CULTURAL</Type>
-            <Description>Cultural</Description>
-            <Civilopedia>TXT_KEY_VICTORY_PRODUCTION_PEDIA</Civilopedia>
-            <bDefault>0</bDefault>
-            <bTargetScore>0</bTargetScore>
-            <bEndEurope>0</bEndEurope>
-            <bEndScore>0</bEndScore>
-            <bConquest>0</bConquest>
-            <bPermanent>0</bPermanent>
-            <bRevolution>0</bRevolution>
-            <iPopulationPercentLead>0</iPopulationPercentLead>
-            <iLandPercent>0</iLandPercent>
-            <iMinLandPercent>0</iMinLandPercent>
-            <CityCulture>CULTURELEVEL_LEGENDARY</CityCulture>
-            <iNumCultureCities>2</iNumCultureCities>
-            <iTotalCultureRatio>0</iTotalCultureRatio>
-            <iTotalProductionRate>0</iTotalProductionRate>
-            <VictoryMovie/>
-        </VictoryInfo>
     </VictoryInfos>
 </Civ4VictoryInfo>
-

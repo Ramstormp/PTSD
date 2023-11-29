@@ -3,10 +3,10 @@
 
 // Set the resource 
 
-resource_path "Mods/Weepv3.0.1/Assets/Resource";
+resource_path "Mods/Ween 3.0.1/Assets/Resource";
 
 // Setup common properties
-include	"Mods/Weepv3.0.1c/Assets/Resource/Themes/Civ4/Civ4Theme.thm";
-// Setup common properties
+include	"Mods/Ween 3.0.1/Assets/Resource/Themes/Civ4/Civ4Theme.thm";
+
 
 

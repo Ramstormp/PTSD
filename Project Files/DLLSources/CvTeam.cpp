@@ -22,6 +22,7 @@
 #include "FProfiler.h"
 
 #include "CvSavegame.h"
+#include "BetterBTSAI.h"
 // Public Functions...
 
 CvTeam::CvTeam()
@@ -95,7 +96,7 @@ void CvTeam::addTeam(TeamTypes eTeam)
 				if (GET_TEAM(GET_PLAYER((PlayerTypes)iI).getTeam()).isHasMet(getID()) && GET_TEAM(GET_PLAYER((PlayerTypes)iI).getTeam()).isHasMet(eTeam))
 				{
 					szBuffer = gDLL->getText("TXT_KEY_MISC_PLAYER_PERMANENT_ALLIANCE", getName().GetCString(), GET_TEAM(eTeam).getName().GetCString());
-					gDLL->getInterfaceIFace()->addMessage(((PlayerTypes)iI), false, GC.getEVENT_MESSAGE_TIME(), szBuffer, "AS2D_THEIRALLIANCE", MESSAGE_TYPE_MINOR_EVENT, NULL, (ColorTypes)GC.getInfoTypeForString("COLOR_HIGHLIGHT_TEXT"));
+					gDLL->UI().addPlayerMessage(((PlayerTypes)iI), false, GC.getEVENT_MESSAGE_TIME(), szBuffer, "AS2D_THEIRALLIANCE", MESSAGE_TYPE_MINOR_EVENT, NULL, (ColorTypes)GC.getInfoTypeForString("COLOR_HIGHLIGHT_TEXT"));
 				}
 			}
 		}
@@ -151,20 +152,34 @@ void CvTeam::addTeam(TeamTypes eTeam)
 	for (iI = 0; iI < GC.getNumFatherInfos(); ++iI)
 	{
 		FatherTypes eFather = (FatherTypes) iI;
-
-		//transfer father ownership from other team to us
-		if (GC.getGameINLINE().getFatherTeam(eFather) == eTeam)
+		// Ramstomp, PTSD, Everyone can have every dad - start
+				//give father benefits to other team's players
+		if (!isHuman() || !GC.getGameINLINE().isOption(GAMEOPTION_NO_FATHER_RACE))
 		{
-			GC.getGameINLINE().setFatherTeam(eFather, getID());
+			if (GC.getGameINLINE().getFatherTeam(eFather) == getID())
+			{
+				GET_TEAM(eTeam).processFather(eFather, 1);
+			}
+			if (GC.getGameINLINE().getFatherTeam(eFather) == eTeam)
+			{
+				GC.getGameINLINE().setFatherTeam(eFather, getID());
+			}
 		}
-
-		//give father benefits to other team's players
-		if (GC.getGameINLINE().getFatherTeam(eFather) == getID())
+		else
 		{
-			GET_TEAM(eTeam).processFather(eFather, 1);
+			//transfer father ownership from other team to us
+			if (GET_TEAM(eTeam).isFatherConvinced(eFather))
+			{
+				setFatherConvinced(eFather, true);
+			}
+			//give father benefits to other team's players
+			if (isFatherConvinced(eFather))
+			{
+				GET_TEAM(eTeam).processFather(eFather, 1);
+			}
 		}
 	}
-
+	// Ramstormp - end
 	for (iI = 0; iI < MAX_TEAMS; iI++)
 	{
 		if ((iI != getID()) && (iI != eTeam))
@@ -292,9 +307,9 @@ void CvTeam::addTeam(TeamTypes eTeam)
 		}
 	}
 
-	for (iI = 0; iI < GC.getMapINLINE().numPlotsINLINE(); iI++)
+	for (iI = 0; iI < GC.getMap().numPlotsINLINE(); iI++)
 	{
-		pLoopPlot = GC.getMapINLINE().plotByIndexINLINE(iI);
+		pLoopPlot = GC.getMap().plotByIndexINLINE(iI);
 
 		pLoopPlot->changeVisibilityCount(getID(), pLoopPlot->getVisibilityCount(eTeam), NO_INVISIBLE);
 
@@ -338,9 +353,9 @@ void CvTeam::addTeam(TeamTypes eTeam)
 
 	if (bActiveTeamSwitched)
 	{
-		for (iI = 0; iI < GC.getMapINLINE().numPlotsINLINE(); iI++)
+		for (iI = 0; iI < GC.getMap().numPlotsINLINE(); iI++)
 		{
-			pLoopPlot = GC.getMapINLINE().plotByIndexINLINE(iI);
+			pLoopPlot = GC.getMap().plotByIndexINLINE(iI);
 			pLoopPlot->updateSymbols();
 			pLoopPlot->updateFog();
 			pLoopPlot->updateVisibility();
@@ -455,6 +470,7 @@ void CvTeam::shareCounters(TeamTypes eTeam)
 	{
 		FatherTypes eFather = (FatherTypes) iI;
 		setFatherIgnore(eFather, isFatherIgnore(eFather) && kOtherTeam.isFatherIgnore(eFather));
+		setFatherConvinced(eFather, isFatherConvinced(eFather) && kOtherTeam.isFatherConvinced(eFather)); // Ramstormp, Everyone can have every dad
 	}
 }
 
@@ -469,7 +485,74 @@ void CvTeam::processFather(FatherTypes eFather, int iChange)
 		}
 	}
 }
+// Ramstormp, PTSD, Everyone can have every dad - start
+void CvTeam::setFatherConvinced(FatherTypes eFather, bool bValue)
+{
+	FAssert((eFather >= 0) && (eFather < GC.getNumFatherInfos()));
+	//FAssert(eTeam >= 0);
+	//FAssert(eTeam < MAX_TEAMS);
 
+	if (!isFatherConvinced(eFather))
+	{
+		bool bFirstTime = true;
+		//	if (getFatherConvinced(eTeam) != eFather)
+		//	{
+		//		GET_TEAM(eTeam).processFather(eFather, -1);
+		//		bFirstTime = false;
+		//	}
+
+		m_em_bFatherConvinced.set(eFather, true);
+
+		//if (getFatherConvinced() == eFather)
+		//{
+		GET_TEAM(getID()).processFather(eFather, 1);
+
+		if (bFirstTime)
+		{
+			for (int iPlayer = 0; iPlayer < MAX_PLAYERS; ++iPlayer)
+			{
+				CvPlayer& kPlayer = GET_PLAYER((PlayerTypes)iPlayer);
+				// R&R, ray, fix for Natives in Permanent Alliance getting Units from FFs of Players
+				if (kPlayer.isAlive() && !kPlayer.isNative() && kPlayer.getTeam() == getID())
+					// if (kPlayer.isAlive() && kPlayer.getTeam() == GETID())
+				{
+					kPlayer.processFatherOnce(eFather);
+				}
+			}
+
+			CvWString szBuffer;
+			/*
+			for (int iI = 0; iI < MAX_PLAYERS; iI++)
+			{
+				CvPlayer& kPlayer = GET_PLAYER((PlayerTypes)iI);
+				if (kPlayer.isAlive())
+				{
+					if (GET_TEAM(kPlayer.getTeam()).isHasMet(eTeam))
+					{
+						szBuffer = gDLL->getText("TXT_KEY_FATHER_JOINED_TEAM", GC.getFatherInfo(eFather).getTextKeyWide(), GET_TEAM(getFatherTeam(eFather)).getName().GetCString());
+					}
+					else
+					{
+						szBuffer = gDLL->getText("TXT_KEY_FATHER_JOINED_UNKNOWN", GC.getFatherInfo(eFather).getTextKeyWide());
+					}
+
+					gDLL->getInterfaceIFace()->addMessage(((PlayerTypes)iI), false, GC.getEVENT_MESSAGE_TIME(), szBuffer, "AS2D_GLOBECIRCUMNAVIGATED", MESSAGE_TYPE_MAJOR_EVENT, NULL, (ColorTypes)GC.getInfoTypeForString("COLOR_HIGHLIGHT_TEXT"));
+				}
+			}
+			szBuffer = gDLL->getText("TXT_KEY_FATHER_JOINED_TEAM", GC.getFatherInfo(eFather).getTextKeyWide(), GET_TEAM(getFatherTeam(eFather)).getName().GetCString());
+			addReplayMessage(REPLAY_MESSAGE_MAJOR_EVENT, NO_PLAYER, szBuffer, -1, -1, (ColorTypes)GC.getInfoTypeForString("COLOR_HIGHLIGHT_TEXT"));
+		*/
+		}
+		//}
+	}
+}
+
+bool CvTeam::isFatherConvinced(FatherTypes eFather) const
+{
+	FAssert((eFather >= 0) && (eFather < GC.getNumFatherInfos()));
+	return m_em_bFatherConvinced.get(eFather);
+}
+// Ramstormp - end
 void CvTeam::doTurn()
 {
 	PROFILE_FUNC();
@@ -556,10 +639,7 @@ bool CvTeam::canDeclareWar(TeamTypes eTeam) const
 
 	if (hasColonialPlayer() && GET_TEAM(eTeam).hasColonialPlayer())
 	{
-		int gamespeedMod = GC.getGameSpeedInfo(GC.getGameINLINE().getGameSpeedType()).getTrainPercent();
-		int forcedPeaceTurns= GC.getDefineINT("COLONIAL_FORCED_PEACE_TURNS");
-		forcedPeaceTurns = forcedPeaceTurns * gamespeedMod /100;
-		if (GC.getGameINLINE().getElapsedGameTurns() < forcedPeaceTurns )
+		if (GC.getGame().getRemainingForcedPeaceTurns() > 0)
 		{
 			return false;
 		}
@@ -684,10 +764,10 @@ void CvTeam::declareWarNoRevolution(TeamTypes eTeam, bool bNewDiplo, WarPlanType
 				AI_setWarPlan(eTeam, WARPLAN_DOGPILE);
 			}
 		}
-		
+
 		GET_TEAM(getID()).AI_doDamages(eTeam, false);
 
-		GC.getMapINLINE().verifyUnitValidPlot();
+		GC.getMap().verifyUnitValidPlot();
 
 		for (iI = 0; iI < MAX_PLAYERS; iI++)
 		{
@@ -744,7 +824,7 @@ void CvTeam::declareWarNoRevolution(TeamTypes eTeam, bool bNewDiplo, WarPlanType
 								// Check if the target has a parent (Europe)
 								if (GET_PLAYER((PlayerTypes)iJ).getParent() != NO_PLAYER)
 								{
-									// Erik: If the player declares war on the colonies of another European nation, add a major diplo penalty 
+									// Erik: If the player declares war on the colonies of another European nation, add a major diplo penalty
 									// with its king as well UNLESS they are already at war
 									if (!GET_TEAM(GET_PLAYER(GET_PLAYER((PlayerTypes)iJ).getParent()).getTeam()).isAtWar(GET_PLAYER((PlayerTypes)iJ).getTeam()))
 									{
@@ -806,17 +886,17 @@ void CvTeam::declareWarNoRevolution(TeamTypes eTeam, bool bNewDiplo, WarPlanType
 					if (kLoopPlayer.getTeam() == getID())
 					{
 						szBuffer = gDLL->getText("TXT_KEY_MISC_YOU_DECLARED_WAR_ON", GET_TEAM(eTeam).getName().GetCString());
-						gDLL->getInterfaceIFace()->addMessage(((PlayerTypes)iI), true, GC.getEVENT_MESSAGE_TIME(), szBuffer, bPlaySound ? "AS2D_DECLAREWAR" : NULL, MESSAGE_TYPE_MAJOR_EVENT, NULL, (ColorTypes)GC.getInfoTypeForString("COLOR_WARNING_TEXT"));
+						gDLL->UI().addPlayerMessage(((PlayerTypes)iI), true, GC.getEVENT_MESSAGE_TIME(), szBuffer, bPlaySound ? "AS2D_DECLAREWAR" : NULL, MESSAGE_TYPE_MAJOR_EVENT, NULL, (ColorTypes)GC.getInfoTypeForString("COLOR_WARNING_TEXT"));
 					}
 					else if (kLoopPlayer.getTeam() == eTeam)
 					{
 						szBuffer = gDLL->getText("TXT_KEY_MISC_DECLARED_WAR_ON_YOU", getName().GetCString());
-						gDLL->getInterfaceIFace()->addMessage(((PlayerTypes)iI), true, GC.getEVENT_MESSAGE_TIME(), szBuffer, bPlaySound ? "AS2D_DECLAREWAR" : NULL, MESSAGE_TYPE_MAJOR_EVENT, NULL, (ColorTypes)GC.getInfoTypeForString("COLOR_WARNING_TEXT"));
+						gDLL->UI().addPlayerMessage(((PlayerTypes)iI), true, GC.getEVENT_MESSAGE_TIME(), szBuffer, bPlaySound ? "AS2D_DECLAREWAR" : NULL, MESSAGE_TYPE_MAJOR_EVENT, NULL, (ColorTypes)GC.getInfoTypeForString("COLOR_WARNING_TEXT"));
 					}
 					else if ((GET_TEAM(kLoopPlayer.getTeam()).isHasMet(getID()) || hasEuropePlayer()) && GET_TEAM(kLoopPlayer.getTeam()).isHasMet(eTeam))
 					{
 						szBuffer = gDLL->getText("TXT_KEY_MISC_SOMEONE_DECLARED_WAR", getName().GetCString(), GET_TEAM(eTeam).getName().GetCString());
-						gDLL->getInterfaceIFace()->addMessage(((PlayerTypes)iI), false, GC.getEVENT_MESSAGE_TIME(), szBuffer, bPlaySound ? "AS2D_THEIRDECLAREWAR" : NULL, MESSAGE_TYPE_MAJOR_EVENT, NULL, (ColorTypes)GC.getInfoTypeForString("COLOR_WARNING_TEXT"));
+						gDLL->UI().addPlayerMessage(((PlayerTypes)iI), false, GC.getEVENT_MESSAGE_TIME(), szBuffer, bPlaySound ? "AS2D_THEIRDECLAREWAR" : NULL, MESSAGE_TYPE_MAJOR_EVENT, NULL, (ColorTypes)GC.getInfoTypeForString("COLOR_WARNING_TEXT"));
 					}
 				}
 			}
@@ -864,6 +944,8 @@ void CvTeam::declareWarNoRevolution(TeamTypes eTeam, bool bNewDiplo, WarPlanType
 		}
 
 		gDLL->getEventReporterIFace()->changeWar(true, getID(), eTeam);
+		if (gTeamLogLevel >= 1)
+			logBBAI(" Team %d (%S) declares war on team %d", getID(), GET_PLAYER(getLeaderID()).getCivilizationDescription(0), eTeam); // BETTER_BTS_AI_MOD (10/02/09, jdog5000): AI logging
 
 		cancelDefensivePacts(getID());
 
@@ -894,7 +976,7 @@ void CvTeam::declareWar(TeamTypes eTeam, bool bNewDiplo, WarPlanTypes eWarPlan)
 
 		// TAC - Messages - Ray - START
 		//Alert all Human Players of Revolution
-		
+
 		CvPlayer& iPlayer = GET_PLAYER((PlayerTypes) getID());
 		PlayerTypes kingID = iPlayer.getParent();
 		CvPlayer& King = GET_PLAYER(kingID);
@@ -903,11 +985,11 @@ void CvTeam::declareWar(TeamTypes eTeam, bool bNewDiplo, WarPlanTypes eWarPlan)
 		{
 			CvPlayer& kPlayer = GET_PLAYER((PlayerTypes) i);
 			if (kPlayer.isAlive() && kPlayer.isHuman())
-			{	
+			{
 				PlayerTypes kingID = kPlayer.getParent();
 				CvPlayer& King = GET_PLAYER(kingID);
 				CvWString szMessage = gDLL->getText("TXT_KEY_COMPETITIOR_INDEPENDENCE_WAR", iPlayer.getCivilizationAdjectiveKey(), King.getCivilizationDescription());
-				gDLL->getInterfaceIFace()->addMessage(kPlayer.getID(), true, GC.getEVENT_MESSAGE_TIME(), szMessage, "AS2D_CITY_REVOLT", MESSAGE_TYPE_MAJOR_EVENT, ARTFILEMGR.getInterfaceArtInfo("WORLDBUILDER_CITY_EDIT")->getPath(), (ColorTypes)GC.getInfoTypeForString("COLOR_WHITE"), NULL, NULL, false, false);			
+				gDLL->UI().addPlayerMessage(kPlayer.getID(), true, GC.getEVENT_MESSAGE_TIME(), szMessage, "AS2D_CITY_REVOLT", MESSAGE_TYPE_MAJOR_EVENT, ARTFILEMGR.getInterfaceArtInfo("WORLDBUILDER_CITY_EDIT")->getPath(), (ColorTypes)GC.getInfoTypeForString("COLOR_WHITE"), NULL, NULL, false, false);			
 			}
 		}
 		// TAC - Messages - Ray - END
@@ -941,7 +1023,7 @@ void CvTeam::makePeace(TeamTypes eTeam, bool bBumpUnits)
 
 		if (bBumpUnits)
 		{
-			GC.getMapINLINE().verifyUnitValidPlot();
+			GC.getMap().verifyUnitValidPlot();
 		}
 
 		GC.getGameINLINE().AI_makeAssignWorkDirty();
@@ -964,17 +1046,17 @@ void CvTeam::makePeace(TeamTypes eTeam, bool bBumpUnits)
 					if (GET_PLAYER((PlayerTypes)iI).getTeam() == getID())
 					{
 						szBuffer = gDLL->getText("TXT_KEY_MISC_YOU_MADE_PEACE_WITH", GET_TEAM(eTeam).getName().GetCString());
-						gDLL->getInterfaceIFace()->addMessage(((PlayerTypes)iI), true, GC.getEVENT_MESSAGE_TIME(), szBuffer, "AS2D_MAKEPEACE", MESSAGE_TYPE_MAJOR_EVENT, NULL, (ColorTypes)GC.getInfoTypeForString("COLOR_HIGHLIGHT_TEXT"));
+						gDLL->UI().addPlayerMessage(((PlayerTypes)iI), true, GC.getEVENT_MESSAGE_TIME(), szBuffer, "AS2D_MAKEPEACE", MESSAGE_TYPE_MAJOR_EVENT, NULL, (ColorTypes)GC.getInfoTypeForString("COLOR_HIGHLIGHT_TEXT"));
 					}
 					else if (GET_PLAYER((PlayerTypes)iI).getTeam() == eTeam)
 					{
 						szBuffer = gDLL->getText("TXT_KEY_MISC_YOU_MADE_PEACE_WITH", getName().GetCString());
-						gDLL->getInterfaceIFace()->addMessage(((PlayerTypes)iI), true, GC.getEVENT_MESSAGE_TIME(), szBuffer, "AS2D_MAKEPEACE", MESSAGE_TYPE_MAJOR_EVENT, NULL, (ColorTypes)GC.getInfoTypeForString("COLOR_HIGHLIGHT_TEXT"));
+						gDLL->UI().addPlayerMessage(((PlayerTypes)iI), true, GC.getEVENT_MESSAGE_TIME(), szBuffer, "AS2D_MAKEPEACE", MESSAGE_TYPE_MAJOR_EVENT, NULL, (ColorTypes)GC.getInfoTypeForString("COLOR_HIGHLIGHT_TEXT"));
 					}
 					else if (GET_TEAM(GET_PLAYER((PlayerTypes)iI).getTeam()).isHasMet(getID()) && GET_TEAM(GET_PLAYER((PlayerTypes)iI).getTeam()).isHasMet(eTeam))
 					{
 						szBuffer = gDLL->getText("TXT_KEY_MISC_SOMEONE_MADE_PEACE", getName().GetCString(), GET_TEAM(eTeam).getName().GetCString());
-						gDLL->getInterfaceIFace()->addMessage(((PlayerTypes)iI), false, GC.getEVENT_MESSAGE_TIME(), szBuffer, "AS2D_THEIRMAKEPEACE", MESSAGE_TYPE_MAJOR_EVENT, NULL, (ColorTypes)GC.getInfoTypeForString("COLOR_HIGHLIGHT_TEXT"));
+						gDLL->UI().addPlayerMessage(((PlayerTypes)iI), false, GC.getEVENT_MESSAGE_TIME(), szBuffer, "AS2D_THEIRMAKEPEACE", MESSAGE_TYPE_MAJOR_EVENT, NULL, (ColorTypes)GC.getInfoTypeForString("COLOR_HIGHLIGHT_TEXT"));
 					}
 				}
 			}
@@ -985,6 +1067,8 @@ void CvTeam::makePeace(TeamTypes eTeam, bool bBumpUnits)
 		GC.getGameINLINE().addReplayMessage(REPLAY_MESSAGE_MAJOR_EVENT, getLeaderID(), szBuffer, -1, -1, (ColorTypes)GC.getInfoTypeForString("COLOR_HIGHLIGHT_TEXT"));
 
 		gDLL->getEventReporterIFace()->changeWar(false, getID(), eTeam);
+		if (gTeamLogLevel >= 1)
+			logBBAI(" Team % d(% S) and team % d(% S) make peace", getID(), GET_PLAYER(getLeaderID()).getCivilizationDescription(0), eTeam, GET_PLAYER(GET_TEAM(eTeam).getLeaderID()).getCivilizationDescription(0)); // BETTER_BTS_AI_MOD, AI logging, 05/21/10, jdog5000
 	}
 }
 
@@ -1026,6 +1110,8 @@ void CvTeam::meet(TeamTypes eTeam, bool bNewDiplo)
 	{
 		makeHasMet(eTeam, bNewDiplo);
 		GET_TEAM(eTeam).makeHasMet(getID(), bNewDiplo);
+		if (gTeamLogLevel >= 2 && GC.getGame().isFinalInitialized() && eTeam != getID() && isAlive() && GET_TEAM(eTeam).isAlive())
+			logBBAI(" Team % d(% S) meets team % d(% S)", getID(), GET_PLAYER(getLeaderID()).getCivilizationDescription(0), eTeam, GET_PLAYER(GET_TEAM(eTeam).getLeaderID()).getCivilizationDescription(0)); // BETTER_BTS_AI_MOD, AI logging, 02/20/10, jdog5000
 	}
 }
 
@@ -1101,8 +1187,8 @@ bool CvTeam::canSignDefensivePact(TeamTypes eTeam)
 				}
 
 				if (isPermanentWarPeace((TeamTypes)iTeam) != GET_TEAM(eTeam).isPermanentWarPeace((TeamTypes)iTeam))
-				{				
-					return false;			
+				{
+					return false;
 				}
 			}
 		}
@@ -1202,21 +1288,19 @@ int CvTeam::getEnemyPower() const
 
 int CvTeam::getAtWarCount() const
 {
-	int iCount;
-	int iI;
+	int iCount = 0;
 
-	iCount = 0;
-
-	for (iI = 0; iI < MAX_TEAMS; iI++)
+	for (TeamTypes iI = FIRST_TEAM; iI < MAX_TEAMS; ++iI)
 	{
 		// R&R, ray, Changes for Wild Animals
 		// AI will not count fighting Animals as War
-		if (GET_TEAM((TeamTypes)iI).isAlive() && (TeamTypes)iI != GET_PLAYER(GC.getGameINLINE().getBarbarianPlayer()).getTeam())
+		const CvTeam& otherTeam = GET_TEAM(iI);
+		if (otherTeam.isAlive() && !otherTeam.isBarbarian())
 		{
-			if (isAtWar((TeamTypes)iI))
+			if (isAtWar(iI))
 			{
 				FAssert(iI != getID());
-				FAssert(!(AI_isSneakAttackPreparing((TeamTypes)iI)));
+				FAssert(!(AI_isSneakAttackPreparing(iI)));
 				iCount++;
 			}
 		}
@@ -1251,18 +1335,16 @@ int CvTeam::getWarPlanCount(WarPlanTypes eWarPlan) const
 
 int CvTeam::getAnyWarPlanCount() const
 {
-	int iCount;
-	int iI;
+	int iCount = 0;
 
-	iCount = 0;
-
-	for (iI = 0; iI < MAX_TEAMS; iI++)
+	for (TeamTypes iI = FIRST_TEAM; iI < MAX_TEAMS; ++iI)
 	{
 		// R&R, ray, Changes for Wild Animals
 		// AI will not consider fighting Animals here
-		if (GET_TEAM((TeamTypes)iI).isAlive() && (TeamTypes)iI != GET_PLAYER(GC.getGameINLINE().getBarbarianPlayer()).getTeam())
+		const CvTeam& otherTeam = GET_TEAM(iI);
+		if (otherTeam.isAlive() && !otherTeam.isBarbarian())
 		{
-			if (AI_getWarPlan((TeamTypes)iI) != NO_WARPLAN)
+			if (AI_getWarPlan(iI) != NO_WARPLAN)
 			{
 				FAssert(iI != getID());
 				iCount++;
@@ -1601,9 +1683,9 @@ int CvTeam::countEnemyDangerByArea(CvArea* pArea) const
 
 	iCount = 0;
 
-	for (iI = 0; iI < GC.getMapINLINE().numPlotsINLINE(); iI++)
+	for (iI = 0; iI < GC.getMap().numPlotsINLINE(); iI++)
 	{
-		pLoopPlot = GC.getMapINLINE().plotByIndexINLINE(iI);
+		pLoopPlot = GC.getMap().plotByIndexINLINE(iI);
 
 		if (pLoopPlot != NULL)
 		{
@@ -1627,7 +1709,7 @@ int CvTeam::getFatherCostModifier() const
 	iCostModifier *= GC.getHandicapInfo(getHandicapType()).getFatherPercent();
 	iCostModifier /= 100;
 
-	iCostModifier *= GC.getWorldInfo(GC.getMapINLINE().getWorldSize()).getFatherPercent();
+	iCostModifier *= GC.getWorldInfo(GC.getMap().getWorldSize()).getFatherPercent();
 	iCostModifier /= 100;
 
 	iCostModifier *= GC.getGameSpeedInfo(GC.getGameINLINE().getGameSpeedType()).getFatherPercent();
@@ -1700,23 +1782,29 @@ void CvTeam::setFatherIgnore(FatherTypes eFather, bool bValue)
 
 bool CvTeam::canConvinceFather(FatherTypes eFather) const
 {
+	// Ramstormp, PTSD, Everyone can have every dad - start
 	// R&R, ray, Founding Fathers Available again, when Civ destroyed - START
-	if (!GC.getGameINLINE().isOption(GAMEOPTION_USE_OLD_FOUNDING_FATHER_SYSTEM))
+	
+	if (!GC.getGameINLINE().isOption(GAMEOPTION_NO_FATHER_RACE))
 	{
-		if(GC.getGameINLINE().getFatherTeam(eFather) != NO_TEAM && GET_TEAM(GC.getGameINLINE().getFatherTeam(eFather)).isAlive())
+		// R&R, ray, Founding Fathers Available again, when Civ destroyed - START
+		if (!GC.getGameINLINE().isOption(GAMEOPTION_USE_OLD_FOUNDING_FATHER_SYSTEM))
 		{
-			return false;
+			if (GC.getGameINLINE().getFatherTeam(eFather) != NO_TEAM && GET_TEAM(GC.getGameINLINE().getFatherTeam(eFather)).isAlive())
+			{
+				return false;
+			}
 		}
-	}
-	else
-	{
-		if(GC.getGameINLINE().getFatherTeam(eFather) != NO_TEAM)
+		else
 		{
-			return false;
+			if (GC.getGameINLINE().getFatherTeam(eFather) != NO_TEAM)
+			{
+				return false;
+			}
 		}
+		// R&R, ray, Founding Fathers Available again, when Civ destroyed - END
 	}
-	// R&R, ray, Founding Fathers Available again, when Civ destroyed - END
-
+	// Ramstormp - end
 	if(isFatherIgnore(eFather))
 	{
 		return false;
@@ -1749,14 +1837,33 @@ void CvTeam::convinceFather(FatherTypes eFather, bool bAccept)
 			changeFatherPoints(ePointType, -getFatherPointCost(eFather, ePointType));
 		}
 
-		GC.getGameINLINE().setFatherTeam(eFather, getID());
+		// Ramstormp, PTSD, Everyone can have every dad - start
+		if (!isHuman() || !GC.getGameINLINE().isOption(GAMEOPTION_NO_FATHER_RACE))
+		{
+			GC.getGameINLINE().setFatherTeam(eFather, getID());
+		}
+		else
+		{
+			setFatherConvinced(eFather, true);
+			setFatherIgnore(eFather, true);
+		}
+		
+		//for (TeamTypes eTeam = FIRST_TEAM; eTeam < NUM_TEAM_TYPES; ++eTeam)
+		//{
+			// notify all teams that this FF is now taken (as of now, this has no effect)
+		//	GET_TEAM(eTeam).notifyFatherAvailability(eFather, false);
+		//}
+		// Ramstormp - end
+
 	}
 	else //reject
 	{
 		setFatherIgnore(eFather, true);
 	}
 
-	testFoundingFather();
+	// This is a recursive call, because we are called from testFoundingFather! Why?
+	// If we disable it, there will only be one FF offered to each team per turn, which is preferable for balancing IMHO:
+	//testFoundingFather();
 }
 
 bool CvTeam::isHuman() const
@@ -1822,6 +1929,19 @@ bool CvTeam::hasEuropePlayer() const
 		}
 	}
 
+	return false;
+}
+
+bool CvTeam::isBarbarian() const
+{
+	// Adds an easy way to identify the barbarian team.
+	// Works without crashing even when game init calls it prior to the barbarian player getting added.
+	// Added by Nightinggale
+	const PlayerTypes ePlayerBarbarian = GC.getGameINLINE().getBarbarianPlayer();
+	if (ePlayerBarbarian != NO_PLAYER)
+	{
+		return GET_PLAYER(ePlayerBarbarian).getTeam() == getID();
+	}
 	return false;
 }
 
@@ -1938,6 +2058,23 @@ void CvTeam::changeAliveCount(int iChange)
 }
 
 
+void CvTeam::addAliveMember(PlayerTypes ePlayer)
+{
+	changeAliveCount(1);
+}
+
+
+void CvTeam::removeAliveMember(PlayerTypes ePlayer)
+{
+	changeAliveCount(-1);
+
+	if (!isAlive())
+	{
+		kill();
+	}
+}
+
+
 int CvTeam::getEverAliveCount() const
 {
 	return m_iEverAliveCount;
@@ -1954,6 +2091,65 @@ void CvTeam::changeEverAliveCount(int iChange)
 {
 	m_iEverAliveCount += iChange;
 	FAssert(getEverAliveCount() >= 0);
+}
+
+
+void CvTeam::addEverAliveMember(PlayerTypes ePlayer)
+{
+	changeEverAliveCount(1);
+}
+
+
+void CvTeam::kill()
+{
+	makePeaceWithAll();
+
+	if (!GC.getGameINLINE().isOption(GAMEOPTION_USE_OLD_FOUNDING_FATHER_SYSTEM))
+	{
+		freeFathers();
+	}
+}
+
+
+void CvTeam::freeFathers()
+{
+	FAssert(!GC.getGameINLINE().isOption(GAMEOPTION_USE_OLD_FOUNDING_FATHER_SYSTEM));
+
+	for (int iFather = 0; iFather < GC.getNumFatherInfos(); ++iFather)
+	{
+		FatherTypes eFather = (FatherTypes) iFather;
+		if (GC.getGameINLINE().getFatherTeam(eFather) == getID())
+		{
+			GC.getGameINLINE().setFatherTeam(eFather, NO_TEAM);
+			for (TeamTypes eTeam = FIRST_TEAM; eTeam < NUM_TEAM_TYPES; ++eTeam)
+			{
+				// notify all teams that this FF is available again
+				GET_TEAM(eTeam).notifyFatherAvailability(eFather, true);
+			}
+		}
+	}
+}
+
+
+void CvTeam::makePeaceWithAll()
+{
+	for (TeamTypes eTeam = FIRST_TEAM; eTeam < NUM_TEAM_TYPES; ++eTeam)
+	{
+		if (isAtWar(eTeam) && canChangeWarPeace(eTeam))
+		{
+			makePeace(eTeam);
+		}
+	}
+}
+
+
+void CvTeam::notifyFatherAvailability(FatherTypes eFather, bool bAvailability)
+{
+	if (bAvailability && isFatherIgnore(eFather))
+	{
+		// If we are notified that this FF is available again, reset our ignore status
+		setFatherIgnore(eFather, false);
+	}
 }
 
 
@@ -2295,7 +2491,7 @@ void CvTeam::setOpenBorders(TeamTypes eIndex, bool bNewValue)
 
 		AI_setOpenBordersCounter(eIndex, 0);
 
-		GC.getMapINLINE().verifyUnitValidPlot();
+		GC.getMap().verifyUnitValidPlot();
 
 		if ((getID() == GC.getGameINLINE().getActiveTeam()) || (eIndex == GC.getGameINLINE().getActiveTeam()))
 		{
@@ -2523,9 +2719,9 @@ void CvTeam::setForceRevealedBonus(BonusTypes eBonus, bool bRevealed)
 		}
 	}
 
-	for (int iI = 0; iI < GC.getMapINLINE().numPlotsINLINE(); ++iI)
+	for (int iI = 0; iI < GC.getMap().numPlotsINLINE(); ++iI)
 	{
-		CvPlot* pLoopPlot = GC.getMapINLINE().plotByIndexINLINE(iI);
+		CvPlot* pLoopPlot = GC.getMap().plotByIndexINLINE(iI);
 
 		if (pLoopPlot->getBonusType() == eBonus)
 		{

@@ -33,6 +33,7 @@ void CyPlayerPythonInterface3(python::class_<CyPlayer>& x)
 		.def("canDoCivics", &CyPlayer::canDoCivics, "bool (int (CivicTypes) eCivic)")
 		.def("greatGeneralThreshold", &CyPlayer::greatGeneralThreshold, "int ()")
 		.def("greatAdmiralThreshold", &CyPlayer::greatAdmiralThreshold, "int ()")
+		.def("getImmigrationThresholdModifierFromUnitsWaitingOnDock", &CyPlayer::getImmigrationThresholdModifierFromUnitsWaitingOnDock, "int ()") // WTP, ray, increase threshold if more than X units waiting on the docks - START
 		.def("immigrationThreshold", &CyPlayer::immigrationThreshold, "int ()")
 		.def("revolutionEuropeUnitThreshold", &CyPlayer::revolutionEuropeUnitThreshold, "int ()")
 		.def("getStartingPlot", &CyPlayer::getStartingPlot, python::return_value_policy<python::manage_new_object>(), "CyPlot* ()")
@@ -107,9 +108,29 @@ void CyPlayerPythonInterface3(python::class_<CyPlayer>& x)
 		// R&R, Robert Surcouf, No More Variables Hidden game option START
         .def("getYieldTradedTotal", &CyPlayer::getYieldTradedTotal, "int (YieldTypes eIndex)")
 		.def("getYieldTradedTotalINT", &CyPlayer::getYieldTradedTotalINT, "int (int /*YieldTypes*/ eIndex)")
+		// WTP, ray, Yields Traded Total for Africa and Port Royal - START
+		.def("getYieldTradedTotalAfrica", &CyPlayer::getYieldTradedTotalAfrica, "int (YieldTypes eIndex)")
+		.def("getYieldTradedTotalINTAfrica", &CyPlayer::getYieldTradedTotalINTAfrica, "int (int /*YieldTypes*/ eIndex)")
+		.def("getYieldTradedTotalPortRoyal", &CyPlayer::getYieldTradedTotalPortRoyal, "int (YieldTypes eIndex)")
+		.def("getYieldTradedTotalINTPortRoyal", &CyPlayer::getYieldTradedTotalINTPortRoyal, "int (int /*YieldTypes*/ eIndex)")
+		// WTP, ray, Yields Traded Total for Africa and Port Royal - END
 		.def("getMissionaryPoints", &CyPlayer::getMissionaryPoints, "int (int /*PlayerTypes*/ ePlayer)") 
 		.def("missionaryThreshold", &CyPlayer::missionaryThreshold, "int (int /*PlayerTypes*/ ePlayer)") 
-		.def("getMissionaryRateModifier", &CyPlayer::getMissionaryRateModifier, "int (int /*PlayerTypes*/ ePlayer)") 
+		.def("getMissionaryRateModifier", &CyPlayer::getMissionaryRateModifier, "int (int /*PlayerTypes*/ ePlayer)")
+		//WTP, ray Kings Used Ship - START
+		.def("getRandomUsedShipClassTypeID", &CyPlayer::getRandomUsedShipClassTypeID, "int ()") 
+		.def("getUsedShipPrice", &CyPlayer::getUsedShipPrice, "int (int iUsedShipClassType)") 
+		.def("isKingWillingToTradeUsedShips", &CyPlayer::isKingWillingToTradeUsedShips, "bool ()")
+		.def("resetCounterForUsedShipDeals", &CyPlayer::resetCounterForUsedShipDeals, "void ()")
+		//WTP, ray Kings Used Ship - END
+
+		// WTP, ray, Foreign Kings, buy Immigrants - START
+		.def("getRandomForeignImmigrantClassTypeID", &CyPlayer::getRandomForeignImmigrantClassTypeID, "int ()") 
+		.def("getForeignImmigrantPrice", &CyPlayer::getForeignImmigrantPrice, "int (int iForeignImmigrantClassType, int iEuropeKingID)") 
+		.def("isForeignKingWillingToTradeImmigrants", &CyPlayer::isForeignKingWillingToTradeImmigrants, "bool (int iEuropeKingID)")
+		.def("resetCounterForForeignImmigrantsDeals", &CyPlayer::resetCounterForForeignImmigrantsDeals, "void ()")
+		// WTP, ray, Foreign Kings, buy Immigrants - END
+
 		// R&R, Robert Surcouf, No More Variables Hidden game option END		
 		.def("getYieldScoreTotalINT", &CyPlayer::getYieldScoreTotalINT, "int (int /*YieldTypes*/ eIndex)") // R&R, vetiarvind, Price dependent tax rate change
 		.def("getChurchFavourPrice", &CyPlayer::getChurchFavourPrice, "int ()") // R&R, ray, Church Favours
@@ -117,6 +138,8 @@ void CyPlayerPythonInterface3(python::class_<CyPlayer>& x)
 		.def("getYieldRateModifier", &CyPlayer::getYieldRateModifier, "int (YieldTypes eIndex)")
 		.def("getHappinessRate", &CyPlayer::getHappinessRate, "int ()") // WTP, ray, Happiness - START
 		.def("getUnHappinessRate", &CyPlayer::getUnHappinessRate, "int ()") // WTP, ray, Happiness - START
+		.def("getLawRate", &CyPlayer::getLawRate, "int ()") // WTP, ray, Crime and Law - START
+		.def("getCrimeRate", &CyPlayer::getCrimeRate, "int ()") // WTP, ray, Crime and Law - START
 		.def("getCapitalYieldRateModifier", &CyPlayer::getCapitalYieldRateModifier, "int (YieldTypes eIndex)")
 		.def("getExtraYieldThreshold", &CyPlayer::getExtraYieldThreshold, "int (YieldTypes eIndex)")
 		.def("isYieldEuropeTradable", &CyPlayer::isYieldEuropeTradable, "bool ()")

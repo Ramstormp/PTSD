@@ -167,7 +167,7 @@ public:
 	void AI_educateStudent(int iUnitId);
 
 	void AI_setWorkforceHack(bool bNewValue);
-	bool AI_isWorkforceHack();
+	bool AI_isWorkforceHack() const;
 	
 	bool AI_isMajorCity() const;
 
@@ -176,6 +176,11 @@ public:
 
 	void read(CvSavegameReader reader);
 	void write(CvSavegameWriter writer);
+
+	void AI_doSettlerProfessionCheat();
+
+	void AI_doHurry(bool bForce = false);
+	bool canHaveCitizenProfession(const CvUnit& kUnit, ProfessionTypes eProfession, bool bBumpOther) const;
 
 protected:
 
@@ -207,8 +212,8 @@ protected:
 	EnumMap<YieldTypes,int> m_em_iEmphasizeYieldCount;
 	bool m_bForceEmphasizeCulture;
 
-	EnumMapInt<CityPlotTypes, int> m_em_iBestBuildValue;
-	EnumMapInt<CityPlotTypes,BuildTypes> m_em_eBestBuild;
+	EnumMap<CityPlotTypes, int> m_em_iBestBuildValue;
+	EnumMap<CityPlotTypes,BuildTypes> m_em_eBestBuild;
 
 	EnumMap<EmphasizeTypes,bool> m_em_bEmphasize;
 
@@ -222,7 +227,6 @@ protected:
 	int m_iWorkersNeeded;
 	int m_iWorkersHave;
 
-	void AI_doHurry(bool bForce = false);
 	void AI_doEmphasize();
 	void AI_doNativeTrade();
 	int AI_calculateCulturePressure() const;
@@ -252,6 +256,8 @@ protected:
 	void AI_juggleCitizens();
 
 	CvUnit* AI_assignToBestJob(CvUnit* pUnit, bool bIndoorOnly = false);
+	CvUnit* AI_parallelAssignToBestJob(CvUnit& kUnit, bool bIndoorOnly = false);
+
 	CvUnit* AI_juggleColonist(CvUnit* pUnit);
 
 	void AI_swapUnits(CvUnit* pUnitA, CvUnit* pUnitB);

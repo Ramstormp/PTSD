@@ -38,8 +38,16 @@ class CvPediaFeature:
 		
 		self.X_STATS_PANE = self.X_ICON + self.W_ICON + (w * 2 / 100)
 		self.Y_STATS_PANE = self.Y_ICON
-		self.W_STATS_PANE = (w * 55 / 100)
+		self.W_STATS_PANE = (w * 25 / 100)
 		self.H_STATS_PANE = (h * 35 / 100)
+		
+		# WTP, ray, playing with these values
+		# Also displaying the valid Terrain
+		
+		self.X_STATS_PANE_2 = self.X_STATS_PANE * 2
+		self.Y_STATS_PANE_2 = self.Y_ICON
+		self.W_STATS_PANE_2 = (w * 25 / 100)
+		self.H_STATS_PANE_2 = (h * 35 / 100)
 
 		self.H_ICON_PANE = (h * 45 / 100)
 		
@@ -94,20 +102,58 @@ class CvPediaFeature:
 		screen.addListBoxGFC(panelName, "", self.X_STATS_PANE, self.Y_STATS_PANE, self.W_STATS_PANE, self.H_STATS_PANE, TableStyles.TABLE_STYLE_EMPTY)
 		screen.enableSelect(panelName, False)
 
-		for k in range(YieldTypes.NUM_YIELD_TYPES):
-			iYieldChange = gc.getFeatureInfo(self.iFeature).getYieldChange(k)
-			if (iYieldChange != 0):
+		szYieldIncreaseText = localText.getText("TXT_KEY_PEDIA_YIELD_INCREASES", ())
+		szYieldDecreaseText = localText.getText("TXT_KEY_PEDIA_YIELD_DECREASES", ())
+		
+		# first we list Yield Increases
+		screen.appendListBoxString(panelName, szYieldIncreaseText, WidgetTypes.WIDGET_GENERAL, 0, 0, CvUtil.FONT_LEFT_JUSTIFY)
+		for iYield in range(YieldTypes.NUM_YIELD_TYPES):
+			iYieldChange = gc.getFeatureInfo(self.iFeature).getYieldChange(iYield)
+			if (iYieldChange > 0):
 				if (iYieldChange > 0):
 					sign = "+"
 				else:
 					sign = ""
 				## R&R, Robert Surcouf,  Pedia - Start
 				#szYield = (u"%s: %s%i " % (gc.getYieldInfo(k).getDescription().upper(), sign, iYieldChange))
-				szYield = (u"%s: %s%i " % (gc.getYieldInfo(k).getDescription(), sign, iYieldChange))
+				szYield = (u"%s: %s%i " % (gc.getYieldInfo(iYield).getDescription(), sign, iYieldChange))
 				
 				#screen.appendListBoxString(panelName, u"<font=4>" + szYield + (u"%c" % gc.getYieldInfo(k).getChar()) + u"</font>", WidgetTypes.WIDGET_GENERAL, 0, 0, CvUtil.FONT_LEFT_JUSTIFY)
-				screen.appendListBoxString(panelName, u"<font=3>" + szYield + (u"%c" % gc.getYieldInfo(k).getChar()) + u"</font>", WidgetTypes.WIDGET_GENERAL, 0, 0, CvUtil.FONT_LEFT_JUSTIFY)
+				screen.appendListBoxString(panelName, u"<font=3>" + szYield + (u"%c" % gc.getYieldInfo(iYield).getChar()) + u"</font>", WidgetTypes.WIDGET_PEDIA_JUMP_TO_YIELDS, iYield, 1, CvUtil.FONT_LEFT_JUSTIFY)
 				## R&R, Robert Surcouf,  Pedia - End
+				
+		# then we list Yield Decreases
+		screen.appendListBoxString(panelName, szYieldDecreaseText, WidgetTypes.WIDGET_GENERAL, 0, 0, CvUtil.FONT_LEFT_JUSTIFY)
+		for iYield in range(YieldTypes.NUM_YIELD_TYPES):
+			iYieldChange = gc.getFeatureInfo(self.iFeature).getYieldChange(iYield)
+			if (iYieldChange < 0):
+				if (iYieldChange > 0):
+					sign = "+"
+				else:
+					sign = ""
+				## R&R, Robert Surcouf,  Pedia - Start
+				#szYield = (u"%s: %s%i " % (gc.getYieldInfo(k).getDescription().upper(), sign, iYieldChange))
+				szYield = (u"%s: %s%i " % (gc.getYieldInfo(iYield).getDescription(), sign, iYieldChange))
+				
+				#screen.appendListBoxString(panelName, u"<font=4>" + szYield + (u"%c" % gc.getYieldInfo(k).getChar()) + u"</font>", WidgetTypes.WIDGET_GENERAL, 0, 0, CvUtil.FONT_LEFT_JUSTIFY)
+				screen.appendListBoxString(panelName, u"<font=3>" + szYield + (u"%c" % gc.getYieldInfo(iYield).getChar()) + u"</font>", WidgetTypes.WIDGET_PEDIA_JUMP_TO_YIELDS, iYield, 1, CvUtil.FONT_LEFT_JUSTIFY)
+				## R&R, Robert Surcouf,  Pedia - End
+				
+		## WTP, ray, we have pedia list the valid Terrains of Features automatically - no need for pointless Strategy texts anymore.
+		panelName = self.top.getNextWidgetName()
+		screen.addListBoxGFC(panelName, "", self.X_STATS_PANE_2, self.Y_STATS_PANE_2, self.W_STATS_PANE_2, self.H_STATS_PANE_2, TableStyles.TABLE_STYLE_EMPTY)
+		screen.enableSelect(panelName, False)
+		
+		szIcon = localText.getText("[ICON_BULLET] ", ())
+		
+		# First the List of Terrains
+		szValidTerrainText = localText.getText("TXT_KEY_PEDIA_VALID_TERRAINS_2", ())
+		screen.appendListBoxString(panelName, szValidTerrainText, WidgetTypes.WIDGET_GENERAL, 0, 0, CvUtil.FONT_LEFT_JUSTIFY)
+		for iTerrain in range(TerrainTypes.NUM_TERRAIN_TYPES):
+			if (gc.getFeatureInfo(self.iFeature).isTerrain(iTerrain)):
+				TerrainDescription = gc.getTerrainInfo(iTerrain).getDescription()
+				screen.appendListBoxString(panelName, u"<font=3>" + szIcon + TerrainDescription + u"</font>", WidgetTypes.WIDGET_PEDIA_JUMP_TO_TERRAIN, iTerrain, 1, CvUtil.FONT_LEFT_JUSTIFY)
+		
 
 	def placeSpecial(self):
 
@@ -131,7 +177,7 @@ class CvPediaFeature:
 		screen = self.top.getScreen()
 
 		panelName = self.top.getNextWidgetName()
-		screen.addPanel( panelName, localText.getText("History", ()), "", true, true, self.X_HISTORY_PANE, self.Y_HISTORY_PANE, self.W_HISTORY_PANE, self.H_HISTORY_PANE, PanelStyles.PANEL_STYLE_BLUE50, WidgetTypes.WIDGET_GENERAL, -1, -1 )
+		screen.addPanel( panelName, localText.getText("TXT_KEY_CIVILOPEDIA_HISTORY", ()), "", true, true, self.X_HISTORY_PANE, self.Y_HISTORY_PANE, self.W_HISTORY_PANE, self.H_HISTORY_PANE, PanelStyles.PANEL_STYLE_BLUE50, WidgetTypes.WIDGET_GENERAL, -1, -1 )
 
 		listName = self.top.getNextWidgetName()
 		screen.attachListBoxGFC( panelName, listName, "", TableStyles.TABLE_STYLE_EMPTY )
@@ -152,7 +198,7 @@ class CvPediaFeature:
 		listSorted=[(0,0)]*gc.getNumFeatureInfos()
 		for j in range(gc.getNumFeatureInfos()):
 			listSorted[j] = (gc.getFeatureInfo(j).getDescription(), j)
-		listSorted.sort()
+		listSorted.sort(key = CvUtil.sortkey)
 
 		iSelected = 0
 		i = 0

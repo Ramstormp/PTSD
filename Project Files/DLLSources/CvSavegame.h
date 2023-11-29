@@ -8,12 +8,17 @@ enum eVariableType;
 struct CvPopupButtonPython;
 
 #include "JustInTimeArray.h"
-#include "BoolArray.h"
 #include "LinkedList.h"
 
 #include "CvDiploParameters.h"
 #include "CvPopupInfo.h"
 #include "CvReplayMessage.h"
+
+// savegame debugging option
+// note: might not result in usable savegames in case of failure
+//#define WITH_DEBUG_WRITE_SAVEGAME
+
+int getByteSizeForXML(JITarrayTypes eType);
 
 #define CHUNK_SIZE (MAX_UNSIGNED_SHORT)
 #define COMPRESS_THRESHOLD (MAX_UNSIGNED_CHAR)
@@ -63,6 +68,7 @@ public:
 	CvSavegameReader(const CvSavegameReader& reader);
 
 	bool isDebug() const;
+	static unsigned int getSavegameVersion();
 
 	void AssignClassType(SavegameClassTypes eType);
 
@@ -84,18 +90,12 @@ public:
 	void Read(CvWString& szString);
 
 	// allocates memory
-	void Read(char* szString);
+	void Read(char*& szString);
 	// allocates memory
-	void Read(wchar* szString);
+	void Read(wchar*& szString);
 	
-	template<class T1, class T2, int T3, class T4, class T5>
-	void Read(EnumMapBase<T1, T2, T3, T4, T5>& em);
-
-	template<class T1, class T2, class T3, int T4>
-	void Read(EnumMap2DDefault<T1, T2, T3, T4>& em);
-
-	template<class T>
-	void Read(PlayerArrayBase<T>& array);
+	template<class IndexType, class T, int DEFAULT, class LengthType, VariableStaticTypes STATIC, VariableTypes TYPE, VariableLengthTypes LENGTH_KNOWN_WHILE_COMPILING>
+	void Read(EnumMapBase<IndexType, T, DEFAULT, LengthType, STATIC, TYPE, LENGTH_KNOWN_WHILE_COMPILING>& em);
 
 	template<class T>
 	void Read(JustInTimeArray<T>& jitArray);
@@ -124,8 +124,6 @@ public:
 	template<class T>
 	void Read(CLinkList<T>& lList);
 
-	void Read(BoolArray& baArray);
-	void Read(PlayerBoolArrayBase& array);
 	void Read(CvTurnScoreMap& vec);
 	void Read(CvEventMap& vec);
 
@@ -218,6 +216,7 @@ public:
 
 	// class wrappers
 	void Read(BuildingYieldChange   & variable) { variable.read(*this); }
+	void Read(Coordinates           & variable);
 	void Read(CvDiploParameters     & variable);
 	void Read(CvPopupButtonPython   & variable);
 	void Read(CvPopupInfo           & variable);
@@ -250,6 +249,14 @@ public:
 #endif
 
 private:
+	template<int TYPE2>
+	struct ReadEnumMap
+	{
+		template<class IndexType, class T, int DEFAULT, class LengthType, VariableStaticTypes STATIC, VariableTypes TYPE, VariableLengthTypes LENGTH_KNOWN_WHILE_COMPILING>
+		static void Read(CvSavegameReader& reader, EnumMapBase<IndexType, T, DEFAULT, LengthType, STATIC, TYPE, LENGTH_KNOWN_WHILE_COMPILING>& em);
+
+	};
+
 
 	template<typename T>
 	void ReadEnum(T& variable);
@@ -273,6 +280,7 @@ private:
 
 class CvSavegameWriter
 {
+	friend class LogIntentHelper;
 public:
 	CvSavegameWriter(CvSavegameWriterBase& writerbase);
 	CvSavegameWriter(const CvSavegameWriter& writer);
@@ -299,11 +307,6 @@ public:
 	void Write(const CvWString & szString);
 	void Write(const char      * szString);
 	void Write(const wchar     * szString);
-
-	void Write(BoolArray& baArray);
-
-	template<class T>
-	void Write(PlayerArrayBase<T>& array);
 	
 	template<class T>
 	void Write(JustInTimeArray<T>& jitArray);
@@ -343,15 +346,12 @@ public:
 	void Write(SavegameVariableTypes eType, const CvWString & szString);
 	void Write(SavegameVariableTypes eType, const char      * szString);
 	void Write(SavegameVariableTypes eType, const wchar     * szString);
-	void Write(SavegameVariableTypes eType, BoolArray& baArray);
-	void Write(SavegameVariableTypes eType, const PlayerBoolArrayBase& array);
 	void Write(SavegameVariableTypes eType, const IDInfo& idInfo);
 	void Write(SavegameVariableTypes eType, const CvTurnScoreMap& idInfo);
 	void Write(SavegameVariableTypes eType, CvEventMap& idInfo);
 	void Write(SavegameVariableTypes eType, CvRandom& rand);
 
-	template<class T>
-	void Write(SavegameVariableTypes eType, const PlayerArrayBase<T>& array);
+	void Write(SavegameVariableTypes eType, const Coordinates &variable);
 
 	template<class T>
 	void Write(SavegameVariableTypes eType, T eVariable, T eDefault);
@@ -359,17 +359,11 @@ public:
 	template<class T>
 	void Write(SavegameVariableTypes eType, JustInTimeArray<T>& jitArray);
 
-	template<class T1, class T2, int T3, class T4, class T5>
-	void Write(EnumMapBase<T1, T2, T3, T4, T5>& em);
+	template<class IndexType, class T, int DEFAULT, class LengthType, VariableStaticTypes STATIC, VariableTypes TYPE, VariableLengthTypes LENGTH_KNOWN_WHILE_COMPILING>
+	void Write(EnumMapBase<IndexType, T, DEFAULT, LengthType, STATIC, TYPE, LENGTH_KNOWN_WHILE_COMPILING>& em);
 
-	template<class T1, class T2, int T3, class T4, class T5>
-	void Write(SavegameVariableTypes eType, EnumMapBase<T1, T2, T3, T4, T5>& em);
-
-	template<class T1, class T2, class T3, int T4>
-	void Write(EnumMap2DDefault<T1, T2, T3, T4>& em);
-
-	template<class T1, class T2, class T3, int T4>
-	void Write(SavegameVariableTypes eType, EnumMap2DDefault<T1, T2, T3, T4>& em);
+	template<class IndexType, class T, int DEFAULT, class LengthType, VariableStaticTypes STATIC, VariableTypes TYPE, VariableLengthTypes LENGTH_KNOWN_WHILE_COMPILING>
+	void Write(SavegameVariableTypes eType, EnumMapBase<IndexType, T, DEFAULT, LengthType, STATIC, TYPE, LENGTH_KNOWN_WHILE_COMPILING>& em);
 
 	template<class T>
 	void Write(SavegameVariableTypes eType, const CLinkList<T>& lList);
@@ -457,6 +451,7 @@ public:
 
 	// class wrappers
 	void Write(BuildingYieldChange  &variable) { variable.write(*this); }
+	void Write(const Coordinates    &variable);
 	void Write(CvDiploParameters    &variable);
 	void Write(CvPopupButtonPython  &variable);
 	void Write(CvPopupInfo          &variable);
@@ -480,7 +475,31 @@ public:
 	int GetXmlByteSize(JITarrayTypes eType);
 	int GetXmlSize(JITarrayTypes eType);
 
+	bool isLogWriting() const;
+
+
+	void Log(const char* name) const;
+	void Log(const char* name, const char* value) const;
+	template<class T>
+	void Log(const char* name, T eVariable) const;
+	template<class T>
+	void Log(SavegameVariableTypes eType, T eVariable) const;
+
+	const char* getEnumName(SavegameVariableTypes eType) const;
+
 private:
+	const char* getLogFile() const;
+	int m_iLogIntent;
+
+	template<int TYPE2>
+	struct WriteEnumMap
+	{
+		template<class IndexType, class T, int DEFAULT, class LengthType, VariableStaticTypes STATIC, VariableTypes TYPE, VariableLengthTypes LENGTH_KNOWN_WHILE_COMPILING>
+		static void Write(CvSavegameWriter& kWriter, EnumMapBase<IndexType, T, DEFAULT, LengthType, STATIC, TYPE, LENGTH_KNOWN_WHILE_COMPILING>& em);
+
+		template<class IndexType, class T, int DEFAULT, class LengthType, VariableStaticTypes STATIC, VariableTypes TYPE, VariableLengthTypes LENGTH_KNOWN_WHILE_COMPILING>
+		static void Log(CvSavegameWriter& kWriter, SavegameVariableTypes eType, const EnumMapBase<IndexType, T, DEFAULT, LengthType, STATIC, TYPE, LENGTH_KNOWN_WHILE_COMPILING>& em);
+	};
 
 	template<typename T>
 	void WriteEnum(T variable);
@@ -494,6 +513,18 @@ private:
 
 	CvSavegameWriterBase& m_writerbase;
 	std::vector<byte>& m_vector;
+
+#ifdef WITH_DEBUG_WRITE_SAVEGAME
+public:
+	void DEBUG_startA();
+	void DEBUG_startB();
+	void DEBUG_end();
+	bool DEBUG_compare() const;
+protected:
+	int m_iDebugWriteMode;
+	std::vector<byte> m_vectorA;
+	std::vector<byte> m_vectorB;
+#endif
 };
 
 //
@@ -527,22 +558,10 @@ inline T CvSavegameReader::ReadBitfield(T variable)
 	return variable;
 }
 
-template<class T1, class T2, int T3, class T4, class T5>
-inline void CvSavegameReader::Read(EnumMapBase<T1, T2, T3, T4, T5>& em)
+template<class IndexType, class T, int DEFAULT, class LengthType, VariableStaticTypes STATIC, VariableTypes TYPE, VariableLengthTypes LENGTH_KNOWN_WHILE_COMPILING>
+inline void CvSavegameReader::Read(EnumMapBase<IndexType, T, DEFAULT, LengthType, STATIC, TYPE, LENGTH_KNOWN_WHILE_COMPILING>& em)
 {
-	em.Read(*this);
-}
-
-template<class T1, class T2, class T3, int T4>
-inline void CvSavegameReader::Read(EnumMap2DDefault<T1, T2, T3, T4>& em)
-{
-	em.Read(*this);
-}
-
-template<class T>
-inline void CvSavegameReader::Read(PlayerArrayBase<T>& array)
-{
-	array.Read(*this);
+	ReadEnumMap<TYPE>::Read(*this, em);
 }
 
 template<class T>
@@ -664,12 +683,6 @@ inline void CvSavegameWriter::Write(T variable)
 }
 
 template<class T>
-inline void CvSavegameWriter::Write(PlayerArrayBase<T>& array)
-{
-	array.Write(*this);
-}
-
-template<class T>
 inline void CvSavegameWriter::Write(JustInTimeArray<T>& jitArray)
 {
 	jitArray.Write(*this);
@@ -786,20 +799,11 @@ inline void CvSavegameWriter::Write(SavegameVariableTypes eType, const std::vect
 }
 
 template<class T>
-inline void CvSavegameWriter::Write(SavegameVariableTypes eType, const PlayerArrayBase<T>& array)
-{
-	if (array.hasContent())
-	{
-		Write(eType);
-		Write(array);
-	}
-}
-
-template<class T>
 inline void CvSavegameWriter::Write(SavegameVariableTypes eType, T eVariable, T eDefault)
 {
 	if (eVariable != eDefault)
 	{
+		Log(eType, eVariable);
 		Write(eType);
 		Write(eVariable);
 	}
@@ -815,33 +819,18 @@ inline void CvSavegameWriter::Write(SavegameVariableTypes eType, JustInTimeArray
 	}
 }
 
-template<class T1, class T2, int T3, class T4, class T5>
-inline void CvSavegameWriter::Write(EnumMapBase<T1, T2, T3, T4, T5>& em)
+template<class IndexType, class T, int DEFAULT, class LengthType, VariableStaticTypes STATIC, VariableTypes TYPE, VariableLengthTypes LENGTH_KNOWN_WHILE_COMPILING>
+inline void CvSavegameWriter::Write(EnumMapBase<IndexType, T, DEFAULT, LengthType, STATIC, TYPE, LENGTH_KNOWN_WHILE_COMPILING>& em)
 {
-	em.Write(*this);
+	WriteEnumMap<TYPE>::Write(*this, em);
 }
 
-template<class T1, class T2, int T3, class T4, class T5>
-inline void CvSavegameWriter::Write(SavegameVariableTypes eType, EnumMapBase<T1, T2, T3, T4, T5>& em)
+template<class IndexType, class T, int DEFAULT, class LengthType, VariableStaticTypes STATIC, VariableTypes TYPE, VariableLengthTypes LENGTH_KNOWN_WHILE_COMPILING>
+inline void CvSavegameWriter::Write(SavegameVariableTypes eType, EnumMapBase<IndexType, T, DEFAULT, LengthType, STATIC, TYPE, LENGTH_KNOWN_WHILE_COMPILING>& em)
 {
 	if (em.hasContent())
 	{
-		Write(eType);
-		Write(em);
-	}
-}
-
-template<class T1, class T2, class T3, int T4>
-inline void CvSavegameWriter::Write(EnumMap2DDefault<T1, T2, T3, T4>& em)
-{
-	em.Write(*this);
-}
-
-template<class T1, class T2, class T3, int T4>
-inline void CvSavegameWriter::Write(SavegameVariableTypes eType, EnumMap2DDefault<T1, T2, T3, T4>& em)
-{
-	if (em.hasContent())
-	{
+		WriteEnumMap<TYPE>::Log(*this, eType, em);
 		Write(eType);
 		Write(em);
 	}
@@ -869,6 +858,73 @@ template<typename T>
 inline void CvSavegameWriter::WriteXmlEnum(T variable)
 {
 	WriteXmlEnum(variable, getJITarrayType(variable));
+}
+
+template<class T>
+void CvSavegameWriter::Log(SavegameVariableTypes eType, T eVariable) const
+{
+	Log(getEnumName(eType), getTypeStr(eVariable));
+}
+
+template<class T>
+void CvSavegameWriter::Log(const char* name, T eVariable) const
+{
+	if (!isLogWriting())
+	{
+		return;
+	}
+	Log(name, getTypeStr(eVariable));
+}
+
+template<>
+template<class IndexType, class T, int DEFAULT, class LengthType, VariableStaticTypes STATIC, VariableTypes TYPE, VariableLengthTypes LENGTH_KNOWN_WHILE_COMPILING>
+inline void CvSavegameWriter::WriteEnumMap<VARIABLE_TYPE_CLASS>::Log(CvSavegameWriter& kWriter, SavegameVariableTypes eType, const EnumMapBase<IndexType, T, DEFAULT, LengthType, STATIC, TYPE, LENGTH_KNOWN_WHILE_COMPILING>& em)
+{
+	if (!kWriter.isLogWriting())
+	{
+		return;
+	}
+
+	if (!em.hasContent())
+	{
+		return;
+	}
+
+	LogIntentHelper helper(kWriter, "EnumMap (2D)", kWriter.getEnumName(eType));
+
+	for (IndexType loopVar = em.FIRST; loopVar <= em.LAST; ++loopVar)
+	{
+		if (em[loopVar].hasContent())
+		{
+			kWriter.Log(getTypeStr(loopVar), 1);
+			// TODO: loop inner EnumMap
+		}
+	}
+}
+
+template<int TYPE2>
+template<class IndexType, class T, int DEFAULT, class LengthType, VariableStaticTypes STATIC, VariableTypes TYPE, VariableLengthTypes LENGTH_KNOWN_WHILE_COMPILING>
+inline void CvSavegameWriter::WriteEnumMap<TYPE2>::Log(CvSavegameWriter& kWriter, SavegameVariableTypes eType, const EnumMapBase<IndexType, T, DEFAULT, LengthType, STATIC, TYPE, LENGTH_KNOWN_WHILE_COMPILING>& em)
+{
+	if (!kWriter.isLogWriting())
+	{
+		return;
+	}
+
+	if (!em.hasContent())
+	{
+		return;
+	}
+
+	LogIntentHelper helper(kWriter, "EnumMap", kWriter.getEnumName(eType));
+
+	for (IndexType loopVar = em.FIRST; loopVar <= em.LAST; ++loopVar)
+	{
+		if (em.get(loopVar) != DEFAULT)
+		{
+			kWriter.Log(getTypeStr(loopVar), getTypeStr(em.get(loopVar)));
+		}
+	}
 }
 
 ///
@@ -902,10 +958,15 @@ class CvSavegameReaderBase
 	friend class CvSavegameReader;
 public:
 	CvSavegameReaderBase(FDataStreamBase* pStream);
+	CvSavegameReaderBase(FDataStreamBase* pStream, unsigned int iSavegameVersion);
 	
 	~CvSavegameReaderBase();
 
+	static unsigned int getSavegameVersion();
+
 private:
+
+	void init();
 
 	void Read(byte* var, unsigned int iSize);
 	int ReadChunk();
@@ -916,6 +977,7 @@ private:
 	byte *m_MemoryEnd;
 	unsigned int m_iSize;
 	unsigned int m_iRead;
+	static unsigned int m_iSavegameVersion;
 
 };
 
@@ -937,6 +999,19 @@ private:
 	FDataStreamBase* m_pStream;
 	std::vector<byte> m_vector;
 	std::vector<byte> m_table;
+};
+
+#include "CvSavegameEnumMap.h"
+
+class LogIntentHelper
+{
+public:
+	LogIntentHelper(CvSavegameWriter& kWriter, const char* title);
+	LogIntentHelper(CvSavegameWriter& kWriter, const char* title, const char* name);
+	~LogIntentHelper();
+
+private:
+	CvSavegameWriter& m_kWriter;
 };
 
 #endif

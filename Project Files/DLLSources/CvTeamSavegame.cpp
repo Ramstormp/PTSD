@@ -47,6 +47,7 @@ enum SavegameVariableTypes
 	TeamSave_bForcePeace,
 
 	TeamSave_FatherIgnore,
+	TeamSave_FatherConvinced, // Ramstormp, PTSD, Everyone can have every dad
 	TeamSave_FatherPoints,
 	TeamSave_UnitClassCount,
 	TeamSave_BuildingClassCount,
@@ -84,6 +85,7 @@ const char* getSavedEnumNameTeam(SavegameVariableTypes eType)
 	case TeamSave_bForcePeace: return "TeamSave_ForcePeace";
 
 	case TeamSave_FatherIgnore: return "TeamSave_FatherIgnore";
+	case TeamSave_FatherConvinced: return "TeamSave_FatherConvinced"; // Ramstormp, PTSD, Everyone can have every dad
 	case TeamSave_FatherPoints: return "TeamSave_FatherPoints";
 	case TeamSave_UnitClassCount: return "TeamSave_UnitClassCount";
 	case TeamSave_BuildingClassCount: return "TeamSave_BuildingClassCount";
@@ -91,6 +93,7 @@ const char* getSavedEnumNameTeam(SavegameVariableTypes eType)
 
 	case TeamSave_RevealedBonuses: return "TeamSave_RevealedBonuses";
 	}
+	FAssertMsg(0, "Missing case");
 	return "";
 }
 
@@ -125,6 +128,7 @@ void CvTeam::resetSavedData(TeamTypes eID)
 		m_em_bForcePeace.reset();
 
 		m_em_bFatherIgnore.reset();
+		m_em_bFatherConvinced.reset(); // Ramstormp, PTSD, Everyone can have every dad
 		m_em_iFatherPoints.reset();
 		m_em_iUnitClassCount.reset();
 		m_em_iBuildingClassCount.reset();
@@ -176,6 +180,7 @@ void CvTeam::read(CvSavegameReader reader)
 		case TeamSave_bForcePeace: reader.Read(m_em_bForcePeace); break;
 
 		case TeamSave_FatherIgnore: reader.Read(m_em_bFatherIgnore); break;
+		case TeamSave_FatherConvinced: reader.Read(m_em_bFatherConvinced); break; // Ramstormp, PTSD, Everyone can have every dad
 		case TeamSave_FatherPoints: reader.Read(m_em_iFatherPoints); break;
 		case TeamSave_UnitClassCount: reader.Read(m_em_iUnitClassCount); break;
 		case TeamSave_BuildingClassCount: reader.Read(m_em_iBuildingClassCount); break;
@@ -189,6 +194,8 @@ void CvTeam::read(CvSavegameReader reader)
 
 void CvTeam::write(CvSavegameWriter writer)
 {
+	LogIntentHelper helper(writer, "CvTeam");
+
 	writer.AssignClassType(SAVEGAME_CLASS_TEAM);
 
 	// Write the data.
@@ -219,6 +226,7 @@ void CvTeam::write(CvSavegameWriter writer)
 	writer.Write(TeamSave_bForcePeace, m_em_bForcePeace);
 
 	writer.Write(TeamSave_FatherIgnore, m_em_bFatherIgnore);
+	writer.Write(TeamSave_FatherConvinced, m_em_bFatherConvinced); // Ramstormp, PTSD, Everyone can have every dad
 	writer.Write(TeamSave_FatherPoints, m_em_iFatherPoints);
 	writer.Write(TeamSave_UnitClassCount, m_em_iUnitClassCount);
 	writer.Write(TeamSave_BuildingClassCount, m_em_iBuildingClassCount);

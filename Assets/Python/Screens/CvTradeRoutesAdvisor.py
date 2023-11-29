@@ -96,7 +96,7 @@ class CvTradeRoutesAdvisor:
 		self.CityList = []
 		(city, iter) = self.player.firstCity(false)
 		while (city):
-			if self.pTransport.generatePath(city.plot(), 0, false, None, true):
+			if self.pTransport.generatePath(city.plot(), 0, false, None):
 				self.CityList.append(city)
 			(city, iter) = self.player.nextCity(iter, false)
 		
@@ -628,9 +628,9 @@ class CvTradeRoutesAdvisor:
 			
 		tableCellValue = str(self.getScreen().getTableText(self.TableNames[self.CURRENT_TABLE], 0, iRow))
 		
-		self.player.removeTradeRouteGroup(int(tableCellValue))						
+		self.player.removeTradeRouteGroup(int(tableCellValue))
 		
-		self.routesTable(false)						
+		self.routesTable(false)
 		
 		return
 		

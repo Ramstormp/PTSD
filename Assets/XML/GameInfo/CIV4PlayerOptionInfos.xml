@@ -115,6 +115,12 @@
             <bDefault>0</bDefault>
         </PlayerOptionInfo>
         <PlayerOptionInfo>
+            <Type>PLAYEROPTION_MOVEMENT_NEVER_MEANS_WAR</Type>
+            <Description>TXT_KEY_PLAYEROPTION_MOVEMENT_NEVER_MEANS_WAR</Description>
+            <Help>TXT_KEY_PLAYEROPTION_MOVEMENT_NEVER_MEANS_WAR_HELP</Help>
+            <bDefault>1</bDefault>
+        </PlayerOptionInfo>
+         <PlayerOptionInfo>
             <Type>PLAYEROPTION_MODDER_1</Type>
             <Description>TXT_KEY_PLAYEROPTION_MODDER_1</Description>
             <Help>TXT_KEY_PLAYEROPTION_MODDER_1_HELP</Help>

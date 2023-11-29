@@ -40,6 +40,19 @@ void CyCity::createGreatAdmiral(int /*UnitTypes*/ eGreatAdmiralUnit, bool bIncre
 }
 // R&R, ray, Great Admirals - END
 
+// WTP, ray, Lieutenants and Captains - START
+void CyCity::createBraveLieutenant(int /*UnitTypes*/ eBraveLieutenantUnit)
+{
+	if (m_pCity)
+		m_pCity->createBraveLieutenant((UnitTypes) eBraveLieutenantUnit);
+}
+void CyCity::createCapableCaptain(int /*UnitTypes*/ eCapableCaptainUnit)
+{
+	if (m_pCity)
+		m_pCity->createCapableCaptain((UnitTypes) eCapableCaptainUnit);
+}
+// WTP, ray, Lieutenants and Captains - END
+
 void CyCity::doTask(int /*TaskTypes*/ eTask, int iData1, int iData2, bool bOption)
 {
 	if (m_pCity)
@@ -59,7 +72,7 @@ int CyCity::getCityPlotIndex(CyPlot* pPlot)
 
 CyPlot* CyCity::getCityIndexPlot(int iIndex)
 {
-	return m_pCity ? new CyPlot(m_pCity->getCityIndexPlot(iIndex)) : NULL;
+	return m_pCity ? new CyPlot(m_pCity->getCityIndexPlot(static_cast<CityPlotTypes>(iIndex))) : NULL;
 }
 
 bool CyCity::canWork(CyPlot* pPlot)
@@ -708,7 +721,7 @@ int CyCity::getRiverPlotYield(int /*YieldTypes*/ eIndex)
 
 int CyCity::getBaseRawYieldProduced(int /*YieldTypes*/ eIndex)
 {
-	return m_pCity ? m_pCity->getBaseRawYieldProduced((YieldTypes)eIndex) : -1;
+	return m_pCity ? m_pCity->yields().getBaseRawYieldProduced((YieldTypes)eIndex) : -1;
 }
 
 int CyCity::getRawYieldProduced(int /*YieldTypes*/ eIndex)
@@ -788,10 +801,10 @@ void CyCity::changeCulture(int /*PlayerTypes*/ eIndex, int iChange, bool bPlots)
 		m_pCity->changeCulture((PlayerTypes)eIndex, iChange, bPlots);
 }
 
-int CyCity::getTotalYieldStored() const							//VET NewCapacity - 1/1
+int CyCity::getTotalYieldStored() const
 {
 	return m_pCity ? m_pCity->getTotalYieldStored() : -1;
-}		
+}
 
 int CyCity::getYieldStored(int /*YieldTypes*/ eYield) const
 {
@@ -844,7 +857,7 @@ int CyCity::getYieldDemand(int /*YieldTypes*/ eYield) const
 	return -1;
 }
 //R&R, Robert Surcouf, Domestic Market display END
-	
+
 bool CyCity::isEverOwned(int /*PlayerTypes*/ eIndex)
 {
 	return m_pCity ? m_pCity->isEverOwned((PlayerTypes)eIndex) : false;
@@ -993,6 +1006,11 @@ void CyCity::setHasRealBuilding(int /*BuildingTypes*/ iIndex, bool bNewValue)
 bool CyCity::isHasFreeBuilding(int /*BuildingTypes*/ iIndex)
 {
 	return m_pCity ? m_pCity->isHasFreeBuilding((BuildingTypes) iIndex) : false;
+}
+
+int CyCity::getDominantBuilding(int /*SpecialBuildingTypes*/ iSpecialBuilding) const
+{
+	return m_pCity ? m_pCity->getDominantBuilding(static_cast<SpecialBuildingTypes>(iSpecialBuilding)) : -1;
 }
 
 void CyCity::clearOrderQueue()
@@ -1151,7 +1169,12 @@ CyUnit* CyCity::getPopulationUnitById(int iUnitID)
 
 int CyCity::getPopulationUnitIndex(CyUnit* pUnit)
 {
-	return m_pCity ? m_pCity->getPopulationUnitIndex(pUnit->getUnit()) : -1;
+	return m_pCity ? m_pCity->getPopulationUnitIndex(*pUnit->getUnit()) : -1;
+}
+
+bool CyCity::canTeach(int iUnit) const
+{
+	return m_pCity ? m_pCity->canTeach(static_cast<UnitTypes>(iUnit)) : false;
 }
 
 int CyCity::getTeachUnitClass()
@@ -1172,7 +1195,9 @@ int CyCity::getTeachUnit() const
 	{
 		return NO_UNIT;
 	}
-	return GC.getCivilizationInfo(GET_PLAYER(ePlayer).getCivilizationType()).getCivilizationUnits(eClassType);
+	//return GC.getCivilizationInfo(GET_PLAYER(ePlayer).getCivilizationType()).getCivilizationUnits(eClassType);
+	return (UnitTypes)GC.getUnitClassInfo(eClassType).getDefaultUnitIndex(); // Ramstormp, PTSD, No Native Fiskers
+
 }
 // native advisor update - end - Nightinggale
 
@@ -1193,6 +1218,41 @@ void CyCity::setRebelSentiment(int iValue)
 		m_pCity->setRebelSentiment(iValue);
 	}
 }
+
+// WTP, ray, new Harbour System - START
+int CyCity::getCityHarbourSpace() const
+{
+	return m_pCity ? m_pCity->getCityHarbourSpace() : -1;
+}
+
+int CyCity::getCityHarbourSpaceUsed() const
+{
+	return m_pCity ? m_pCity->getCityHarbourSpaceUsed() : -1;
+}
+
+bool CyCity::bShouldShowCityHarbourSystem() const
+{
+	return m_pCity ? m_pCity->bShouldShowCityHarbourSystem() : -1;
+}
+// WTP, ray, new Harbour System - END
+
+// WTP, ray, new Barracks System - START
+int CyCity::getCityBarracksSpace() const
+{
+	return m_pCity ? m_pCity->getCityBarracksSpace() : -1;
+}
+
+int CyCity::getCityBarracksSpaceUsed() const
+{
+	return m_pCity ? m_pCity->getCityBarracksSpaceUsed() : -1;
+}
+
+bool CyCity::bShouldShowCityBarracksSystem() const
+{
+	return m_pCity ? m_pCity->bShouldShowCityBarracksSystem() : -1;
+}
+// WTP, ray, new Barracks System - END
+
 
 // R&R, ray, Health - START
 int CyCity::getCityHealth() const
@@ -1221,6 +1281,44 @@ void CyCity::changeCityHealth(int iValue)
 	}
 }
 // R&R, ray, Health - END
+
+
+// WTP, ray, helper methods for Python Event System - Spawning Units and Barbarians on Plots - START
+void CyCity::spawnOwnPlayerUnitOnPlotOfCity(int iIndex) const
+{
+	if (m_pCity)
+		m_pCity->spawnOwnPlayerUnitOnPlotOfCity(iIndex);
+}
+
+void CyCity::spawnBarbarianUnitOnPlotOfCity(int iIndex) const
+{
+	if (m_pCity)
+		m_pCity->spawnBarbarianUnitOnPlotOfCity(iIndex);
+}
+
+void CyCity::spawnOwnPlayerUnitOnAdjacentPlotOfCity(int iIndex) const
+{
+	if (m_pCity)
+		m_pCity->spawnOwnPlayerUnitOnAdjacentPlotOfCity(iIndex);
+}
+
+void CyCity::spawnBarbarianUnitOnAdjacentPlotOfCity(int iIndex) const
+{
+	if (m_pCity)
+		m_pCity->spawnBarbarianUnitOnAdjacentPlotOfCity(iIndex);
+}
+
+bool CyCity::isOwnPlayerUnitOnAdjacentPlotOfCity(int iIndex) const
+{
+	return m_pCity ? m_pCity->isOwnPlayerUnitOnAdjacentPlotOfCity(iIndex) : false;
+}
+
+bool CyCity::isBarbarianUnitOnAdjacentPlotOfCity(int iIndex) const
+{
+	return m_pCity ? m_pCity->isBarbarianUnitOnAdjacentPlotOfCity(iIndex) : false;
+}
+// WTP, ray, helper methods for Python Event System - Spawning Units and Barbarians on Plots - END
+
 
 // WTP, ray, Happiness - START
 int CyCity::getCityHappiness() const
@@ -1285,6 +1383,11 @@ int CyCity::getHappinessFromCulture() const
 	return m_pCity ? m_pCity->getHappinessFromCulture() : -1;
 }
 
+int CyCity::getHappinessFromLaw() const
+{
+	return m_pCity ? m_pCity->getHappinessFromLaw() : -1;
+}
+
 int CyCity::getHappinessFromEducation() const
 {
 	return m_pCity ? m_pCity->getHappinessFromEducation() : -1;
@@ -1303,6 +1406,11 @@ int CyCity::getHappinessFromTreaties() const
 int CyCity::getUnhappinessFromPopulation() const
 {
 	return m_pCity ? m_pCity->getUnhappinessFromPopulation() : -1;
+}
+
+int CyCity::getUnhappinessFromCrime() const
+{
+	return m_pCity ? m_pCity->getUnhappinessFromCrime() : -1;
 }
 
 int CyCity::getUnhappinessFromSlavery() const
@@ -1326,6 +1434,80 @@ int CyCity::getUnhappinessFromTaxRate() const
 }
 // WTP, ray, Happiness - END
 
+// WTP, ray, Crime and Law - START
+int CyCity::getCityLaw() const
+{
+	return m_pCity ? m_pCity->getCityLaw() : -1;
+}
+
+void CyCity::setCityLaw(int iValue)
+{
+	if (m_pCity)
+	{
+		m_pCity->setCityLaw(iValue);
+	}
+}
+
+void CyCity::updateCityLaw()
+{
+	if (m_pCity)
+	{
+		m_pCity->updateCityLaw();
+	}
+}
+
+int CyCity::getCityCrime() const
+{
+	return m_pCity ? m_pCity->getCityCrime() : -1;
+}
+
+void CyCity::setCityCrime(int iValue)
+{
+	if (m_pCity)
+	{
+		m_pCity->setCityCrime(iValue);
+	}
+}
+
+void CyCity::updateCityCrime()
+{
+	if (m_pCity)
+	{
+		m_pCity->updateCityCrime();
+	}
+}
+
+int CyCity::getLawFromCityDefenders() const
+{
+	return m_pCity ? m_pCity->getLawFromCityDefenders() : -1;
+}
+
+int CyCity::getLawFromCrosses() const
+{
+	return m_pCity ? m_pCity->getLawFromCrosses() : -1;
+}
+
+int CyCity::getCrimeFromPopulation() const
+{
+	return m_pCity ? m_pCity->getCrimeFromPopulation() : -1;
+}
+
+int CyCity::getCrimeFromUnhappiness() const
+{
+	return m_pCity ? m_pCity->getCrimeFromUnhappiness() : -1;
+}
+
+int CyCity::getCrimeFromWars() const
+{
+	return m_pCity ? m_pCity->getCrimeFromWars() : -1;
+}
+
+int CyCity::getCrimBonusFactorFromOverflow() const
+{
+	return m_pCity ? m_pCity->getCrimBonusFactorFromOverflow() : -1;
+}
+// WTP, ray, Crime and Law - END
+
 // WTP, ray, fix for SailTo - for the City - START
 bool CyCity::isEuropeAccessable() const
 {
@@ -1335,7 +1517,7 @@ bool CyCity::isEuropeAccessable() const
 
 CyUnit* CyCity::getUnitWorkingPlot(int iPlotIndex)
 {
-	return m_pCity ? new CyUnit(m_pCity->getUnitWorkingPlot(iPlotIndex)) : NULL;
+	return m_pCity ? new CyUnit(m_pCity->getUnitWorkingPlot(static_cast<CityPlotTypes>(iPlotIndex))) : NULL;
 }
 
 void CyCity::addPopulationUnit(CyUnit* pUnit, int /*ProfessionTypes*/ eProfession)
@@ -1397,7 +1579,7 @@ int CyCity::getMaintainLevel(int /*YieldTypes*/ eYield) const
 {
 	return m_pCity ? m_pCity->getMaintainLevel((YieldTypes) eYield) : -1;
 }
-// R&R mod, vetiarvind, max yield import limit - start			
+// R&R mod, vetiarvind, max yield import limit - start
 int CyCity::getImportsLimit(int /*YieldTypes*/ eYield) const
 {
 	return m_pCity ? m_pCity->getImportsLimit((YieldTypes) eYield) : -1;
@@ -1431,6 +1613,14 @@ python::tuple CyCity::isOrderWaitingForYield(int /*YieldTypes*/ eYield)
 			return python::make_tuple(aOrders[0].first, aOrders[0].second);
 		}
 	}
-	
+
 	return python::make_tuple();
 }
+
+// WTP, ray, Center Plot specific Backgrounds - Start
+int /*TerrainTypes*/ CyCity::getCenterPlotTerrainType() const
+{
+	return m_pCity ? m_pCity->getCenterPlotTerrainType() : -1;
+}
+// WTP, ray, Center Plot specific Backgrounds - END
+

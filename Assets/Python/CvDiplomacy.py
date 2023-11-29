@@ -23,10 +23,21 @@ class CvDiplomacy:
 		global DebugLogging
 		DebugLogging = bDebugLogging
 
-	def determineResponses (self, eComment):
+	def determineResponses (self, eComment, *args):
 		"Will determine the user responses given an AI comment"
 		if DebugLogging:
 			print "CvDiplomacy.determineResponses: %s" %(eComment,)
+
+		# set up iData1+2 from args if enough arguments are given
+		# note: more arguments can be given, but then args[0][x] will be needed as they aren't named here
+		iData1 = -1
+		iData2 = -1
+		if (len(args) >= 1):
+			num_args = len(args[0])
+			if (num_args >= 1):
+				iData1 = args[0][0]
+				if (num_args >= 2):
+					iData2 = args[0][1]
 
 		# Eliminate previous comments
 		self.diploScreen.clearUserComments()
@@ -107,6 +118,20 @@ class CvDiplomacy:
 			self.addUserComment("USER_DIPLOCOMMENT_ACCEPT_BUY_UNITS", -1, -1)
 			self.addUserComment("USER_DIPLOCOMMENT_REJECT_OFFER", -1, -1)
 
+		# WTP, ray Kings Used Ship - START
+		elif (self.isComment(eComment, "AI_DIPLOCOMMENT_KING_OFFERS_USED_SHIP")):
+
+			self.addUserComment("USER_DIPLOCOMMENT_ACCEPT_BUY_USED_SHIP", iData1, iData2)
+			self.addUserComment("USER_DIPLOCOMMENT_REJECT_OFFER", -1, -1)
+		# WTP, ray Kings Used Ship - END
+		
+		# WTP, ray, Foreign Kings, buy Immigrants - START
+		elif (self.isComment(eComment, "AI_DIPLOCOMMENT_FOREIGN_KING_OFFERS_IMMIGRANTS")):
+
+			self.addUserComment("USER_DIPLOCOMMENT_ACCEPT_FOREIGN_IMMIGRANTS", iData1, iData2)
+			self.addUserComment("USER_DIPLOCOMMENT_REJECT_OFFER", -1, -1)
+		# WTP, ray, Foreign Kings, buy Immigrants - START
+
 		# If the AI is raising taxes
 		elif (self.isComment(eComment, "AI_DIPLOCOMMENT_KISS_PINKY")):
 		
@@ -147,11 +172,8 @@ class CvDiplomacy:
 			# Or reject them...
 			self.addUserComment("USER_DIPLOCOMMENT_KING_REFUSE_GOLD", -1, -1)
 		# Ramstormp, PTSD, King Demand based on pop x tax rate - START
-		elif (self.isComment(eComment, "AI_DIPLOCOMMENT_KING_ASK_FOR_GOLD_CANT_AFFORD")):
+		#elif (self.isComment(eComment, "AI_DIPLOCOMMENT_KING_ASK_FOR_GOLD_CANT_AFFORD")):
 
-			# An offer we cannot but refuse ...
-			self.addUserComment("USER_DIPLOCOMMENT_KING_REFUSE_GOLD", -1, -1)
-		# Ramstormp - END
 		elif (self.isComment(eComment, "AI_DIPLOCOMMENT_KING_ACCEPT_GOLD")):
 
 			# We can accept their demands
@@ -399,13 +421,28 @@ class CvDiplomacy:
 			self.addUserComment("USER_DIPLOCOMMENT_STEALING_IMMIGRANT_NO", -1, -1)
 		# RaR, ray Stealing Immigrants
 		
-		
 		# RWL European Peace
 		elif (self.isComment(eComment, "AI_DIPLOCOMMENT_EUROPE_PEACE")):
 
 			self.addUserComment("USER_DIPLOCOMMENT_EUROPE_PEACE_YES", -1, -1)
 			self.addUserComment("USER_DIPLOCOMMENT_EUROPE_PEACE_NO", -1, -1)
 		# RWL European Peace
+		
+		# WTP, ray, Royal Intervention, START
+		elif (self.isComment(eComment, "AI_DIPLOCOMMENT_ROYAL_INTERVENTION")):
+
+			self.addUserComment("USER_DIPLOCOMMENT_ROYAL_INTERVENTION_YES_GOLD", -1, -1)
+			self.addUserComment("USER_DIPLOCOMMENT_ROYAL_INTERVENTION_YES_TAX_INCREASE", -1, -1)
+			self.addUserComment("USER_DIPLOCOMMENT_ROYAL_INTERVENTION_NO", -1, -1)
+		# WTP, ray, Royal Intervention, END
+		
+		# WTP, ray, Privateers DLL Diplo Event - START
+		elif (self.isComment(eComment, "AI_DIPLOCOMMENT_PRIVATEERS_ACCUSSATION")):
+
+			self.addUserComment("USER_DIPLOCOMMENT_PRIVATEERS_ADMIT", -1, -1)
+			self.addUserComment("USER_DIPLOCOMMENT_PRIVATEERS_DENY", -1, -1)
+			self.addUserComment("USER_DIPLOCOMMENT_PRIVATEERS_WAR", -1, -1)
+		# WTP, ray, Privateers DLL Diplo Event - END
 		
 		# RaR, ray Church Wars
 		elif (self.isComment(eComment, "AI_DIPLOCOMMENT_CHURCH_WAR")):
@@ -414,6 +451,20 @@ class CvDiplomacy:
 			self.addUserComment("USER_DIPLOCOMMENT_CHURCH_WAR_YES_BUT", -1, -1)
 			self.addUserComment("USER_DIPLOCOMMENT_CHURCH_WAR_NO", -1, -1)
 		# RaR, ray Church Wars
+
+		# WTP, ray, Colonial Intervention In Native War - START
+		elif (self.isComment(eComment, "AI_DIPLOCOMMENT_COLONIAL_INTERVENTION_NATIVE_WAR")):
+
+			self.addUserComment("USER_DIPLOCOMMENT_COLONIAL_INTERVENTION_NATIVE_WAR_END", -1, -1)
+			self.addUserComment("USER_DIPLOCOMMENT_COLONIAL_INTERVENTION_NATIVE_WAR_CONTINUE", -1, -1)
+		# WTP, ray, Colonial Intervention In Native War - END
+
+		# WTP, ray, Big Colonies and Native Allies War - START
+		elif (self.isComment(eComment, "AI_DIPLOCOMMENT_COLONIES_AND_NATIVE_ALLIES_WAR")):
+
+			self.addUserComment("USER_DIPLOCOMMENT_COLONIES_AND_NATIVE_ALLIES_WAR_REFUSE", -1, -1)
+			self.addUserComment("USER_DIPLOCOMMENT_COLONIES_AND_NATIVE_ALLIES_WAR_ACCEPT", -1, -1)
+		# WTP, ray, Big Colonies and Native Allies War - END
 
 		# If the AI is gifting some goods (yields)
 		elif (self.isComment(eComment, "AI_DIPLOCOMMENT_NATIVES_YIELD_GIFT")):
@@ -647,6 +698,13 @@ class CvDiplomacy:
 
 				if (not gc.getTeam(gc.getGame().getActiveTeam()).isAtWar(gc.getPlayer(self.diploScreen.getWhoTradingWith()).getTeam())):
 					self.addUserComment("USER_DIPLOCOMMENT_BUY_UNITS", -1, -1)
+					self.addUserComment("USER_DIPLOCOMMENT_KING_ASK_FOR_USED_SHIP", -1, -1) # WTP, ray Kings Used Ship - START
+
+			# WTP, ray, Foreign Kings, buy Immigrants - START
+			if (gc.getPlayer(self.diploScreen.getWhoTradingWith()).isEurope()):
+				if (not gc.getTeam(gc.getPlayer(self.diploScreen.getWhoTradingWith()).getTeam()).isParentOf(gc.getGame().getActiveTeam())):
+					self.addUserComment("USER_DIPLOCOMMENT_ASK_FOREIGN_KING_BUY_IMMIGRANTS", -1, -1)
+			# WTP, ray, Foreign Kings, buy Immigrants - END
 
 			else:
 				self.addUserComment("USER_DIPLOCOMMENT_SOMETHING_ELSE", -1, -1)
@@ -672,7 +730,7 @@ class CvDiplomacy:
 
 		self.diploScreen.setAIString(AIString, args)
 		self.diploScreen.setAIComment(eComment)
-		self.determineResponses(eComment)
+		self.determineResponses(eComment, args)
 		self.performHeadAction(eComment)
 
 	def performHeadAction( self, eComment ):
@@ -722,6 +780,8 @@ class CvDiplomacy:
 		elif ( eComment == self.getCommentID("AI_DIPLOCOMMENT_KISS_PINKY") or
 			   eComment == self.getCommentID("AI_DIPLOCOMMENT_KING_ASK_FOR_GOLD") or
 		       eComment == self.getCommentID("AI_DIPLOCOMMENT_BUY_UNITS") or
+		       eComment == self.getCommentID("AI_DIPLOCOMMENT_KING_OFFERS_USED_SHIP") or # WTP, ray Kings Used Ship - START
+		       eComment == self.getCommentID("AI_DIPLOCOMMENT_FOREIGN_KING_OFFERS_IMMIGRANTS") or # WTP, ray, Foreign Kings, buy Immigrants - START
 		       eComment == self.getCommentID("AI_DIPLOCOMMENT_KING_GIFT_SHIP") or
 		       eComment == self.getCommentID("AI_DIPLOCOMMENT_KING_REVIVE")):
 			self.diploScreen.performHeadAction( LeaderheadAction.LEADERANIM_OFFER_PINKY )
@@ -882,6 +942,46 @@ class CvDiplomacy:
 		elif (self.isComment(eComment, "USER_DIPLOCOMMENT_REQUEST_CHURCH_FAVOUR")):
 			iPrice = gc.getPlayer(gc.getGame().getActivePlayer()).getChurchFavourPrice()
 			self.setAIComment(self.getCommentID("AI_DIPLOCOMMENT_CHURCH_FAVOUR"), iPrice)
+
+		# WTP, ray Kings Used Ship - START
+		elif (self.isComment(eComment, "USER_DIPLOCOMMENT_KING_ASK_FOR_USED_SHIP")):
+			iRandomUsedShip = gc.getPlayer(gc.getGame().getActivePlayer()).getRandomUsedShipClassTypeID()
+			if (iRandomUsedShip != -1):
+				iPrice = gc.getPlayer(gc.getGame().getActivePlayer()).getUsedShipPrice(iRandomUsedShip)
+				if (gc.getPlayer(gc.getGame().getActivePlayer()).isKingWillingToTradeUsedShips() and gc.getPlayer(gc.getGame().getActivePlayer()).getGold() >= iPrice):
+					gc.getPlayer(gc.getGame().getActivePlayer()).resetCounterForUsedShipDeals()
+					szName = gc.getUnitClassInfo(iRandomUsedShip).getTextKey()
+					self.setAIComment(self.getCommentID("AI_DIPLOCOMMENT_KING_OFFERS_USED_SHIP"), iPrice, iRandomUsedShip, szName)
+				else:
+					self.setAIComment(self.getCommentID("AI_DIPLOCOMMENT_KING_REFUSES_TO_OFFER_USED_SHIP"))
+			else:
+				self.setAIComment(self.getCommentID("AI_DIPLOCOMMENT_KING_REFUSES_TO_OFFER_USED_SHIP"))
+
+		elif (self.isComment(eComment, "USER_DIPLOCOMMENT_ACCEPT_BUY_USED_SHIP")):
+			CyInterface().playGeneralSound("AS2D_KISS_MY_RING")
+			diploScreen.diploEvent(DiploEventTypes.DIPLOEVENT_ACQUIRE_USED_SHIPS, iData2, iData1)
+			diploScreen.closeScreen()
+		# WTP, ray Kings Used Ship - END
+
+		# WTP, ray, Foreign Kings, buy Immigrants - START
+		elif (self.isComment(eComment, "USER_DIPLOCOMMENT_ASK_FOREIGN_KING_BUY_IMMIGRANTS")):
+			iRandomImmigrant = gc.getPlayer(gc.getGame().getActivePlayer()).getRandomForeignImmigrantClassTypeID(self.diploScreen.getWhoTradingWith())
+			if (iRandomImmigrant != -1):
+				iPrice = gc.getPlayer(gc.getGame().getActivePlayer()).getForeignImmigrantPrice(iRandomImmigrant, self.diploScreen.getWhoTradingWith())
+				if (gc.getPlayer(gc.getGame().getActivePlayer()).isForeignKingWillingToTradeImmigrants(self.diploScreen.getWhoTradingWith()) and gc.getPlayer(gc.getGame().getActivePlayer()).getGold() >= iPrice):
+					gc.getPlayer(self.diploScreen.getWhoTradingWith()).resetCounterForForeignImmigrantsDeals()
+					szName = gc.getUnitClassInfo(iRandomImmigrant).getTextKey()
+					self.setAIComment(self.getCommentID("AI_DIPLOCOMMENT_FOREIGN_KING_OFFERS_IMMIGRANTS"), iPrice, iRandomImmigrant, szName)
+				else:
+					self.setAIComment(self.getCommentID("AI_DIPLOCOMMENT_FOREIGN_KING_REFUSES_IMMIGRANTS"))
+			else:
+				self.setAIComment(self.getCommentID("AI_DIPLOCOMMENT_FOREIGN_KING_REFUSES_IMMIGRANTS"))
+
+		elif (self.isComment(eComment, "USER_DIPLOCOMMENT_ACCEPT_FOREIGN_IMMIGRANTS")):
+			CyInterface().playGeneralSound("AS2D_KISS_MY_RING")
+			diploScreen.diploEvent(DiploEventTypes.DIPLOEVENT_ACQUIRE_FOREIGN_IMMIGRANTS, iData2, iData1)
+			diploScreen.closeScreen()
+		# WTP, ray, Foreign Kings, buy Immigrants - END
 
 		# If we want to propose a trade
 		elif(self.isComment(eComment, "USER_DIPLOCOMMENT_PROPOSE")):
@@ -1296,6 +1396,34 @@ class CvDiplomacy:
 			diploScreen.closeScreen()
 		# RWL European Peace
 		
+		# WTP, ray, Royal Intervention, START
+		elif (self.isComment(eComment, "USER_DIPLOCOMMENT_ROYAL_INTERVENTION_YES_GOLD")):
+			diploScreen.diploEvent(DiploEventTypes.DIPLOEVENT_ROYAL_INTERVENTION, diploScreen.getData(), 1)
+			diploScreen.closeScreen()
+		
+		elif (self.isComment(eComment, "USER_DIPLOCOMMENT_ROYAL_INTERVENTION_YES_TAX_INCREASE")):
+			diploScreen.diploEvent(DiploEventTypes.DIPLOEVENT_ROYAL_INTERVENTION, diploScreen.getData(), 2)
+			diploScreen.closeScreen()
+		
+		elif (self.isComment(eComment, "USER_DIPLOCOMMENT_ROYAL_INTERVENTION_NO")):
+			diploScreen.diploEvent(DiploEventTypes.DIPLOEVENT_ROYAL_INTERVENTION, diploScreen.getData(), 3)
+			diploScreen.closeScreen()
+		# WTP, ray, Royal Intervention, END
+		
+		# WTP, ray, Privateers DLL Diplo Event - START
+		elif (self.isComment(eComment, "USER_DIPLOCOMMENT_PRIVATEERS_ADMIT")):
+			diploScreen.diploEvent(DiploEventTypes.DIPLOEVENT_PRIVATEERS_ACCUSATION, diploScreen.getData(), 1)
+			diploScreen.closeScreen()
+		
+		elif (self.isComment(eComment, "USER_DIPLOCOMMENT_PRIVATEERS_DENY")):
+			diploScreen.diploEvent(DiploEventTypes.DIPLOEVENT_PRIVATEERS_ACCUSATION, diploScreen.getData(), 2)
+			diploScreen.closeScreen()
+		
+		elif (self.isComment(eComment, "USER_DIPLOCOMMENT_PRIVATEERS_WAR")):
+			diploScreen.diploEvent(DiploEventTypes.DIPLOEVENT_PRIVATEERS_ACCUSATION, diploScreen.getData(), 3)
+			diploScreen.closeScreen()
+		# WTP, ray, Privateers DLL Diplo Event - END
+		
 		# RaR, ray Church Wars
 		elif (self.isComment(eComment, "USER_DIPLOCOMMENT_CHURCH_WAR_YES")):
 			diploScreen.diploEvent(DiploEventTypes.DIPLOEVENT_CHURCH_WAR, diploScreen.getData(), 1)
@@ -1309,6 +1437,26 @@ class CvDiplomacy:
 			diploScreen.diploEvent(DiploEventTypes.DIPLOEVENT_CHURCH_WAR, diploScreen.getData(), 3)
 			diploScreen.closeScreen()
 		# RaR, ray Church Wars
+		
+		# WTP, ray, Colonial Intervention In Native War - START
+		elif (self.isComment(eComment, "USER_DIPLOCOMMENT_COLONIAL_INTERVENTION_NATIVE_WAR_END")):
+			diploScreen.diploEvent(DiploEventTypes.DIPLOEVENT_COLONIAL_INTERVENTION_NATIVE_WAR, diploScreen.getData(), 1)
+			diploScreen.closeScreen()
+		
+		elif (self.isComment(eComment, "USER_DIPLOCOMMENT_COLONIAL_INTERVENTION_NATIVE_WAR_CONTINUE")):
+			diploScreen.diploEvent(DiploEventTypes.DIPLOEVENT_COLONIAL_INTERVENTION_NATIVE_WAR, diploScreen.getData(), 2)
+			diploScreen.closeScreen()
+		# WTP, ray, Colonial Intervention In Native War - END
+		
+		# WTP, ray, Big Colonies and Native Allies War - START
+		elif (self.isComment(eComment, "USER_DIPLOCOMMENT_COLONIES_AND_NATIVE_ALLIES_WAR_REFUSE")):
+			diploScreen.diploEvent(DiploEventTypes.DIPLOEVENT_COLONIES_AND_NATIVE_ALLIES_WAR_REFUSE, diploScreen.getData(), -1)
+			diploScreen.closeScreen()
+		
+		elif (self.isComment(eComment, "USER_DIPLOCOMMENT_COLONIES_AND_NATIVE_ALLIES_WAR_ACCEPT")):
+			diploScreen.diploEvent(DiploEventTypes.DIPLOEVENT_COLONIES_AND_NATIVE_ALLIES_WAR_ACCEPT, diploScreen.getData(), -1)
+			diploScreen.closeScreen()
+		# WTP, ray, Big Colonies and Native Allies War - END
 		
 		# R&R, ray, Natives Trading
 		elif (self.isComment(eComment, "USER_DIPLOCOMMENT_NATIVES_TRADE_ACCEPT")):

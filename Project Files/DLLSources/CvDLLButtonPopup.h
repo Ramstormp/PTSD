@@ -84,6 +84,7 @@ private:
 	bool launchPromotionPopup(CvPopup* pPopup, CvPopupInfo &info);
 	bool launchChooseGoodyPopup(CvPopup* pPopup, CvPopupInfo &info);
 	bool launchSelectYieldAmountPopup(CvPopup* pPopup, CvPopupInfo &info);
+	bool launchSelectYieldTradeMaxAmountPopup(CvPopup* pPopup, CvPopupInfo& info); // Ramstormp, PTSD, Trade in Smaller Chunks
 	bool launchTalkNativesPopup(CvPopup* pPopup, CvPopupInfo &info);
 	bool launchGotoMenuPopup(CvPopup* pPopup, CvPopupInfo &info);	// TAC - Goto Menu - koma13
 	bool launchPurchaseAfricaUnitPopup(CvPopup* pPopup, CvPopupInfo &info); /*** TRIANGLETRADE 10/15/08 by DPII ***/

@@ -185,5 +185,12 @@ void CyUnitPythonInterface2(python::class_<CyUnit>& x)
 		.def("getArtInfo", &CyUnit::getArtInfo,  python::return_value_policy<python::reference_existing_object>(), "CvArtInfoUnit* (int i)")
 		.def("getButton", &CyUnit::getButton, "std::string ()")
 		.def("getFullLengthIcon", &CyUnit::getFullLengthIcon, "std::string ()")
+		// Ramstormp, PTSD, Hold Boxes for Galleons and Slave Barques etc. - start
+		.def("isTreasureShip", &CyUnit::isTreasureShip, "bool ()")
+		.def("isSlaveShip", &CyUnit::isSlaveShip, "bool ()")
+		.def("isTroopShip", &CyUnit::isTroopShip, "bool ()")
+		.def("getBerthSize", &CyUnit::getBerthSize, "int ()") // Ramstormp, PTSD, Treasure filling slots
+
+		// Ramstormp - end
 		;
 }

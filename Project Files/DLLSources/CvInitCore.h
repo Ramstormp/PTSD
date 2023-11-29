@@ -278,8 +278,10 @@ public:
 
 protected:
 
-	int read(CvSavegameReader& reader, JITarrayTypes eType, bool*& pArray, bool bAllocate);
-	void write(CvSavegameWriter& writer, JITarrayTypes eType, bool* pArray, int iLength);
+	template<typename T>
+	int read(CvSavegameReader& reader, bool*& pArray, bool bAllocate, T eLength);
+	template<typename T>
+	void write(CvSavegameWriter& writer, bool* pArray, T eLength);
 
 	void clearCustomMapOptions();
 	void refreshCustomMapOptions();
@@ -384,6 +386,9 @@ protected:
 	CvString* m_aszPythonCheck;
 	CvString* m_aszXMLCheck;
 	mutable CvString m_szTempCheck;
+
+protected:
+	void showReadFailureMessage(char *szHeader, char* szMessage);
 };
 
 #endif

@@ -109,34 +109,34 @@ with GFC_Control
 		{		
 			with GFC_Control_Color_3DLook
 			{
-				.Lightest						=	GColor(255,255,255);
-				.VeryLight						=	GColor(250,246,250);
-				.Light							=	GColor(243,240,243);
-				.Normal							=	GColor(236,233,236);
-				.Dark							=	GColor(166,163,166);
-				.VeryDark						=	GColor( 86, 83, 86);
+				.Lightest						=	GColor(25,255,255);
+				.VeryLight						=	GColor(25,246,250);
+				.Light							=	GColor(24,240,243);
+				.Normal							=	GColor(23,233,236);
+				.Dark							=	GColor(16,163,166);
+				.VeryDark						=	GColor( 8, 83, 86);
 				.Darkest						=	GColor(  0,  0,  0);
 			}								
 												
-			.Surface							=	GColor(57, 64, 61,255);
+			.Surface							=	GColor(17, 64, 68,255);
 			.Background							=	.Surface;
-			.DialogInner						=	GColor(57,64,61);
-			.Info								=	GColor(155,175,178);
+			.DialogInner						=	GColor(17,62,65);
+			.Info								=	GColor(15,175,178);
 			.ToolTipInner						=	GColor(  0,  0, 15);
 			.ToolTipBorder						=	GColor(  0,  0,  0);
 			
 			.Border_Default						=	GColor(  0,  0,  0);
 			.Border_Select						=	GColor( 79,156,233);
-			.Border_Inactive					=	GColor(150,163,140);
-			.Border_InactiveSelect				=	GColor(120,143,120);
-			.Border_Disable						=	GColor( 68,157,201);
-			.Border_DisableSelect				=	GColor( 68,157,201);
+			.Border_Inactive					=	GColor(15,163,160);
+			.Border_InactiveSelect				=	GColor(12,143,120);
+			.Border_Disable						=	GColor( 68,197,201);
+			.Border_DisableSelect				=	GColor( 68,197,201);
 			
-			.Inner_Default						=	GColor(16,43,51);
-			.Inner_Select						=	GColor(109,156,146,96);
-			.Inner_Inactive						=	GColor(150,173,150,96);
-			.Inner_InactiveSelect				=	GColor(150,173,150,96);
-			.Inner_Disable						=	GColor(198,210,198,96);
+			.Inner_Default						=	GColor(16,53,51);
+			.Inner_Select						=	GColor(10,156,156,96);
+			.Inner_Inactive						=	GColor(15,173,170,96);
+			.Inner_InactiveSelect				=	GColor(15,173,180,96);
+			.Inner_Disable						=	GColor(19,210,198,96);
 			.Inner_DisableSelect				=	GColor( 68,157,201,177);
 			
 			.Image_Default						=	GColor(White);
@@ -198,29 +198,29 @@ with GFC_Control
 				// Text used for table selection
 				GColor	.SelectText					=	GColor(	252,252,25,255);
 				GColor	.SelectTextShadow			=	GColor(  0,  0,  0,255);
-				GColor	.SelectTextDisable			=	GColor(115,119,111,128);
+				GColor	.SelectTextDisable			=	GColor(11,119,111,128);
 				GColor	.SelectTextShadowDisable	=	GColor(  0,  0,  0,128);
 				// Used for backgrounds of Window and Menu/ComboBox popup.
-				GColor	.BG							=	GColor( 29, 51,56,217)		: GFC_Control_Color;	//Set for dynamic color change
-				GColor	.MenuBG						=	GColor( 127, 139, 123,255)		: GFC_Control_Color;	//Set for dynamic color change
-				GColor	.MergeBG					=	GColor( 44, 64,43,255)		: GFC_Control_Color;	//Set for dynamic color change
-				GColor	.Winoff						=	GColor( 32, 236, 34, 48)		: GFC_Control_Color;	//Set for dynamic color change				
+				GColor	.BG							=	GColor( 19, 61,66,217)		: GFC_Control_Color;	//Set for dynamic color change
+				GColor	.MenuBG						=	GColor( 10, 139, 143,255)		: GFC_Control_Color;	//Set for dynamic color change
+				GColor	.MergeBG					=	GColor( 4, 64,73,255)		: GFC_Control_Color;	//Set for dynamic color change
+				GColor	.Winoff						=	GColor( 32, 236, 234, 48)		: GFC_Control_Color;	//Set for dynamic color change				
 				// Table grid color
-				GColor	.Grid						=	GColor(85, 97, 186,128);
+				GColor	.Grid						=	GColor(85, 197, 196,128);
 				// Table selection color
-				GColor	.Select						=	GColor(168,188,255, 89);
-				GColor	.Offselect					=	GColor(159,178,255, 89);
-				GColor	.Multiselect				=	GColor(128,168,255, 64);
-				GColor	.DisableSelect				=	GColor(159,178,153, 89);
+				GColor	.Select						=	GColor(16,188,195, 89);
+				GColor	.Offselect					=	GColor(15,178,175, 89);
+				GColor	.Multiselect				=	GColor(12,168,175, 64);
+				GColor	.DisableSelect				=	GColor(15,178,173, 89);
 				GColor	.DisableOffselect			=	GColor(159,8,153, 89);	
 				GColor	.DisableMultiselect			=	GColor(9,178,153, 64);
-				GColor	.Rollover					=	GColor(155,129,221, 64);
+				GColor	.Rollover					=	GColor(155,129,121, 64);
 				// Table alt row / column
-				GColor	.AltCell					=	GColor(159,178,153, 32);
+				GColor	.AltCell					=	GColor(15,178,173, 32);
 				// Progress Fill
 				GColor	.Fill						=	GColor( 67,140, 138,255);
 				// Leader border/button color
-				GColor	.Leader						=	GColor(121,155,129,255);
+				GColor	.Leader						=	GColor(12,155,159,255);
 				GColor	.LeaderRoll					=	GColor(255,255,255,255);
 				GColor	.LeaderDisable				=	GColor(128,128,128,255);
 				// Text Rollover Disable
@@ -232,17 +232,17 @@ with GFC_Control
 				// Main Menu Header Text
 				GColor	.HeaderText					=	GColor(214,238,255,255);
 				// Slider Fill
-				GColor	.SliderFill					=	GColor(128,220,255,255);
+				GColor	.SliderFill					=	GColor(128,128,128,255);
 				GColor	.DisableSliderFill			=	GColor(172,172,172,255);
 				//Modal
 				GColor	.Modal						=	GColor(  0,  0,  0, 89);				
 				// Tab Text 
 				GColor	.TabText					=	GColor(220,225,216,255);
 				// Icon HudHelp panel
-				GColor	.IconBG						=	GColor( 69, 93,156, 89)		: GFC_Control_Color;	//Set for dynamic color change
-				GColor	.HelpBG						=	GColor( 69, 93,156, 89)		: GFC_Control_Color;	//Set for dynamic color change
+				GColor	.IconBG						=	GColor( 69, 153,156, 89)		: GFC_Control_Color;	//Set for dynamic color change
+				GColor	.HelpBG						=	GColor( 69, 153,156, 89)		: GFC_Control_Color;	//Set for dynamic color change
 				// HUD icon border color
-				GColor	.HUDBorder					=	GColor( 78, 97,90,255)		: GFC_Control_Color;	//Set for dynamic color change	
+				GColor	.HUDBorder					=	GColor( 18, 97,90,255)		: GFC_Control_Color;	//Set for dynamic color change	
 
 				GColor	.EndTurnDot_Green			=	GColor(  0,192,  0,255);	
 				GColor	.EndTurnDot_Red				=	GColor(192,  0,  0,255);

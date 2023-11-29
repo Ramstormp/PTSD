@@ -80,6 +80,11 @@ public:
 
 	bool isFatherIgnore(FatherTypes eFather) const;
 	void setFatherIgnore(FatherTypes eFather, bool bValue);
+	// Ramstormp, PTSD, Everyone can have every dad - start
+	// FatherTypes getFatherConvinced() const;
+	void setFatherConvinced(FatherTypes eFather, bool bValue);
+	bool isFatherConvinced(FatherTypes eFather) const;
+	// Ramstormp - end
 
 	bool canConvinceFather(FatherTypes eFather) const;
 	void convinceFather(FatherTypes eFather, bool bAccept);
@@ -88,6 +93,7 @@ public:
 	bool hasNativePlayer() const;
 	bool hasColonialPlayer() const;
 	bool hasEuropePlayer() const;
+	bool isBarbarian() const;
 	PlayerTypes getLeaderID() const;
 	HandicapTypes getHandicapType() const;
 	DllExport CvWString getName() const;
@@ -97,9 +103,16 @@ public:
 	DllExport int getAliveCount() const;
 	int isAlive() const;
 	void changeAliveCount(int iChange);
+	void addAliveMember(PlayerTypes ePlayer);
+	void removeAliveMember(PlayerTypes ePlayer);
+
+	void notifyFatherAvailability(FatherTypes eFather, bool bAvailability);
+
 	int getEverAliveCount() const;
 	int isEverAlive() const;
 	void changeEverAliveCount(int iChange);
+	void addEverAliveMember(PlayerTypes ePlayer);
+
 	int getNumCities() const;
 	void changeNumCities(int iChange);
 
@@ -229,6 +242,7 @@ protected:
 	EnumMap<TeamTypes, bool> m_em_bForcePeace;
 
 	EnumMap<FatherTypes, bool> m_em_bFatherIgnore;
+	EnumMap<FatherTypes, bool> m_em_bFatherConvinced; // Ramstormp, PTSD, Everyone can have every dad
 	EnumMap<FatherPointTypes, int> m_em_iFatherPoints;
 	EnumMap<UnitClassTypes, int> m_em_iUnitClassCount;
 	EnumMap<BuildingClassTypes, int> m_em_iBuildingClassCount;
@@ -238,6 +252,10 @@ protected:
 	void testFoundingFather();
 	void cancelDefensivePacts(TeamTypes eEndingTeam);
 	void declareWarNoRevolution(TeamTypes eTeam, bool bNewDiplo, WarPlanTypes eWarPlan, bool bPlaySound);
+
+	void kill();
+	void freeFathers();
+	void makePeaceWithAll();
 
 	virtual void read(FDataStreamBase* pStream);
 	virtual void write(FDataStreamBase* pStream);

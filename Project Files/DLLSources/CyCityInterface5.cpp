@@ -32,10 +32,23 @@ void CyCityPythonInterface5(python::class_<CyCity>& x)
 		.def("getPopulationUnitByIndex", &CyCity::getPopulationUnitByIndex, python::return_value_policy<python::manage_new_object>(), "CyUnit* getPopulationUnitByIndex(int)")
 		.def("getPopulationUnitById", &CyCity::getPopulationUnitById, python::return_value_policy<python::manage_new_object>(), "CyUnit* getPopulationUnitById(int)")
 		.def("getPopulationUnitIndex", &CyCity::getPopulationUnitIndex, "int (CyUnit* pUnit)")
+		.def("canTeach", &CyCity::canTeach, "bool (int /*UnitTypes*/ iUnit)")
 		.def("getTeachUnitClass", &CyCity::getTeachUnitClass, "int /*UnitClass*/()")
 		.def("getRebelPercent", &CyCity::getRebelPercent, "int ()")
 		.def("getRebelSentiment", &CyCity::getRebelSentiment, "int ()")
 		.def("setRebelSentiment", &CyCity::setRebelSentiment, "void (int)")
+
+		// WTP, ray, new Harbour System - START
+		.def("getCityHarbourSpace", &CyCity::getCityHarbourSpace, "int ()")
+		.def("getCityHarbourSpaceUsed", &CyCity::getCityHarbourSpaceUsed, "int ()")
+		.def("bShouldShowCityHarbourSystem", &CyCity::bShouldShowCityHarbourSystem, "bool ()")
+		// WTP, ray, new Harbour System - END
+
+		// WTP, ray, new Barracks System - START
+		.def("getCityBarracksSpace", &CyCity::getCityBarracksSpace, "int ()")
+		.def("getCityBarracksSpaceUsed", &CyCity::getCityBarracksSpaceUsed, "int ()")
+		.def("bShouldShowCityBarracksSystem", &CyCity::bShouldShowCityBarracksSystem, "bool ()")
+		// WTP, ray, new Barracks System - END
 
 		// R&R, ray, Health - START
 		.def("getCityHealth", &CyCity::getCityHealth, "int ()")
@@ -43,6 +56,15 @@ void CyCityPythonInterface5(python::class_<CyCity>& x)
 		.def("setCityHealth", &CyCity::setCityHealth, "void (int)")
 		.def("changeCityHealth", &CyCity::changeCityHealth, "void (int)")
 		// R&R, ray, Health - END
+
+		// WTP, ray, helper methods for Python Event System - Spawning Units and Barbarians on Plots - START
+		.def("spawnOwnPlayerUnitOnPlotOfCity", &CyCity::spawnOwnPlayerUnitOnPlotOfCity, "void (int /*UnitClassTypes*/ iIndex)")
+		.def("spawnBarbarianUnitOnPlotOfCity", &CyCity::spawnBarbarianUnitOnPlotOfCity, "void (int /*UnitClassTypes*/ iIndex)")
+		.def("spawnOwnPlayerUnitOnAdjacentPlotOfCity", &CyCity::spawnOwnPlayerUnitOnAdjacentPlotOfCity, "void (int /*UnitClassTypes*/ iIndex)")
+		.def("spawnBarbarianUnitOnAdjacentPlotOfCity", &CyCity::spawnBarbarianUnitOnAdjacentPlotOfCity, "void (int /*UnitClassTypes*/ iIndex)")
+		.def("isOwnPlayerUnitOnAdjacentPlotOfCity", &CyCity::isOwnPlayerUnitOnAdjacentPlotOfCity, "bool (int /*UnitClassTypes*/ iIndex)")
+		.def("isBarbarianUnitOnAdjacentPlotOfCity", &CyCity::isBarbarianUnitOnAdjacentPlotOfCity, "bool (int /*UnitClassTypes*/ iIndex)")
+		// WTP, ray, helper methods for Python Event System - Spawning Units and Barbarians on Plots - END
 
 		// WTP, ray, Happiness - START
 		.def("getCityHappiness", &CyCity::getCityHappiness, "int ()")
@@ -57,16 +79,35 @@ void CyCityPythonInterface5(python::class_<CyCity>& x)
 		.def("getHappinessFromBells", &CyCity::getHappinessFromBells, "int ()")
 		.def("getHappinessFromHealth", &CyCity::getHappinessFromHealth, "int ()")
 		.def("getHappinessFromCulture", &CyCity::getHappinessFromCulture, "int ()")
+		.def("getHappinessFromLaw", &CyCity::getHappinessFromLaw, "int ()")
 		.def("getHappinessFromEducation", &CyCity::getHappinessFromEducation, "int ()")
 		.def("getHappinessFromDomesticDemandsFulfilled", &CyCity::getHappinessFromDomesticDemandsFulfilled, "int ()")
 		.def("getHappinessFromTreaties", &CyCity::getHappinessFromTreaties, "int ()")
 
 		.def("getUnhappinessFromPopulation", &CyCity::getUnhappinessFromPopulation, "int ()")
+		.def("getUnhappinessFromCrime", &CyCity::getUnhappinessFromCrime, "int ()")
 		.def("getUnhappinessFromSlavery", &CyCity::getUnhappinessFromSlavery, "int ()")
 		.def("getUnhappinessFromWars", &CyCity::getUnhappinessFromWars, "int ()")
 		.def("getUnhappinessFromMissingDefense", &CyCity::getUnhappinessFromMissingDefense, "int ()")
 		.def("getUnhappinessFromTaxRate", &CyCity::getUnhappinessFromTaxRate, "int ()")
 		// WTP, ray, Happiness - END
+
+		// WTP, ray, Crime and Law - START
+		.def("getCityLaw", &CyCity::getCityLaw, "int ()")
+		.def("setCityLaw", &CyCity::setCityLaw, "void (int)")
+		.def("updateCityLaw", &CyCity::updateCityLaw, "void ()")
+
+		.def("getCityCrime", &CyCity::getCityCrime, "int ()")
+		.def("setCityCrime", &CyCity::setCityCrime, "void (int)")
+		.def("updateCityCrime", &CyCity::updateCityCrime, "void ()")
+
+		.def("getLawFromCityDefenders", &CyCity::getLawFromCityDefenders, "int ()")
+		.def("getLawFromCrosses", &CyCity::getLawFromCrosses, "int ()")
+		.def("getCrimeFromPopulation", &CyCity::getCrimeFromPopulation, "int ()")
+		.def("getCrimeFromUnhappiness", &CyCity::getCrimeFromUnhappiness, "int ()")
+		.def("getCrimeFromWars", &CyCity::getCrimeFromWars, "int ()")
+		.def("getCrimBonusFactorFromOverflow", &CyCity::getCrimBonusFactorFromOverflow, "int ()")
+		// WTP, ray, Crime and Law - END
 
 		.def("isEuropeAccessable", &CyCity::isEuropeAccessable, "bool ()") // WTP, ray, fix for SailTo - for the City
 
@@ -91,5 +132,6 @@ void CyCityPythonInterface5(python::class_<CyCity>& x)
 		// transport feeder - end - Nightinggale
 
 		.def("isOrderWaitingForYield", &CyCity::isOrderWaitingForYield, "python::tuple isOrderWaitingForYield(int /*YieldTypes*/ eYield)")
+		.def("getCenterPlotTerrainType", &CyCity::getCenterPlotTerrainType, "int /*TerrainTypes*/ getCenterPlotTerrainType()")// WTP, ray, Center Plot specific Backgrounds - Start
 		;
 }

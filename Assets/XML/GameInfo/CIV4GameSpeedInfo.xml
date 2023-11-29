@@ -14,26 +14,14 @@
             <iGrowthPercent>100</iGrowthPercent>
             <iStoragePercent>100</iStoragePercent>
             <iTrainPercent>100</iTrainPercent>
-            <iConstructPercent>100</iConstructPercent>
-            <iFatherPercent>160</iFatherPercent>
+            <iConstructPercent>82</iConstructPercent>
+            <iFatherPercent>100</iFatherPercent>
             <iGreatGeneralPercent>100</iGreatGeneralPercent>
-            <iRevolutionTurns>200</iRevolutionTurns>
+            <iRevolutionTurns>300</iRevolutionTurns>
             <GameTurnInfos>
                 <GameTurnInfo>
-                    <iMonthIncrement>12</iMonthIncrement>
-                    <iTurnsPerIncrement>100</iTurnsPerIncrement>
-                </GameTurnInfo>
-                <GameTurnInfo>
-                    <iMonthIncrement>9</iMonthIncrement>
-                    <iTurnsPerIncrement>80</iTurnsPerIncrement>
-                </GameTurnInfo>
-                <GameTurnInfo>
                     <iMonthIncrement>6</iMonthIncrement>
-                    <iTurnsPerIncrement>80</iTurnsPerIncrement>
-                </GameTurnInfo>
-                <GameTurnInfo>
-                    <iMonthIncrement>3</iMonthIncrement>
-                    <iTurnsPerIncrement>40</iTurnsPerIncrement>
+                    <iTurnsPerIncrement>600</iTurnsPerIncrement>
                 </GameTurnInfo>
             </GameTurnInfos>
         </GameSpeedInfo>
@@ -44,26 +32,14 @@
             <iGrowthPercent>75</iGrowthPercent>
             <iStoragePercent>100</iStoragePercent>
             <iTrainPercent>75</iTrainPercent>
-            <iConstructPercent>75</iConstructPercent>
-            <iFatherPercent>120</iFatherPercent>
+            <iConstructPercent>60</iConstructPercent>
+            <iFatherPercent>75</iFatherPercent>
             <iGreatGeneralPercent>75</iGreatGeneralPercent>
-            <iRevolutionTurns>150</iRevolutionTurns>
+            <iRevolutionTurns>225</iRevolutionTurns>
             <GameTurnInfos>
                 <GameTurnInfo>
-                    <iMonthIncrement>16</iMonthIncrement>
-                    <iTurnsPerIncrement>75</iTurnsPerIncrement>
-                </GameTurnInfo>
-                <GameTurnInfo>
-                    <iMonthIncrement>12</iMonthIncrement>
-                    <iTurnsPerIncrement>60</iTurnsPerIncrement>
-                </GameTurnInfo>
-                <GameTurnInfo>
                     <iMonthIncrement>8</iMonthIncrement>
-                    <iTurnsPerIncrement>60</iTurnsPerIncrement>
-                </GameTurnInfo>
-                <GameTurnInfo>
-                    <iMonthIncrement>4</iMonthIncrement>
-                    <iTurnsPerIncrement>30</iTurnsPerIncrement>
+                    <iTurnsPerIncrement>450</iTurnsPerIncrement>
                 </GameTurnInfo>
             </GameTurnInfos>
         </GameSpeedInfo>
@@ -71,29 +47,17 @@
             <Type>GAMESPEED_TAC_EPIC</Type>
             <Description>TXT_KEY_GAMESPEED_TAC_EPIC</Description>
             <Help>TXT_KEY_GAMESPEED_TAC_EPIC_HELP</Help>
-            <iGrowthPercent>150</iGrowthPercent>
-            <iStoragePercent>150</iStoragePercent>
-            <iTrainPercent>150</iTrainPercent>
-            <iConstructPercent>150</iConstructPercent>
-            <iFatherPercent>250</iFatherPercent>
-            <iGreatGeneralPercent>150</iGreatGeneralPercent>
-            <iRevolutionTurns>300</iRevolutionTurns>
+            <iGrowthPercent>200</iGrowthPercent>
+            <iStoragePercent>200</iStoragePercent>
+            <iTrainPercent>200</iTrainPercent>
+            <iConstructPercent>175</iConstructPercent>
+            <iFatherPercent>200</iFatherPercent>
+            <iGreatGeneralPercent>200</iGreatGeneralPercent>
+            <iRevolutionTurns>600</iRevolutionTurns>
             <GameTurnInfos>
                 <GameTurnInfo>
-                    <iMonthIncrement>8</iMonthIncrement>
-                    <iTurnsPerIncrement>200</iTurnsPerIncrement>
-                </GameTurnInfo>
-                <GameTurnInfo>
-                    <iMonthIncrement>6</iMonthIncrement>
-                    <iTurnsPerIncrement>160</iTurnsPerIncrement>
-                </GameTurnInfo>
-                <GameTurnInfo>
-                    <iMonthIncrement>4</iMonthIncrement>
-                    <iTurnsPerIncrement>160</iTurnsPerIncrement>
-                </GameTurnInfo>
-                <GameTurnInfo>
-                    <iMonthIncrement>2</iMonthIncrement>
-                    <iTurnsPerIncrement>80</iTurnsPerIncrement>
+                    <iMonthIncrement>3</iMonthIncrement>
+                    <iTurnsPerIncrement>1200</iTurnsPerIncrement>
                 </GameTurnInfo>
             </GameTurnInfos>
         </GameSpeedInfo>
@@ -104,26 +68,32 @@
             <iGrowthPercent>300</iGrowthPercent>
             <iStoragePercent>300</iStoragePercent>
             <iTrainPercent>300</iTrainPercent>
-            <iConstructPercent>300</iConstructPercent>
-            <iFatherPercent>500</iFatherPercent>
+            <iConstructPercent>250</iConstructPercent>
+            <iFatherPercent>300</iFatherPercent>
             <iGreatGeneralPercent>300</iGreatGeneralPercent>
-            <iRevolutionTurns>600</iRevolutionTurns>
+            <iRevolutionTurns>900</iRevolutionTurns>
             <GameTurnInfos>
                 <GameTurnInfo>
-                    <iMonthIncrement>4</iMonthIncrement>
-                    <iTurnsPerIncrement>300</iTurnsPerIncrement>
-                </GameTurnInfo>
-                <GameTurnInfo>
-                    <iMonthIncrement>3</iMonthIncrement>
-                    <iTurnsPerIncrement>240</iTurnsPerIncrement>
-                </GameTurnInfo>
-                <GameTurnInfo>
                     <iMonthIncrement>2</iMonthIncrement>
-                    <iTurnsPerIncrement>240</iTurnsPerIncrement>
+                    <iTurnsPerIncrement>1800</iTurnsPerIncrement>
                 </GameTurnInfo>
+            </GameTurnInfos>
+        </GameSpeedInfo>
+        <GameSpeedInfo>
+            <Type>GAMESPEED_TAC_BUILDUP_MODE</Type>
+            <Description>TXT_KEY_GAMESPEED_TAC_BUILDUP_MODE</Description>
+            <Help>TXT_KEY_GAMESPEED_TAC_BUILDUP_MODE_HELP</Help>
+            <iGrowthPercent>200</iGrowthPercent>
+            <iStoragePercent>300</iStoragePercent>
+            <iTrainPercent>200</iTrainPercent>
+            <iConstructPercent>200</iConstructPercent>
+            <iFatherPercent>900</iFatherPercent>
+            <iGreatGeneralPercent>200</iGreatGeneralPercent>
+            <iRevolutionTurns>3600</iRevolutionTurns>
+            <GameTurnInfos>
                 <GameTurnInfo>
                     <iMonthIncrement>1</iMonthIncrement>
-                    <iTurnsPerIncrement>120</iTurnsPerIncrement>
+                    <iTurnsPerIncrement>2200</iTurnsPerIncrement>
                 </GameTurnInfo>
             </GameTurnInfos>
         </GameSpeedInfo>

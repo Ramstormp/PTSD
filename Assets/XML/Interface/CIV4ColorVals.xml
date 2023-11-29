@@ -57,16 +57,16 @@
         </ColorVal>
         <ColorVal>
             <Type>COLOR_RED</Type>
-            <fRed>.99</fRed>
-            <fGreen>0.57</fGreen>
-            <fBlue>0.41</fBlue>
+            <fRed>1.00</fRed>
+            <fGreen>0.00</fGreen>
+            <fBlue>0.00</fBlue>
             <fAlpha>1.00</fAlpha>
         </ColorVal>
         <ColorVal>
             <Type>COLOR_GREEN</Type>
-            <fRed>0.30</fRed>
-            <fGreen>0.90</fGreen>
-            <fBlue>0.60</fBlue>
+            <fRed>0.00</fRed>
+            <fGreen>1.00</fGreen>
+            <fBlue>0.00</fBlue>
             <fAlpha>1.00</fAlpha>
         </ColorVal>
         <ColorVal>
@@ -78,16 +78,16 @@
         </ColorVal>
         <ColorVal>
             <Type>COLOR_CYAN</Type>
-            <fRed>0.20</fRed>
-            <fGreen>0.60</fGreen>
+            <fRed>0.00</fRed>
+            <fGreen>1.00</fGreen>
             <fBlue>1.00</fBlue>
             <fAlpha>1.00</fAlpha>
         </ColorVal>
         <ColorVal>
             <Type>COLOR_YELLOW</Type>
             <fRed>1.00</fRed>
-            <fGreen>0.60</fGreen>
-            <fBlue>0.20</fBlue>
+            <fGreen>1.00</fGreen>
+            <fBlue>0.00</fBlue>
             <fAlpha>1.00</fAlpha>
         </ColorVal>
         <ColorVal>
@@ -99,9 +99,9 @@
         </ColorVal>
         <ColorVal>
             <Type>COLOR_YIELD_FOOD</Type>
-            <fRed>0.34</fRed>
-            <fGreen>0.38</fGreen>
-            <fBlue>0.41</fBlue>
+            <fRed>0.99</fRed>
+            <fGreen>0.58</fGreen>
+            <fBlue>0.16</fBlue>
             <fAlpha>1.00</fAlpha>
         </ColorVal>
         <ColorVal>
@@ -134,30 +134,30 @@
         </ColorVal>
         <ColorVal>
             <Type>COLOR_FONT_RED</Type>
-            <fRed>0.90</fRed>
-            <fGreen>0.50</fGreen>
-            <fBlue>0.35</fBlue>
+            <fRed>1.00</fRed>
+            <fGreen>0.30</fGreen>
+            <fBlue>0.15</fBlue>
             <fAlpha>1.00</fAlpha>
         </ColorVal>
         <ColorVal>
             <Type>COLOR_FONT_GREEN</Type>
-            <fRed>0.30</fRed>
+            <fRed>0.10</fRed>
             <fGreen>0.95</fGreen>
-            <fBlue>0.40</fBlue>
+            <fBlue>0.00</fBlue>
             <fAlpha>1.00</fAlpha>
         </ColorVal>
         <ColorVal>
             <Type>COLOR_FONT_GOLD</Type>
-            <fRed>0.70</fRed>
-            <fGreen>0.71</fGreen>
-            <fBlue>0.79</fBlue>
+            <fRed>1.00</fRed>
+            <fGreen>0.91</fGreen>
+            <fBlue>0.39</fBlue>
             <fAlpha>1.00</fAlpha>
         </ColorVal>
         <ColorVal>
             <Type>COLOR_FONT_CREAM</Type>
-            <fRed>0.70</fRed>
-            <fGreen>0.76</fGreen>
-            <fBlue>0.90</fBlue>
+            <fRed>1.00</fRed>
+            <fGreen>0.96</fGreen>
+            <fBlue>0.77</fBlue>
             <fAlpha>1.00</fAlpha>
         </ColorVal>
         <ColorVal>
@@ -183,23 +183,23 @@
         </ColorVal>
         <ColorVal>
             <Type>COLOR_GREAT_PEOPLE_RATE</Type>
-            <fRed>0.30</fRed>
-            <fGreen>0.30</fGreen>
-            <fBlue>0.50</fBlue>
+            <fRed>1.00</fRed>
+            <fGreen>1.00</fGreen>
+            <fBlue>0.00</fBlue>
             <fAlpha>0.60</fAlpha>
         </ColorVal>
         <ColorVal>
             <Type>COLOR_NEGATIVE_RATE</Type>
-            <fRed>0.10</fRed>
-            <fGreen>0.10</fGreen>
-            <fBlue>0.10</fBlue>
+            <fRed>1.00</fRed>
+            <fGreen>0.00</fGreen>
+            <fBlue>0.00</fBlue>
             <fAlpha>0.65</fAlpha>
         </ColorVal>
         <ColorVal>
             <Type>COLOR_EMPTY</Type>
             <fRed>0.0</fRed>
             <fGreen>0.0</fGreen>
-            <fBlue>0.2</fBlue>
+            <fBlue>0.0</fBlue>
             <fAlpha>0.40</fAlpha>
         </ColorVal>
         <ColorVal>
@@ -212,8 +212,8 @@
         <ColorVal>
             <Type>COLOR_POPUP_SELECTED</Type>
             <fRed>1.00</fRed>
-            <fGreen>0.00</fGreen>
-            <fBlue>1.00</fBlue>
+            <fGreen>1.00</fGreen>
+            <fBlue>0.00</fBlue>
             <fAlpha>0.75</fAlpha>
         </ColorVal>
         <ColorVal>
@@ -232,44 +232,44 @@
         </ColorVal>
         <ColorVal>
             <Type>COLOR_HIGHLIGHT_TEXT</Type>
-            <fRed>0.49</fRed>
-            <fGreen>0.84</fGreen>
-            <fBlue>0.85</fBlue>
+            <fRed>1.00</fRed>
+            <fGreen>1.00</fGreen>
+            <fBlue>0.00</fBlue>
             <fAlpha>1.00</fAlpha>
         </ColorVal>
         <ColorVal>
             <Type>COLOR_ALT_HIGHLIGHT_TEXT</Type>
             <fRed>0.50</fRed>
             <fGreen>1.00</fGreen>
-            <fBlue>1.00</fBlue>
+            <fBlue>0.10</fBlue>
             <fAlpha>1.00</fAlpha>
         </ColorVal>
         <ColorVal>
             <Type>COLOR_WARNING_TEXT</Type>
             <fRed>1.00</fRed>
-            <fGreen>0.85</fGreen>
-            <fBlue>0.20</fBlue>
+            <fGreen>0.30</fGreen>
+            <fBlue>0.30</fBlue>
             <fAlpha>1.00</fAlpha>
         </ColorVal>
         <ColorVal>
             <Type>COLOR_WARNING_RATE</Type>
-            <fRed>0.50</fRed>
-            <fGreen>0.20</fGreen>
-            <fBlue>0.05</fBlue>
+            <fRed>1.00</fRed>
+            <fGreen>0.00</fGreen>
+            <fBlue>0.00</fBlue>
             <fAlpha>0.60</fAlpha>
         </ColorVal>
         <ColorVal>
             <Type>COLOR_POSITIVE_TEXT</Type>
-            <fRed>0.80</fRed>
+            <fRed>0.50</fRed>
             <fGreen>1.00</fGreen>
-            <fBlue>0.70</fBlue>
+            <fBlue>0.10</fBlue>
             <fAlpha>1.00</fAlpha>
         </ColorVal>
         <ColorVal>
             <Type>COLOR_NEGATIVE_TEXT</Type>
             <fRed>1.00</fRed>
-            <fGreen>0.80</fGreen>
-            <fBlue>0.20</fBlue>
+            <fGreen>0.30</fGreen>
+            <fBlue>0.30</fBlue>
             <fAlpha>1.00</fAlpha>
         </ColorVal>
         <ColorVal>
@@ -283,7 +283,7 @@
             <Type>COLOR_SELECTED_TEXT</Type>
             <fRed>1.00</fRed>
             <fGreen>0.82</fGreen>
-            <fBlue>0.70</fBlue>
+            <fBlue>0.49</fBlue>
             <fAlpha>1.00</fAlpha>
         </ColorVal>
         <ColorVal>
@@ -326,7 +326,7 @@
             <fRed>0.11</fRed>
             <fGreen>0.20</fGreen>
             <fBlue>0.50</fBlue>
-            <fAlpha>0.30</fAlpha>
+            <fAlpha>1.00</fAlpha>
         </ColorVal>
         <ColorVal>
             <Type>COLOR_Player_LIGHT_GREY_TEXT</Type>
@@ -347,7 +347,7 @@
             <fRed>0.39</fRed>
             <fGreen>0.24</fGreen>
             <fBlue>0.00</fBlue>
-            <fAlpha>0.30</fAlpha>
+            <fAlpha>1.00</fAlpha>
         </ColorVal>
         <ColorVal>
             <Type>COLOR_PLAYER_BROWN_TEXT</Type>
@@ -361,7 +361,7 @@
             <fRed>0.07</fRed>
             <fGreen>0.80</fGreen>
             <fBlue>0.96</fBlue>
-            <fAlpha>0.30</fAlpha>
+            <fAlpha>1.00</fAlpha>
         </ColorVal>
         <ColorVal>
             <Type>COLOR_PLAYER_CYAN_TEXT</Type>
@@ -375,20 +375,20 @@
             <fRed>0.75</fRed>
             <fGreen>0.80</fGreen>
             <fBlue>0.75</fBlue>
-            <fAlpha>0.30</fAlpha>
+            <fAlpha>1.00</fAlpha>
         </ColorVal>
         <ColorVal>
             <Type>COLOR_PLAYER_DARK_BLUE</Type>
             <fRed>0.16</fRed>
             <fGreen>0.00</fGreen>
-            <fBlue>0.74</fBlue>
-            <fAlpha>0.30</fAlpha>
+            <fBlue>0.64</fBlue>
+            <fAlpha>1.00</fAlpha>
         </ColorVal>
         <ColorVal>
             <Type>COLOR_PLAYER_DARK_BLUE_TEXT</Type>
             <fRed>0.65</fRed>
             <fGreen>0.75</fGreen>
-            <fBlue>1.00</fBlue>
+            <fBlue>0.90</fBlue>
             <fAlpha>1.00</fAlpha>
         </ColorVal>
         <ColorVal>
@@ -396,7 +396,7 @@
             <fRed>0.60</fRed>
             <fGreen>0.54</fGreen>
             <fBlue>0.55</fBlue>
-            <fAlpha>0.30</fAlpha>
+            <fAlpha>1.00</fAlpha>
         </ColorVal>
         <ColorVal>
             <Type>COLOR_PLAYER_DARK_CYAN_TEXT</Type>
@@ -410,14 +410,14 @@
             <fRed>0.00</fRed>
             <fGreen>0.39</fGreen>
             <fBlue>0.00</fBlue>
-            <fAlpha>0.30</fAlpha>
+            <fAlpha>1.00</fAlpha>
         </ColorVal>
         <ColorVal>
             <Type>COLOR_PLAYER_DARK_DARK_GREEN</Type>
             <fRed>0.00</fRed>
             <fGreen>0.27</fGreen>
             <fBlue>0.00</fBlue>
-            <fAlpha>0.30</fAlpha>
+            <fAlpha>1.00</fAlpha>
         </ColorVal>
         <ColorVal>
             <Type>COLOR_PLAYER_DARK_GREEN_TEXT</Type>
@@ -431,7 +431,7 @@
             <fRed>0.69</fRed>
             <fGreen>0.00</fGreen>
             <fBlue>0.38</fBlue>
-            <fAlpha>0.30</fAlpha>
+            <fAlpha>1.00</fAlpha>
         </ColorVal>
         <ColorVal>
             <Type>COLOR_PLAYER_DARK_PINK_TEXT</Type>
@@ -445,7 +445,7 @@
             <fRed>0.45</fRed>
             <fGreen>0.00</fGreen>
             <fBlue>0.49</fBlue>
-            <fAlpha>0.30</fAlpha>
+            <fAlpha>1.00</fAlpha>
         </ColorVal>
         <ColorVal>
             <Type>COLOR_PLAYER_DARK_PURPLE_TEXT</Type>
@@ -459,7 +459,7 @@
             <fRed>0.62</fRed>
             <fGreen>0.00</fGreen>
             <fBlue>0.00</fBlue>
-            <fAlpha>0.30</fAlpha>
+            <fAlpha>1.00</fAlpha>
         </ColorVal>
         <ColorVal>
             <Type>COLOR_PLAYER_DARK_RED_TEXT</Type>
@@ -473,7 +473,7 @@
             <fRed>0.87</fRed>
             <fGreen>0.65</fGreen>
             <fBlue>0.0</fBlue>
-            <fAlpha>0.30</fAlpha>
+            <fAlpha>1.00</fAlpha>
         </ColorVal>
         <ColorVal>
             <Type>COLOR_PLAYER_DARK_YELLOW_TEXT</Type>
@@ -494,7 +494,7 @@
             <fRed>0.49</fRed>
             <fGreen>0.88</fGreen>
             <fBlue>0.00</fBlue>
-            <fAlpha>0.30</fAlpha>
+            <fAlpha>1.00</fAlpha>
         </ColorVal>
         <ColorVal>
             <Type>COLOR_PLAYER_GREEN_TEXT</Type>
@@ -508,7 +508,7 @@
             <fRed>0.99</fRed>
             <fGreen>0.35</fGreen>
             <fBlue>0.0</fBlue>
-            <fAlpha>0.30</fAlpha>
+            <fAlpha>1.00</fAlpha>
         </ColorVal>
         <ColorVal>
             <Type>COLOR_PLAYER_ORANGE_TEXT</Type>
@@ -522,7 +522,7 @@
             <fRed>0.60</fRed>
             <fGreen>0.49</fGreen>
             <fBlue>0.0</fBlue>
-            <fAlpha>0.30</fAlpha>
+            <fAlpha>1.00</fAlpha>
         </ColorVal>
         <ColorVal>
             <Type>COLOR_PLAYER_PEACH_TEXT</Type>
@@ -536,7 +536,7 @@
             <fRed>0.98</fRed>
             <fGreen>0.67</fGreen>
             <fBlue>0.49</fBlue>
-            <fAlpha>0.30</fAlpha>
+            <fAlpha>1.00</fAlpha>
         </ColorVal>
         <ColorVal>
             <Type>COLOR_PLAYER_PINK_TEXT</Type>
@@ -550,7 +550,7 @@
             <fRed>0.77</fRed>
             <fGreen>0.34</fGreen>
             <fBlue>1.00</fBlue>
-            <fAlpha>0.30</fAlpha>
+            <fAlpha>1.00</fAlpha>
         </ColorVal>
         <ColorVal>
             <Type>COLOR_PLAYER_PURPLE_TEXT</Type>
@@ -564,7 +564,7 @@
             <fRed>0.86</fRed>
             <fGreen>0.02</fGreen>
             <fBlue>0.02</fBlue>
-            <fAlpha>0.30</fAlpha>
+            <fAlpha>1.00</fAlpha>
         </ColorVal>
         <ColorVal>
             <Type>COLOR_PLAYER_RED_TEXT</Type>
@@ -578,7 +578,7 @@
             <fRed>0.90</fRed>
             <fGreen>0.90</fGreen>
             <fBlue>0.90</fBlue>
-            <fAlpha>0.30</fAlpha>
+            <fAlpha>1.00</fAlpha>
         </ColorVal>
         <ColorVal>
             <Type>COLOR_PLAYER_WHITE_TEXT</Type>
@@ -592,7 +592,7 @@
             <fRed>0.80</fRed>
             <fGreen>0.70</fGreen>
             <fBlue>0.0</fBlue>
-            <fAlpha>0.30</fAlpha>
+            <fAlpha>1.00</fAlpha>
         </ColorVal>
         <ColorVal>
             <Type>COLOR_PLAYER_YELLOW_TEXT</Type>
@@ -606,7 +606,7 @@
             <fRed>0.50</fRed>
             <fGreen>1.00</fGreen>
             <fBlue>0.50</fBlue>
-            <fAlpha>0.30</fAlpha>
+            <fAlpha>1.00</fAlpha>
         </ColorVal>
         <ColorVal>
             <Type>COLOR_PLAYER_LIGHT_GREEN_TEXT</Type>
@@ -620,7 +620,7 @@
             <fRed>0.45</fRed>
             <fGreen>0.75</fGreen>
             <fBlue>1.00</fBlue>
-            <fAlpha>0.30</fAlpha>
+            <fAlpha>1.00</fAlpha>
         </ColorVal>
         <ColorVal>
             <Type>COLOR_PLAYER_BLUE_TEXT</Type>
@@ -634,7 +634,7 @@
             <fRed>1.00</fRed>
             <fGreen>1.00</fGreen>
             <fBlue>0.50</fBlue>
-            <fAlpha>0.30</fAlpha>
+            <fAlpha>1.00</fAlpha>
         </ColorVal>
         <ColorVal>
             <Type>COLOR_PLAYER_LIGHT_YELLOW_TEXT</Type>
@@ -648,7 +648,7 @@
             <fRed>0.05</fRed>
             <fGreen>0.10</fGreen>
             <fBlue>0.30</fBlue>
-            <fAlpha>0.30</fAlpha>
+            <fAlpha>1.00</fAlpha>
         </ColorVal>
         <ColorVal>
             <Type>COLOR_PLAYER_LIGHT_PURPLE_TEXT</Type>
@@ -662,7 +662,7 @@
             <fRed>0.90</fRed>
             <fGreen>0.65</fGreen>
             <fBlue>0.32</fBlue>
-            <fAlpha>0.30</fAlpha>
+            <fAlpha>1.00</fAlpha>
         </ColorVal>
         <ColorVal>
             <Type>COLOR_PLAYER_LIGHT_ORANGE_TEXT</Type>
@@ -676,7 +676,7 @@
             <fRed>0.675</fRed>
             <fGreen>0.118</fGreen>
             <fBlue>0.725</fBlue>
-            <fAlpha>0.30</fAlpha>
+            <fAlpha>1.00</fAlpha>
         </ColorVal>
         <ColorVal>
             <Type>COLOR_PLAYER_MIDDLE_PURPLE_TEXT</Type>
@@ -690,14 +690,14 @@
             <fRed>0.871</fRed>
             <fGreen>0.624</fGreen>
             <fBlue>0.000</fBlue>
-            <fAlpha>0.30</fAlpha>
+            <fAlpha>1.00</fAlpha>
         </ColorVal>
         <ColorVal>
             <Type>COLOR_PLAYER_DARK_GRAY</Type>
             <fRed>0.390</fRed>
             <fGreen>0.375</fGreen>
             <fBlue>0.300</fBlue>
-            <fAlpha>0.30</fAlpha>
+            <fAlpha>1.00</fAlpha>
         </ColorVal>
         <ColorVal>
             <Type>COLOR_PLAYER_DARK_GRAY_TEXT</Type>
@@ -711,21 +711,21 @@
             <fRed>0.204</fRed>
             <fGreen>0.576</fGreen>
             <fBlue>0.000</fBlue>
-            <fAlpha>0.30</fAlpha>
+            <fAlpha>1.00</fAlpha>
         </ColorVal>
         <ColorVal>
             <Type>COLOR_PLAYER_MIDDLE_GREEN_TEXT</Type>
             <fRed>0.243</fRed>
             <fGreen>0.616</fGreen>
             <fBlue>0.000</fBlue>
-            <fAlpha>0.30</fAlpha>
+            <fAlpha>1.00</fAlpha>
         </ColorVal>
         <ColorVal>
             <Type>COLOR_PLAYER_DARK_LEMON</Type>
             <fRed>0.847</fRed>
             <fGreen>0.792</fGreen>
             <fBlue>0.039</fBlue>
-            <fAlpha>0.30</fAlpha>
+            <fAlpha>1.00</fAlpha>
         </ColorVal>
         <ColorVal>
             <Type>COLOR_PLAYER_DARK_LEMON_TEXT</Type>
@@ -739,7 +739,7 @@
             <fRed>0.000</fRed>
             <fGreen>0.220</fGreen>
             <fBlue>0.914</fBlue>
-            <fAlpha>0.30</fAlpha>
+            <fAlpha>1.00</fAlpha>
         </ColorVal>
         <ColorVal>
             <Type>COLOR_PLAYER_MIDDLE_BLUE_TEXT</Type>
@@ -753,7 +753,7 @@
             <fRed>0.100</fRed>
             <fGreen>0.239</fGreen>
             <fBlue>0.310</fBlue>
-            <fAlpha>0.30</fAlpha>
+            <fAlpha>1.00</fAlpha>
         </ColorVal>
         <ColorVal>
             <Type>COLOR_PLAYER_MIDDLE_CYAN_TEXT</Type>
@@ -767,14 +767,14 @@
             <fRed>0.514</fRed>
             <fGreen>0.200</fGreen>
             <fBlue>0.157</fBlue>
-            <fAlpha>0.30</fAlpha>
+            <fAlpha>1.00</fAlpha>
         </ColorVal>
         <ColorVal>
             <Type>COLOR_PLAYER_LIGHT_BROWN</Type>
             <fRed>0.518</fRed>
             <fGreen>0.345</fGreen>
             <fBlue>0.075</fBlue>
-            <fAlpha>0.30</fAlpha>
+            <fAlpha>1.00</fAlpha>
         </ColorVal>
         <ColorVal>
             <Type>COLOR_PLAYER_LIGHT_BROWN_TEXT</Type>
@@ -788,7 +788,7 @@
             <fRed>0.878</fRed>
             <fGreen>0.235</fGreen>
             <fBlue>0.000</fBlue>
-            <fAlpha>0.30</fAlpha>
+            <fAlpha>1.00</fAlpha>
         </ColorVal>
         <ColorVal>
             <Type>COLOR_PLAYER_DARK_ORANGE_TEXT</Type>
@@ -809,14 +809,14 @@
             <fRed>0.780</fRed>
             <fGreen>0.282</fGreen>
             <fBlue>0.239</fBlue>
-            <fAlpha>0.30</fAlpha>
+            <fAlpha>1.00</fAlpha>
         </ColorVal>
         <ColorVal>
             <Type>COLOR_PLAYER_DARK_INDIGO</Type>
             <fRed>0.306</fRed>
             <fGreen>0.020</fGreen>
             <fBlue>0.835</fBlue>
-            <fAlpha>0.30</fAlpha>
+            <fAlpha>1.00</fAlpha>
         </ColorVal>
         <ColorVal>
             <Type>COLOR_PLAYER_DARK_INDIGO_TEXT</Type>
@@ -830,7 +830,7 @@
             <fRed>0.863</fRed>
             <fGreen>0.471</fGreen>
             <fBlue>0.149</fBlue>
-            <fAlpha>0.30</fAlpha>
+            <fAlpha>1.00</fAlpha>
         </ColorVal>
         <ColorVal>
             <Type>COLOR_PLAYER_LIGHT_BLACK</Type>
@@ -1012,7 +1012,7 @@
             <fRed>0.133</fRed>
             <fGreen>0.461</fGreen>
             <fBlue>0.859</fBlue>
-            <fAlpha>0.30</fAlpha>
+            <fAlpha>1.00</fAlpha>
         </ColorVal>
         <ColorVal>
             <Type>COLOR_PLAYER_SWEDEN_TEXT</Type>
@@ -1026,7 +1026,7 @@
             <fRed>0.100</fRed>
             <fGreen>0.239</fGreen>
             <fBlue>0.510</fBlue>
-            <fAlpha>0.30</fAlpha>
+            <fAlpha>1.00</fAlpha>
         </ColorVal>
         <ColorVal>
             <Type>COLOR_PLAYER_KINGSWEDEN_TEXT</Type>
@@ -1040,7 +1040,7 @@
             <fRed>1.0</fRed>
             <fGreen>0.82</fGreen>
             <fBlue>0.30</fBlue>
-            <fAlpha>0.30</fAlpha>
+            <fAlpha>1.00</fAlpha>
         </ColorVal>
         <ColorVal>
             <Type>COLOR_PLAYER_CROW_TEXT</Type>
@@ -1124,7 +1124,7 @@
             <fRed>0.00</fRed>
             <fGreen>0.27</fGreen>
             <fBlue>0.00</fBlue>
-            <fAlpha>0.30</fAlpha>
+            <fAlpha>1.00</fAlpha>
         </ColorVal>
         <ColorVal>
             <Type>COLOR_PLAYER_RUSSIA_TEXT</Type>
@@ -1138,7 +1138,7 @@
             <fRed>0.618</fRed>
             <fGreen>0.345</fGreen>
             <fBlue>0.075</fBlue>
-            <fAlpha>0.30</fAlpha>
+            <fAlpha>1.00</fAlpha>
         </ColorVal>
         <ColorVal>
             <Type>COLOR_PLAYER_KINGRUSSIA_TEXT</Type>

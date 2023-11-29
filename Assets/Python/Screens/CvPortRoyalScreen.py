@@ -179,7 +179,7 @@ class CvPortRoyalScreen:
 		self.NUM_YIELDS = len(self.YieldList)
 		## R&R, Robert Surcouf,  Multiple rows of Yields if necessary START
 		#self.NUM_YIELDS_IN_A_ROW = 26 -> Two rows if num > 26
-		self.NUM_YIELDS_IN_A_ROW = 26
+		self.NUM_YIELDS_IN_A_ROW = 33
 		
 		# Window reduction for small resolutions
 		# Sometimes yield boxes are too large ...
@@ -189,13 +189,13 @@ class CvPortRoyalScreen:
 		self.BOX_X = (self.XResolution - (self.XResolution / self.NUM_YIELDS_IN_A_ROW) * self.NUM_YIELDS_IN_A_ROW ) / 2 
 		
 		#self.BOX_W = self.XResolution / self.NUM_YIELDS
-		self.BOX_W = (self.XResolution / self.NUM_YIELDS_IN_A_ROW) * self.Yield_Window_Reduction_Percent / 100
+		self.BOX_W = (self.XResolution / self.NUM_YIELDS_IN_A_ROW) * (self.Yield_Window_Reduction_Percent) / 100
 		##self.BOX_W = (self.XResolution / self.NUM_YIELDS_IN_A_ROW
 		#self.BOX_H = self.BOX_W * 6 / 5  
 		self.BOX_H = self.BOX_W * 6 / 5 - ((self.XResolution * 9) / (self.YResolution * 16) )* self.BOX_W / 10 
 		##self.BOX_X = (self.XResolution - self.BOX_W * self.NUM_YIELDS_IN_A_ROW ) / 2  
 		#self.BOX_X = (self.XResolution - self.BOX_W * self.NUM_YIELDS) / 2
-		self.BOX_Y = self.YResolution -2* self.BOX_H  -self.STANDARD_MARGIN +15
+		self.BOX_Y = self.YResolution -3* self.BOX_H  -self.STANDARD_MARGIN + 25
 		#self.BOX_Y = self.YResolution - self.BOX_H - self.STANDARD_MARGIN
 		## R&R, Robert Surcouf,  Multiple rows of Yields if necessary END 
 		self.INBOUND_SHIP_W = self.YResolution / 20
@@ -224,8 +224,11 @@ class CvPortRoyalScreen:
 				
 		self.DOCK_UNIT_W = self.YResolution / 16
 		self.DOCK_UNIT_H = self.DOCK_UNIT_W * 2
-		self.DOCK_X = self.XResolution * 30 / 48
-		self.DOCK_Y = self.YResolution * 13 / 48
+		#self.DOCK_X = self.XResolution * 30 / 48
+		#self.DOCK_Y = self.YResolution * 13 / 48
+		self.DOCK_X = self.XResolution * 81 / 96
+		self.DOCK_Y = self.YResolution * 19 / 96
+		
 		self.DOCK_W = self.XResolution - self.DOCK_X
 		self.DOCK_H = self.DOCK_UNIT_H
 		
@@ -331,9 +334,10 @@ class CvPortRoyalScreen:
 		
 		screen.setImageButtonAt(self.szTradeTable + "Close", self.szTradeTable, "", 0, 0, self.TRADE_W, self.XResolution, WidgetTypes.WIDGET_GENERAL, self.TRADE_LOG, -1)
 		
-		# Purchase - needed to be moved
+		# Purchase - was moved to other place because of "Ships in Port Condition".
 		#if (gc.getPlayer(gc.getGame().getActivePlayer()).canTradeWithPortRoyal()):
-			#screen.setImageButton("PurchaseButton",  "Art/Interface/Screens/Europe/Great_General_Dollar.dds",  self.XResolution - self.RECRUIT_W - self.STANDARD_MARGIN,  self.RECRUIT_Y, self.RECRUIT_W,self.RECRUIT_H,  WidgetTypes.WIDGET_GENERAL, self.BUY_UNIT_BUTTON_ID, -1)
+			# screen.addUnitGraphicGFC("PurchaseButton", gc.getInfoTypeForString("UNIT_GREAT_GENERAL"), -1, self.XResolution - self.RECRUIT_W - self.STANDARD_MARGIN, self.RECRUIT_Y, self.RECRUIT_W, self.RECRUIT_H, WidgetTypes.WIDGET_GENERAL, self.BUY_UNIT_BUTTON_ID, -1, 0, 0, 1.0, false)
+			# screen.setImageButton("PurchaseButton",  "Art/Interface/Screens/Port_Royal/Great_General_Dollar.dds",  self.XResolution - self.RECRUIT_W - self.STANDARD_MARGIN,  self.RECRUIT_Y, self.RECRUIT_W,self.RECRUIT_H,  WidgetTypes.WIDGET_GENERAL, self.BUY_UNIT_BUTTON_ID, -1)
 		
 		# draw the contents
 		self.drawContents()
@@ -355,7 +359,7 @@ class CvPortRoyalScreen:
 		screen.setText(self.getNextWidgetName(), "Background", szTreasury, CvUtil.FONT_LEFT_JUSTIFY, self.STANDARD_MARGIN, self.STANDARD_MARGIN, 0, FontTypes.TITLE_FONT, WidgetTypes.WIDGET_GENERAL, self.TREASURY_ID, -1 )
 		szExit = u"<font=4>" + localText.getText(hudColor, ()) + localText.getText("TXT_KEY_PEDIA_SCREEN_EXIT", ()).upper() + "</font>"
 		screen.setText(self.getNextWidgetName(), "Background", szExit, CvUtil.FONT_RIGHT_JUSTIFY, self.XResolution - self.STANDARD_MARGIN, self.STANDARD_MARGIN, 0, FontTypes.TITLE_FONT, WidgetTypes.WIDGET_CLOSE_SCREEN, -1, -1 )
-		szTaxRate = u"<font=4>" + localText.getText(hudColor, ()) + localText.getText("TXT_KEY_MISC_BRIBE_RATE", (2 * gc.getDefineINT("SMUGGLING_BRIBE_RATE"), player.NBMOD_GetMaxTaxRate())).upper() + u"</font>"
+		szTaxRate = u"<font=4>" + localText.getText(hudColor, ()) + localText.getText("TXT_KEY_MISC_BRIBE_RATE", (gc.getDefineINT("PORT_ROYAL_PORT_TAX"), player.NBMOD_GetMaxTaxRate())).upper() + u"</font>"
 		# R&R, Robert Surcouf, No More Variables Hidden game option START
 		#screen.setText(self.getNextWidgetName(), "Background", szTaxRate, CvUtil.FONT_RIGHT_JUSTIFY, self.XResolution - CyInterface().determineWidth(szExit) - self.STANDARD_MARGIN * 2, self.STANDARD_MARGIN, 0, FontTypes.TITLE_FONT, WidgetTypes.WIDGET_GENERAL, -1, -1)
 		screen.setText(self.getNextWidgetName(), "Background", szTaxRate, CvUtil.FONT_RIGHT_JUSTIFY, self.XResolution - CyInterface().determineWidth(szExit) - self.STANDARD_MARGIN * 2, self.STANDARD_MARGIN, 0, FontTypes.TITLE_FONT, WidgetTypes.WIDGET_GENERAL, self.HELP_TAX_RATE, -1 )
@@ -569,21 +573,21 @@ class CvPortRoyalScreen:
 			iPrice = player.getTradeMessageAmount(i)
 			szBuffer = u"-"
 			szTax = u"-"
-			
+			#gc.getDefineINT("PORT_ROYAL_PORT_TAX")
 			if player.getTradeMessageType(i) == TradeMessageTypes.TRADE_MESSAGE_EUROPE_YIELD_SOLD:
 				iPrice *= self.playerEurope.getYieldPortRoyalBuyPrice(iYield)
 				szBuffer = u"%d%c" % (player.getTradeMessageAmount(i), gc.getYieldInfo(iYield).getChar())
 				szAction = localText.getText("TXT_KEY_EU_TRADE_LOG_SOLD", ())
-				if player.getTaxRate() > 0:
-					szTax = str(iPrice * player.getTaxRate() / 100)
+				if gc.getDefineINT("PORT_ROYAL_PORT_TAX") > 0:
+					szTax = str(iPrice * gc.getDefineINT("PORT_ROYAL_PORT_TAX") / 100)
 			elif player.getTradeMessageType(i) == TradeMessageTypes.TRADE_MESSAGE_EUROPE_YIELD_BOUGHT:
 				iPrice *= self.playerEurope.getYieldPortRoyalSellPrice(iYield)
 				szBuffer = u"%d%c" % (player.getTradeMessageAmount(i), gc.getYieldInfo(iYield).getChar())
 				szAction = localText.getText("TXT_KEY_EU_TRADE_LOG_BOUGHT", ())
 			elif player.getTradeMessageType(i) == TradeMessageTypes.TRADE_MESSAGE_TREASURE:
 				szAction = localText.getText("TXT_KEY_UNIT_TREASURE", ())
-				if player.getTaxRate() > 0:
-					szTax = str(iPrice * player.getTaxRate() / 100)
+				if gc.getDefineINT("PORT_ROYAL_PORT_TAX") > 0:
+					szTax = str(iPrice * gc.getDefineINT("PORT_ROYAL_PORT_TAX") / 100)
 			
 			if player.getTradeMessageType(i) == TradeMessageTypes.TRADE_MESSAGE_LACK_FUNDS:
 				iLastFailed = i
@@ -613,25 +617,32 @@ class CvPortRoyalScreen:
 		iY = self.BOX_Y -10
 		for iYield in self.YieldList:
 			kYield = gc.getYieldInfo(iYield)
-			iStock = self.playerEurope.getPortRoyalWarehouseYield(iYield) #PTSD, Ramstormp, EuropeStock
+			iStock = self.playerEurope.getPortRoyalWarehouseStock(iYield) 
 			iSellPrice = self.playerEurope.getYieldPortRoyalSellPrice(iYield)
-			#iBuyPrice = self.playerEurope.getYieldPortRoyalBuyPrice(iYield)
+			iBuyPrice = self.playerEurope.getYieldPortRoyalBuyPrice(iYield)
 			#player.setYieldEuropeTradable(iYield, false)
 			#screen.addDDSGFC(self.getNextWidgetName(), ArtFileMgr.getInterfaceArtInfo("INTERFACE_EUROPE_SHADOW_BOX").getPath(), iX, self.BOX_Y, self.BOX_W, self.BOX_H, WidgetTypes.WIDGET_MOVE_CARGO_TO_TRANSPORT, iYield, -1)
 			#screen.addDDSGFC(self.getNextWidgetName(), ArtFileMgr.getInterfaceArtInfo("INTERFACE_EUROPE_BOX_PRICE").getPath(), iX, self.BOX_Y, self.BOX_W, self.BOX_H, WidgetTypes.WIDGET_MOVE_CARGO_TO_TRANSPORT, iYield, -1)
 			screen.addDDSGFC(self.getNextWidgetName(), ArtFileMgr.getInterfaceArtInfo("INTERFACE_EUROPE_SHADOW_BOX").getPath(), iX,iY, self.BOX_W, self.BOX_H, WidgetTypes.WIDGET_MOVE_CARGO_TO_TRANSPORT_PORT_ROYAL, iYield, -1)
 			screen.addDDSGFC(self.getNextWidgetName(), ArtFileMgr.getInterfaceArtInfo("INTERFACE_EUROPE_BOX_PRICE").getPath(), iX, iY, self.BOX_W, self.BOX_H, WidgetTypes.WIDGET_MOVE_CARGO_TO_TRANSPORT_PORT_ROYAL, iYield, -1)
-			szPrices = u"<font=2>%d/%d</font>" % (iSellPrice, iStock) #Ramstormp, PTSD, Europe Stock)
+			szPrices = u"<font=2>%d/%d</font>" % (iBuyPrice, iSellPrice)
+			szStock = u"<font=3>%d</font>" % (iStock)
+			szStockShadow = u"<font=3>%d</font>" % (iStock)
+			szStock = u"<color=119,255,255>" + szStock + u"</color>"
+			szStockShadow = u"<color=60,50,50>" + szStockShadow + u"</color>"
 			szIcons = self.getNextWidgetName()
 			if not player.isYieldPortRoyalTradable(iYield) and self.iBoycott > 0:
 				szPrices = u"<color=255,0,0>" + szPrices + u"</color>"
-				screen.setImageButton(szIcons, gc.getYieldInfo(iYield).getIcon(), iX + self.BOX_W / 12, iY + self.BOX_H / 3, self.BOX_W * 5 / 6, self.BOX_W * 5 / 6, WidgetTypes.WIDGET_GENERAL, self.BOYCOTT, iYield)
+				screen.setImageButton(szIcons, gc.getYieldInfo(iYield).getIcon(), iX + self.BOX_W / 6, iY + self.BOX_H / 4, self.BOX_W * 4 / 6, self.BOX_W * 4 / 6, WidgetTypes.WIDGET_GENERAL, self.BOYCOTT, iYield)
 				#screen.setImageButton(szIcons, gc.getYieldInfo(iYield).getIcon(), iX + self.BOX_W / 12, self.BOX_Y + self.BOX_H / 3, self.BOX_W * 5 / 6, self.BOX_W * 5 / 6, WidgetTypes.WIDGET_GENERAL, self.BOYCOTT, iYield)
 			else:
 				screen.addDragableButton(szIcons, gc.getYieldInfo(iYield).getIcon(), "", iX + self.BOX_W / 12, iY + self.BOX_H / 3, self.BOX_W * 5 / 6, self.BOX_W * 5 / 6, WidgetTypes.WIDGET_MOVE_CARGO_TO_TRANSPORT_PORT_ROYAL, iYield, -1, ButtonStyles.BUTTON_STYLE_IMAGE )
 				#screen.addDragableButton(szIcons, gc.getYieldInfo(iYield).getIcon(), "", iX + self.BOX_W / 12, self.BOX_Y + self.BOX_H / 3, self.BOX_W * 5 / 6, self.BOX_W * 5 / 6, WidgetTypes.WIDGET_MOVE_CARGO_TO_TRANSPORT, iYield, -1, ButtonStyles.BUTTON_STYLE_IMAGE )
 			#screen.setLabel("EuropePrices" + str(iYield), "Background", szPrices, CvUtil.FONT_CENTER_JUSTIFY, iX + self.BOX_W / 2, self.BOX_Y + self.BOX_H / 12, 0, FontTypes.GAME_FONT, WidgetTypes.WIDGET_MOVE_CARGO_TO_TRANSPORT, iYield, -1)
 			screen.setLabel("PortRoyalPrices" + str(iYield), "Background", szPrices, CvUtil.FONT_CENTER_JUSTIFY, iX + self.BOX_W / 2, iY + self.BOX_H / 12, 0, FontTypes.GAME_FONT, WidgetTypes.WIDGET_MOVE_CARGO_TO_TRANSPORT_PORT_ROYAL, iYield, -1)
+			screen.setLabel("PortRoyalStockShadow" + str(iYield), "Background", szStockShadow, CvUtil.FONT_CENTER_JUSTIFY, iX + self.BOX_W / 2 - 1, iY + self.BOX_H * 9/ 12 - 1, 0, FontTypes.SMALL_FONT, WidgetTypes.WIDGET_MOVE_CARGO_TO_TRANSPORT, iYield, -1)
+			screen.setLabel("PortRoyalStock" + str(iYield), "Background", szStock, CvUtil.FONT_CENTER_JUSTIFY, iX + self.BOX_W / 2, iY + self.BOX_H * 9 / 12, 0, FontTypes.SMALL_FONT, WidgetTypes.WIDGET_MOVE_CARGO_TO_TRANSPORT, iYield, -1)
+
 			screen.moveBackward("PortRoyalPrices" + str(iYield))
 	
 			iX += self.BOX_W
@@ -940,8 +951,10 @@ class CvPortRoyalScreen:
 		player = gc.getPlayer(gc.getGame().getActivePlayer())
 		pTransport = player.getUnit(iUnit)
 				
-		if self.EuropePlotList == []:
-			self.getPlotLists(pTransport)
+		# WTP, ray, this is a problem now if we have different rules for Ships sailing to the new world
+		# the Plot List needs to be regenerated every time, not just if it is empty
+		#if self.EuropePlotList == []:
+		self.getPlotLists(pTransport)
 				
 		self.createBox(self.DIALOG_X, self.DIALOG_Y, self.DIALOG_W, self.DIALOG_H, true)
 		
@@ -1011,18 +1024,19 @@ class CvPortRoyalScreen:
 		player = gc.getPlayer(gc.getGame().getActivePlayer())
 		pTransport = player.getUnit(iUnit)
 		
-		self.createBox(self.SELL_SHIP_X, self.SELL_SHIP_Y, self.SELL_SHIP_W, self.SELL_SHIP_H, true) 
-		screen.addDDSGFCAt("SellShipEurope", "DialogPanel", "Art/Interface/Screens/Europe/Background.dds", self.SELL_SHIP_IMAGE_X, self.SELL_SHIP_IMAGE_Y, self.SELL_SHIP_IMAGE_W, self.SELL_SHIP_IMAGE_H, WidgetTypes.WIDGET_GENERAL, -1, -1, false)
-		screen.setLabelAt(self.getNextWidgetName(), "SellShipEurope", u"<font=4>" + localText.getText("TXT_KEY_EU_SELL_LABEL", ()) + u"</font>", CvUtil.FONT_LEFT_JUSTIFY, self.STANDARD_MARGIN, self.STANDARD_MARGIN * 3 / 2, 0, FontTypes.TITLE_FONT, WidgetTypes.WIDGET_GENERAL, -1, -1)
-		self.createBorder(0, 0, self.SELL_SHIP_IMAGE_W, self.SELL_SHIP_IMAGE_H, self.BORDER_SIZE, "SellShipEurope", true)
-		screen.addDDSGFCAt(self.getNextWidgetName(), "SellShipEurope", self.getMirrorShipIcon(pTransport), self.SELL_SHIP_IMAGE_W / 4, self.SELL_SHIP_IMAGE_W / 16, self.SELL_SHIP_IMAGE_W / 2, self.SELL_SHIP_IMAGE_W * 7 / 8, WidgetTypes.WIDGET_SHIP_CARGO_PORT_ROYAL, pTransport.getID(), -1, false)
+		if player.getNumShips() > 1:
+			self.createBox(self.SELL_SHIP_X, self.SELL_SHIP_Y, self.SELL_SHIP_W, self.SELL_SHIP_H, true) 
+			screen.addDDSGFCAt("SellShipEurope", "DialogPanel", "Art/Interface/Screens/Europe/Background.dds", self.SELL_SHIP_IMAGE_X, self.SELL_SHIP_IMAGE_Y, self.SELL_SHIP_IMAGE_W, self.SELL_SHIP_IMAGE_H, WidgetTypes.WIDGET_GENERAL, -1, -1, false)
+			screen.setLabelAt(self.getNextWidgetName(), "SellShipEurope", u"<font=4>" + localText.getText("TXT_KEY_EU_SELL_LABEL", ()) + u"</font>", CvUtil.FONT_LEFT_JUSTIFY, self.STANDARD_MARGIN, self.STANDARD_MARGIN * 3 / 2, 0, FontTypes.TITLE_FONT, WidgetTypes.WIDGET_GENERAL, -1, -1)
+			self.createBorder(0, 0, self.SELL_SHIP_IMAGE_W, self.SELL_SHIP_IMAGE_H, self.BORDER_SIZE, "SellShipEurope", true)
+			screen.addDDSGFCAt(self.getNextWidgetName(), "SellShipEurope", self.getMirrorShipIcon(pTransport), self.SELL_SHIP_IMAGE_W / 4, self.SELL_SHIP_IMAGE_W / 16, self.SELL_SHIP_IMAGE_W / 2, self.SELL_SHIP_IMAGE_W * 7 / 8, WidgetTypes.WIDGET_SHIP_CARGO_PORT_ROYAL, pTransport.getID(), -1, false)
+				
+			szMessage = localText.getText("TXT_KEY_EU_SELL_MESSAGE", (pTransport.getName(), self.getShipSellPrice(iUnit)))
+			screen.addMultilineText("DialogMessage", szMessage, self.SELL_SHIP_X + self.SELL_SHIP_IMAGE_X, self.SELL_SHIP_MESSAGE_Y, self.SELL_SHIP_IMAGE_W, self.SELL_SHIP_MESSAGE_H, WidgetTypes.WIDGET_GENERAL, -1, -1, CvUtil.FONT_LEFT_JUSTIFY)
 			
-		szMessage = localText.getText("TXT_KEY_EU_SELL_MESSAGE", (pTransport.getName(), self.getShipSellPrice(iUnit)))
-		screen.addMultilineText("DialogMessage", szMessage, self.SELL_SHIP_X + self.SELL_SHIP_IMAGE_X, self.SELL_SHIP_MESSAGE_Y, self.SELL_SHIP_IMAGE_W, self.SELL_SHIP_MESSAGE_H, WidgetTypes.WIDGET_GENERAL, -1, -1, CvUtil.FONT_LEFT_JUSTIFY)
-		
-		screen.setButtonGFC("DialogButton", u"<font=3>" + localText.getText("TXT_KEY_EU_DIALOG_ACCEPT", ()) + u"</font>", "", self.SELL_SHIP_BUTTON_X, self.SELL_SHIP_BUTTON_Y, self.SELL_SHIP_BUTTON_W, self.SELL_SHIP_BUTTON_H, WidgetTypes.WIDGET_GENERAL, self.SELL_SHIP_EXEC, iUnit, ButtonStyles.BUTTON_STYLE_STANDARD)
-		
-	
+			screen.setButtonGFC("DialogButton", u"<font=3>" + localText.getText("TXT_KEY_EU_DIALOG_ACCEPT", ()) + u"</font>", "", self.SELL_SHIP_BUTTON_X, self.SELL_SHIP_BUTTON_Y, self.SELL_SHIP_BUTTON_W, self.SELL_SHIP_BUTTON_H, WidgetTypes.WIDGET_GENERAL, self.SELL_SHIP_EXEC, iUnit, ButtonStyles.BUTTON_STYLE_STANDARD)
+
+
 	def liftBoycott(self, iYield):
 		screen = self.getScreen()
 		player = gc.getPlayer(gc.getGame().getActivePlayer())
@@ -1237,9 +1251,9 @@ class CvPortRoyalScreen:
 
 		while (city):
 			if (city.isCoastal(gc.getMIN_WATER_SIZE_FOR_OCEAN()) and city.isEuropeAccessable()):
-				if unit.getGroup().generatePath(plotEast, city.plot(), 0, false, None, true):
+				if unit.getGroup().generatePath(plotEast, city.plot(), 0, false, None):
 					self.CityPlotList.append([city, None])
-				elif unit.getGroup().generatePath(plotWest, city.plot(), 0, false, None, true):
+				elif unit.getGroup().generatePath(plotWest, city.plot(), 0, false, None):
 					self.CityPlotList.append([city, None])
 			(city, iter) = player.nextCity(iter, false)
 	
@@ -1384,7 +1398,7 @@ class CvPortRoyalScreen:
 
 			if self.iThisWinter:
 				unitsVolume = 1.0
-				screen.setSoundId(self.playSound("AS2D_SS_TUNDRALOOP"))
+				screen.setSoundId(self.playSound("AS2D_SS_JUNGLELOOP"))
 			else:
 				unitsVolume = 0.75
 				screen.setSoundId(self.playSound("AS2D_SS_PORTROYALELOOP"))

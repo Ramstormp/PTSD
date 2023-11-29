@@ -87,15 +87,6 @@
             <KFM/>
             <Button>,Art/Interface/Buttons/Unit_Resource_Colonization_Atlas.dds,5,17</Button>
         </ImprovementArtInfo>
-<ImprovementArtInfo>
-            <Type>ART_DEF_IMPROVEMENT_PLUNDERED_FARM</Type>
-            <bExtraAnimations>1</bExtraAnimations>
-            <fScale>0.6</fScale>
-            <fInterfaceScale>1.0</fInterfaceScale>
-            <NIF>Art/Structures/Improvements/PlunderedFarm/farm_2x1_building.nif</NIF>
-            <KFM/>
-            <Button>,Art/Interface/Buttons/Unit_Resource_Colonization_Atlas.dds,5,17</Button>
-        </ImprovementArtInfo>
         <ImprovementArtInfo>
             <Type>ART_DEF_IMPROVEMENT_LODGE</Type>
             <bExtraAnimations>0</bExtraAnimations>
@@ -123,21 +114,12 @@
             <KFM/>
             <Button>,Art/colonization_atlas_buildings.dds,1,11</Button>
         </ImprovementArtInfo>
-<ImprovementArtInfo>
-            <Type>ART_DEF_IMPROVEMENT_PLUNDERED_PLANTATION</Type>
-            <bExtraAnimations>0</bExtraAnimations>
-            <fScale>0.6</fScale>
-            <fInterfaceScale>1.25</fInterfaceScale>
-            <NIF>Art/Structures/Improvements/plantation/Plantation.nif</NIF>
-            <KFM/>
-            <Button>,Art/colonization_atlas_buildings.dds,1,11</Button>
-        </ImprovementArtInfo>
         <ImprovementArtInfo>
-            <Type>ART_DEF_IMPROVEMENT_COCOA_PLANTATION</Type>
+            <Type>ART_DEF_IMPROVEMENT_FRUIT_PLANTATION</Type>
             <bExtraAnimations>0</bExtraAnimations>
             <fScale>0.6</fScale>
             <fInterfaceScale>1.25</fInterfaceScale>
-            <NIF>Art/Structures/Improvements/Cocoa_Plantation/Cocoa_Plantation.nif</NIF>
+            <NIF>Art/Structures/Improvements/fruit_plantation/fruit_plantation.nif</NIF>
             <KFM/>
             <Button>,Art/colonization_atlas_buildings.dds,6,15</Button>
         </ImprovementArtInfo>
@@ -159,6 +141,15 @@
             <KFM/>
             <Button>,Art/colonization_atlas_buildings.dds,1,12</Button>
         </ImprovementArtInfo>
+		<ImprovementArtInfo>
+            <Type>ART_DEF_IMPROVEMENT_PEN</Type>
+            <bExtraAnimations>0</bExtraAnimations>
+            <fScale>1.0</fScale>
+            <fInterfaceScale>1.0</fInterfaceScale>
+            <NIF>Art/Structures/Improvements/Breeding_Pen/ranch.nif</NIF>
+            <KFM/>
+            <Button>,Art/Interface/Buttons/Unit_Resource_Colonization_Atlas.dds,8,6</Button>
+        </ImprovementArtInfo>
         <ImprovementArtInfo>
             <Type>ART_DEF_IMPROVEMENT_QUARRY</Type>
             <bExtraAnimations>0</bExtraAnimations>
@@ -167,6 +158,42 @@
             <NIF>Art/Structures/Improvements/Quarry/quarry.nif</NIF>
             <KFM>Art/Structures/Improvements/Quarry/quarry.kfm</KFM>
             <Button>,Art/colonization_atlas_buildings.dds,2,12</Button>
+        </ImprovementArtInfo>
+        <ImprovementArtInfo>
+            <Type>ART_DEF_IMPROVEMENT_CLAY_PIT</Type>
+            <bExtraAnimations>0</bExtraAnimations>
+            <fScale>1.0</fScale>
+            <fInterfaceScale>1.0</fInterfaceScale>
+            <NIF>Art/Structures/Improvements/Open_clay_mine/clay_pit.nif</NIF>
+            <KFM/>
+            <Button>,Art/colonization_atlas_buildings.dds,5,17</Button>
+        </ImprovementArtInfo>
+        <ImprovementArtInfo>
+            <Type>ART_DEF_IMPROVEMENT_OPEN_CLAY_MINE</Type>
+            <bExtraAnimations>0</bExtraAnimations>
+            <fScale>1.0</fScale>
+            <fInterfaceScale>1.0</fInterfaceScale>
+            <NIF>Art/Structures/Improvements/Open_clay_mine/quarry.nif</NIF>
+            <KFM>Art/Structures/Improvements/Open_clay_mine/quarry.kfm</KFM>
+            <Button>,Art/colonization_atlas_buildings.dds,6,17</Button>
+        </ImprovementArtInfo>
+        <ImprovementArtInfo>
+            <Type>ART_DEF_IMPROVEMENT_PEAT_PIT</Type>
+            <bExtraAnimations>0</bExtraAnimations>
+            <fScale>1.0</fScale>
+            <fInterfaceScale>1.0</fInterfaceScale>
+            <NIF>Art/Structures/Improvements/Open_peat_mine/peat_pit.nif</NIF>
+            <KFM/>
+            <Button>,Art/colonization_atlas_buildings.dds,7,17</Button>
+        </ImprovementArtInfo>
+        <ImprovementArtInfo>
+            <Type>ART_DEF_IMPROVEMENT_OPEN_PEAT_MINE</Type>
+            <bExtraAnimations>0</bExtraAnimations>
+            <fScale>1.0</fScale>
+            <fInterfaceScale>1.0</fInterfaceScale>
+            <NIF>Art/Structures/Improvements/Open_peat_mine/quarry.nif</NIF>
+            <KFM>Art/Structures/Improvements/Open_peat_mine/quarry.kfm</KFM>
+            <Button>,Art/colonization_atlas_buildings.dds,8,17</Button>
         </ImprovementArtInfo>
         <ImprovementArtInfo>
             <Type>ART_DEF_IMPROVEMENT_VINEYARD</Type>
@@ -192,15 +219,6 @@
             <fScale>0.6</fScale>
             <fInterfaceScale>1.0</fInterfaceScale>
             <NIF>Art/Structures/Improvements/Farm2/farm_2x1_building.nif</NIF>
-            <KFM/>
-            <Button>,Art/colonization_atlas_buildings.dds,1,14</Button>
-        </ImprovementArtInfo>
-	<ImprovementArtInfo>
-            <Type>ART_DEF_IMPROVEMENT_PLUNDERED_LARGE_FARM</Type>
-            <bExtraAnimations>1</bExtraAnimations>
-            <fScale>0.6</fScale>
-            <fInterfaceScale>1.0</fInterfaceScale>
-            <NIF>Art/Structures/Improvements/PlunderedFarm2/farm_2x1_building.nif</NIF>
             <KFM/>
             <Button>,Art/colonization_atlas_buildings.dds,1,14</Button>
         </ImprovementArtInfo>
@@ -240,21 +258,12 @@
             <KFM/>
             <Button>,Art/colonization_atlas_buildings.dds,6,14</Button>
         </ImprovementArtInfo>
-<ImprovementArtInfo>
-            <Type>ART_DEF_IMPROVEMENT_PLUNDERED_LARGE_PLANTATION</Type>
-            <bExtraAnimations>0</bExtraAnimations>
-            <fScale>0.6</fScale>
-            <fInterfaceScale>1.25</fInterfaceScale>
-            <NIF>Art/Structures/Improvements/plantation/Plantation2.nif</NIF>
-            <KFM/>
-            <Button>,Art/colonization_atlas_buildings.dds,6,14</Button>
-        </ImprovementArtInfo>
         <ImprovementArtInfo>
-            <Type>ART_DEF_IMPROVEMENT_LARGE_COCOA_PLANTATION</Type>
+            <Type>ART_DEF_IMPROVEMENT_LARGE_FRUIT_PLANTATION</Type>
             <bExtraAnimations>0</bExtraAnimations>
             <fScale>0.7</fScale>
             <fInterfaceScale>1.0</fInterfaceScale>
-            <NIF>Art/Structures/Improvements/Cocoa_Plantation/Cocoa_Plantation2.nif</NIF>
+            <NIF>Art/Structures/Improvements/fruit_plantation/large_fruit_plantation.nif</NIF>
             <KFM/>
             <Button>,Art/colonization_atlas_buildings.dds,2,11</Button>
         </ImprovementArtInfo>
@@ -275,6 +284,15 @@
             <NIF>Art/Structures/Improvements/Pasture/Horse_Pasture2.nif</NIF>
             <KFM/>
             <Button>,Art/colonization_atlas_buildings.dds,1,13</Button>
+        </ImprovementArtInfo>
+		<ImprovementArtInfo>
+            <Type>ART_DEF_IMPROVEMENT_LARGE_PEN</Type>
+            <bExtraAnimations>0</bExtraAnimations>
+            <fScale>1.1</fScale>
+            <fInterfaceScale>1.0</fInterfaceScale>
+            <NIF>Art/Structures/Improvements/Large_Breeding_Pen/large_ranch.nif</NIF>
+            <KFM/>
+            <Button>,Art/colonization_atlas_buildings.dds,7,15</Button>
         </ImprovementArtInfo>
         <ImprovementArtInfo>
             <Type>ART_DEF_IMPROVEMENT_LARGE_QUARRY</Type>
@@ -349,6 +367,42 @@
             <Button>,Art/colonization_atlas_buildings.dds,2,16</Button>
         </ImprovementArtInfo>
         <ImprovementArtInfo>
+            <Type>ART_DEF_IMPROVEMENT_FISHING_NETS</Type>
+            <bExtraAnimations>0</bExtraAnimations>
+            <fScale>1.4</fScale>
+            <fInterfaceScale>1.0</fInterfaceScale>
+            <NIF>Art/Structures/Improvements/nets/FishingBoat.nif</NIF>
+            <KFM>Art/Structures/Improvements/nets/FishingBoat.kfm</KFM>
+            <Button>,Art/colonization_atlas_buildings.dds,5,15</Button>
+        </ImprovementArtInfo>
+        <ImprovementArtInfo>
+            <Type>ART_DEF_IMPROVEMENT_HUNTERS_STAGE</Type>
+            <bExtraAnimations>0</bExtraAnimations>
+            <fScale>1.4</fScale>
+            <fInterfaceScale>1.0</fInterfaceScale>
+            <NIF>Art/Structures/Improvements/Hunters_Stage/dock1.nif</NIF>
+            <KFM/>
+            <Button>,Art/colonization_atlas_buildings.dds,3,16</Button>
+        </ImprovementArtInfo>
+        <ImprovementArtInfo>
+            <Type>ART_DEF_IMPROVEMENT_SALINA</Type>
+            <bExtraAnimations>0</bExtraAnimations>
+            <fScale>0.6</fScale>
+            <fInterfaceScale>1.0</fInterfaceScale>
+            <NIF>Art/Structures/Improvements/saline/salinas4.nif</NIF>
+            <KFM/>
+            <Button>,Art/colonization_atlas_buildings.dds,6,16</Button>
+        </ImprovementArtInfo>
+        <ImprovementArtInfo>
+            <Type>ART_DEF_IMPROVEMENT_LARGE_SALINA</Type>
+            <bExtraAnimations>0</bExtraAnimations>
+            <fScale>0.6</fScale>
+            <fInterfaceScale>1.0</fInterfaceScale>
+            <NIF>Art/Structures/Improvements/Large_Saline/salinas4.nif</NIF>
+            <KFM/>
+            <Button>,Art/colonization_atlas_buildings.dds,7,16</Button>
+        </ImprovementArtInfo>
+        <ImprovementArtInfo>
             <Type>ART_DEF_IMPROVEMENT_BARBARIAN_CAMP</Type>
             <bExtraAnimations>0</bExtraAnimations>
             <fScale>1.5</fScale>
@@ -374,6 +428,51 @@
             <NIF>Art/structures/improvements/NativeHostileVillage/tribalvillage.nif</NIF>
             <KFM>Art/structures/improvements/NativeHostileVillage/tribalvillage.kfm</KFM>
             <Button>,Art/colonization_atlas_buildings.dds,1,18</Button>
+        </ImprovementArtInfo>
+        <ImprovementArtInfo>
+            <Type>ART_DEF_IMPROVEMENT_WIND_MILL</Type>
+            <bExtraAnimations>0</bExtraAnimations>
+            <fScale>1.0</fScale>
+            <fInterfaceScale>1.0</fInterfaceScale>
+            <NIF>Art/Structures/Improvements/WindmillREN/windmill.nif</NIF>
+            <KFM>Art/Structures/Improvements/WindmillREN/windmill.kfm</KFM>
+            <Button>,Art/colonization_atlas_buildings.dds,8,16</Button>
+        </ImprovementArtInfo>
+        <ImprovementArtInfo>
+            <Type>ART_DEF_IMPROVEMENT_IRON_MILL</Type>
+            <bExtraAnimations>0</bExtraAnimations>
+            <fScale>1.0</fScale>
+            <fInterfaceScale>1.0</fInterfaceScale>
+            <NIF>Art/Structures/Improvements/Iron_Mill/watermillJAP.nif</NIF>
+            <KFM>Art/Structures/Improvements/Iron_Mill/watermillJAP.kfm</KFM>
+            <Button>,Art/colonization_atlas_buildings.dds,8,12</Button>
+        </ImprovementArtInfo>
+        <ImprovementArtInfo>
+            <Type>ART_DEF_IMPROVEMENT_CANAL</Type>
+            <bExtraAnimations>0</bExtraAnimations>
+            <fScale>1.0</fScale>
+            <fInterfaceScale>1.0</fInterfaceScale>
+            <NIF>Art/Structures/Improvements/canal/canal.nif</NIF>
+            <KFM/>
+            <Button>,Art/colonization_atlas_buildings.dds,8,15</Button>
+        </ImprovementArtInfo>
+        <ImprovementArtInfo>
+            <Type>ART_DEF_IMPROVEMENT_SUPPLY_DEPOT</Type>
+            <bExtraAnimations>0</bExtraAnimations>
+            <fScale>0.5</fScale>
+            <fInterfaceScale>1.0</fInterfaceScale>
+            <NIF>Art/Structures/Improvements/Supply_Depot/supply_depot.nif</NIF>
+            <KFM/>
+            <Button>,Art/colonization_atlas_buildings.dds,3,17</Button>
+        </ImprovementArtInfo>
+        <ImprovementArtInfo>
+            <Type>ART_DEF_IMPROVEMENT_LARGE_SUPPLY_DEPOT</Type>
+            <bExtraAnimations>0</bExtraAnimations>
+            <fScale>0.5</fScale>
+            <fInterfaceScale>1.0</fInterfaceScale>
+            <NIF>Art/Structures/Improvements/Large_Supply_Depot/large_supply_depot.nif</NIF>
+            <KFM/>
+            <Button>,Art/colonization_atlas_buildings.dds,4,17</Button>
         </ImprovementArtInfo>
     </ImprovementArtInfos>
 </Civ4ArtDefines>

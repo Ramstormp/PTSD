@@ -19,7 +19,6 @@ void CyPlotPythonInterface2(python::class_<CyPlot>& x)
 		.def("setWOfRiver", &CyPlot::setWOfRiver, "void (bool bNewValue, CardinalDirectionTypes eRiverDir)")
 		.def("getRiverWEDirection", &CyPlot::getRiverWEDirection, "CardinalDirectionTypes ()")
 		.def("getRiverNSDirection", &CyPlot::getRiverNSDirection, "CardinalDirectionTypes ()")
-		.def("isLargeRiver", &CyPlot::isLargeRiver, "bool ()") // Ramstormp, PTSD
 		.def("isPotentialCityWork", &CyPlot::isPotentialCityWork, "bool ()")
 		.def("isPotentialCityWorkForArea", &CyPlot::isPotentialCityWorkForArea, "bool (CyArea* pArea)")
 		.def("isFlagDirty", &CyPlot::isFlagDirty, "bool ()")
@@ -95,5 +94,15 @@ void CyPlotPythonInterface2(python::class_<CyPlot>& x)
 		.def("getChokeValue", &CyPlot::getChokeValue, "int ()")
 		.def("calculateChokeValue", &CyPlot::calculateChokeValue, "void ()")
 		// Super Forts end
+
+		// WTP, ray, helper methods for Python Event System - Spawning Units and Barbarians on Plots - START
+		.def("spawnPlayerUnitOnPlot", &CyPlot::spawnPlayerUnitOnPlot, "void (int /*PlayerTypes*/ iPlayer, int /*UnitClassTypes*/ iIndex)")
+		.def("spawnBarbarianUnitOnPlot", &CyPlot::spawnBarbarianUnitOnPlot, "void (int /*UnitClassTypes*/ iIndex)")
+		.def("spawnPlayerUnitOnAdjacentPlot", &CyPlot::spawnPlayerUnitOnAdjacentPlot, "void (int /*PlayerTypes*/ iPlayer, int /*UnitClassTypes*/ iIndex)")
+		.def("spawnBarbarianUnitOnAdjacentPlot", &CyPlot::spawnBarbarianUnitOnAdjacentPlot, "void (int /*UnitClassTypes*/ iIndex)")
+		.def("isPlayerUnitOnAdjacentPlot", &CyPlot::isPlayerUnitOnAdjacentPlot, "bool (int /*PlayerTypes*/ iPlayer, int /*UnitClassTypes*/ iIndex)")
+		.def("isBarbarianUnitOnAdjacentPlot", &CyPlot::isBarbarianUnitOnAdjacentPlot, "bool (int /*UnitClassTypes*/ iIndex)")
+		// WTP, ray, helper methods for Python Event System - Spawning Units and Barbarians on Plots - END
+
 	;
 }

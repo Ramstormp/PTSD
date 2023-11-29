@@ -21,6 +21,7 @@
 #include "FVariableSystem.h"
 #include "CvInitCore.h"
 #include "UserSettings.h"
+#include "StartupErrorChecking.h"
 
 #include <stdlib.h>
 
@@ -34,8 +35,6 @@
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////
-
-CvGlobals gGlobals;
 
 //
 // CONSTRUCTOR
@@ -88,15 +87,10 @@ m_aaiXYCityPlot_2_plot(NULL),
 m_aeTurnLeftDirection(NULL),
 m_aeTurnRightDirection(NULL),
 m_VarSystem(NULL),
-m_iMOVE_DENOMINATOR(0),
-m_iFOOD_CONSUMPTION_PER_POPULATION(0),
-m_iFOOD_CONSUMPTION_PER_CITY_DEFENDER(0), // Ramstormp, PTSD, Guards eat food too
 m_iMAX_HIT_POINTS(0),
 m_iHILLS_EXTRA_DEFENSE(0),
 m_iRIVER_ATTACK_MODIFIER(0),
 m_iAMPHIB_ATTACK_MODIFIER(0),
-m_iHILLS_EXTRA_MOVEMENT(0),
-m_iPEAK_EXTRA_MOVEMENT(0),
 m_iMAX_PLOT_LIST_ROWS(0),
 m_iUNIT_MULTISELECT_MAX(0),
 m_iEVENT_MESSAGE_TIME(0),
@@ -114,20 +108,20 @@ m_iSEAWATER_SEE_FROM_CHANGE(0),
 m_iPEAK_SEE_FROM_CHANGE(0),
 m_iHILLS_SEE_FROM_CHANGE(0),
 m_iMAX_REBEL_YIELD_MODIFIER(0),
-m_iNEW_CAPACITY(0),				//VET NewCapacity - 1/3
 // TAC - AI Improved Navel AI - koma13 - START
 m_iAI_TRANSPORT_DANGER_RANGE(0),
 m_iAI_LOST_TRANSPORT_MEMORY_COUNT(0),
 // TAC - AI Improved Navel AI - koma13 - END
 
 // R&R, ray, caching globals from Global Defines Alt - START
-// Caching Vanilla variables	
+// Caching Vanilla variables
 m_PLOT_VISIBILITY_RANGE(0),
 m_UNIT_VISIBILITY_RANGE(0),
 m_MIN_CITY_YIELD_DECAY(0),
 m_CITY_YIELD_DECAY_PERCENT(0),
 m_IMMIGRATION_THRESHOLD(0),
 m_IMMIGRATION_THRESHOLD_INCREASE(0),
+m_IMMIGRATION_THRESHOLD_MODIFIER_UNITS_ON_DOCK(0),
 m_TAX_TRADE_THRESHOLD(0),
 m_TAX_TRADE_THRESHOLD_TAX_RATE_PERCENT(0),
 m_TAX_INCREASE_CHANCE(0),
@@ -137,7 +131,7 @@ m_REDUCED_REF_PERCENT(0),
 // Domestic Market
 m_PRICE_DIFF_EUROPE_DOMESTIC_LUXURY_GOODS(0),
 m_DOMESTIC_SALES_MESSAGES(0),
-// Wild Animals	
+// Wild Animals
 m_WILD_ANIMAL_LAND_TERRAIN_NATIVE_WEIGHT(0),
 m_WILD_ANIMAL_LAND_UNIT_VARIATION_WEIGHT(0),
 m_WILD_ANIMAL_SEA_TERRAIN_NATIVE_WEIGHT(0),
@@ -145,6 +139,8 @@ m_WILD_ANIMAL_SEA_UNIT_VARIATION_WEIGHT(0),
 m_WILD_ANIMAL_REWARD_RANDOM_BASE(0),
 // Max Cross Limit
 m_IMMIGRATION_MAX_CROSS_LIMIT(0),
+// WTP, ray Domestic Market Events - START
+m_ENABLE_DOMESTIC_DEMAND_EVENTS(0),
 // NBMOD REF
 m_NBMOD_REF_ENABLE(0),
 m_NBMOD_REF_RANDOM_SHIPS(0),
@@ -217,6 +213,7 @@ m_MIN_ROUND_CHURCH_CONTACT(0),
 m_CHURCH_CONTACT_CHANCE(0),
 m_MIN_ROUND_CHURCH_WAR(0),
 m_BASE_CHANCE_EUROPE_PEACE(0),
+m_BASE_CHANCE_ROYAL_INTERVENTIONS(0), // WTP, ray, Royal Intervention, START
 m_MIN_ROUND_PRISONS_CROWDED(0),
 m_PRISONS_CROWDED_CHANCE(0),
 m_MIN_ROUND_REVOLUTIONARY_NOBLE(0),
@@ -234,6 +231,11 @@ m_MIN_ROUND_AFRICAN_SLAVES(0),
 m_AFRICAN_SLAVES_CHANCE(0),
 m_MIN_ROUND_BISHOP(0),
 m_BISHOP_CHANCE(0),
+m_MIN_ROUND_COLONIAL_INTERVENTION_NATIVE_WAR(0), //WTP, ray, Colonial Intervention In Native War - START
+m_COLONIAL_INTERVENTION_NATIVE_WAR_CHANCE(0), //WTP, ray, Colonial Intervention In Native War - START
+m_COLONIAL_INTERVENTION_NATIVE_WAR_GOLD_TO_PAY_PER_UNIT(0), //WTP, ray, Colonial Intervention In Native War - START
+m_MIN_ROUND_COLONIES_AND_NATIVE_ALLIES_WAR(0), // WTP, ray, Big Colonies and Native Allies War - START
+m_BASE_CHANCE_COLONIES_AND_NATIVE_ALLIES_WAR(0), // WTP, ray, Big Colonies and Native Allies War - START
 m_PRICE_MILITIA(0),
 m_MIN_CITY_SIZE_MILITIA_OR_UNREST(0),
 m_CHANCE_MILITIA(0),
@@ -244,9 +246,13 @@ m_BASE_CHANCE_STEALING_IMMIGRANT(0),
 m_TIMER_NATIVE_MERC(0),
 m_TIMER_EUROPEAN_WARS(0),
 m_TIMER_EUROPEAN_PEACE(0),
+m_TIMER_ROYAL_INTERVENTIONS(0), // WTP, ray, Royal Intervention, START
+m_TIMER_PRIVATEERS_DIPLO_EVENT(0), // WTP, ray, Privateers DLL Diplo Event - START
 m_TIMER_PRISONS_CROWDED(0),
 m_TIMER_REVOLUTIONARY_NOBLE(0),
 m_TIMER_BISHOP(0),
+m_TIMER_COLONIAL_INTERVENTION_NATIVE_WAR(0),//WTP, ray, Colonial Intervention In Native War - START
+m_TIMER_COLONIES_AND_NATIVE_ALLIES_WAR(0), // WTP, ray, Big Colonies and Native Allies War - START
 m_TIMER_CHURCH_DEMAND(0),
 m_TIMER_CHURCH_WAR(0),
 m_TIMER_SMUGGLING_SHIP(0),
@@ -276,21 +282,19 @@ m_CUSTOMHOUSE_PRODUCED_SELL_THRESHOLD(0),
 m_TAX_TRADE_INCREASE_CHANCE_KING_ATTITUDE_BASE(0),
 // R&R, ray, caching globals from Global Defines Alt - END
 
-// cache ship profession - start - Nightinggale
-m_PROFESSION_WHALING_BOAT_WORKING(-1),
-m_PROFESSION_FISHING_BOAT_WORKING(-1),
-// cache ship profession - end - Nightinggale
-// R&R, ray, enhanced caching Whaling and Fishing - START
-m_UNITCLASS_WHALING_BOAT(-1),
-m_UNITCLASS_FISHING_BOAT(-1),
-// R&R, ray, enhanced caching Whaling and Fishing - END
-
 // R&R, ray, Health - START
 m_MIN_POP_NEG_HEALTH(0),
 m_POP_DIVISOR_NEG_HEALTH(0),
 m_MAX_CITY_HEALTH(0),
 m_LOWEST_CITY_HEALTH(0),
 // R&R, ray, Health - END
+
+// WTP, ray, Health Overhaul - START
+m_SWEET_WATER_CITY_LOCATION_HEALTH_BONUS(0),
+m_COASTAL_CITY_LOCATION_HEALTH_BONUS(0),
+m_HILL_CITY_LOCATION_HEALTH_BONUS(0),
+m_BAD_CITY_LOCATION_HEALTH_MALUS(0),
+// WTP, ray, Health Overhaul - END
 
 // WTP, ray, Happiness - START
 m_MIN_POP_NEG_HAPPINESS(0),
@@ -304,9 +308,21 @@ m_BASE_CHANCE_FESTIVITIES_HAPPINESS(0),
 m_MIN_BALANCE_UNREST_UNHAPPINESS(0),
 m_MIN_BALANCE_FESTIVITIES_HAPPINESS(0),
 m_TURNS_UNREST_UNHAPPINESS(0),
-m_FOUNDING_FAHTER_POINTS_FESTIVITIES_HAPPINESS(0),
+m_FOUNDING_FATHER_POINTS_FESTIVITIES_HAPPINESS(0),
 m_TIMER_FESTIVITIES_OR_UNRESTS(0),
 // WTP, ray, Happiness - END
+
+// WTP, ray, Crime and Law - START
+m_MIN_POP_CRIME(0),
+m_POP_DIVISOR_CRIME(0),
+m_PER_EUROPEAN_AT_WAR_CRIME(0),
+m_CRIME_PERCENT_BONUS_FACTOR_OVERFLOW(0),
+// WTP, ray, Crime and Law - END
+
+//WTP, ray, Slave Hunter and Slave Master - START
+m_MAX_SLAVE_REVOLT_REDUCTION_BONUS_PER_CITY(0),
+m_MAX_SLAVE_WORKER_PRODUCTION_BONUS_PER_CITY(0),
+//WTP, ray, Slave Hunter and Slave Master - END
 
 m_MAX_TREASURE_AMOUNT(0), // WTP, merge Treasures, of Raubwuerger
 m_TRADE_POST_GOLD_PER_NATIVE(0), // WTP, ray, Native Trade Posts - START
@@ -345,6 +361,7 @@ m_iUSE_ON_UPDATE_CALLBACK(0),
 m_iUSE_ON_UNIT_CREATED_CALLBACK(0),
 m_iUSE_ON_UNIT_LOST_CALLBACK(0),
 // K-Mod \ RaR
+m_iThreadID(GetCurrentThreadId()),
 m_bUSE_AI_UNIT_UPDATE_CALLBACK(false),
 m_bUSE_AI_DO_DIPLO_CALLBACK(false),
 m_bUSE_AI_DO_WAR_CALLBACK(false),
@@ -356,9 +373,10 @@ m_bUSE_AI_CHOOSE_PRODUCTION_CALLBACK(false),
 m_bUSE_DO_PILLAGE_GOLD_CALLBACK(false),
 m_bUSE_GET_EXPERIENCE_NEEDED_CALLBACK(false),
 m_bUSE_DO_COMBAT_CALLBACK(false),
-// K-Mod \RaR end
+// K-Mod \RaR end,
 m_paHints(NULL),
-m_paMainMenus(NULL)
+m_paMainMenus(NULL),
+m_bExeXmlLengthOverride(true)
 {
 }
 
@@ -371,6 +389,7 @@ CvGlobals::~CvGlobals()
 //
 void CvGlobals::init()
 {
+	StartupCheck::GlobalInitXMLCheck();
 	//
 	// These vars are used to initialize the globals.
 	//
@@ -415,7 +434,7 @@ void CvGlobals::init()
 		0,	// CARDINALDIRECTION_WEST
 	};
 
-	int aiCityPlotY[NUM_CITY_PLOTS_RADIUS_2] =
+	int aiCityPlotY[NUM_CITY_PLOTS_2_PLOTS] =
 	{
 		0,
 		0, 1, 1, 1, 0,-1,-1,-1,
@@ -423,7 +442,7 @@ void CvGlobals::init()
 		2, 2,-2,-2, // R&R, ray, 2 Plot Radius
 	};
 
-	int aiCityPlotX[NUM_CITY_PLOTS_RADIUS_2] =
+	int aiCityPlotX[NUM_CITY_PLOTS_2_PLOTS] =
 	{
 		0,
 		1, 1, 0,-1,-1,-1, 0, 1,
@@ -431,7 +450,7 @@ void CvGlobals::init()
 		2,-2,-2, 2, // R&R, ray, 2 Plot Radius
 	};
 
-	int aiCityPlotPriority[NUM_CITY_PLOTS_RADIUS_2] =
+	int aiCityPlotPriority[NUM_CITY_PLOTS_2_PLOTS] =
 	{
 		0,
 		1, 2, 1, 2, 1, 2, 1, 2,
@@ -526,39 +545,6 @@ void CvGlobals::init()
 	memcpy(m_aaiXYCityPlot_2_plot, aaiXYCityPlot_2_plot, sizeof(aaiXYCityPlot_2_plot));
 
 	this->setCityCatchmentRadius(0);
-}
-
-void CvGlobals::setCityCatchmentRadius(int iRadius)
-{
-	// Ideally this assert should trigger if altered after players are added, but it doesn't look like there are any way to check that.
-	// What really should be checked here is that the total count of cities in the game should be 0.
-//	FAssert(!GC.getGameINLINE().isFinalInitialized());
-#ifndef CHECK_GLOBAL_CONSTANTS
-	CITY_PLOTS_RADIUS = static_cast<CityPlotTypes>(iRadius);
-	if (iRadius == 1)
-	{
-		m_aaiXYCityPlot = m_aaiXYCityPlot_1_plot;
-		NUM_CITY_PLOTS = NUM_CITY_PLOTS_1_PLOT;
-		CITY_PLOTS_DIAMETER = static_cast<CityPlotTypes>(3);
-		m_iMIN_CITY_RANGE = getDefineINT("MIN_CITY_RANGE");
-		GC.setDefineFLOAT("CAMERA_CITY_ZOOM_IN_DISTANCE", GC.getDefineFLOAT("CAMERA_CITY_ZOOM_IN_DISTANCE_ONE_PLOT"));
-	}
-	else if (iRadius == 2)
-	{
-		m_aaiXYCityPlot = m_aaiXYCityPlot_2_plot;
-		NUM_CITY_PLOTS = NUM_CITY_PLOTS_2_PLOTS;// Ramstormp, PTSD, Zoom until Culture is ready
-		CITY_PLOTS_DIAMETER = static_cast<CityPlotTypes>(5);
-		m_iMIN_CITY_RANGE = getDefineINT("MIN_CITY_RANGE_TWO_PLOT");
-		GC.setDefineFLOAT("CAMERA_CITY_ZOOM_IN_DISTANCE", GC.getDefineFLOAT("CAMERA_CITY_ZOOM_IN_DISTANCE_TWO_PLOT"));// Ramstormp, PTSD, Zoom until Culture is ready
-	}
-	else
-	{
-		// invalid setting (likely 0). Use UserSetting value.
-		// Odds are that a scenario is read and the radius isn't specified.
-		UserSettings settings;
-		setCityCatchmentRadius(settings.getColonyRadius());
-	}
-#endif
 }
 
 //
@@ -1000,8 +986,7 @@ std::vector<CvColorInfo*>& CvGlobals::getColorInfo()
 
 CvColorInfo& CvGlobals::getColorInfo(ColorTypes e)
 {
-	FAssert(e > -1);
-	FAssert(e < GC.getNumColorInfos());
+	FAssert(VARINFO<ColorTypes>::isInRange(e));
 	return *(m_paColorInfo[e]);
 }
 
@@ -1340,6 +1325,13 @@ CvCivilizationInfo& CvGlobals::getCivilizationInfo(CivilizationTypes eCivilizati
 	return *(m_paCivilizationInfo[eCivilizationNum]);
 }
 
+CvCivilizationInfo& CvGlobals::getInfo(CivilizationTypes eCivilizationNum)
+{
+	FAssert(eCivilizationNum > -1);
+	FAssert(eCivilizationNum < (int)m_paCivilizationInfo.size());
+	return *(m_paCivilizationInfo[eCivilizationNum]);
+}
+
 
 int CvGlobals::getNumLeaderHeadInfos()
 {
@@ -1444,7 +1436,7 @@ CvWorldPickerInfo& CvGlobals::getWorldPickerInfo(int iIndex)
 	return *(m_paWorldPickerInfo[iIndex]);
 }
 
-int CvGlobals::getNumUnitInfos()
+int CvGlobals::getNumUnitInfos() const
 {
 	return (int)m_paUnitInfo.size();
 }
@@ -1491,8 +1483,8 @@ std::vector<CvInfoBase*>& CvGlobals::getConceptInfo()	// For Moose - XML Load Ut
 
 CvInfoBase& CvGlobals::getConceptInfo(ConceptTypes e)
 {
-	FAssert(e > -1);
-	FAssert(e < GC.getNumConceptInfos());
+	FAssert(e > NO_CONCEPT);
+	FAssert(e < NUM_CONCEPT_TYPES);
 	return *(m_paConceptInfo[e]);
 }
 int CvGlobals::getNumCalendarInfos()
@@ -1613,6 +1605,13 @@ std::vector<CvFatherPointInfo*>& CvGlobals::getFatherPointInfo()	// For Moose - 
 }
 
 CvFatherPointInfo& CvGlobals::getFatherPointInfo(FatherPointTypes e)
+{
+	FAssert(e > -1);
+	FAssert(e < GC.getNumFatherPointInfos());
+	return *(m_paFatherPointInfo[e]);
+}
+
+CvFatherPointInfo& CvGlobals::getInfo(FatherPointTypes e)
 {
 	FAssert(e > -1);
 	FAssert(e < GC.getNumFatherPointInfos());
@@ -1793,6 +1792,13 @@ CvYieldInfo& CvGlobals::getYieldInfo(YieldTypes eYieldNum)
 	return *(m_paYieldInfo[eYieldNum]);
 }
 
+CvYieldInfo& CvGlobals::getInfo(YieldTypes eYieldNum)
+{
+	FAssert(eYieldNum > -1);
+	FAssert(eYieldNum < NUM_YIELD_TYPES);
+	return *(m_paYieldInfo[eYieldNum]);
+}
+
 
 int CvGlobals::getNumRouteInfos()
 {
@@ -1949,8 +1955,7 @@ std::vector<CvTurnTimerInfo*>& CvGlobals::getTurnTimerInfo()	// Do NOT export ou
 
 CvTurnTimerInfo& CvGlobals::getTurnTimerInfo(TurnTimerTypes eTurnTimerNum)
 {
-	FAssert(eTurnTimerNum > -1);
-	FAssert(eTurnTimerNum < GC.getNumTurnTimerInfos());
+	FAssert(VARINFO<TurnTimerTypes>::isInRange(eTurnTimerNum));
 	return *(m_paTurnTimerInfo[eTurnTimerNum]);
 }
 
@@ -1971,7 +1976,7 @@ CvBuildingClassInfo& CvGlobals::getBuildingClassInfo(BuildingClassTypes eBuildin
 	return *(m_paBuildingClassInfo[eBuildingClassNum]);
 }
 
-int CvGlobals::getNumBuildingInfos()
+int CvGlobals::getNumBuildingInfos() const
 {
 	return (int)m_paBuildingInfo.size();
 }
@@ -1999,6 +2004,13 @@ std::vector<CvSpecialBuildingInfo*>& CvGlobals::getSpecialBuildingInfo()	// For 
 }
 
 CvSpecialBuildingInfo& CvGlobals::getSpecialBuildingInfo(SpecialBuildingTypes eSpecialBuildingNum)
+{
+	FAssert(eSpecialBuildingNum > -1);
+	FAssert(eSpecialBuildingNum < GC.getNumSpecialBuildingInfos());
+	return *(m_paSpecialBuildingInfo[eSpecialBuildingNum]);
+}
+
+CvSpecialBuildingInfo& CvGlobals::getInfo(SpecialBuildingTypes eSpecialBuildingNum)
 {
 	FAssert(eSpecialBuildingNum > -1);
 	FAssert(eSpecialBuildingNum < GC.getNumSpecialBuildingInfos());
@@ -2402,8 +2414,7 @@ std::vector<CvUnitArtStyleTypeInfo*>& CvGlobals::getUnitArtStyleTypeInfo()
 
 CvUnitArtStyleTypeInfo& CvGlobals::getUnitArtStyleTypeInfo(UnitArtStyleTypes eUnitArtStyleTypeNum)
 {
-	FAssert(eUnitArtStyleTypeNum > -1);
-	FAssert(eUnitArtStyleTypeNum < GC.getNumUnitArtStyleTypeInfos());
+	FAssert(VARINFO<UnitArtStyleTypes>::isInRange(eUnitArtStyleTypeNum));
 	return *(m_paUnitArtStyleTypeInfo[eUnitArtStyleTypeNum]);
 }
 //Androrc End
@@ -2540,15 +2551,10 @@ FVariableSystem* CvGlobals::getDefinesVarSystem()
 
 void CvGlobals::cacheGlobals()
 {
-	m_iMOVE_DENOMINATOR = getDefineINT("MOVE_DENOMINATOR");
-	m_iFOOD_CONSUMPTION_PER_POPULATION = getDefineINT("FOOD_CONSUMPTION_PER_POPULATION");
-	m_iFOOD_CONSUMPTION_PER_CITY_DEFENDER = getDefineINT("FOOD_CONSUMPTION_PER_CITY_DEFENDER"); // Ramstormp, PTSD, guards eat food too
 	m_iMAX_HIT_POINTS = getDefineINT("MAX_HIT_POINTS");
 	m_iHILLS_EXTRA_DEFENSE = getDefineINT("HILLS_EXTRA_DEFENSE");
 	m_iRIVER_ATTACK_MODIFIER = getDefineINT("RIVER_ATTACK_MODIFIER");
 	m_iAMPHIB_ATTACK_MODIFIER = getDefineINT("AMPHIB_ATTACK_MODIFIER");
-	m_iHILLS_EXTRA_MOVEMENT = getDefineINT("HILLS_EXTRA_MOVEMENT");
-	m_iPEAK_EXTRA_MOVEMENT = getDefineINT("PEAK_EXTRA_MOVEMENT");
 	m_iMAX_PLOT_LIST_ROWS = getDefineINT("MAX_PLOT_LIST_ROWS");
 	m_iUNIT_MULTISELECT_MAX = getDefineINT("UNIT_MULTISELECT_MAX");
 	m_iEVENT_MESSAGE_TIME = getDefineINT("EVENT_MESSAGE_TIME");
@@ -2565,7 +2571,6 @@ void CvGlobals::cacheGlobals()
 	m_iPEAK_SEE_FROM_CHANGE = getDefineINT("PEAK_SEE_FROM_CHANGE");
 	m_iHILLS_SEE_FROM_CHANGE = getDefineINT("HILLS_SEE_FROM_CHANGE");
 	m_iMAX_REBEL_YIELD_MODIFIER = getDefineINT("MAX_REBEL_YIELD_MODIFIER");
-	m_iNEW_CAPACITY = getDefineINT("NEW_CAPACITY");				//VET NewCapacity - 2/3
 	// TAC - AI Improved Navel AI - koma13 - START
 	m_iAI_TRANSPORT_DANGER_RANGE = getDefineINT("AI_TRANSPORT_DANGER_RANGE");
 	m_iAI_LOST_TRANSPORT_MEMORY_COUNT = getDefineINT("AI_LOST_TRANSPORT_MEMORY_COUNT");
@@ -2608,13 +2613,14 @@ void CvGlobals::cacheGlobals()
 	m_iUSE_ON_UNIT_LOST_CALLBACK = getDefineINT("USE_ON_UNIT_LOST_CALLBACK");
 
 	// R&R, ray, caching globals from Global Defines Alt - START
-	// Caching Vanilla variables	
+	// Caching Vanilla variables
 	m_PLOT_VISIBILITY_RANGE = getDefineINT("PLOT_VISIBILITY_RANGE");
 	m_UNIT_VISIBILITY_RANGE = getDefineINT("UNIT_VISIBILITY_RANGE");
 	m_MIN_CITY_YIELD_DECAY = getDefineINT("MIN_CITY_YIELD_DECAY");
 	m_CITY_YIELD_DECAY_PERCENT = getDefineINT("CITY_YIELD_DECAY_PERCENT");
 	m_IMMIGRATION_THRESHOLD = getDefineINT("IMMIGRATION_THRESHOLD");
 	m_IMMIGRATION_THRESHOLD_INCREASE = getDefineINT("IMMIGRATION_THRESHOLD_INCREASE");
+	m_IMMIGRATION_THRESHOLD_MODIFIER_UNITS_ON_DOCK = getDefineINT("IMMIGRATION_THRESHOLD_MODIFIER_UNITS_ON_DOCK");
 	m_TAX_TRADE_THRESHOLD = getDefineINT("TAX_TRADE_THRESHOLD");
 	m_TAX_TRADE_THRESHOLD_TAX_RATE_PERCENT = getDefineINT("TAX_TRADE_THRESHOLD_TAX_RATE_PERCENT");
 	m_TAX_INCREASE_CHANCE = getDefineINT("TAX_INCREASE_CHANCE");
@@ -2624,7 +2630,7 @@ void CvGlobals::cacheGlobals()
 	// Domestic Market
 	m_PRICE_DIFF_EUROPE_DOMESTIC_LUXURY_GOODS = getDefineINT("PRICE_DIFF_EUROPE_DOMESTIC_LUXURY_GOODS");
 	m_DOMESTIC_SALES_MESSAGES = getDefineINT("DOMESTIC_SALES_MESSAGES");
-	// Wild Animals	
+	// Wild Animals
 	m_WILD_ANIMAL_LAND_TERRAIN_NATIVE_WEIGHT = getDefineINT("WILD_ANIMAL_LAND_TERRAIN_NATIVE_WEIGHT");
 	m_WILD_ANIMAL_LAND_UNIT_VARIATION_WEIGHT = getDefineINT("WILD_ANIMAL_LAND_UNIT_VARIATION_WEIGHT");
 	m_WILD_ANIMAL_SEA_TERRAIN_NATIVE_WEIGHT = getDefineINT("WILD_ANIMAL_SEA_TERRAIN_NATIVE_WEIGHT");
@@ -2632,6 +2638,8 @@ void CvGlobals::cacheGlobals()
 	m_WILD_ANIMAL_REWARD_RANDOM_BASE= getDefineINT("WILD_ANIMAL_REWARD_RANDOM_BASE");
 	// Max Cross Limit
 	m_IMMIGRATION_MAX_CROSS_LIMIT = getDefineINT("IMMIGRATION_MAX_CROSS_LIMIT");
+	// WTP, ray Domestic Market Events - START
+	m_ENABLE_DOMESTIC_DEMAND_EVENTS = getDefineINT("ENABLE_DOMESTIC_DEMAND_EVENTS");
 	// NBMOD REF
 	m_NBMOD_REF_ENABLE = getDefineINT("NBMOD_REF_ENABLE");
 	m_NBMOD_REF_RANDOM_SHIPS = getDefineINT("NBMOD_REF_RANDOM_SHIPS");
@@ -2704,6 +2712,7 @@ void CvGlobals::cacheGlobals()
 	m_CHURCH_CONTACT_CHANCE = getDefineINT("CHURCH_CONTACT_CHANCE");
 	m_MIN_ROUND_CHURCH_WAR = getDefineINT("MIN_ROUND_CHURCH_WAR");
 	m_BASE_CHANCE_EUROPE_PEACE = getDefineINT("BASE_CHANCE_EUROPE_PEACE");
+	m_BASE_CHANCE_ROYAL_INTERVENTIONS = getDefineINT("BASE_CHANCE_ROYAL_INTERVENTIONS");	// WTP, ray, Royal Intervention, START
 	m_MIN_ROUND_PRISONS_CROWDED = getDefineINT("MIN_ROUND_PRISONS_CROWDED");
 	m_PRISONS_CROWDED_CHANCE = getDefineINT("PRISONS_CROWDED_CHANCE");
 	m_MIN_ROUND_REVOLUTIONARY_NOBLE = getDefineINT("MIN_ROUND_REVOLUTIONARY_NOBLE");
@@ -2721,6 +2730,11 @@ void CvGlobals::cacheGlobals()
 	m_AFRICAN_SLAVES_CHANCE = getDefineINT("AFRICAN_SLAVES_CHANCE");
 	m_MIN_ROUND_BISHOP = getDefineINT("MIN_ROUND_BISHOP");
 	m_BISHOP_CHANCE = getDefineINT("BISHOP_CHANCE");
+	m_MIN_ROUND_COLONIAL_INTERVENTION_NATIVE_WAR = getDefineINT("MIN_ROUND_COLONIAL_INTERVENTION_NATIVE_WAR"); //WTP, ray, Colonial Intervention In Native War - START
+	m_COLONIAL_INTERVENTION_NATIVE_WAR_CHANCE = getDefineINT("COLONIAL_INTERVENTION_NATIVE_WAR_CHANCE"); //WTP, ray, Colonial Intervention In Native War - START
+	m_COLONIAL_INTERVENTION_NATIVE_WAR_GOLD_TO_PAY_PER_UNIT = getDefineINT("COLONIAL_INTERVENTION_NATIVE_WAR_GOLD_TO_PAY_PER_UNIT"); //WTP, ray, Colonial Intervention In Native War - START
+	m_MIN_ROUND_COLONIES_AND_NATIVE_ALLIES_WAR = getDefineINT("MIN_ROUND_COLONIES_AND_NATIVE_ALLIES_WAR"); // WTP, ray, Big Colonies and Native Allies War - START
+	m_BASE_CHANCE_COLONIES_AND_NATIVE_ALLIES_WAR = getDefineINT("BASE_CHANCE_COLONIES_AND_NATIVE_ALLIES_WAR"); // WTP, ray, Big Colonies and Native Allies War - START
 	m_PRICE_MILITIA = getDefineINT("PRICE_MILITIA");
 	m_MIN_CITY_SIZE_MILITIA_OR_UNREST = getDefineINT("MIN_CITY_SIZE_MILITIA_OR_UNREST");
 	m_CHANCE_MILITIA = getDefineINT("CHANCE_MILITIA");
@@ -2731,9 +2745,13 @@ void CvGlobals::cacheGlobals()
 	m_TIMER_NATIVE_MERC = getDefineINT("TIMER_NATIVE_MERC");
 	m_TIMER_EUROPEAN_WARS = getDefineINT("TIMER_EUROPEAN_WARS");
 	m_TIMER_EUROPEAN_PEACE = getDefineINT("TIMER_EUROPEAN_PEACE");
+	m_TIMER_ROYAL_INTERVENTIONS = getDefineINT("TIMER_ROYAL_INTERVENTIONS"); // WTP, ray, Royal Intervention, START
+	m_TIMER_PRIVATEERS_DIPLO_EVENT = getDefineINT("TIMER_PRIVATEERS_DIPLO_EVENT"); // WTP, ray, Privateers DLL Diplo Event - START
 	m_TIMER_PRISONS_CROWDED = getDefineINT("TIMER_PRISONS_CROWDED");
 	m_TIMER_REVOLUTIONARY_NOBLE = getDefineINT("TIMER_REVOLUTIONARY_NOBLE");
 	m_TIMER_BISHOP = getDefineINT("TIMER_BISHOP");
+	m_TIMER_COLONIAL_INTERVENTION_NATIVE_WAR = getDefineINT("TIMER_COLONIAL_INTERVENTION_NATIVE_WAR"); //WTP, ray, Colonial Intervention In Native War - START
+	m_TIMER_COLONIES_AND_NATIVE_ALLIES_WAR = getDefineINT("TIMER_COLONIES_AND_NATIVE_ALLIES_WAR"); // WTP, ray, Big Colonies and Native Allies War - START
 	m_TIMER_CHURCH_DEMAND = getDefineINT("TIMER_CHURCH_DEMAND");
 	m_TIMER_CHURCH_WAR = getDefineINT("TIMER_CHURCH_WAR");
 	m_TIMER_SMUGGLING_SHIP = getDefineINT("TIMER_SMUGGLING_SHIP");
@@ -2749,6 +2767,8 @@ void CvGlobals::cacheGlobals()
 	m_NATIVE_POTENTIAL_RAID_TARGET_THRESHOLD = getDefineINT("NATIVE_POTENTIAL_RAID_TARGET_THRESHOLD");
 	m_NATIVE_GOODS_RAID_PERCENT = getDefineINT("NATIVE_GOODS_RAID_PERCENT");
 	m_RANDOM_NATIVE_RAID_BASECHANCE = getDefineINT("RANDOM_NATIVE_RAID_BASECHANCE");
+	m_NATIVE_PRODUCTION_RAID_MIN = getDefineINT("NATIVE_PRODUCTION_RAID_MIN");
+	m_NATIVE_PRODUCTION_RAID_RANDOM = getDefineINT("NATIVE_PRODUCTION_RAID_RANDOM");
 	m_NATIVE_SPARE_AI_TREASURE_CHANCE = getDefineINT("NATIVE_SPARE_AI_TREASURE_CHANCE");
 	// Roundwise Native Income
 	m_PER_ROUND_PER_VILLAGE_INCOME_MAX = getDefineINT("PER_ROUND_PER_VILLAGE_INCOME_MAX");
@@ -2766,6 +2786,12 @@ void CvGlobals::cacheGlobals()
 	m_MAX_CITY_HEALTH = getDefineINT("MAX_CITY_HEALTH");
 	m_LOWEST_CITY_HEALTH = getDefineINT("LOWEST_CITY_HEALTH");
 	// R&R, ray, caching globals from Global Defines Alt - END
+	// WTP, ray, Health Overhaul - START
+	m_SWEET_WATER_CITY_LOCATION_HEALTH_BONUS = getDefineINT("SWEET_WATER_CITY_LOCATION_HEALTH_BONUS");
+	m_COASTAL_CITY_LOCATION_HEALTH_BONUS = getDefineINT("COASTAL_CITY_LOCATION_HEALTH_BONUS");
+	m_HILL_CITY_LOCATION_HEALTH_BONUS = getDefineINT("HILL_CITY_LOCATION_HEALTH_BONUS");
+	m_BAD_CITY_LOCATION_HEALTH_MALUS = getDefineINT("BAD_CITY_LOCATION_HEALTH_MALUS");
+	// WTP, ray, Health Overhaul - END
 
 	// WTP, ray, Happiness - START
 	m_MIN_POP_NEG_HAPPINESS = getDefineINT("MIN_POP_NEG_HAPPINESS");
@@ -2779,9 +2805,21 @@ void CvGlobals::cacheGlobals()
 	m_MIN_BALANCE_UNREST_UNHAPPINESS = getDefineINT("MIN_BALANCE_UNREST_UNHAPPINESS");
 	m_MIN_BALANCE_FESTIVITIES_HAPPINESS = getDefineINT("MIN_BALANCE_FESTIVITIES_HAPPINESS");
 	m_TURNS_UNREST_UNHAPPINESS = getDefineINT("TURNS_UNREST_UNHAPPINESS");
-	m_FOUNDING_FAHTER_POINTS_FESTIVITIES_HAPPINESS = getDefineINT("FOUNDING_FAHTER_POINTS_FESTIVITIES_HAPPINESS");
+	m_FOUNDING_FATHER_POINTS_FESTIVITIES_HAPPINESS = getDefineINT("FOUNDING_FATHER_POINTS_FESTIVITIES_HAPPINESS");
 	m_TIMER_FESTIVITIES_OR_UNRESTS = getDefineINT("TIMER_FESTIVITIES_OR_UNRESTS");
 	// WTP, ray, Happiness - END
+
+	// WTP, ray, Crime and Law - START
+	m_MIN_POP_CRIME = getDefineINT("MIN_POP_CRIME");
+	m_POP_DIVISOR_CRIME = getDefineINT("POP_DIVISOR_CRIME");
+	m_PER_EUROPEAN_AT_WAR_CRIME = getDefineINT("PER_EUROPEAN_AT_WAR_CRIME");
+	m_CRIME_PERCENT_BONUS_FACTOR_OVERFLOW  = getDefineINT("CRIME_PERCENT_BONUS_FACTOR_OVERFLOW");
+	// WTP, ray, Crime and Law - END
+
+	//WTP, ray, Slave Hunter and Slave Master - START
+	m_MAX_SLAVE_REVOLT_REDUCTION_BONUS_PER_CITY = getDefineINT("MAX_SLAVE_REVOLT_REDUCTION_BONUS_PER_CITY");
+	m_MAX_SLAVE_WORKER_PRODUCTION_BONUS_PER_CITY = getDefineINT("MAX_SLAVE_WORKER_PRODUCTION_BONUS_PER_CITY");
+	//WTP, ray, Slave Hunter and Slave Master - END
 
 	m_MAX_TREASURE_AMOUNT = getDefineINT("MAX_TREASURE_AMOUNT"); // WTP, merge Treasures, of Raubwuerger
 	m_TRADE_POST_GOLD_PER_NATIVE = getDefineINT("TRADE_POST_GOLD_PER_NATIVE"); // WTP, ray, Native Trade Posts - START
@@ -2789,7 +2827,7 @@ void CvGlobals::cacheGlobals()
 	// K-Mod \ RaR
 	m_bUSE_AI_UNIT_UPDATE_CALLBACK = getDefineINT("USE_AI_UNIT_UPDATE_CALLBACK") != 0;
 	m_bUSE_AI_DO_DIPLO_CALLBACK = getDefineINT("USE_AI_DO_DIPLO_CALLBACK") != 0;
-	m_bUSE_AI_DO_WAR_CALLBACK = getDefineINT("USE_AI_DO_WAR_CALLBACK") != 0;	
+	m_bUSE_AI_DO_WAR_CALLBACK = getDefineINT("USE_AI_DO_WAR_CALLBACK") != 0;
 	m_bUSE_DO_GROWTH_CALLBACK = getDefineINT("USE_DO_GROWTH_CALLBACK") != 0;
 	m_bUSE_DO_CULTURE_CALLBACK = getDefineINT("USE_DO_CULTURE_CALLBACK") != 0;
 	m_bUSE_DO_PLOT_CULTURE_CALLBACK = getDefineINT("USE_DO_PLOT_CULTURE_CALLBACK") != 0;
@@ -2799,6 +2837,12 @@ void CvGlobals::cacheGlobals()
 	m_bUSE_GET_EXPERIENCE_NEEDED_CALLBACK = getDefineINT("USE_GET_EXPERIENCE_NEEDED_CALLBACK") != 0;
 	m_bUSE_DO_COMBAT_CALLBACK = getDefineINT("USE_DO_COMBAT_CALLBACK") != 0;
 	// K-Mod end \ RaR
+
+	m_iOPPRESSOMETER_DISCRIMINATION_MODIFIER_BASE_COLONIZERS = getDefineINT("OPPRESSOMETER_DISCRIMINATION_MODIFIER_BASE_COLONIZERS");
+	m_iOPPRESSOMETER_DISCRIMINATION_MODIFIER_BASE_NATIVES = getDefineINT("OPPRESSOMETER_DISCRIMINATION_MODIFIER_BASE_NATIVES");
+	m_iOPPRESSOMETER_FORCED_LABOR_MODIFIER_BASE = getDefineINT("OPPRESSOMETER_FORCED_LABOR_MODIFIER_BASE");
+	m_iOPPRESSOMETER_DECAY_RATE_BASE = getDefineINT("OPPRESSOMETER_DECAY_RATE_BASE");
+
 }
 
 int CvGlobals::getDefineINT( const char * szName ) const
@@ -3005,7 +3049,6 @@ int CvGlobals::getNumGraphicLevels() const { return NUM_GRAPHICLEVELS; }
 //
 // non-inline versions
 //
-CvMap& CvGlobals::getMap() { return *m_map; }
 CvGameAI& CvGlobals::getGame() { return *m_game; }
 CvGameAI *CvGlobals::getGamePointer(){ return m_game; }
 
@@ -3085,4 +3128,24 @@ void CvGlobals::cleanInfoStrings()
 			}
 		}
 	}
+}
+
+/// GameFont XML control - start - Nightinggale
+
+// Replace the vanilla getSymbolID with this function.
+// Vanilla wants to map modded symbol IDs to IDs outside of the range, which works on billboards.
+// This function allows mapping our own symbols to IDs, which works on billboards.
+int CvGlobals::getSymbolID(FontSymbols eSymbol) const
+{
+	if (eSymbol < 0 || eSymbol >= MAX_NUM_SYMBOLS)
+	{
+		return -1;
+	}
+	return m_aiGameFontCustomSymbolID[eSymbol];
+}
+/// GameFont XML control - end - Nightinggale
+
+bool CvGlobals::isMainThread() const
+{
+	return m_iThreadID == GetCurrentThreadId();
 }

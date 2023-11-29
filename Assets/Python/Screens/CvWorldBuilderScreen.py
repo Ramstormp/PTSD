@@ -450,6 +450,11 @@ class CvWorldBuilderScreen:
 		gc.getPlayer(self.m_iCurrentPlayer).setGold(iNewGold)
 		return 1
 
+	def handleCityOccupationTimerCB (self, argsList) :
+		iOccupationTimer = int(argsList[0])
+		self.m_pActivePlot.getPlotCity().setOccupationTimer(iOccupationTimer)
+		return 1
+
 	def handleCityEditNameCB (self, argsList) :
 		if ((len(argsList[0]) < 1) or (not self.m_pActivePlot.isCity())):
 			return 1
@@ -777,7 +782,7 @@ class CvWorldBuilderScreen:
 			pPlayer = gc.getPlayer(self.m_iCurrentPlayer)
 			iPlotX = self.m_iCurrentX
 			iPlotY = self.m_iCurrentY
-			
+
 			#initialize to 100 cargo
 			iYieldAmount = 0;
 			if gc.getUnitInfo(iUnitType).isTreasure():
@@ -787,7 +792,7 @@ class CvWorldBuilderScreen:
 					if gc.getYieldInfo(i).getUnitClass() == gc.getUnitInfo(iUnitType).getUnitClassType():
 						iYieldAmount = gc.getGame().getCargoYieldCapacity();
 						break;
-								
+
 			pUnit = pPlayer.initUnit(iUnitType, iProfession, iPlotX, iPlotY, UnitAITypes.NO_UNITAI, DirectionTypes.NO_DIRECTION, iYieldAmount)
 
 		elif ((self.m_bNormalPlayer) and (self.m_normalPlayerTabCtrl.getActiveTab() == self.m_iBuildingTabID)):
@@ -1338,6 +1343,20 @@ class CvWorldBuilderScreen:
 			5000.0,
 			1.0,
 			gc.getPlayer(self.m_iCurrentPlayer).getGold(),
+			0,
+			0)
+		self.m_tabCtrlEdit.addSectionLabel("Occupation timer",  0)
+		strOccupationTimer = str("CityEditOccupationTimerCB")
+		self.m_tabCtrlEdit.addSectionSpinner(
+			strOccupationTimer,
+			"CvScreensInterface",
+			"WorldBuilderHandleCityOccupationTimerCB",
+			"CityEditOccupationTimer",
+			0,
+			-1000.0,
+			5000.0,
+			1.0,
+			0,
 			0,
 			0)
 		self.m_tabCtrlEdit.addSectionButton(localText.getText("TXT_KEY_WB_ADD_SCRIPT",()), "CvScreensInterface", "WorldBuilderHandleCityEditAddScriptCB", "CityEditAddScript", 0)
@@ -2294,7 +2313,11 @@ class CvWorldBuilderScreen:
 		self.m_normalPlayerTabCtrl.addTabSection(localText.getText("TXT_KEY_WB_BUILDINGS",()));
 		self.m_iBuildingTabID = 1
 		self.m_iNormalPlayerCurrentIndexes.append(0)
+		# ugly hack: disable the NumUnitInfos deception for the exe for this function only
+		# so WB will only display the real units, not the placeholders
+		gc.setExeXmlLengthOverride(false);
 		addWBPlayerControlTabs()
+		gc.setExeXmlLengthOverride(true);
 		return
 
 	def refreshAdvancedStartTabCtrl(self, bReuse):

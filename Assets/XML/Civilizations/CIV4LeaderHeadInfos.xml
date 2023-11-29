@@ -6428,8 +6428,8 @@
             <Civilopedia>TXT_KEY_LEADER_CUNHAMBEBE_PEDIA</Civilopedia>
             <ArtDefineTag>ART_DEF_LEADER_CUNHAMBEBE</ArtDefineTag>
             <AlarmType>ALARM_DEFAULT</AlarmType>
-            <iBaseAttitude>-4</iBaseAttitude>
-            <iNativeAttitude>-1</iNativeAttitude>
+            <iBaseAttitude>-3</iBaseAttitude>
+            <iNativeAttitude>0</iNativeAttitude>
             <iMinAttitudeGiveMercs>4</iMinAttitudeGiveMercs>
             <iBaseChanceGiveMercs>30</iBaseChanceGiveMercs>
             <iMinAttitudeGiveNativeSlaves>3</iMinAttitudeGiveNativeSlaves>
@@ -7262,8 +7262,8 @@
             <Civilopedia>TXT_KEY_LEADER_MONTEZUMA_PEDIA</Civilopedia>
             <ArtDefineTag>ART_DEF_LEADER_MONTEZUMA</ArtDefineTag>
             <AlarmType>ALARM_DEFAULT</AlarmType>
-            <iBaseAttitude>-4</iBaseAttitude>
-            <iNativeAttitude>-2</iNativeAttitude>
+            <iBaseAttitude>-3</iBaseAttitude>
+            <iNativeAttitude>-1</iNativeAttitude>
             <iMinAttitudeGiveMercs>4</iMinAttitudeGiveMercs>
             <iBaseChanceGiveMercs>30</iBaseChanceGiveMercs>
             <iMinAttitudeGiveNativeSlaves>3</iMinAttitudeGiveNativeSlaves>
@@ -7679,7 +7679,7 @@
             <Civilopedia>TXT_KEY_LEADER_HUAYNA_CAPAC_PEDIA</Civilopedia>
             <ArtDefineTag>ART_DEF_LEADER_HUAYNA_CAPAC</ArtDefineTag>
             <AlarmType>ALARM_DEFAULT</AlarmType>
-            <iBaseAttitude>0</iBaseAttitude>
+            <iBaseAttitude>-1</iBaseAttitude>
             <iNativeAttitude>0</iNativeAttitude>
             <iMinAttitudeGiveMercs>4</iMinAttitudeGiveMercs>
             <iBaseChanceGiveMercs>30</iBaseChanceGiveMercs>
@@ -7687,7 +7687,7 @@
             <iBaseChanceGiveNativeSlaves>40</iBaseChanceGiveNativeSlaves>
             <iRefuseToTalkWarThreshold>11</iRefuseToTalkWarThreshold>
             <iMaxGoldTradePercent>100</iMaxGoldTradePercent>
-            <iMaxWarRand>200</iMaxWarRand>
+            <iMaxWarRand>100</iMaxWarRand>
             <iMaxWarNearbyPowerRatio>100</iMaxWarNearbyPowerRatio>
             <iMaxWarDistantPowerRatio>0</iMaxWarDistantPowerRatio>
             <iMaxWarMinAdjacentLandPercent>4</iMaxWarMinAdjacentLandPercent>
@@ -8096,8 +8096,8 @@
             <Civilopedia>TXT_KEY_LEADER_MANGAS_COLORADAS_PEDIA</Civilopedia>
             <ArtDefineTag>ART_DEF_LEADER_MANGAS_COLORADAS</ArtDefineTag>
             <AlarmType>ALARM_DEFAULT</AlarmType>
-            <iBaseAttitude>-4</iBaseAttitude>
-            <iNativeAttitude>-1</iNativeAttitude>
+            <iBaseAttitude>3</iBaseAttitude>
+            <iNativeAttitude>0</iNativeAttitude>
             <iMinAttitudeGiveMercs>4</iMinAttitudeGiveMercs>
             <iBaseChanceGiveMercs>20</iBaseChanceGiveMercs>
             <iMinAttitudeGiveNativeSlaves>3</iMinAttitudeGiveNativeSlaves>
@@ -8513,7 +8513,7 @@
             <Civilopedia>TXT_KEY_LEADER_SITTING_BULL_PEDIA</Civilopedia>
             <ArtDefineTag>ART_DEF_LEADER_SITTING_BULL</ArtDefineTag>
             <AlarmType>ALARM_DEFAULT</AlarmType>
-            <iBaseAttitude>2</iBaseAttitude>
+            <iBaseAttitude>1</iBaseAttitude>
             <iNativeAttitude>1</iNativeAttitude>
             <iMinAttitudeGiveMercs>2</iMinAttitudeGiveMercs>
             <iBaseChanceGiveMercs>30</iBaseChanceGiveMercs>
@@ -8521,7 +8521,7 @@
             <iBaseChanceGiveNativeSlaves>20</iBaseChanceGiveNativeSlaves>
             <iRefuseToTalkWarThreshold>8</iRefuseToTalkWarThreshold>
             <iMaxGoldTradePercent>100</iMaxGoldTradePercent>
-            <iMaxWarRand>200</iMaxWarRand>
+            <iMaxWarRand>100</iMaxWarRand>
             <iMaxWarNearbyPowerRatio>125</iMaxWarNearbyPowerRatio>
             <iMaxWarDistantPowerRatio>0</iMaxWarDistantPowerRatio>
             <iMaxWarMinAdjacentLandPercent>6</iMaxWarMinAdjacentLandPercent>
@@ -8930,7 +8930,7 @@
             <Civilopedia>TXT_KEY_LEADER_CHIEF_JOSEPH_PEDIA</Civilopedia>
             <ArtDefineTag>ART_DEF_LEADER_CHIEF_JOSEPH</ArtDefineTag>
             <AlarmType>ALARM_DEFAULT</AlarmType>
-            <iBaseAttitude>2</iBaseAttitude>
+            <iBaseAttitude>1</iBaseAttitude>
             <iNativeAttitude>1</iNativeAttitude>
             <iMinAttitudeGiveMercs>2</iMinAttitudeGiveMercs>
             <iBaseChanceGiveMercs>30</iBaseChanceGiveMercs>
@@ -8938,7 +8938,7 @@
             <iBaseChanceGiveNativeSlaves>20</iBaseChanceGiveNativeSlaves>
             <iRefuseToTalkWarThreshold>8</iRefuseToTalkWarThreshold>
             <iMaxGoldTradePercent>100</iMaxGoldTradePercent>
-            <iMaxWarRand>200</iMaxWarRand>
+            <iMaxWarRand>100</iMaxWarRand>
             <iMaxWarNearbyPowerRatio>125</iMaxWarNearbyPowerRatio>
             <iMaxWarDistantPowerRatio>0</iMaxWarDistantPowerRatio>
             <iMaxWarMinAdjacentLandPercent>6</iMaxWarMinAdjacentLandPercent>
@@ -9355,7 +9355,7 @@
             <iBaseChanceGiveNativeSlaves>40</iBaseChanceGiveNativeSlaves>
             <iRefuseToTalkWarThreshold>11</iRefuseToTalkWarThreshold>
             <iMaxGoldTradePercent>100</iMaxGoldTradePercent>
-            <iMaxWarRand>200</iMaxWarRand>
+            <iMaxWarRand>100</iMaxWarRand>
             <iMaxWarNearbyPowerRatio>120</iMaxWarNearbyPowerRatio>
             <iMaxWarDistantPowerRatio>0</iMaxWarDistantPowerRatio>
             <iMaxWarMinAdjacentLandPercent>4</iMaxWarMinAdjacentLandPercent>
@@ -9764,7 +9764,7 @@
             <Civilopedia>TXT_KEY_LEADER_OCONOSTOTA_PEDIA</Civilopedia>
             <ArtDefineTag>ART_DEF_LEADER_OCONOSTOTA</ArtDefineTag>
             <AlarmType>ALARM_DEFAULT</AlarmType>
-            <iBaseAttitude>3</iBaseAttitude>
+            <iBaseAttitude>2</iBaseAttitude>
             <iNativeAttitude>0</iNativeAttitude>
             <iMinAttitudeGiveMercs>4</iMinAttitudeGiveMercs>
             <iBaseChanceGiveMercs>20</iBaseChanceGiveMercs>
@@ -9772,7 +9772,7 @@
             <iBaseChanceGiveNativeSlaves>20</iBaseChanceGiveNativeSlaves>
             <iRefuseToTalkWarThreshold>7</iRefuseToTalkWarThreshold>
             <iMaxGoldTradePercent>100</iMaxGoldTradePercent>
-            <iMaxWarRand>400</iMaxWarRand>
+            <iMaxWarRand>200</iMaxWarRand>
             <iMaxWarNearbyPowerRatio>150</iMaxWarNearbyPowerRatio>
             <iMaxWarDistantPowerRatio>0</iMaxWarDistantPowerRatio>
             <iMaxWarMinAdjacentLandPercent>6</iMaxWarMinAdjacentLandPercent>
@@ -10181,7 +10181,7 @@
             <Civilopedia>TXT_KEY_LEADER_PACAL_PEDIA</Civilopedia>
             <ArtDefineTag>ART_DEF_LEADER_PACAL</ArtDefineTag>
             <AlarmType>ALARM_DEFAULT</AlarmType>
-            <iBaseAttitude>-1</iBaseAttitude>
+            <iBaseAttitude>-2</iBaseAttitude>
             <iNativeAttitude>0</iNativeAttitude>
             <iMinAttitudeGiveMercs>4</iMinAttitudeGiveMercs>
             <iBaseChanceGiveMercs>20</iBaseChanceGiveMercs>
@@ -10189,7 +10189,7 @@
             <iBaseChanceGiveNativeSlaves>20</iBaseChanceGiveNativeSlaves>
             <iRefuseToTalkWarThreshold>8</iRefuseToTalkWarThreshold>
             <iMaxGoldTradePercent>100</iMaxGoldTradePercent>
-            <iMaxWarRand>400</iMaxWarRand>
+            <iMaxWarRand>200</iMaxWarRand>
             <iMaxWarNearbyPowerRatio>125</iMaxWarNearbyPowerRatio>
             <iMaxWarDistantPowerRatio>0</iMaxWarDistantPowerRatio>
             <iMaxWarMinAdjacentLandPercent>6</iMaxWarMinAdjacentLandPercent>
@@ -10598,7 +10598,7 @@
             <Civilopedia>TXT_KEY_LEADER_ORKEKE_PEDIA</Civilopedia>
             <ArtDefineTag>ART_DEF_LEADER_ORKEKE</ArtDefineTag>
             <AlarmType>ALARM_DEFAULT</AlarmType>
-            <iBaseAttitude>0</iBaseAttitude>
+            <iBaseAttitude>-1</iBaseAttitude>
             <iNativeAttitude>1</iNativeAttitude>
             <iMinAttitudeGiveMercs>2</iMinAttitudeGiveMercs>
             <iBaseChanceGiveMercs>20</iBaseChanceGiveMercs>
@@ -10606,7 +10606,7 @@
             <iBaseChanceGiveNativeSlaves>10</iBaseChanceGiveNativeSlaves>
             <iRefuseToTalkWarThreshold>10</iRefuseToTalkWarThreshold>
             <iMaxGoldTradePercent>100</iMaxGoldTradePercent>
-            <iMaxWarRand>600</iMaxWarRand>
+            <iMaxWarRand>300</iMaxWarRand>
             <iMaxWarNearbyPowerRatio>85</iMaxWarNearbyPowerRatio>
             <iMaxWarDistantPowerRatio>0</iMaxWarDistantPowerRatio>
             <iMaxWarMinAdjacentLandPercent>9</iMaxWarMinAdjacentLandPercent>
@@ -11015,7 +11015,7 @@
             <Civilopedia>TXT_KEY_LEADER_SHUAR_PEDIA</Civilopedia>
             <ArtDefineTag>ART_DEF_LEADER_SHUAR</ArtDefineTag>
             <AlarmType>ALARM_DEFAULT</AlarmType>
-            <iBaseAttitude>-4</iBaseAttitude>
+            <iBaseAttitude>-5</iBaseAttitude>
             <iNativeAttitude>0</iNativeAttitude>
             <iMinAttitudeGiveMercs>4</iMinAttitudeGiveMercs>
             <iBaseChanceGiveMercs>20</iBaseChanceGiveMercs>
@@ -11023,7 +11023,7 @@
             <iBaseChanceGiveNativeSlaves>10</iBaseChanceGiveNativeSlaves>
             <iRefuseToTalkWarThreshold>14</iRefuseToTalkWarThreshold>
             <iMaxGoldTradePercent>100</iMaxGoldTradePercent>
-            <iMaxWarRand>100</iMaxWarRand>
+            <iMaxWarRand>50</iMaxWarRand>
             <iMaxWarNearbyPowerRatio>85</iMaxWarNearbyPowerRatio>
             <iMaxWarDistantPowerRatio>0</iMaxWarDistantPowerRatio>
             <iMaxWarMinAdjacentLandPercent>4</iMaxWarMinAdjacentLandPercent>
@@ -11432,7 +11432,7 @@
             <Civilopedia>TXT_KEY_LEADER_TUGLAWINA_PEDIA</Civilopedia>
             <ArtDefineTag>ART_DEF_LEADER_TUGLAWINA</ArtDefineTag>
             <AlarmType>ALARM_DEFAULT</AlarmType>
-            <iBaseAttitude>2</iBaseAttitude>
+            <iBaseAttitude>1</iBaseAttitude>
             <iNativeAttitude>0</iNativeAttitude>
             <iMinAttitudeGiveMercs>3</iMinAttitudeGiveMercs>
             <iBaseChanceGiveMercs>16</iBaseChanceGiveMercs>
@@ -11440,7 +11440,7 @@
             <iBaseChanceGiveNativeSlaves>10</iBaseChanceGiveNativeSlaves>
             <iRefuseToTalkWarThreshold>8</iRefuseToTalkWarThreshold>
             <iMaxGoldTradePercent>100</iMaxGoldTradePercent>
-            <iMaxWarRand>600</iMaxWarRand>
+            <iMaxWarRand>300</iMaxWarRand>
             <iMaxWarNearbyPowerRatio>100</iMaxWarNearbyPowerRatio>
             <iMaxWarDistantPowerRatio>0</iMaxWarDistantPowerRatio>
             <iMaxWarMinAdjacentLandPercent>6</iMaxWarMinAdjacentLandPercent>
@@ -11849,7 +11849,7 @@
             <Civilopedia>TXT_KEY_LEADER_KONDIARONK_PEDIA</Civilopedia>
             <ArtDefineTag>ART_DEF_LEADER_KONDIARONK</ArtDefineTag>
             <AlarmType>ALARM_DEFAULT</AlarmType>
-            <iBaseAttitude>-1</iBaseAttitude>
+            <iBaseAttitude>-2</iBaseAttitude>
             <iNativeAttitude>0</iNativeAttitude>
             <iMinAttitudeGiveMercs>2</iMinAttitudeGiveMercs>
             <iBaseChanceGiveMercs>40</iBaseChanceGiveMercs>
@@ -11857,7 +11857,7 @@
             <iBaseChanceGiveNativeSlaves>40</iBaseChanceGiveNativeSlaves>
             <iRefuseToTalkWarThreshold>8</iRefuseToTalkWarThreshold>
             <iMaxGoldTradePercent>100</iMaxGoldTradePercent>
-            <iMaxWarRand>100</iMaxWarRand>
+            <iMaxWarRand>50</iMaxWarRand>
             <iMaxWarNearbyPowerRatio>125</iMaxWarNearbyPowerRatio>
             <iMaxWarDistantPowerRatio>0</iMaxWarDistantPowerRatio>
             <iMaxWarMinAdjacentLandPercent>3</iMaxWarMinAdjacentLandPercent>
@@ -12266,7 +12266,7 @@
             <Civilopedia>TXT_KEY_LEADER_COCIJOEZA_PEDIA</Civilopedia>
             <ArtDefineTag>ART_DEF_LEADER_COCIJOEZA</ArtDefineTag>
             <AlarmType>ALARM_DEFAULT</AlarmType>
-            <iBaseAttitude>0</iBaseAttitude>
+            <iBaseAttitude>-1</iBaseAttitude>
             <iNativeAttitude>0</iNativeAttitude>
             <iMinAttitudeGiveMercs>4</iMinAttitudeGiveMercs>
             <iBaseChanceGiveMercs>30</iBaseChanceGiveMercs>
@@ -12274,7 +12274,7 @@
             <iBaseChanceGiveNativeSlaves>30</iBaseChanceGiveNativeSlaves>
             <iRefuseToTalkWarThreshold>16</iRefuseToTalkWarThreshold>
             <iMaxGoldTradePercent>100</iMaxGoldTradePercent>
-            <iMaxWarRand>100</iMaxWarRand>
+            <iMaxWarRand>50</iMaxWarRand>
             <iMaxWarNearbyPowerRatio>85</iMaxWarNearbyPowerRatio>
             <iMaxWarDistantPowerRatio>0</iMaxWarDistantPowerRatio>
             <iMaxWarMinAdjacentLandPercent>3</iMaxWarMinAdjacentLandPercent>
@@ -12683,7 +12683,7 @@
             <Civilopedia>TXT_KEY_LEADER_SEPE_TIARAJU_PEDIA</Civilopedia>
             <ArtDefineTag>ART_DEF_LEADER_SEPE_TIARAJU</ArtDefineTag>
             <AlarmType>ALARM_DEFAULT</AlarmType>
-            <iBaseAttitude>0</iBaseAttitude>
+            <iBaseAttitude>-1</iBaseAttitude>
             <iNativeAttitude>0</iNativeAttitude>
             <iMinAttitudeGiveMercs>3</iMinAttitudeGiveMercs>
             <iBaseChanceGiveMercs>30</iBaseChanceGiveMercs>
@@ -12691,7 +12691,7 @@
             <iBaseChanceGiveNativeSlaves>20</iBaseChanceGiveNativeSlaves>
             <iRefuseToTalkWarThreshold>14</iRefuseToTalkWarThreshold>
             <iMaxGoldTradePercent>100</iMaxGoldTradePercent>
-            <iMaxWarRand>100</iMaxWarRand>
+            <iMaxWarRand>50</iMaxWarRand>
             <iMaxWarNearbyPowerRatio>85</iMaxWarNearbyPowerRatio>
             <iMaxWarDistantPowerRatio>0</iMaxWarDistantPowerRatio>
             <iMaxWarMinAdjacentLandPercent>4</iMaxWarMinAdjacentLandPercent>
@@ -13100,7 +13100,7 @@
             <Civilopedia>TXT_KEY_LEADER_JAUREYBO_PEDIA</Civilopedia>
             <ArtDefineTag>ART_DEF_LEADER_JAUREYBO</ArtDefineTag>
             <AlarmType>ALARM_DEFAULT</AlarmType>
-            <iBaseAttitude>2</iBaseAttitude>
+            <iBaseAttitude>1</iBaseAttitude>
             <iNativeAttitude>0</iNativeAttitude>
             <iMinAttitudeGiveMercs>3</iMinAttitudeGiveMercs>
             <iBaseChanceGiveMercs>16</iBaseChanceGiveMercs>
@@ -13108,7 +13108,7 @@
             <iBaseChanceGiveNativeSlaves>10</iBaseChanceGiveNativeSlaves>
             <iRefuseToTalkWarThreshold>8</iRefuseToTalkWarThreshold>
             <iMaxGoldTradePercent>100</iMaxGoldTradePercent>
-            <iMaxWarRand>200</iMaxWarRand>
+            <iMaxWarRand>100</iMaxWarRand>
             <iMaxWarNearbyPowerRatio>120</iMaxWarNearbyPowerRatio>
             <iMaxWarDistantPowerRatio>0</iMaxWarDistantPowerRatio>
             <iMaxWarMinAdjacentLandPercent>3</iMaxWarMinAdjacentLandPercent>
@@ -13517,7 +13517,7 @@
             <Civilopedia>TXT_KEY_LEADER_OPPUSSOQUIONUSKE_PEDIA</Civilopedia>
             <ArtDefineTag>ART_DEF_LEADER_OPPUSSOQUIONUSKE</ArtDefineTag>
             <AlarmType>ALARM_DEFAULT</AlarmType>
-            <iBaseAttitude>2</iBaseAttitude>
+            <iBaseAttitude>1</iBaseAttitude>
             <iNativeAttitude>1</iNativeAttitude>
             <iMinAttitudeGiveMercs>2</iMinAttitudeGiveMercs>
             <iBaseChanceGiveMercs>30</iBaseChanceGiveMercs>
@@ -13525,7 +13525,7 @@
             <iBaseChanceGiveNativeSlaves>40</iBaseChanceGiveNativeSlaves>
             <iRefuseToTalkWarThreshold>8</iRefuseToTalkWarThreshold>
             <iMaxGoldTradePercent>100</iMaxGoldTradePercent>
-            <iMaxWarRand>200</iMaxWarRand>
+            <iMaxWarRand>100</iMaxWarRand>
             <iMaxWarNearbyPowerRatio>125</iMaxWarNearbyPowerRatio>
             <iMaxWarDistantPowerRatio>0</iMaxWarDistantPowerRatio>
             <iMaxWarMinAdjacentLandPercent>4</iMaxWarMinAdjacentLandPercent>
@@ -13934,7 +13934,7 @@
             <Civilopedia>TXT_KEY_LEADER_NARBONA_PEDIA</Civilopedia>
             <ArtDefineTag>ART_DEF_LEADER_NARBONA</ArtDefineTag>
             <AlarmType>ALARM_DEFAULT</AlarmType>
-            <iBaseAttitude>1</iBaseAttitude>
+            <iBaseAttitude>0</iBaseAttitude>
             <iNativeAttitude>0</iNativeAttitude>
             <iMinAttitudeGiveMercs>3</iMinAttitudeGiveMercs>
             <iBaseChanceGiveMercs>20</iBaseChanceGiveMercs>
@@ -13942,7 +13942,7 @@
             <iBaseChanceGiveNativeSlaves>20</iBaseChanceGiveNativeSlaves>
             <iRefuseToTalkWarThreshold>11</iRefuseToTalkWarThreshold>
             <iMaxGoldTradePercent>100</iMaxGoldTradePercent>
-            <iMaxWarRand>200</iMaxWarRand>
+            <iMaxWarRand>100</iMaxWarRand>
             <iMaxWarNearbyPowerRatio>100</iMaxWarNearbyPowerRatio>
             <iMaxWarDistantPowerRatio>0</iMaxWarDistantPowerRatio>
             <iMaxWarMinAdjacentLandPercent>6</iMaxWarMinAdjacentLandPercent>
@@ -14351,7 +14351,7 @@
             <Civilopedia>TXT_KEY_LEADER_MACHIPARA_PEDIA</Civilopedia>
             <ArtDefineTag>ART_DEF_LEADER_MACHIPARA</ArtDefineTag>
             <AlarmType>ALARM_DEFAULT</AlarmType>
-            <iBaseAttitude>-1</iBaseAttitude>
+            <iBaseAttitude>-2</iBaseAttitude>
             <iNativeAttitude>0</iNativeAttitude>
             <iMinAttitudeGiveMercs>4</iMinAttitudeGiveMercs>
             <iBaseChanceGiveMercs>20</iBaseChanceGiveMercs>
@@ -14359,7 +14359,7 @@
             <iBaseChanceGiveNativeSlaves>20</iBaseChanceGiveNativeSlaves>
             <iRefuseToTalkWarThreshold>10</iRefuseToTalkWarThreshold>
             <iMaxGoldTradePercent>100</iMaxGoldTradePercent>
-            <iMaxWarRand>100</iMaxWarRand>
+            <iMaxWarRand>50</iMaxWarRand>
             <iMaxWarNearbyPowerRatio>85</iMaxWarNearbyPowerRatio>
             <iMaxWarDistantPowerRatio>0</iMaxWarDistantPowerRatio>
             <iMaxWarMinAdjacentLandPercent>4</iMaxWarMinAdjacentLandPercent>
@@ -14768,7 +14768,7 @@
             <Civilopedia>TXT_KEY_LEADER_SERPENT_QUECHQUEMITL_PEDIA</Civilopedia>
             <ArtDefineTag>ART_DEF_LEADER_SERPENT_QUECHQUEMITL</ArtDefineTag>
             <AlarmType>ALARM_DEFAULT</AlarmType>
-            <iBaseAttitude>0</iBaseAttitude>
+            <iBaseAttitude>-1</iBaseAttitude>
             <iNativeAttitude>0</iNativeAttitude>
             <iMinAttitudeGiveMercs>4</iMinAttitudeGiveMercs>
             <iBaseChanceGiveMercs>30</iBaseChanceGiveMercs>
@@ -14776,7 +14776,7 @@
             <iBaseChanceGiveNativeSlaves>40</iBaseChanceGiveNativeSlaves>
             <iRefuseToTalkWarThreshold>16</iRefuseToTalkWarThreshold>
             <iMaxGoldTradePercent>100</iMaxGoldTradePercent>
-            <iMaxWarRand>100</iMaxWarRand>
+            <iMaxWarRand>50</iMaxWarRand>
             <iMaxWarNearbyPowerRatio>85</iMaxWarNearbyPowerRatio>
             <iMaxWarDistantPowerRatio>0</iMaxWarDistantPowerRatio>
             <iMaxWarMinAdjacentLandPercent>3</iMaxWarMinAdjacentLandPercent>
@@ -15185,7 +15185,7 @@
             <Civilopedia>TXT_KEY_LEADER_QUEMUENCHATOCHA_PEDIA</Civilopedia>
             <ArtDefineTag>ART_DEF_LEADER_QUEMUENCHATOCHA</ArtDefineTag>
             <AlarmType>ALARM_DEFAULT</AlarmType>
-            <iBaseAttitude>0</iBaseAttitude>
+            <iBaseAttitude>-1</iBaseAttitude>
             <iNativeAttitude>1</iNativeAttitude>
             <iMinAttitudeGiveMercs>3</iMinAttitudeGiveMercs>
             <iBaseChanceGiveMercs>30</iBaseChanceGiveMercs>
@@ -15193,7 +15193,7 @@
             <iBaseChanceGiveNativeSlaves>30</iBaseChanceGiveNativeSlaves>
             <iRefuseToTalkWarThreshold>10</iRefuseToTalkWarThreshold>
             <iMaxGoldTradePercent>100</iMaxGoldTradePercent>
-            <iMaxWarRand>200</iMaxWarRand>
+            <iMaxWarRand>100</iMaxWarRand>
             <iMaxWarNearbyPowerRatio>85</iMaxWarNearbyPowerRatio>
             <iMaxWarDistantPowerRatio>0</iMaxWarDistantPowerRatio>
             <iMaxWarMinAdjacentLandPercent>4</iMaxWarMinAdjacentLandPercent>
@@ -15602,7 +15602,7 @@
             <Civilopedia>TXT_KEY_LEADER_IRON_JACKET_PEDIA</Civilopedia>
             <ArtDefineTag>ART_DEF_LEADER_IRON_JACKET</ArtDefineTag>
             <AlarmType>ALARM_DEFAULT</AlarmType>
-            <iBaseAttitude>0</iBaseAttitude>
+            <iBaseAttitude>-1</iBaseAttitude>
             <iNativeAttitude>0</iNativeAttitude>
             <iMinAttitudeGiveMercs>3</iMinAttitudeGiveMercs>
             <iBaseChanceGiveMercs>30</iBaseChanceGiveMercs>
@@ -15610,7 +15610,7 @@
             <iBaseChanceGiveNativeSlaves>30</iBaseChanceGiveNativeSlaves>
             <iRefuseToTalkWarThreshold>10</iRefuseToTalkWarThreshold>
             <iMaxGoldTradePercent>100</iMaxGoldTradePercent>
-            <iMaxWarRand>50</iMaxWarRand>
+            <iMaxWarRand>30</iMaxWarRand>
             <iMaxWarNearbyPowerRatio>150</iMaxWarNearbyPowerRatio>
             <iMaxWarDistantPowerRatio>0</iMaxWarDistantPowerRatio>
             <iMaxWarMinAdjacentLandPercent>4</iMaxWarMinAdjacentLandPercent>
@@ -16019,7 +16019,7 @@
             <Civilopedia>TXT_KEY_LEADER_WASHAKIE_PEDIA</Civilopedia>
             <ArtDefineTag>ART_DEF_LEADER_WASHAKIE</ArtDefineTag>
             <AlarmType>ALARM_DEFAULT</AlarmType>
-            <iBaseAttitude>2</iBaseAttitude>
+            <iBaseAttitude>1</iBaseAttitude>
             <iNativeAttitude>1</iNativeAttitude>
             <iMinAttitudeGiveMercs>3</iMinAttitudeGiveMercs>
             <iBaseChanceGiveMercs>20</iBaseChanceGiveMercs>
@@ -16027,7 +16027,7 @@
             <iBaseChanceGiveNativeSlaves>20</iBaseChanceGiveNativeSlaves>
             <iRefuseToTalkWarThreshold>10</iRefuseToTalkWarThreshold>
             <iMaxGoldTradePercent>100</iMaxGoldTradePercent>
-            <iMaxWarRand>200</iMaxWarRand>
+            <iMaxWarRand>100</iMaxWarRand>
             <iMaxWarNearbyPowerRatio>125</iMaxWarNearbyPowerRatio>
             <iMaxWarDistantPowerRatio>0</iMaxWarDistantPowerRatio>
             <iMaxWarMinAdjacentLandPercent>6</iMaxWarMinAdjacentLandPercent>
@@ -16436,7 +16436,7 @@
             <Civilopedia>TXT_KEY_LEADER_TARANO_PEDIA</Civilopedia>
             <ArtDefineTag>ART_DEF_LEADER_TARANO</ArtDefineTag>
             <AlarmType>ALARM_DEFAULT</AlarmType>
-            <iBaseAttitude>0</iBaseAttitude>
+            <iBaseAttitude>-1</iBaseAttitude>
             <iNativeAttitude>0</iNativeAttitude>
             <iMinAttitudeGiveMercs>3</iMinAttitudeGiveMercs>
             <iBaseChanceGiveMercs>30</iBaseChanceGiveMercs>
@@ -16444,7 +16444,7 @@
             <iBaseChanceGiveNativeSlaves>30</iBaseChanceGiveNativeSlaves>
             <iRefuseToTalkWarThreshold>16</iRefuseToTalkWarThreshold>
             <iMaxGoldTradePercent>100</iMaxGoldTradePercent>
-            <iMaxWarRand>50</iMaxWarRand>
+            <iMaxWarRand>30</iMaxWarRand>
             <iMaxWarNearbyPowerRatio>85</iMaxWarNearbyPowerRatio>
             <iMaxWarDistantPowerRatio>0</iMaxWarDistantPowerRatio>
             <iMaxWarMinAdjacentLandPercent>3</iMaxWarMinAdjacentLandPercent>
@@ -16853,7 +16853,7 @@
             <Civilopedia>TXT_KEY_LEADER_RUNNING_EAGLE_PEDIA</Civilopedia>
             <ArtDefineTag>ART_DEF_LEADER_RUNNING_EAGLE</ArtDefineTag>
             <AlarmType>ALARM_DEFAULT</AlarmType>
-            <iBaseAttitude>2</iBaseAttitude>
+            <iBaseAttitude>1</iBaseAttitude>
             <iNativeAttitude>1</iNativeAttitude>
             <iMinAttitudeGiveMercs>2</iMinAttitudeGiveMercs>
             <iBaseChanceGiveMercs>30</iBaseChanceGiveMercs>
@@ -16861,7 +16861,7 @@
             <iBaseChanceGiveNativeSlaves>20</iBaseChanceGiveNativeSlaves>
             <iRefuseToTalkWarThreshold>8</iRefuseToTalkWarThreshold>
             <iMaxGoldTradePercent>100</iMaxGoldTradePercent>
-            <iMaxWarRand>200</iMaxWarRand>
+            <iMaxWarRand>100</iMaxWarRand>
             <iMaxWarNearbyPowerRatio>125</iMaxWarNearbyPowerRatio>
             <iMaxWarDistantPowerRatio>0</iMaxWarDistantPowerRatio>
             <iMaxWarMinAdjacentLandPercent>6</iMaxWarMinAdjacentLandPercent>
@@ -17270,7 +17270,7 @@
             <Civilopedia>TXT_KEY_LEADER_PINE_LEAF_PEDIA</Civilopedia>
             <ArtDefineTag>ART_DEF_LEADER_PINE_LEAF</ArtDefineTag>
             <AlarmType>ALARM_DEFAULT</AlarmType>
-            <iBaseAttitude>2</iBaseAttitude>
+            <iBaseAttitude>1</iBaseAttitude>
             <iNativeAttitude>1</iNativeAttitude>
             <iMinAttitudeGiveMercs>3</iMinAttitudeGiveMercs>
             <iBaseChanceGiveMercs>20</iBaseChanceGiveMercs>
@@ -17278,7 +17278,7 @@
             <iBaseChanceGiveNativeSlaves>20</iBaseChanceGiveNativeSlaves>
             <iRefuseToTalkWarThreshold>10</iRefuseToTalkWarThreshold>
             <iMaxGoldTradePercent>100</iMaxGoldTradePercent>
-            <iMaxWarRand>200</iMaxWarRand>
+            <iMaxWarRand>100</iMaxWarRand>
             <iMaxWarNearbyPowerRatio>125</iMaxWarNearbyPowerRatio>
             <iMaxWarDistantPowerRatio>0</iMaxWarDistantPowerRatio>
             <iMaxWarMinAdjacentLandPercent>6</iMaxWarMinAdjacentLandPercent>
@@ -17687,7 +17687,7 @@
             <Civilopedia>TXT_KEY_LEADER_URRACA_PEDIA</Civilopedia>
             <ArtDefineTag>ART_DEF_LEADER_URRACA</ArtDefineTag>
             <AlarmType>ALARM_DEFAULT</AlarmType>
-            <iBaseAttitude>2</iBaseAttitude>
+            <iBaseAttitude>1</iBaseAttitude>
             <iNativeAttitude>0</iNativeAttitude>
             <iMinAttitudeGiveMercs>3</iMinAttitudeGiveMercs>
             <iBaseChanceGiveMercs>30</iBaseChanceGiveMercs>
@@ -17695,7 +17695,7 @@
             <iBaseChanceGiveNativeSlaves>30</iBaseChanceGiveNativeSlaves>
             <iRefuseToTalkWarThreshold>8</iRefuseToTalkWarThreshold>
             <iMaxGoldTradePercent>100</iMaxGoldTradePercent>
-            <iMaxWarRand>400</iMaxWarRand>
+            <iMaxWarRand>200</iMaxWarRand>
             <iMaxWarNearbyPowerRatio>100</iMaxWarNearbyPowerRatio>
             <iMaxWarDistantPowerRatio>0</iMaxWarDistantPowerRatio>
             <iMaxWarMinAdjacentLandPercent>3</iMaxWarMinAdjacentLandPercent>
@@ -18104,7 +18104,7 @@
             <Civilopedia>TXT_KEY_LEADER_ERENDIRA_PEDIA</Civilopedia>
             <ArtDefineTag>ART_DEF_LEADER_ERENDIRA</ArtDefineTag>
             <AlarmType>ALARM_DEFAULT</AlarmType>
-            <iBaseAttitude>-1</iBaseAttitude>
+            <iBaseAttitude>-2</iBaseAttitude>
             <iNativeAttitude>-1</iNativeAttitude>
             <iMinAttitudeGiveMercs>4</iMinAttitudeGiveMercs>
             <iBaseChanceGiveMercs>30</iBaseChanceGiveMercs>
@@ -18112,7 +18112,7 @@
             <iBaseChanceGiveNativeSlaves>40</iBaseChanceGiveNativeSlaves>
             <iRefuseToTalkWarThreshold>16</iRefuseToTalkWarThreshold>
             <iMaxGoldTradePercent>100</iMaxGoldTradePercent>
-            <iMaxWarRand>50</iMaxWarRand>
+            <iMaxWarRand>30</iMaxWarRand>
             <iMaxWarNearbyPowerRatio>85</iMaxWarNearbyPowerRatio>
             <iMaxWarDistantPowerRatio>0</iMaxWarDistantPowerRatio>
             <iMaxWarMinAdjacentLandPercent>3</iMaxWarMinAdjacentLandPercent>
@@ -18521,7 +18521,7 @@
             <Civilopedia>TXT_KEY_LEADER_AOMAGUA_PEDIA</Civilopedia>
             <ArtDefineTag>ART_DEF_LEADER_AOMAGUA</ArtDefineTag>
             <AlarmType>ALARM_DEFAULT</AlarmType>
-            <iBaseAttitude>-4</iBaseAttitude>
+            <iBaseAttitude>-5</iBaseAttitude>
             <iNativeAttitude>0</iNativeAttitude>
             <iMinAttitudeGiveMercs>4</iMinAttitudeGiveMercs>
             <iBaseChanceGiveMercs>20</iBaseChanceGiveMercs>
@@ -18529,7 +18529,7 @@
             <iBaseChanceGiveNativeSlaves>10</iBaseChanceGiveNativeSlaves>
             <iRefuseToTalkWarThreshold>14</iRefuseToTalkWarThreshold>
             <iMaxGoldTradePercent>100</iMaxGoldTradePercent>
-            <iMaxWarRand>100</iMaxWarRand>
+            <iMaxWarRand>50</iMaxWarRand>
             <iMaxWarNearbyPowerRatio>85</iMaxWarNearbyPowerRatio>
             <iMaxWarDistantPowerRatio>0</iMaxWarDistantPowerRatio>
             <iMaxWarMinAdjacentLandPercent>4</iMaxWarMinAdjacentLandPercent>
@@ -18938,7 +18938,7 @@
             <Civilopedia>TXT_KEY_LEADER_LAUTARO_PEDIA</Civilopedia>
             <ArtDefineTag>ART_DEF_LEADER_LAUTARO</ArtDefineTag>
             <AlarmType>ALARM_DEFAULT</AlarmType>
-            <iBaseAttitude>0</iBaseAttitude>
+            <iBaseAttitude>-1</iBaseAttitude>
             <iNativeAttitude>1</iNativeAttitude>
             <iMinAttitudeGiveMercs>2</iMinAttitudeGiveMercs>
             <iBaseChanceGiveMercs>20</iBaseChanceGiveMercs>
@@ -18946,7 +18946,7 @@
             <iBaseChanceGiveNativeSlaves>10</iBaseChanceGiveNativeSlaves>
             <iRefuseToTalkWarThreshold>10</iRefuseToTalkWarThreshold>
             <iMaxGoldTradePercent>100</iMaxGoldTradePercent>
-            <iMaxWarRand>600</iMaxWarRand>
+            <iMaxWarRand>300</iMaxWarRand>
             <iMaxWarNearbyPowerRatio>85</iMaxWarNearbyPowerRatio>
             <iMaxWarDistantPowerRatio>0</iMaxWarDistantPowerRatio>
             <iMaxWarMinAdjacentLandPercent>9</iMaxWarMinAdjacentLandPercent>

@@ -17,6 +17,8 @@ class CvUnitInfo;
 class CvSelectionGroup;
 class FAStarNode;
 class CvArtInfoUnit;
+class KmodPathFinder;
+
 
 class CvSavegameReader;
 class CvSavegameWriter;
@@ -31,7 +33,7 @@ struct CombatDetails
 	int iCityDefenseModifier;
 	int iHillsAttackModifier;
 	int iHillsDefenseModifier;
-	int iDomesticBonusModifier;	
+	int iDomesticBonusModifier;
 	int iFeatureAttackModifier;
 	int iFeatureDefenseModifier;
 	int iTerrainAttackModifier;
@@ -89,16 +91,17 @@ public:
 
 	CvUnit();
 	virtual ~CvUnit();
-	
+
 	void reloadEntity();
-	void init(int iID, UnitTypes eUnit, ProfessionTypes eProfession, UnitAITypes eUnitAI, PlayerTypes eOwner, int iX, int iY, DirectionTypes eFacingDirection, int iYieldStored);
+	void init(int iID, UnitTypes eUnit, ProfessionTypes eProfession, UnitAITypes eUnitAI, PlayerTypes eOwner, Coordinates initCoord, DirectionTypes eFacingDirection, int iYieldStored);
 	void uninit();
 	void reset(int iID = 0, UnitTypes eUnit = NO_UNIT, PlayerTypes eOwner = NO_PLAYER, bool bConstructorCall = false);
 	void setupGraphical();
 	void convert(CvUnit* pUnit, bool bKill);
 	void kill(bool bDelay, CvUnit* pAttacker = NULL);
 	void removeFromMap();
-	void addToMap(int iPlotX, int iPlotY);
+	void addToMap(Coordinates targetCoord);
+	void addToMap(CvPlot *targetPlot);
 	void updateOwnerCache(int iChange);
 
 	DllExport void NotifyEntity(MissionTypes eMission);
@@ -113,17 +116,26 @@ public:
 	bool canDoCommand(CommandTypes eCommand, int iData1, int iData2, bool bTestVisible = false, bool bTestBusy = true);
 	DllExport void doCommand(CommandTypes eCommand, int iData1, int iData2);
 
-	FAStarNode* getPathLastNode() const;
+	//FAStarNode* getPathLastNode() const; // disabled by K-Mod
 	CvPlot* getPathEndTurnPlot() const;
 	int getPathCost() const;
 	// TAC - AI Improved Naval AI - koma13 - START
 	//bool generatePath(const CvPlot* pToPlot, int iFlags = 0, bool bReuse = false, int* piPathTurns = NULL) const;
-	bool generatePath(const CvPlot* pToPlot, int iFlags = 0, bool bReuse = false, int* piPathTurns = NULL, bool bIgnoreDanger = true) const;
+	//bool generatePath(const CvPlot* pToPlot, int iFlags = 0, bool bReuse = false, int* piPathTurns = NULL, bool bIgnoreDanger = true) const;
 	// TAC - AI Improved Naval AI - koma13 - END
+	bool generatePath(const CvPlot* pToPlot, int iFlags = 0, bool bReuse = false,							// Exposed to Python
+		int* piPathTurns = NULL,
+		int iMaxPath = -1, // K-Mod
+		bool bUseTempFinder = false) const; // advc.128
+	KmodPathFinder& getPathFinder() const; // K-Mod
+
 	bool canEnterTerritory(PlayerTypes ePlayer, bool bIgnoreRightOfPassage = false) const;
 	bool canEnterArea(PlayerTypes ePlayer, const CvArea* pArea, bool bIgnoreRightOfPassage = false) const;
 	TeamTypes getDeclareWarUnitMove(const CvPlot* pPlot) const;
-	bool canMoveInto(const CvPlot* pPlot, bool bAttack = false, bool bDeclareWar = false, bool bIgnoreLoad = false) const;
+	bool canMoveInto(CvPlot const& kPlot, bool bAttack = false, bool bDeclareWar = false,					// Exposed to Python
+		bool bIgnoreLoad = false,
+		bool bAssumeVisible = true, // K-Mod
+		bool bDangerCheck = false) const; // advc.001k
 	bool canMoveOrAttackInto(const CvPlot* pPlot, bool bDeclareWar = false) const;
 	bool canMoveThrough(const CvPlot* pPlot) const;
 	void attack(CvPlot* pPlot, bool bQuick);
@@ -157,7 +169,9 @@ public:
 
 	bool canTradeYield(const CvPlot* pPlot) const;
 	void tradeYield();
-
+	// Ramstormp, PTSD, Trade in Chunks - start
+	void changeMaxTradeYieldAmount();
+	// Ramstormp - end
 	bool canClearSpecialty() const;
 	void clearSpecialty();
 
@@ -189,6 +203,10 @@ public:
 	int getFailedMissionarySurvivalPercent() const;
 	// Ramstormp - END
 
+	// WTP, ray, Failed Trader - START
+	int getFailedTraderSurvivalPercent() const;
+	// WTP, ray, Failed Trader - END
+
 	// WTP, ray, Native Trade Posts - START
 	bool canEstablishTradePost() const;
 	void establishTradePost();
@@ -206,6 +224,11 @@ public:
 	void mergeTreasures();
 	void createTreasures(int overallAmount, int maxTreasureGold);
 	// WTP, merge Treasures, of Raubwuerger - END
+
+	// WTP, ray, Construction Supplies - START
+	bool canUseProductionSupplies() const;
+	void useProductionSupplies();
+	// WTP, ray, Construction Supplies - END
 
 	bool canSpeakWithChief(CvPlot* pPlot) const;
 	void speakWithChief();
@@ -285,7 +308,7 @@ public:
 	DllExport bool canMove() const;
 	DllExport bool hasMoved() const;
 
-	bool canBuildRoute() const;
+	bool canBuildRoute(RouteTypes ePreferredRoute = NO_ROUTE) const;
 	DllExport BuildTypes getBuildType() const;
 	int workRate(bool bMax) const;
 	void changeExtraWorkRate(int iChange);
@@ -353,7 +376,7 @@ public:
 	int cityDefenseModifier() const;
 	int hillsAttackModifier() const;
 	int hillsDefenseModifier() const;
-	int DomesticBonusModifier() const;	
+	int DomesticBonusModifier() const;
 	int terrainAttackModifier(TerrainTypes eTerrain) const;
 	int terrainDefenseModifier(TerrainTypes eTerrain) const;
 	int featureAttackModifier(FeatureTypes eFeature) const;
@@ -409,18 +432,25 @@ public:
 #ifdef _USRDLL
 	inline int getX_INLINE() const
 	{
-		return m_iX;
+		return m_coord.x();
 	}
 #endif
 	DllExport int getY() const;
 #ifdef _USRDLL
 	inline int getY_INLINE() const
 	{
-		return m_iY;
+		return m_coord.y();
 	}
 #endif
+	inline const Coordinates& coord() const
+	{
+		return m_coord;
+	}
 	void setXY(int iX, int iY, bool bGroup = false, bool bUpdate = true, bool bShow = false, bool bCheckPlotVisible = false);
+	void jumpTo(Coordinates toCoord, bool bGroup = false, bool bUpdate = true, bool bShow = false, bool bCheckPlotVisible = false);
+	void jumpTo(CvPlot *plot, bool bGroup = false, bool bUpdate = true, bool bShow = false, bool bCheckPlotVisible = false);
 	bool at(int iX, int iY) const;
+	bool at(Coordinates testCoord) const;
 	DllExport bool atPlot(const CvPlot* pPlot) const;
 	DllExport CvPlot* plot() const;
 	CvCity* getCity() const;
@@ -434,6 +464,7 @@ public:
 	DllExport int getDamage() const;
 	void setDamage(int iNewValue, CvUnit* pAttacker = NULL, bool bNotifyEntity = true);
 	void changeDamage(int iChange, CvUnit* pAttacker = NULL);
+	void addDamageRandom(int iMinDamage, int iMaxDamage, int iMinHealthPercentageRemaining = 0);
 
 	int getMoves() const;
 	void setMoves(int iNewValue);
@@ -449,7 +480,11 @@ public:
 	void changeLevel(int iChange);
 	int getCargo() const;
 	void changeCargo(int iChange);
-
+	// Ramstormp, PTSD, Steerage - start
+	int getSteerage() const;
+	void changeSteerage(int iChange);
+	// Ramstormp - end
+	
 	CvPlot* getAttackPlot() const;
 	void setAttackPlot(const CvPlot* pNewValue);
 
@@ -523,11 +558,17 @@ public:
 	int getExtraHillsDefensePercent() const;
 	void changeExtraHillsDefensePercent(int iChange);
 	int getExtraDomesticBonusPercent() const;
-	void changeExtraDomesticBonusPercent(int iChange);		
+	void changeExtraDomesticBonusPercent(int iChange);
 	int getPillageChange() const;
 	void changePillageChange(int iChange);
 	int getAnimalGoldChange() const; //WTP, ray, Animal Promotions increase gold from Animals
 	void changeAnimalGoldChange(int iChange); //WTP, ray, Animal Promotions increase gold from Animals
+	int getSlaveRevoltReductionBonus() const; //WTP, ray, Slave Hunter and Slave Master
+	void changeSlaveRevoltReductionBonus(int iChange); //WTP, ray, Slave Hunter and Slave Master
+	int getSlaveWorkerProductionBonus() const; //WTP, ray, Slave Hunter and Slave Master
+	void changeSlaveWorkerProductionBonus(int iChange); //WTP, ray, Slave Hunter and Slave Master
+	int getAdditionalLawToCityFromUnit() const; // WTP, ray, Lawkeeper Promotion - START
+	void changeAdditionalLawToCityFromUnit(int iChange); // WTP, ray, Lawkeeper Promotion - START
 	int getUpgradeDiscount() const;
 	void changeUpgradeDiscount(int iChange);
 	int getExperiencePercent() const;
@@ -587,6 +628,7 @@ public:
 		return m_eOwner;
 	}
 #endif
+	CvPlayer &getOwnerR() const;
 	DllExport PlayerTypes getVisualOwner(TeamTypes eForTeam = NO_TEAM) const;
 	PlayerTypes getCombatOwner(TeamTypes eForTeam, const CvPlot* pPlot) const;
 	DllExport TeamTypes getTeam() const;
@@ -596,6 +638,7 @@ public:
 
 	PlayerTypes getCapturingPlayer() const;
 	void setCapturingPlayer(PlayerTypes eNewValue);
+	bool isCapturableLandUnit() const;
 	DllExport UnitTypes getUnitType() const;
 	DllExport CvUnitInfo &getUnitInfo() const;
 	UnitClassTypes getUnitClassType() const;
@@ -606,7 +649,7 @@ public:
 	DllExport CvUnit* getCombatUnit() const;
 	void setCombatUnit(CvUnit* pUnit, bool bAttacking = false);
 	DllExport CvPlot* getPostCombatPlot() const;
-	void setPostCombatPlot(int iX, int iY);
+	void setPostCombatPlot(Coordinates coord);
 	DllExport CvUnit* getTransportUnit() const;
 	bool isCargo() const;
 	bool setTransportUnit(CvUnit* pTransportUnit, bool bUnload = true);
@@ -645,6 +688,11 @@ public:
 	int getExtraUnitCombatModifier(UnitCombatTypes eIndex) const;
 	void changeExtraUnitCombatModifier(UnitCombatTypes eIndex, int iChange);
 	bool canAcquirePromotion(PromotionTypes ePromotion) const;
+	bool canAcquireNegativePromotion(PromotionTypes ePromotion) const; //WTP, ray Negative Promotions - START
+	void acquireAnyNegativePromotion(); //WTP, ray Negative Promotions - START
+	void cleanseAllNegativePromotions(); //WTP, ray Negative Promotions - START
+	bool isHasNegativePromotion() const; //WTP, ray Negative Promotions - START
+	bool testWillGetNegativePromotion() const;
 	bool canAcquirePromotionAny() const;
 	bool isPromotionValid(PromotionTypes ePromotion) const;
 	bool isHasPromotion(PromotionTypes eIndex) const;
@@ -681,11 +729,16 @@ public:
 	int getYieldStored() const;
 	YieldTypes getYield() const;
 	bool isGoods() const;
+	int getBerthSize() const;// Ramstormp, PTSD, Fill the slots with treasures
+
 	bool hasAnyUnitInCargo() const;
-// Ramstormp, PTSD, Slaves & Goods go to the hold - START
+	// Ramstormp, PTSD, Goods and slaves go to the hold - START
 	void setCabinPassengers(int iPassengers);
 	int getCabinPassengers() const;
-// Ramstormp - END
+	// Ramstormp - END
+
+	bool isYield() const;
+
 	void changeBadCityDefenderCount(int iChange);
 	int getBadCityDefenderCount() const;
 	bool isCityDefender() const;
@@ -702,12 +755,12 @@ public:
 
 	void setHomeCity(CvCity* pNewValue);
 	CvCity* getHomeCity() const;
-	
+
 	DllExport bool isOnMap() const;
-	DllExport const CvArtInfoUnit* getArtInfo(int i) const;
+	const CvArtInfoUnit* getArtInfo(int i) const;
 	DllExport const TCHAR* getButton() const;
 	const TCHAR* getFullLengthIcon() const;
-	
+
 	bool isColonistLocked();
 	void setColonistLocked(bool bNewValue);
 
@@ -758,7 +811,7 @@ public:
 	virtual void AI_setUnitAIType(UnitAITypes eNewValue) = 0;
 	virtual UnitAIStates AI_getUnitAIState() const = 0;
 	virtual void AI_setUnitAIState(UnitAIStates eNewValue) = 0;
-	virtual bool AI_hasAIChanged(int iNumTurns) = 0;
+	virtual bool AI_hasAIChanged(int iNumTurns) const = 0;
 	virtual int AI_sacrificeValue(const CvPlot* pPlot) const = 0;
 	virtual CvPlot* AI_determineDestination(CvPlot** ppMissionPlot, MissionTypes* peMission, MissionAITypes* peMissionAI) = 0;
 	virtual bool AI_moveFromTransport(CvPlot* pHintPlot) = 0;
@@ -784,6 +837,16 @@ public:
 
 	bool isProfessionalMilitary() const;
 
+	// WTP, ray, helper methods for Python Event System - Spawning Units and Barbarians on Plots - START
+	void spawnOwnPlayerUnitOnPlotOfUnit(int /*UnitClassTypes*/ iIndex) const;
+	void spawnBarbarianUnitOnPlotOfUnit(int /*UnitClassTypes*/ iIndex) const;
+	void spawnOwnPlayerUnitOnAdjacentPlotOfUnit(int /*UnitClassTypes*/ iIndex) const;
+	void spawnBarbarianUnitOnAdjacentPlotOfUnit(int /*UnitClassTypes*/ iIndex) const;
+
+	bool isOwnPlayerUnitOnAdjacentPlotOfUnit(int /*UnitClassTypes*/ iIndex) const;
+	bool isBarbarianUnitOnAdjacentPlotOfUnit(int /*UnitClassTypes*/ iIndex) const;
+	// WTP, ray, helper methods for Python Event System - Spawning Units and Barbarians on Plots - END
+
 protected:
 
 	void updateVisibilityCache(int iNewRange);
@@ -792,8 +855,9 @@ protected:
 	int m_iID;
 	int m_iGroupID;
 	int m_iHotKeyNumber;
-	int m_iX;
-	int m_iY;
+	// int m_iX;
+	// int m_iY;
+	Coordinates m_coord;
 	int m_iLastMoveTurn;
 	int m_iGameTurnCreated;
 	int m_iDamage;
@@ -828,16 +892,19 @@ protected:
 	int m_iExtraCityDefensePercent;
 	int m_iExtraHillsAttackPercent;
 	int m_iExtraHillsDefensePercent;
-	int m_iExtraDomesticBonusPercent;	
+	int m_iExtraDomesticBonusPercent;
 	int m_iPillageChange;
 	int m_iAnimalGoldChange; //WTP, ray, Animal Promotions increase gold from Animals
+	int m_iSlaveRevoltReductionBonus; //WTP, ray, Slave Hunter and Slave Master
+	int m_iSlaveWorkerProductionBonus; //WTP, ray, Slave Hunter and Slave Master
+	int m_iAdditionalLawToCityUnit; // WTP, ray, Lawkeeper Promotion - START
 	int m_iUpgradeDiscount;
 	int m_iExperiencePercent;
 	int m_iBaseCombat;
 	DirectionTypes m_eFacingDirection;
 	int m_iImmobileTimer;
-	int m_iYieldStored;
 	int m_iCabinPassengers; // Ramstormp, PTSD, Triangle Trade - Goods and slaves go to the hold
+	int m_iYieldStored;
 	int m_iExtraWorkRate;
 	int m_iUnitTravelTimer;
 	int m_iBadCityDefenderCount;
@@ -898,7 +965,7 @@ protected:
 	CvWString m_szName;
 	CvString m_szScriptData;
 
-	BoolArray m_ba_HasRealPromotion;
+	EnumMap<PromotionTypes, bool> m_embHasRealPromotion;
 	PromotionArray<int> m_ja_iFreePromotionCount;
 	TerrainArray<int> m_ja_iTerrainDoubleMoveCount;
 	FeatureArray<int> m_ja_iFeatureDoubleMoveCount;
@@ -942,12 +1009,18 @@ protected:
 	//int canCrossCoastOnly() const;
 	// WTP, ray, prevent Coastal Ships to Display EUROPE, AFRICA and Port Royal in GO-TO - END
 
-	BoolArray m_ba_isPromotionApplied;
+	EnumMap<PromotionTypes, bool> m_embisPromotionApplied;
+
+public:
+	int getForcedLaborFactor() const;
+	int getDiscriminationFactor() const;
+
+	bool isForcedLaborer() const;
 };
 
 inline bool CvUnit::isHasPromotion(PromotionTypes eIndex) const
 {
-	return m_ba_isPromotionApplied.get(eIndex);
+	return m_embisPromotionApplied.get(eIndex);
 }
 
 #endif

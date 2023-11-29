@@ -86,7 +86,7 @@ public:
 	int AI_targetCityValue(CvCity* pCity, bool bRandomize, bool bIgnoreAttackers = false);
 	CvCity* AI_findTargetCity(CvArea* pArea);
 
-	int AI_getPlotDanger(CvPlot* pPlot, int iRange = -1, bool bTestMoves = true, bool bOffensive = false);
+	int AI_getPlotDanger(CvPlot* pPlot, int iRange = -1, bool bTestMoves = true, bool bOffensive = false) const;
 	int AI_getUnitDanger(CvUnit* pUnit, int iRange = -1, bool bTestMoves = true, bool bAnyDanger = true) const;
 	
 	// TAC - AI Improved Naval AI - koma13 - START
@@ -151,7 +151,7 @@ public:
 	bool AI_hasSeaTransport(const CvUnit* pCargo) const;
 
 	int AI_neededExplorers(CvArea* pArea);
-	int AI_neededWorkers(CvArea* pArea);
+	int AI_neededWorkers(CvArea* pArea) const;
 	//int AI_neededMissionary(CvArea* pArea);
 	
 	int AI_adjacentPotentialAttackers(CvPlot* pPlot, bool bTestCanMove = false);
@@ -290,6 +290,8 @@ public:
 	int AI_getPlotChokeValue(CvPlot* pPlot) const; // Super Forts begin *choke*
 	
 	void AI_nativeYieldGift(CvUnit* pUnit);
+	YieldTypes getBestYieldForTrade(const CvCity& city, const char* pszLog) const;
+	bool isYieldValidForNativeTrade(YieldTypes yield, const CvCity& city) const;
 
 	void AI_nativeTrade(CvUnit* pUnit); // R&R, ray, Natives Trading - START
 	
@@ -336,9 +338,9 @@ public:
 
 	int AI_desiredCityCount();
 	
-	int AI_professionValue(ProfessionTypes eProfession, UnitAITypes eUnitAI);
+	int AI_professionValue(ProfessionTypes eProfession, UnitAITypes eUnitAI) const;
 	int AI_professionGoldValue(ProfessionTypes eProfession);
-	ProfessionTypes AI_idealProfessionForUnit(UnitTypes eUnitType);
+	ProfessionTypes AI_idealProfessionForUnit(UnitTypes eUnitType) const;
 	ProfessionTypes AI_idealProfessionForUnitAIType(UnitAITypes eUnitAI, CvCity* pCity = NULL);
 	
 	int AI_professionBasicValue(ProfessionTypes eProfession, UnitTypes eUnit, CvCity* pCity);
@@ -369,7 +371,7 @@ public:
 	void AI_updateNextBuyUnit(bool bPriceLimit = true);
 	// TAC - AI purchases military units - koma13 - END
 	void AI_updateNextBuyProfession();
-	int AI_highestNextBuyValue();
+	//int AI_highestNextBuyValue();
 	
 	EmotionTypes AI_strongestEmotion();
 	int AI_emotionWeight(EmotionTypes eEmotion);
@@ -462,7 +464,11 @@ public:
 
 	int AI_getYieldBestExportPrice(YieldTypes eYield) const;
 	void AI_hurryBestDockUnits(int iHurryCount);
+	int AI_getColonialMilitaryModifier() const;
+	bool AI_shouldHurryUnit() const;
 
+	// TODO: Make protective and replace with a getter
+	int m_estimatedUnemploymentCount;
 
 protected:
 
@@ -498,8 +504,8 @@ protected:
 	
 	EnumMap<YieldTypes, int> m_em_iAverageYieldMultiplier;
 	EnumMap<YieldTypes, int> m_em_iYieldValuesTimes100;
-	EnumMapDefault<YieldTypes, int, -1> m_em_iBestWorkedYieldPlots;
-	EnumMapDefault<YieldTypes, int, -1> m_em_iBestUnworkedYieldPlots;
+	EnumMap<YieldTypes, int, -1> m_em_iBestWorkedYieldPlots;
+	EnumMap<YieldTypes, int, -1> m_em_iBestUnworkedYieldPlots;
 	
 	int m_iUpgradeUnitsCacheTurn;
 	int m_iUpgradeUnitsCachedExpThreshold;
@@ -517,8 +523,8 @@ protected:
 	EnumMap<UnitClassTypes, int> m_em_iUnitClassWeights;
 	EnumMap<UnitCombatTypes, int> m_em_iUnitCombatWeights;
 	EnumMap<EmotionTypes, int> m_em_iEmotions;
-	EnumMapDefault<StrategyTypes, int, -1> m_em_iStrategyStartedTurn;
-	EnumMapDefault<StrategyTypes, int, -1> m_em_iStrategyData;
+	EnumMap<StrategyTypes, int, -1> m_em_iStrategyStartedTurn;
+	EnumMap<StrategyTypes, int, -1> m_em_iStrategyData;
 
 	mutable EnumMap<PlayerTypes, int> m_em_iCloseBordersAttitudeCache;
 	mutable EnumMap<PlayerTypes, int> m_em_iStolenPlotsAttitudeCache;
@@ -526,8 +532,8 @@ protected:
 
 	EnumMap<PlayerTypes, bool> m_em_bFirstContact;
 
-	EnumMap2D<PlayerTypes, ContactTypes, int> m_em_iContactTimer;
-	EnumMap2D<PlayerTypes, MemoryTypes, int> m_em_iMemoryCount;
+	EnumMap<PlayerTypes, EnumMap<ContactTypes, int> > m_em_iContactTimer;
+	EnumMap<PlayerTypes, EnumMap<MemoryTypes , int> > m_em_iMemoryCount;
 	
 	std::vector<int> m_aiAICitySites;
 	
@@ -575,9 +581,9 @@ protected:
 	int m_iWaveIndex;
 	// TAC - AI Revolution - koma13 - END
 	
-	bool AI_shouldHurryUnit() const;
 	int AI_getBestDockUnit() const;
 	bool AI_canHurryDockUnit() const;
+	int AI_estimateUnemploymentCount() const;
 
 	friend class CvGameTextMgr;
 };

@@ -76,9 +76,9 @@ void CyPlayerPythonInterface2(python::class_<CyPlayer>& x)
 		.def("getYieldBuyPrice", &CyPlayer::getYieldBuyPrice, "int (eYield)")
 		.def("setYieldBuyPrice", &CyPlayer::setYieldBuyPrice, "void (eYield, int iValue, bool bMessage)")
 		// Ramstormp, PTSD, Europe Stock - START
-		.def("getEuropeWarehouseYield", &CyPlayer::getEuropeWarehouseYield, "int (eYield)")
-		.def("getAfricaWarehouseYield", &CyPlayer::getAfricaWarehouseYield, "int (eYield)")
-		.def("getPortRoyalWarehouseYield", &CyPlayer::getPortRoyalWarehouseYield, "int (eYield)")
+		.def("getEuropeWarehouseStock", &CyPlayer::getEuropeWarehouseStock, "int (eYield)")
+		.def("getAfricaWarehouseStock", &CyPlayer::getAfricaWarehouseStock, "int (eYield)")
+		.def("getPortRoyalWarehouseStock", &CyPlayer::getPortRoyalWarehouseStock, "int (eYield)")
 		// Ramstormp - END
 		.def("sellYieldUnitToEurope", &CyPlayer::sellYieldUnitToEurope, "void (CyUnit* pUnit, int iAmount, int iCommission)")
 		.def("buyYieldUnitFromEurope", &CyPlayer::buyYieldUnitFromEurope, python::return_value_policy<python::manage_new_object>(), "CyUnit (int /*YieldTypes*/ eYield, int iAmount, CyUnit* pTransport)")
@@ -87,6 +87,8 @@ void CyPlayerPythonInterface2(python::class_<CyPlayer>& x)
 		.def("getEuropeUnitBuyPrice", &CyPlayer::getEuropeUnitBuyPrice, "int (int (UnitTypes))")
 		.def("buyEuropeUnit", &CyPlayer::buyEuropeUnit, python::return_value_policy<python::manage_new_object>(), "CyUnit (int /*UnitTypes*/ eUnit)")
 		.def("getYieldBoughtTotal", &CyPlayer::getYieldBoughtTotal, "int (int /*YieldTypes*/ eYield)")
+		.def("getYieldBoughtTotalAfrica", &CyPlayer::getYieldBoughtTotalAfrica, "int (int /*YieldTypes*/ eYield)") // WTP, ray, Yields Traded Total for Africa and Port Royal - START
+		.def("getYieldBoughtTotalPortRoyal", &CyPlayer::getYieldBoughtTotalPortRoyal, "int (int /*YieldTypes*/ eYield)") // WTP, ray, Yields Traded Total for Africa and Port Royal - START	 
 		.def("getNumRevolutionEuropeUnits", &CyPlayer::getNumRevolutionEuropeUnits, "int ()")
 		.def("getRevolutionEuropeUnit", &CyPlayer::getRevolutionEuropeUnit, "int (int iIndex)")
 		.def("getRevolutionEuropeProfession", &CyPlayer::getRevolutionEuropeProfession, "int (int iIndex)")
@@ -102,9 +104,11 @@ void CyPlayerPythonInterface2(python::class_<CyPlayer>& x)
 		.def("canTradeWithAfrica", &CyPlayer::canTradeWithAfrica, "bool ()")
 		.def("getSellToAfricaProfit", &CyPlayer::getSellToAfricaProfit, "int ()")
 		.def("isYieldAfricaTradable", &CyPlayer::isYieldAfricaTradable, "bool ()")
+		.def("getNumShips", &CyPlayer::getNumShips, "int ()") // WTP, ray, easily counting Ships - START
 		// R&R, ray, Africa
 		.def("getYieldAfricaSellPrice", &CyPlayer::getYieldAfricaSellPrice, "int (eYield)")
 		.def("getYieldAfricaBuyPrice", &CyPlayer::getYieldAfricaBuyPrice, "int (eYield)")
+		.def("getYieldAfricaBuyPriceNoModifier", &CyPlayer::getYieldAfricaBuyPriceNoModifier, "int (eYield)")
 		.def("setYieldAfricaBuyPrice", &CyPlayer::setYieldAfricaBuyPrice, "void (eYield, int iValue, bool bMessage)")
 		// R&R, ray, Port Royal
 		.def("getNumPortRoyalUnits", &CyPlayer::getNumPortRoyalUnits, "int ()")
@@ -119,6 +123,7 @@ void CyPlayerPythonInterface2(python::class_<CyPlayer>& x)
 		.def("isYieldPortRoyalTradable", &CyPlayer::isYieldPortRoyalTradable, "bool ()")
 		.def("getYieldPortRoyalSellPrice", &CyPlayer::getYieldPortRoyalSellPrice, "int (eYield)")
 		.def("getYieldPortRoyalBuyPrice", &CyPlayer::getYieldPortRoyalBuyPrice, "int (eYield)")
+		.def("getYieldPortRoyalBuyPriceNoModifier", &CyPlayer::getYieldPortRoyalBuyPriceNoModifier, "int (eYield)")
 		.def("setYieldPortRoyalBuyPrice", &CyPlayer::setYieldPortRoyalBuyPrice, "void (eYield, int iValue, bool bMessage)")
 		// R&R, ray, Port Royal - END
 		/* R&R mod, vetiarvind, trade groups - start */

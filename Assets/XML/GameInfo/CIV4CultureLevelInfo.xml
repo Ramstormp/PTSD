@@ -19,12 +19,12 @@
         <CultureLevelInfo>
             <Type>CULTURELEVEL_FLEDGLING</Type>
             <Description>TXT_KEY_CULTURELEVEL_FLEDGLING</Description>
-            <iThreshold>150</iThreshold>
+            <iThreshold>220</iThreshold>
         </CultureLevelInfo>
         <CultureLevelInfo>
             <Type>CULTURELEVEL_DEVELOPING</Type>
             <Description>TXT_KEY_CULTURELEVEL_DEVELOPING</Description>
-            <iThreshold>2000</iThreshold>
+            <iThreshold>1200</iThreshold>
         </CultureLevelInfo>
         <CultureLevelInfo>
             <Type>CULTURELEVEL_REFINED</Type>
@@ -39,8 +39,7 @@
         <CultureLevelInfo>
             <Type>CULTURELEVEL_LEGENDARY</Type>
             <Description>TXT_KEY_CULTURELEVEL_LEGENDARY</Description>
-            <iThreshold>200000</iThreshold>
+            <iThreshold>300000</iThreshold>
         </CultureLevelInfo>
     </CultureLevelInfos>
 </Civ4CultureLevelInfo>
-

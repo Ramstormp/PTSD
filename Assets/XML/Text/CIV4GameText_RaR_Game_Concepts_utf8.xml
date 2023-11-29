@@ -4,13 +4,8 @@
 <!-- Copyright Firaxis Games 2005 -->
 <!-- -->
 <!-- Game Text - New -->
+<!-- Domestic advisor -->
 <Civ4GameText xmlns="http://www.firaxis.com">
-    <TEXT>
-        <Tag>TXT_KEY_CONCEPT_TOTAL_PRODUCTION</Tag>
-        <English>Total Production</English>
-        <French>Total Production</French>
-        <German>Gesamtproduktion</German>
-    </TEXT>
     <TEXT>
         <Tag>TXT_KEY_CONCEPT_TOTAL_PRODUCTION</Tag>
         <English>Total Production</English>
@@ -19,7 +14,11 @@
             <Gender>Female</Gender>
             <Plural>0</Plural>
         </French>
-        <German>Gesamtproduktion</German>
+        <German>
+            <Text>Gesamtproduktion</Text>
+            <Gender>Female</Gender>
+            <Plural>0</Plural>
+        </German>
         <Italian>
             <Text>Produzione totale</Text>
             <Gender>Female</Gender>
@@ -30,5 +29,6 @@
             <Gender>Female</Gender>
             <Plural>0</Plural>
         </Spanish>
+        <Russian>Общий объем производства</Russian>
     </TEXT>
 </Civ4GameText>

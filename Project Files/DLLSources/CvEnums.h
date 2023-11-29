@@ -157,17 +157,17 @@ enum RotationTypes
 enum CityPlotTypes
 {
 	NO_CITY_PLOT = -1,
+	CITY_HOME_PLOT = 0,
 	FIRST_CITY_PLOT = 0,
 
 	NUM_CITY_PLOTS_1_PLOT = 9,
 	NUM_CITY_PLOTS_2_PLOTS = 25,
-
-#ifdef CHECK_GLOBAL_CONSTANTS
-	CITY_PLOTS_RADIUS,
-	NUM_CITY_PLOTS,
-	CITY_PLOTS_DIAMETER,
-#endif
 };
+
+extern const CityPlotTypes& CITY_PLOTS_RADIUS;
+extern const CityPlotTypes& NUM_CITY_PLOTS;
+extern const CityPlotTypes& LAST_CITY_PLOT;
+extern const CityPlotTypes& CITY_PLOTS_DIAMETER;
 
 #define NUM_CityPlot_TYPES NUM_CITY_PLOTS
 
@@ -190,24 +190,6 @@ enum WrapDirection
 	WRAP_RIGHT_MASK = 1 << WRAP_RIGHT,
 	WRAP_UP_MASK = 1 << WRAP_UP,
 	WRAP_DOWN_MASK = 1 << WRAP_DOWN,
-};
-
-enum ColorTypes
-{
-	NO_COLOR = -1,
-#ifdef CHECK_GLOBAL_CONSTANTS
-	NUM_COLOR_TYPES,
-#endif
-	COMPILE_TIME_NUM_COLOR_TYPES = MAX_SHORT,
-};
-
-enum PlayerColorTypes
-{
-	NO_PLAYERCOLOR = -1,
-#ifdef CHECK_GLOBAL_CONSTANTS
-	NUM_PLAYERCOLOR_TYPES,
-#endif
-	COMPILE_TIME_NUM_PLAYERCOLOR_TYPES = MAX_SHORT,
 };
 
 //Warning: these values correspond to locations in the plot texture [JW]
@@ -271,32 +253,6 @@ enum AreaBorderLayers
 	AREA_BORDER_LAYER_HIGHLIGHT_PLOT,
 	AREA_BORDER_LAYER_EUROPE,
 	NUM_AREA_BORDER_LAYERS
-};
-
-enum AttachableTypes
-{
-	NO_ATTACHABLE = -1,
-};
-
-enum InterfaceModeTypes
-{
-	NO_INTERFACEMODE = -1,
-
-	INTERFACEMODE_SELECTION,
-	INTERFACEMODE_PING,
-	INTERFACEMODE_SIGN,
-	INTERFACEMODE_GRIP,
-	INTERFACEMODE_GLOBELAYER_INPUT,
-	INTERFACEMODE_GO_TO,
-	INTERFACEMODE_GO_TO_TYPE,
-	INTERFACEMODE_GO_TO_ALL,
-	INTERFACEMODE_ROUTE_TO,
-	INTERFACEMODE_PYTHON_PICK_PLOT,
-	INTERFACEMODE_SAVE_PLOT_NIFS,
-
-#ifdef _USRDLL
-	NUM_INTERFACEMODE_TYPES
-#endif
 };
 
 enum InterfaceMessageTypes
@@ -545,7 +501,9 @@ enum WidgetTypes
 	WIDGET_NETWORK_DESYNC,
 	WIDGET_JUMP_TO_SETTLEMENT,
 	WIDGET_MISSION_CHAR,
-
+	WIDGET_HELP_HARBOUR_SYSTEM, // WTP, ray, Widgets for Harbour System and Barracks System - START
+	WIDGET_HELP_BARRACKS_SYSTEM, // WTP, ray, Widgets for Harbour System and Barracks System - START
+	WIDGET_HELP_SHOW_OR_HIDE_YIELDS,
 #ifdef _USRDLL
 	NUM_WIDGET_TYPES
 #endif
@@ -602,6 +560,7 @@ enum ButtonPopupTypes
 	BUTTONPOPUP_PROMOTE,
 	BUTTONPOPUP_CHOOSE_GOODY,
 	BUTTONPOPUP_SELECT_YIELD_AMOUNT,
+	BUTTONPOPUP_SELECT_YIELD_TRADE_MAX_AMOUNT, // Ramstormp, PTSD, Trade in Smaller Chunks
 	BUTTONPOPUP_EUROPE_UNIT,
 	BUTTONPOPUP_TALK_NATIVES,
 	BUTTONPOPUP_PURCHASE_AFRICA_UNIT, /*** TRIANGLETRADE 10/15/08 by DPII ***/
@@ -612,13 +571,16 @@ enum ButtonPopupTypes
 	BUTTONPOPUP_GOTO_MENU,		// TAC - Goto Menu - koma13
 	// Teacher List - start - Nightinggale
 	BUTTONPOPUP_TEACHER_LIST,
-	// Teacher List - end - Nightinggale	
+	// Teacher List - end - Nightinggale
 	BUTTONPOPUP_SAVE_TRADEGROUP,//R&R mod, vetiarvind, trade groups
 	BUTTONPOPUP_CHOOSE_CITY_PLOT_YIELD,
-	BUTTONPOPUP_DESYNC_LOG_COMPLETE, // desync log
 	BUTTONPOPUP_NO_EVENT_ON_OK_CLICKED, // use info.setButtonPopupType to this to avoid the ok button from doing anything
-	
-	
+
+	BUTTONPOPUP_START_GAME_CHECK_FAILED,
+
+	// network OOS hunting tools
+	BUTTONPOPUP_DESYNC_LOG_COMPLETE, // desync log
+	BUTTONPOPUP_NETWORK_OOS_MENU,
 
 #ifdef _USRDLL
 	NUM_BUTTONPOPUP_TYPES
@@ -657,9 +619,11 @@ enum PlotTypes
 	PLOT_LAND,
 	PLOT_OCEAN,
 
-#ifdef _USRDLL
-	NUM_PLOT_TYPES
-#endif
+	NUM_PLOT_TYPES,
+
+	COMPILE_TIME_NUM_PLOT_TYPES = NUM_PLOT_TYPES,
+
+	FIRST_PLOT = 0,
 };
 
 enum CivCategoryTypes
@@ -711,21 +675,6 @@ enum GameOptionTypes
 };
 */
 
-enum MultiplayerOptionTypes
-{
-	NO_MPOPTION = -1,
-
-	MPOPTION_SIMULTANEOUS_TURNS,
-	MPOPTION_TAKEOVER_AI,
-	MPOPTION_SHUFFLE_TEAMS,
-	MPOPTION_ANONYMOUS,
-	MPOPTION_TURN_TIMER,
-
-#ifdef _USRDLL
-	NUM_MPOPTION_TYPES
-#endif
-};
-
 enum SpecialOptionTypes
 {
 	NO_SPECIALOPTION = -1,
@@ -734,43 +683,6 @@ enum SpecialOptionTypes
 
 #ifdef _USRDLL
 	NUM_SPECIALOPTION_TYPES
-#endif
-};
-
-enum GraphicOptionTypes
-{
-	NO_GRAPHICOPTION = -1,
-
-	GRAPHICOPTION_HEALTH_BARS,
-	GRAPHICOPTION_NO_COMBAT_ZOOM,
-	GRAPHICOPTION_NO_ENEMY_GLOW,
-	GRAPHICOPTION_FROZEN_ANIMATIONS,
-	GRAPHICOPTION_EFFECTS_DISABLED,
-	GRAPHICOPTION_GLOBE_VIEW_BUILDINGS_DISABLED,
-	GRAPHICOPTION_FULLSCREEN,
-	GRAPHICOPTION_LOWRES_TEXTURES,
-	GRAPHICOPTION_HIRES_TERRAIN,
-	GRAPHICOPTION_NO_MOVIES,
-
-#ifdef _USRDLL
-	NUM_GRAPHICOPTION_TYPES
-#endif
-};
-
-enum ForceControlTypes
-{
-	NO_FORCECONTROL = -1,
-
-	FORCECONTROL_SPEED,
-	FORCECONTROL_HANDICAP,
-	FORCECONTROL_OPTIONS,
-	FORCECONTROL_VICTORIES,
-	FORCECONTROL_MAX_TURNS,
-	FORCECONTROL_MAX_CITY_ELIMINATION,
-	FORCECONTROL_ADVANCED_START,
-
-#ifdef _USRDLL
-	NUM_FORCECONTROL_TYPES
 #endif
 };
 
@@ -790,55 +702,6 @@ enum TerrainGroupTypes
 	TERRAIN_GROUP_COAST,
 	TERRAIN_GROUP_LAND,
 	NUM_TERRAIN_GROUP_TYPES
-};
-
-enum FontSymbols
-{
-	// 'OTHER' symbols
-	HAPPY_CHAR = 0,
-	UNHAPPY_CHAR,
-	HEALTHY_CHAR,
-	UNHEALTHY_CHAR,
-	BULLET_CHAR,
-	STRENGTH_CHAR,
-	MOVES_CHAR,
-	RELIGION_CHAR,
-	STAR_CHAR,
-	SILVER_STAR_CHAR,
-	TRADE_CHAR,
-	DEFENSE_CHAR,
-	GREAT_PEOPLE_CHAR,
-	BAD_GOLD_CHAR,
-	BAD_FOOD_CHAR,
-	EATEN_FOOD_CHAR,
-	GOLDEN_AGE_CHAR,
-	ANGRY_POP_CHAR,
-	OPEN_BORDERS_CHAR,
-	DEFENSIVE_PACT_CHAR,
-	MAP_CHAR,
-	OCCUPATION_CHAR,
-	REBEL_CHAR,
-	GOLD_CHAR,
-	POWER_CHAR,
-	// TAC - Trade Routes Advisor - koma13 - START
-	CHECKBOX_CHAR,
-	CHECKBOX_SELECTED_CHAR,
-	ANCHOR_CHAR,
-	ANCHOR_EUROPE_CHAR,
-	EXPORT_CHAR,
-	IMPORT_CHAR,
-	EXPORT_IMPORT_CHAR,
-	NO_ANCHOR_CHAR,
-	// TAC - Trade Routes Advisor - koma13 - END
-
-#ifdef _USRDLL
-	MAX_NUM_SYMBOLS
-#endif
-};
-
-enum TurnTimerTypes
-{
-	NO_TURNTIMER = -1,
 };
 
 // Used for managing Art Differences based on nationality
@@ -972,7 +835,7 @@ enum TaskTypes
 	TASK_YIELD_TRADEROUTE, // transport feeder - Nightinggale
 	TASK_AUTO_TRADEROUTE, // auto traderoute - Nightinggale
 	TASK_CHOOSE_CITY_PLOT_YIELD,
-
+	
 #ifdef _USRDLL
 	NUM_TASK_TYPES
 #endif
@@ -1013,6 +876,8 @@ enum PlayerActionTypes
 	PLAYER_ACTION_TRANSFER_UNIT_IN_PORT_ROYAL,
 	// R&R, ray, Port Royal - END
 	PLAYER_ACTION_NETWORK_DESYNC_LOG_WRITE,
+	PLAYER_ACTION_NETWORK_canDoEvent,
+	PLAYER_ACTION_NETWORK_canDoGoody,
 
 #ifdef _USRDLL
 	NUM_PLAYER_ACTION_TYPES
@@ -1047,63 +912,6 @@ enum HealthBarTypes
 
 #ifdef _USRDLL
 	NUM_HEALTHBAR_TYPES
-#endif
-};
-
-enum CalendarTypes
-{
-	NO_CALENDAR = -1,
-
-	CALENDAR_DEFAULT,
-	CALENDAR_BI_YEARLY,
-	CALENDAR_YEARS,
-	CALENDAR_TURNS,
-	CALENDAR_SEASONS,
-	CALENDAR_MONTHS,
-	CALENDAR_WEEKS,
-};
-
-enum SeasonTypes
-{
-	NO_SEASON = -1,
-};
-
-enum MonthTypes
-{
-	NO_MONTH = -1,
-};
-
-enum DenialTypes
-{
-	NO_DENIAL = -1,
-
-	DENIAL_UNKNOWN,
-	DENIAL_NEVER,
-	DENIAL_TOO_MUCH,
-	DENIAL_MYSTERY,
-	DENIAL_JOKING,
-	DENIAL_CONTACT_THEM,
-	DENIAL_VICTORY,
-	DENIAL_ATTITUDE,
-	DENIAL_ATTITUDE_THEM,
-	DENIAL_POWER_US,
-	DENIAL_POWER_YOU,
-	DENIAL_POWER_THEM,
-	DENIAL_TOO_MANY_WARS,
-	DENIAL_NO_GAIN,
-	DENIAL_NOT_INTERESTED,
-	DENIAL_NOT_ALLIED,
-	DENIAL_RECENT_CANCEL,
-	DENIAL_WORST_ENEMY,
-	DENIAL_POWER_YOUR_ENEMIES,
-	DENIAL_TOO_FAR,
-	DENIAL_WAR_NOT_POSSIBLE_US,
-	DENIAL_WAR_NOT_POSSIBLE_YOU,
-	DENIAL_PEACE_NOT_POSSIBLE_US,
-	DENIAL_PEACE_NOT_POSSIBLE_YOU,
-
-#ifdef _USRDLL
-	NUM_DENIAL_TYPES
 #endif
 };
 
@@ -1437,13 +1245,6 @@ enum ControlTypes
 };
 */
 
-#ifndef HARDCODE_XML_VALUES
-extern HurryTypes HURRY_GOLD;
-extern HurryTypes HURRY_IMMIGRANT;
-extern SpecialUnitTypes SPECIALUNIT_COLONIST_UNIT;
-
-#endif
-
 enum WarPlanTypes
 {
 	NO_WARPLAN = -1,
@@ -1589,11 +1390,6 @@ enum AnimationTypes
 	IMPROVEMENTANIMATION_ON_EXTRA_4,
 };
 
-enum EntityEventTypes
-{
-	ENTITY_EVENT_NONE = -1,			//!< Invalid event
-};
-
 enum AnimationPathTypes
 {
 	ANIMATIONPATH_NONE = -1,
@@ -1663,11 +1459,6 @@ enum AnimationOperatorTypes
 	ANIMOP_DEACTIVATE_DAMAGE_LAYERS,					//!< Deactivates all animations that are layered
 	ANIMOP_SETCAS_DAMAGE,					//!< Set the current animation set to the damage level of the unit (damage/art define max)
 	ANIMOP_LAST
-};
-
-enum CursorTypes
-{
-	NO_CURSOR = -1,
 };
 
 enum FunctionTypes
@@ -1750,10 +1541,15 @@ enum DiploEventTypes
 	DIPLOEVENT_REFUSE_CHURCH_DEMAND, // R&R, ray, the Church
 	DIPLOEVENT_CHURCH_FAVOUR, // R&R, ray, Church Favours
 	DIPLOEVENT_CHURCH_WAR, // R&R, ray, Church War
+	DIPLOEVENT_COLONIAL_INTERVENTION_NATIVE_WAR, //WTP, ray, Colonial Intervention In Native War - START
+	DIPLOEVENT_COLONIES_AND_NATIVE_ALLIES_WAR_REFUSE, // WTP, ray, Big Colonies and Native Allies War - START
+	DIPLOEVENT_COLONIES_AND_NATIVE_ALLIES_WAR_ACCEPT, // WTP, ray, Big Colonies and Native Allies War - START
 	DIPLOEVENT_ACQUIRE_SMUGGLERS, // R&R, ray, Smuggling
 	DIPLOEVENT_ACQUIRE_RANGERS, // R&R, ray, Rangers
 	DIPLOEVENT_ACQUIRE_CONQUISTADORS, // R&R, ray, Conquistadors
 	DIPLOEVENT_ACQUIRE_PIRATES, // R&R, ray, Pirates
+	DIPLOEVENT_ACQUIRE_USED_SHIPS, //WTP, ray Kings Used Ship
+	DIPLOEVENT_ACQUIRE_FOREIGN_IMMIGRANTS, // WTP, ray, Foreign Kings, buy Immigrants - START
 	DIPLOEVENT_BRIBE_PIRATES, // R&R, ray, Pirates
 	DIPLOEVENT_CREATE_ENEMY_PIRATES, // R&R, ray, Pirates
 	DIPLOEVENT_ACQUIRE_CONTINENTAL_GUARD, // R&R, ray, Continental Guard
@@ -1762,6 +1558,8 @@ enum DiploEventTypes
 	DIPLOEVENT_EUROPE_WAR, //TAC European Wars
 	DIPLOEVENT_STEALING_IMMIGRANT, // R&R, Stealing Immigrant
 	DIPLOEVENT_EUROPE_PEACE, // R&R, ray, European Peace
+	DIPLOEVENT_ROYAL_INTERVENTION, // WTP, ray, Royal Intervention, START
+	DIPLOEVENT_PRIVATEERS_ACCUSATION, // WTP, ray, Privateers DLL Diplo Event - START
 	DIPLOEVENT_NATIVE_TRADE, // R&R, ray, Natives Trading
 	DIPLOEVENT_FOUND_CITY_CHECK_NATIVES,
 
@@ -1818,55 +1616,6 @@ enum ContactTypes
 
 	COMPILE_TIME_NUM_CONTACT_TYPES = NUM_CONTACT_TYPES,
 
-};
-
-enum MemoryTypes
-{
-	MEMORY_DECLARED_WAR,
-	MEMORY_DECLARED_WAR_ON_FRIEND,
-	MEMORY_HIRED_WAR_ALLY,
-	MEMORY_RAZED_CITY,
-	MEMORY_GIVE_HELP,
-	MEMORY_REFUSED_HELP,
-	MEMORY_ACCEPT_DEMAND,
-	MEMORY_REJECTED_DEMAND,
-	MEMORY_ACCEPTED_JOIN_WAR,
-	MEMORY_DENIED_JOIN_WAR,
-	MEMORY_ACCEPTED_STOP_TRADING,
-	MEMORY_DENIED_STOP_TRADING,
-	MEMORY_STOPPED_TRADING,
-	MEMORY_STOPPED_TRADING_RECENT,
-	MEMORY_HIRED_TRADE_EMBARGO,
-	MEMORY_MADE_DEMAND,
-	MEMORY_MADE_DEMAND_RECENT,
-	MEMORY_CANCELLED_OPEN_BORDERS,
-	MEMORY_EVENT_GOOD_TO_US,
-	MEMORY_EVENT_BAD_TO_US,
-	MEMORY_LIBERATED_CITIES,
-	MEMORY_REFUSED_TAX,
-	MEMORY_REVENGE_TAKEN,
-	MEMORY_MISSIONARY_FAIL,
-
-#ifdef _USRDLL
-	NUM_MEMORY_TYPES,
-#endif
-
-	COMPILE_TIME_NUM_MEMORY_TYPES = NUM_MEMORY_TYPES,
-};
-
-enum AttitudeTypes
-{
-	NO_ATTITUDE = -1,
-
-	ATTITUDE_FURIOUS,
-	ATTITUDE_ANNOYED,
-	ATTITUDE_CAUTIOUS,
-	ATTITUDE_PLEASED,
-	ATTITUDE_FRIENDLY,
-
-#ifdef _USRDLL
-	NUM_ATTITUDE_TYPES
-#endif
 };
 
 //! Enumeration for playing events with CvLeaderheadWidget
@@ -2636,36 +2385,25 @@ enum TradeMessageTypes
 };
 // TAC - Trade Messages - koma13 - END
 
-#ifndef HARDCODE_XML_VALUES
-extern CivEffectTypes CIV_EFFECT_DEFAULT_ALL;
-extern CivEffectTypes CIV_EFFECT_DEFAULT_EUROPEAN;
-extern CivEffectTypes CIV_EFFECT_DEFAULT_NATIVE;
-extern CivEffectTypes CIV_EFFECT_DEFAULT_KING;
-extern CivEffectTypes CIV_EFFECT_DEFAULT_BARBARIAN;
-extern CivEffectTypes CIV_EFFECT_DEFAULT_CHURCH;
-extern CivEffectTypes CIV_EFFECT_DEFAULT_HUMAN;
-extern CivEffectTypes CIV_EFFECT_DEFAULT_AI;
-#endif
-
 enum JITarrayTypes
 {
 	NO_JIT_ARRAY_TYPE = -1,
 
 	JIT_ARRAY_ACHIEVE,
-	JIT_ARRAY_ART_STYLE,
+	JIT_ARRAY_ARTSTYLE,
 	JIT_ARRAY_BONUS,
 	JIT_ARRAY_BUILD,
 	JIT_ARRAY_BUILDING,
-	JIT_ARRAY_BUILDING_CLASS,
+	JIT_ARRAY_BUILDINGCLASS,
 	JIT_ARRAY_BUILDING_SPECIAL,
 	JIT_ARRAY_CIV_EFFECT,
 	JIT_ARRAY_CIVIC,
-	JIT_ARRAY_CIVIC_OPTION,
+	JIT_ARRAY_CIVICOPTION,
 	JIT_ARRAY_CIVILIZATION,
 	JIT_ARRAY_CLIMATE,
 	JIT_ARRAY_COLOR,
 	JIT_ARRAY_CULTURE,
-	JIT_ARRAY_DIPLO,
+	JIT_ARRAY_DIPLOMACY,
 	JIT_ARRAY_DOMAIN,
 	JIT_ARRAY_EMPHASIZE,
 	JIT_ARRAY_ERA,
@@ -2682,7 +2420,7 @@ enum JITarrayTypes
 	JIT_ARRAY_HURRY,
 	JIT_ARRAY_IMPROVEMENT,
 	JIT_ARRAY_INVISIBLE,
-	JIT_ARRAY_LEADER_HEAD,
+	JIT_ARRAY_LEADER,
 	JIT_ARRAY_MEMORY,
 	JIT_ARRAY_PLAYER_COLOR,
 	JIT_ARRAY_PLAYER_OPTION,
@@ -2693,9 +2431,9 @@ enum JITarrayTypes
 	JIT_ARRAY_TERRAIN,
 	JIT_ARRAY_TRAIT,
 	JIT_ARRAY_UNIT,
-	JIT_ARRAY_UNIT_AI,
-	JIT_ARRAY_UNIT_CLASS,
-	JIT_ARRAY_UNIT_COMBAT,
+	JIT_ARRAY_UNITAI,
+	JIT_ARRAY_UNITCLASS,
+	JIT_ARRAY_UNITCOMBAT,
 	JIT_ARRAY_UNIT_SPECIAL,
 	JIT_ARRAY_VICTORY,
 	JIT_ARRAY_WORLD_SIZE,
@@ -2726,7 +2464,13 @@ enum JITarrayTypes
 	JIT_ARRAY_STRATEGY,
 	JIT_ARRAY_PLOT_TYPE,
 	JIT_ARRAY_CIV_CATEGORY,
-	
+
+	// defined by GlobalTypes.xml
+
+	JIT_ARRAY_FONT_SYMBOLS,
+	JIT_ARRAY_ETHNICITY,
+	JIT_ARRAY_CITIZEN_STATUS,
+
 	// types used by InfoArray
 	JIT_ARRAY_NO_TYPE,
 	JIT_ARRAY_MODIFIER,
@@ -2747,268 +2491,27 @@ enum JITarrayTypes
 
 BOOST_STATIC_ASSERT(MAX_JIT_ARRAY_VALUE <= 0xFF);
 
-// overloaded ++ for enum types
-
-// copied concept from AdvCiv
-// cause linker error if enum types are mixed
-// unlike AdvCiv, this forbids all types, not just specific ones
-// also mixing int and enums is a no go
-#define FORBID_COMPARISON_OPERATORS(Type1, Type2) \
-	bool operator==(Type1, Type2); \
-	bool operator!=(Type1, Type2); \
-	bool operator>(Type1, Type2); \
-	bool operator<(Type1, Type2); \
-	bool operator>=(Type1, Type2); \
-	bool operator<=(Type1, Type2);
-/*  ^No definition - so that these comparisons result in a linker error.
-	The linker error will say in which function the offending call occurs.
-	A compiler error would also provide a line number, but the compiler
-	can't tell if a global function has any call locations. */
-
-
-#define UNFORBID_COMPARISON_OPERATORS(Type1, Type2) \
-	static inline bool operator==(Type1 a, Type2 b) {return (int)a == (int)b;} \
-	static inline bool operator!=(Type1 a, Type2 b) {return (int)a != (int)b;} \
-	static inline bool operator> (Type1 a, Type2 b) {return (int)a >  (int)b;} \
-	static inline bool operator< (Type1 a, Type2 b) {return (int)a <  (int)b;} \
-	static inline bool operator>=(Type1 a, Type2 b) {return (int)a >= (int)b;} \
-	static inline bool operator<=(Type1 a, Type2 b) {return (int)a <= (int)b;} \
-
-
-
-#define SET_ENUM_OPERATORS(EnumName)                  \
-/* prefix */                                          \
-static inline EnumName& operator++(EnumName& c)       \
-{                                                     \
-	c = (EnumName)(c + 1);                            \
-	return c;                                         \
-}                                                     \
-/* postfix */                                         \
-static inline EnumName operator++(EnumName& c, int)   \
-{                                                     \
-	EnumName cache = c;                               \
-	c = (EnumName)(c + 1);                            \
-	return cache;                                     \
-}                                                     \
-/* prefix */                                          \
-static inline EnumName& operator--(EnumName& c)       \
-{                                                     \
-	c = (EnumName)(c - 1);                            \
-	return c;                                         \
-}                                                     \
-/* postfix */                                         \
-static inline EnumName operator--(EnumName& c, int)   \
-{                                                     \
-	EnumName cache = c;                               \
-	c = (EnumName)(c - 1);                            \
-	return cache;                                     \
-}                                                     \
-static inline EnumName operator+(const EnumName& A, const EnumName& B)     \
-{                                                                          \
-return (EnumName)((int)A + (int)B);                                        \
-}                                                                          \
-static inline EnumName operator-(const EnumName& A, const EnumName& B)     \
-{                                                                          \
-return (EnumName)((int)A - (int)B);                                        \
-}
-
-#define SET_ENUM_OPERATORS_AND_FORBID(EnumName)       \
-	FORBID_COMPARISON_OPERATORS(EnumName, int)        \
-	FORBID_COMPARISON_OPERATORS(int, EnumName)        \
-	SET_ENUM_OPERATORS(EnumName)
-
-
-
-SET_ENUM_OPERATORS(AchieveTypes);
-SET_ENUM_OPERATORS_AND_FORBID(ActionSubTypes);
-SET_ENUM_OPERATORS_AND_FORBID(ActivationTypes);
-SET_ENUM_OPERATORS_AND_FORBID(ActivityTypes);
-SET_ENUM_OPERATORS_AND_FORBID(AdvancedStartActionTypes);
-SET_ENUM_OPERATORS(AlarmTypes);
-SET_ENUM_OPERATORS(AnimationCategoryTypes);
-SET_ENUM_OPERATORS(AnimationPathTypes);
-SET_ENUM_OPERATORS(AnimationOperatorTypes);
-SET_ENUM_OPERATORS(AnimationTypes);
-SET_ENUM_OPERATORS_AND_FORBID(AreaBorderLayers);
-SET_ENUM_OPERATORS(AreaAITypes);
-SET_ENUM_OPERATORS(ArtStyleTypes);
-SET_ENUM_OPERATORS_AND_FORBID(AttachableTypes);
-SET_ENUM_OPERATORS(AttitudeTypes);
-SET_ENUM_OPERATORS_AND_FORBID(AudioTag);
-SET_ENUM_OPERATORS(AutomateTypes);
-SET_ENUM_OPERATORS_AND_FORBID(AxisTypes);
-SET_ENUM_OPERATORS(BonusTypes);
-SET_ENUM_OPERATORS_AND_FORBID(ButtonPopupTypes);
-SET_ENUM_OPERATORS_AND_FORBID(ButtonStyles);
-SET_ENUM_OPERATORS(BuildingClassTypes);
-SET_ENUM_OPERATORS(BuildingTypes);
-SET_ENUM_OPERATORS(BuildTypes);
-SET_ENUM_OPERATORS(CalendarTypes);
-SET_ENUM_OPERATORS_AND_FORBID(CameraLookAtTypes);
-SET_ENUM_OPERATORS_AND_FORBID(CameraMovementSpeeds);
-SET_ENUM_OPERATORS_AND_FORBID(CameraOverlayTypes);
-SET_ENUM_OPERATORS(CardinalDirectionTypes);
-SET_ENUM_OPERATORS_AND_FORBID(ChatTargetTypes);
-SET_ENUM_OPERATORS(CivEffectTypes);
-SET_ENUM_OPERATORS(CivicOptionTypes);
-SET_ENUM_OPERATORS(CivicTypes);
-SET_ENUM_OPERATORS(CivilizationTypes);
-SET_ENUM_OPERATORS_AND_FORBID(CivilopediaPageTypes);
-SET_ENUM_OPERATORS_AND_FORBID(CivLoginStates);
-SET_ENUM_OPERATORS(CityPlotTypes);
-SET_ENUM_OPERATORS_AND_FORBID(CitySizeTypes);
-SET_ENUM_OPERATORS(ClimateTypes);
-SET_ENUM_OPERATORS(ColorTypes);
-SET_ENUM_OPERATORS(CommandTypes);
-SET_ENUM_OPERATORS(ConceptTypes);
-SET_ENUM_OPERATORS(ContactTypes);
-SET_ENUM_OPERATORS(ControlTypes);
-SET_ENUM_OPERATORS(CultureLevelTypes);
-SET_ENUM_OPERATORS(CursorTypes);
-SET_ENUM_OPERATORS_AND_FORBID(CustomMapOptionTypes);
-SET_ENUM_OPERATORS(DenialTypes);
-SET_ENUM_OPERATORS_AND_FORBID(DiploCommentTypes);
-SET_ENUM_OPERATORS_AND_FORBID(DiploEventTypes);
-SET_ENUM_OPERATORS(DiplomacyPowerTypes);
-SET_ENUM_OPERATORS(DiplomacyTypes);
-SET_ENUM_OPERATORS(DirectionTypes);
-SET_ENUM_OPERATORS(DomainTypes);
-SET_ENUM_OPERATORS(EffectTypes);
-SET_ENUM_OPERATORS(EmotionTypes);
-SET_ENUM_OPERATORS(EmphasizeTypes);
-SET_ENUM_OPERATORS_AND_FORBID(EndTurnButtonStates);
-SET_ENUM_OPERATORS_AND_FORBID(EngineDirtyBits);
-SET_ENUM_OPERATORS(EntityEventTypes);
-SET_ENUM_OPERATORS(EraTypes);
-SET_ENUM_OPERATORS(EuropeTypes);
-SET_ENUM_OPERATORS_AND_FORBID(EventContextTypes);
-SET_ENUM_OPERATORS(EventTriggerTypes);
-SET_ENUM_OPERATORS(EventTypes);
-SET_ENUM_OPERATORS(FatherCategoryTypes);
-SET_ENUM_OPERATORS(FatherPointTypes);
-SET_ENUM_OPERATORS(FatherTypes);
-SET_ENUM_OPERATORS(FeatureTypes);
-SET_ENUM_OPERATORS(FeatTypes);
-SET_ENUM_OPERATORS_AND_FORBID(FlyoutTypes);
-SET_ENUM_OPERATORS_AND_FORBID(FogOfWarModeTypes);
-SET_ENUM_OPERATORS_AND_FORBID(FogTypes);
-SET_ENUM_OPERATORS(FontSymbols);
-SET_ENUM_OPERATORS_AND_FORBID(FontTypes);
-SET_ENUM_OPERATORS_AND_FORBID(FOWUpdateTypes);
-SET_ENUM_OPERATORS(ForceControlTypes);
-SET_ENUM_OPERATORS_AND_FORBID(FootstepAudioTags);
-SET_ENUM_OPERATORS_AND_FORBID(FootstepAudioTypes);
-SET_ENUM_OPERATORS(FunctionTypes);
-SET_ENUM_OPERATORS(GameMessageTypes);
-SET_ENUM_OPERATORS_AND_FORBID(GameMode);
-SET_ENUM_OPERATORS(GameOptionTypes);
-SET_ENUM_OPERATORS_AND_FORBID(GamePwdTypes);
-SET_ENUM_OPERATORS(GameSpeedTypes);
-SET_ENUM_OPERATORS_AND_FORBID(GameStateTypes);
-SET_ENUM_OPERATORS_AND_FORBID(GameType);
-SET_ENUM_OPERATORS_AND_FORBID(GenericButtonSizes);
-SET_ENUM_OPERATORS(GoodyTypes);
-SET_ENUM_OPERATORS_AND_FORBID(GraphicLevelTypes);
-SET_ENUM_OPERATORS(GraphicOptionTypes);
-SET_ENUM_OPERATORS(HandicapTypes);
-SET_ENUM_OPERATORS_AND_FORBID(HealthBarTypes);
-SET_ENUM_OPERATORS_AND_FORBID(HelpTextTypes);
-SET_ENUM_OPERATORS_AND_FORBID(HitTestTypes);
-SET_ENUM_OPERATORS(HurryTypes);
-SET_ENUM_OPERATORS_AND_FORBID(InitializationStates);
-SET_ENUM_OPERATORS_AND_FORBID(ImageShapes);
-SET_ENUM_OPERATORS(ImprovementTypes);
-SET_ENUM_OPERATORS_AND_FORBID(InfoBarTypes);
-SET_ENUM_OPERATORS_AND_FORBID(InterfaceDirtyBits);
-SET_ENUM_OPERATORS_AND_FORBID(InterfaceMessageTypes);
-SET_ENUM_OPERATORS(InterfaceModeTypes);
-SET_ENUM_OPERATORS_AND_FORBID(InterfaceVisibility);
-SET_ENUM_OPERATORS(InvisibleTypes);
-SET_ENUM_OPERATORS_AND_FORBID(InitStates);
-SET_ENUM_OPERATORS(JITarrayTypes);
-SET_ENUM_OPERATORS_AND_FORBID(JustificationTypes);
-SET_ENUM_OPERATORS_AND_FORBID(LeaderheadAction);
-SET_ENUM_OPERATORS(LeaderHeadTypes);
-SET_ENUM_OPERATORS_AND_FORBID(LoadType);
-SET_ENUM_OPERATORS(MemoryTypes);
-SET_ENUM_OPERATORS_AND_FORBID(MenuScreenType);
-SET_ENUM_OPERATORS_AND_FORBID(MinimapModeTypes);
-SET_ENUM_OPERATORS_AND_FORBID(MissionAITypes);
-SET_ENUM_OPERATORS(MissionTypes);
-SET_ENUM_OPERATORS(MonthTypes);
-SET_ENUM_OPERATORS(MultiplayerOptionTypes);
-SET_ENUM_OPERATORS_AND_FORBID(NetContactTypes);
-SET_ENUM_OPERATORS_AND_FORBID(OrderTypes);
-SET_ENUM_OPERATORS_AND_FORBID(PanelStyles);
-SET_ENUM_OPERATORS_AND_FORBID(PlayerActionTypes);
-SET_ENUM_OPERATORS(PlayerColorTypes);
-SET_ENUM_OPERATORS(PlayerOptionTypes);
-SET_ENUM_OPERATORS(PlayerTypes);
-SET_ENUM_OPERATORS_AND_FORBID(PlotIndicatorVisibilityFlags);
-SET_ENUM_OPERATORS_AND_FORBID(PlotLandscapeLayers);
-SET_ENUM_OPERATORS_AND_FORBID(PlotStyles);
-SET_ENUM_OPERATORS(PlotTypes);
-SET_ENUM_OPERATORS_AND_FORBID(PopupControlLayout);
-SET_ENUM_OPERATORS_AND_FORBID(PopupEventTypes);
-SET_ENUM_OPERATORS_AND_FORBID(PopupStates);
-SET_ENUM_OPERATORS_AND_FORBID(ProbabilityTypes);
-SET_ENUM_OPERATORS(ProfessionTypes);
-SET_ENUM_OPERATORS(PromotionTypes);
-SET_ENUM_OPERATORS_AND_FORBID(ReplayMessageTypes);
-SET_ENUM_OPERATORS_AND_FORBID(ResourceLayerOptions);
-SET_ENUM_OPERATORS_AND_FORBID(RotationTypes);
-SET_ENUM_OPERATORS(RouteTypes);
-SET_ENUM_OPERATORS_AND_FORBID(SaveGameTypes);
-SET_ENUM_OPERATORS(SeaLevelTypes);
-SET_ENUM_OPERATORS(SeasonTypes);
-SET_ENUM_OPERATORS_AND_FORBID(SlotClaim);
-SET_ENUM_OPERATORS_AND_FORBID(SlotStatus);
-SET_ENUM_OPERATORS(SpecialBuildingTypes);
-SET_ENUM_OPERATORS(SpecialUnitTypes);
-SET_ENUM_OPERATORS(StrategyTypes);
-SET_ENUM_OPERATORS_AND_FORBID(TabGroupTypes);
-SET_ENUM_OPERATORS_AND_FORBID(TableStyles);
-SET_ENUM_OPERATORS_AND_FORBID(TaskTypes);
-SET_ENUM_OPERATORS(TeamTypes);
-SET_ENUM_OPERATORS_AND_FORBID(TerrainGroupTypes);
-SET_ENUM_OPERATORS(TerrainTypes);
-SET_ENUM_OPERATORS_AND_FORBID(TileArtTypes);
-SET_ENUM_OPERATORS_AND_FORBID(ToolTipAlignTypes);
-SET_ENUM_OPERATORS(TradeableItems);
-SET_ENUM_OPERATORS_AND_FORBID(TradeMessageTypes);
-SET_ENUM_OPERATORS_AND_FORBID(TradeScreenTypes);
-SET_ENUM_OPERATORS_AND_FORBID(TraitTypes);
-SET_ENUM_OPERATORS(TurnTimerTypes);
-SET_ENUM_OPERATORS(UnitAIStates);
-SET_ENUM_OPERATORS(UnitAITypes);
-SET_ENUM_OPERATORS(UnitArtStyleTypes);
-SET_ENUM_OPERATORS(UnitClassTypes);
-SET_ENUM_OPERATORS(UnitCombatTypes);
-SET_ENUM_OPERATORS_AND_FORBID(UnitLayerOptionTypes);
-SET_ENUM_OPERATORS(UnitTravelStates);
-SET_ENUM_OPERATORS(UnitTypes);
-SET_ENUM_OPERATORS_AND_FORBID(VersionTypes);
-SET_ENUM_OPERATORS(VictoryTypes);
-SET_ENUM_OPERATORS_AND_FORBID(VoiceTargetTypes);
-SET_ENUM_OPERATORS_AND_FORBID(VoteResultTypes);
-SET_ENUM_OPERATORS_AND_FORBID(VoteStatusTypes);
-SET_ENUM_OPERATORS(WarPlanTypes);
-SET_ENUM_OPERATORS_AND_FORBID(WidgetTypes);
-SET_ENUM_OPERATORS_AND_FORBID(WrapDirection);
-SET_ENUM_OPERATORS_AND_FORBID(WorldBuilderPopupTypes);
-SET_ENUM_OPERATORS(WorldSizeTypes);
-SET_ENUM_OPERATORS(YieldTypes);
-SET_ENUM_OPERATORS_AND_FORBID(ZoomLevelTypes);
-
-// disable the check for a specific enum type in a single file
-#define DEFINE_ENUM_INT_COMPARISON(EnumName)       \
-	UNFORBID_COMPARISON_OPERATORS(EnumName, int)   \
-	UNFORBID_COMPARISON_OPERATORS(int, EnumName)
-
-template<class T>
-static bool validEnumRange(T eValue)
+// define ints to variable types. Used for templates
+enum VariableTypes
 {
-	return eValue >= (T)0 && eValue < (T)getArrayLength(getJITarrayType(eValue));
-}
+	VARIABLE_TYPE_GENERIC,
+	VARIABLE_TYPE_CHAR,
+	VARIABLE_TYPE_SHORT,
+	VARIABLE_TYPE_BOOL,
+	VARIABLE_TYPE_CLASS,
+};
+
+enum VariableStaticTypes
+{
+	VARIABLE_TYPE_DYNAMIC,
+	VARIABLE_TYPE_STATIC,
+};
+
+enum VariableLengthTypes
+{
+	VARIABLE_LENGTH_UNKNOWN,
+	VARIABLE_LENGTH_FIRST_KNOWN,
+	VARIABLE_LENGTH_ALL_KNOWN,
+};
 
 #endif	// CVENUMS_h

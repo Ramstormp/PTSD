@@ -101,6 +101,8 @@
 	<ElementType name="Domain" content="textOnly"/>
 	<ElementType name="DefaultUnitAI" content="textOnly"/>
 	<ElementType name="DefaultProfession" content="textOnly"/>
+	<ElementType name="eEthnicity" content="textOnly"/>
+	<ElementType name="eCitizenStatus" content="textOnly"/>
 	<ElementType name="Invisible" content="textOnly"/>
 	<ElementType name="SeeInvisible" content="textOnly"/>
 	<ElementType name="iNativeLearnTime" content="textOnly" dt:type="int"/>
@@ -129,6 +131,9 @@
 	<ElementType name="bMechanized" content="textOnly" dt:type="boolean"/>
 	<ElementType name="bLineOfSight" content="textOnly" dt:type="boolean"/>
 	<ElementType name="bHiddenNationality" content="textOnly" dt:type="boolean"/>
+	<ElementType name="bSlaveShip" content="textOnly" dt:type="boolean"/>
+	<ElementType name="bTreasureShip" content="textOnly" dt:type="boolean"/>
+	<ElementType name="bTroopShip" content="textOnly" dt:type="boolean"/>
 	<ElementType name="bAlwaysHostile" content="textOnly" dt:type="boolean"/>
 	<ElementType name="bTreasure" content="textOnly" dt:type="boolean"/>
 	<ElementType name="bNoRevealMap" content="textOnly" dt:type="boolean"/>
@@ -190,6 +195,7 @@
 	<ElementType name="iAIWeight" content="textOnly" dt:type="int"/>
 	<ElementType name="iCost" content="textOnly" dt:type="int"/>
 	<ElementType name="iHurryCostModifier" content="textOnly" dt:type="int"/>
+	<ElementType name="iProductionWhenUsed" content="textOnly" dt:type="int"/>
 	<ElementType name="iAdvancedStartCost" content="textOnly" dt:type="int"/>
 	<ElementType name="iAdvancedStartCostIncrease" content="textOnly" dt:type="int"/>
 	<ElementType name="iEuropeCost" content="textOnly" dt:type="int"/>
@@ -204,8 +210,10 @@
 	<ElementType name="iMoves" content="textOnly" dt:type="int"/>
 	<ElementType name="bCapturesCargo" content="textOnly" dt:type="boolean"/>
 	<ElementType name="bCapturesShips" content="textOnly" dt:type="boolean"/>
+	<ElementType name="iCaptureShipsChanceIncrease" content="textOnly" dt:type="int"/>
 	<ElementType name="iWorkRate" content="textOnly" dt:type="int"/>
 	<ElementType name="iWorkRateModifier" content="textOnly" dt:type="int"/>
+	<ElementType name="iGoldFromGoodiesAndChiefsModifier" content="textOnly" dt:type="int"/>																				  
 	<ElementType name="iMissionaryRateModifier" content="textOnly" dt:type="int"/>
 	<ElementType name="iNativeTradeRateModifier" content="textOnly" dt:type="int"/>
 	<ElementType name="bTerrainImpassable" content="textOnly" dt:type="boolean"/>
@@ -260,6 +268,9 @@
 	<ElementType name="iDomesticBonus" content="textOnly" dt:type="int"/>
 	<ElementType name="iPillageChange" content="textOnly" dt:type="int"/>
 	<ElementType name="iAnimalGoldChange" content="textOnly" dt:type="int"/>
+	<ElementType name="iSlaveRevoltReductionBonus" content="textOnly" dt:type="int"/>
+	<ElementType name="iSlaveWorkerProductionBonus" content="textOnly" dt:type="int"/>
+	<ElementType name="iAdditionalLawToCity" content="textOnly" dt:type="int"/>
 	<ElementType name="iUpgradeDiscount" content="textOnly" dt:type="int"/>
 	<ElementType name="iExperiencePercent" content="textOnly" dt:type="int"/>
 	<ElementType name="iTerrainAttack" content="textOnly" dt:type="int"/>
@@ -363,8 +374,10 @@
 	<ElementType name="SpecialCargo" content="textOnly"/>
 	<ElementType name="DomainCargo" content="textOnly"/>
 	<ElementType name="iCargo" content="textOnly" dt:type="int"/>
-	<ElementType name="iRequiredTransportSize" content="textOnly" dt:type="int"/>
+ 	<ElementType name="iRequiredTransportSize" content="textOnly" dt:type="int"/>
 	<ElementType name="iBerthSize" content="textOnly" dt:type="int"/>
+	<ElementType name="iHarbourSpaceNeeded" content="textOnly" dt:type="int"/>
+	<ElementType name="iBarracksSpaceNeeded" content="textOnly" dt:type="int"/>
 	<ElementType name="iAsset" content="textOnly" dt:type="int"/>
 	<ElementType name="iPower" content="textOnly" dt:type="int"/>
 	<ElementType name="ArtDefineTag" content="textOnly"/>
@@ -432,6 +445,8 @@
 		<element type="Domain"/>
 		<element type="DefaultUnitAI"/>
 		<element type="DefaultProfession"/>
+		<element type="eEthnicity" minOccurs="0"/>
+		<element type="eCitizenStatus" minOccurs="0"/>
 		<element type="Invisible"/>
 		<element type="SeeInvisible"/>
 		<element type="Description"/>
@@ -460,6 +475,9 @@
 		<element type="bMechanized"/>
 		<element type="bLineOfSight"/>
 		<element type="bHiddenNationality"/>
+		<element type="bSlaveShip" minOccurs="0"/>
+		<element type="bTreasureShip" minOccurs="0"/>
+		<element type="bTroopShip" minOccurs="0"/>
 		<element type="bAlwaysHostile"/>
 		<element type="bTreasure"/>
 		<element type="bAnimal" minOccurs="0"/>
@@ -478,6 +496,7 @@
 		<element type="iAIWeight"/>
 		<element type="YieldCosts"/>
 		<element type="iHurryCostModifier"/>
+		<element type="iProductionWhenUsed" minOccurs="0"/>
 		<element type="iAdvancedStartCost"/>
 		<element type="iAdvancedStartCostIncrease"/>
 		<element type="iEuropeCost"/>
@@ -492,8 +511,10 @@
 		<element type="iMoves"/>
 		<element type="bCapturesCargo"/>
 		<element type="bCapturesShips"/>
+		<element type="iCaptureShipsChanceIncrease"/>
 		<element type="iWorkRate"/>
 		<element type="iWorkRateModifier"/>
+		<element type="iGoldFromGoodiesAndChiefsModifier" minOccurs="0"/>
 		<element type="iMissionaryRateModifier"/>
 		<element type="iNativeTradeRateModifier"/>
 		<element type="TerrainImpassables"/>
@@ -529,8 +550,10 @@
 		<element type="SpecialCargo"/>
 		<element type="DomainCargo"/>
 		<element type="iCargo"/>
-		<element type="iRequiredTransportSize"/>
+  		<element type="iRequiredTransportSize"/>
 		<element type="iBerthSize" minOccurs="0"/>
+		<element type="iHarbourSpaceNeeded" minOccurs="0"/>
+		<element type="iBarracksSpaceNeeded" minOccurs="0"/>
 		<element type="iAsset"/>
 		<element type="iPower"/>
 		<element type="iNativeLearnTime"/>
@@ -659,6 +682,7 @@
 	<ElementType name="PromotionPrereqOr1" content="textOnly"/>
 	<ElementType name="PromotionPrereqOr2" content="textOnly"/>
 	<ElementType name="bLeader" content="textOnly" dt:type="boolean"/>
+	<ElementType name="bNegativePromotion" content="textOnly" dt:type="boolean"/>
 	<ElementType name="bBlitz" content="textOnly" dt:type="boolean"/>
 	<ElementType name="bAmphib" content="textOnly" dt:type="boolean"/>
 	<ElementType name="bRiver" content="textOnly" dt:type="boolean"/>
@@ -678,6 +702,8 @@
 	<ElementType name="iAdjacentTileHealChange" content="textOnly" dt:type="int"/>
 	<ElementType name="iCombatPercent" content="textOnly" dt:type="int"/>
 	<ElementType name="iCombatChange" content="textOnly" dt:type="int"/>
+	<ElementType name="iBombardRateChangeProfession" content="textOnly" dt:type="int"/>
+	<ElementType name="iBarracksSpaceNeededChange" content="textOnly" dt:type="int"/>
 	<ElementType name="bUnitCombat" content="textOnly" dt:type="boolean"/>
 	<ElementType name="UnitCombat" content="eltOnly">
 		<element type="UnitCombatType"/>
@@ -711,6 +737,7 @@
 		<element type="PromotionPrereqOr1"/>
 		<element type="PromotionPrereqOr2"/>
 		<element type="bLeader"/>
+		<element type="bNegativePromotion" minOccurs="0"/>
 		<element type="bBlitz"/>
 		<element type="bAmphib"/>
 		<element type="bRiver"/>
@@ -736,6 +763,9 @@
 		<element type="iDomesticBonus"/>
 		<element type="iPillageChange"/>
 		<element type="iAnimalGoldChange"/>
+		<element type="iSlaveRevoltReductionBonus" minOccurs="0"/>
+		<element type="iSlaveWorkerProductionBonus" minOccurs="0"/>
+		<element type="iAdditionalLawToCity" minOccurs="0"/>
 		<element type="iUpgradeDiscount"/>
 		<element type="iExperiencePercent"/>
 		<element type="TerrainAttacks"/>
@@ -811,6 +841,8 @@
 		<element type="bUnarmed"/>
 		<element type="bNoDefensiveBonus"/>
 		<element type="iCombatChange"/>
+		<element type="iBombardRateChangeProfession" minOccurs="0"/>
+		<element type="iBarracksSpaceNeededChange" minOccurs="0"/>
 		<element type="iMovesChange"/>
 		<element type="bMoveIntoPeak" minOccurs="0"/>
 		<element type="iWorkRate"/>

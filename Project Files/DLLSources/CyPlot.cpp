@@ -58,12 +58,6 @@ bool CyPlot::isLake()
 {
 	return m_pPlot ? m_pPlot->isLake() : false;
 }
-// Ramstormp, PTSD, Random Large Rivers and Fords- START
-bool CyPlot::isLargeRiver()
-{
-	return m_pPlot ? m_pPlot->isLargeRiver() : false;
-}
-// Ramstormp - END
 bool CyPlot::isRiverSide()
 {
 	return m_pPlot ? m_pPlot->isRiverSide() : false;
@@ -72,6 +66,50 @@ bool CyPlot::isRiver()
 {
 	return m_pPlot ? m_pPlot->isRiver() : false;
 }
+// WTP, ray, Health Overhaul - STAR
+bool CyPlot::isFreshWater()
+{
+	return m_pPlot ? m_pPlot->isFreshWater() : false;
+}
+// WTP, ray, Health Overhaul - END
+
+// WTP, ray, helper methods for Python Event System - Spawning Units and Barbarians on Plots - START
+void CyPlot::spawnPlayerUnitOnPlot(int iPlayer, int iIndex) const
+{
+	if (m_pPlot)
+		m_pPlot->spawnPlayerUnitOnPlot(iPlayer, iIndex);
+}
+
+void CyPlot::spawnBarbarianUnitOnPlot(int iIndex) const
+{
+	if (m_pPlot)
+		m_pPlot->spawnBarbarianUnitOnPlot(iIndex);
+}
+
+void CyPlot::spawnPlayerUnitOnAdjacentPlot(int iPlayer, int iIndex) const
+{
+	if (m_pPlot)
+		m_pPlot->spawnPlayerUnitOnAdjacentPlot(iPlayer, iIndex);
+}
+
+void CyPlot::spawnBarbarianUnitOnAdjacentPlot(int iIndex) const
+{
+	if (m_pPlot)
+		m_pPlot->spawnBarbarianUnitOnAdjacentPlot(iIndex);
+}
+
+bool CyPlot::isPlayerUnitOnAdjacentPlot(int iPlayer, int iIndex) const
+{
+	return m_pPlot ? m_pPlot->isPlayerUnitOnAdjacentPlot(iPlayer, iIndex) : false;
+}
+
+bool CyPlot::isBarbarianUnitOnAdjacentPlot(int iIndex) const
+{
+	return m_pPlot ? m_pPlot->isBarbarianUnitOnAdjacentPlot(iIndex) : false;
+}
+// WTP, ray, helper methods for Python Event System - Spawning Units and Barbarians on Plots - END
+
+
 bool CyPlot::isRiverConnection(int /*DirectionTypes*/ eDirection)
 {
 	return m_pPlot ? m_pPlot->isRiverConnection((DirectionTypes) eDirection) : false;

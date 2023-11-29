@@ -27,6 +27,11 @@ public:
 
 	void createGreatGeneral(int /*UnitTypes*/ eGreatGeneralUnit, bool bIncrementExperience);
 	void createGreatAdmiral(int /*UnitTypes*/ eGreatAdmiralUnit, bool bIncrementExperience); // R&R, ray, Great Admirals
+
+	// WTP, ray, Lieutenants and Captains - START
+	void createBraveLieutenant(int /*UnitTypes*/ eBraveLieutenantUnit); 
+	void createCapableCaptain(int /*UnitTypes*/ eCapableCaptainUnit); 
+	// WTP, ray, Lieutenants and Captains - END
 	 
 	void doTask(int /*TaskTypes*/ eTask, int iData1, int iData2, bool bOption);
 	void chooseProduction(int /*UnitTypes*/ eTrainUnit, int /*BuildingTypes*/ eConstructBuilding, bool bFinish, bool bFront);
@@ -189,7 +194,7 @@ public:
 	void setCulture(int /*PlayerTypes*/ eIndex, int iNewValue, bool bPlots);
 	void changeCulture(int /*PlayerTypes*/ eIndex, int iChange, bool bPlots);
 
-	int getTotalYieldStored() const;									//VET NewCapacity - 1/1
+	int getTotalYieldStored() const;
 	int getYieldStored(int /*YieldTypes*/ eYield) const;
 	void setYieldStored(int /*YieldTypes*/ eYield, int iValue);
 	void changeYieldStored(int /*YieldTypes*/ eYield, int iChange);
@@ -236,6 +241,8 @@ public:
 	void setHasRealBuilding(int /*BuildingTypes*/ iIndex, bool bNewValue);
 	bool isHasFreeBuilding(int /*BuildingTypes*/ iIndex);
 
+	int getDominantBuilding(int /*SpecialBuildingTypes*/ iSpecialBuilding) const;
+
 	void clearOrderQueue();
 	void pushOrder(OrderTypes eOrder, int iData1, int iData2, bool bSave, bool bPop, bool bAppend, bool bForce);
 	void popOrder(int iNum, bool bFinish, bool bChoose);
@@ -271,11 +278,25 @@ public:
 	void addPopulationUnit(CyUnit* pUnit, int /*ProfessionTypes*/ eProfession);
 	bool removePopulationUnit(CyUnit* pUnit, bool bDelete, int /*ProfessionTypes*/ eProfession);
 
+	bool canTeach(int iUnit) const;
+
 	int getTeachUnitClass();
 	int getTeachUnit() const; // native advisor update - Nightinggale
 	int getRebelPercent();
 	int getRebelSentiment() const;
 	void setRebelSentiment(int iValue);
+
+	// WTP, ray, new Harbour System - START
+	int getCityHarbourSpace() const;
+	int getCityHarbourSpaceUsed() const;
+	bool bShouldShowCityHarbourSystem() const;
+	// WTP, ray, new Harbour System - END
+
+	// WTP, ray, new Barracks System - START
+	int getCityBarracksSpace() const;
+	int getCityBarracksSpaceUsed() const;
+	bool bShouldShowCityBarracksSystem() const;
+	// WTP, ray, new Harbour System - END
 
 	// R&R, ray, Health - START
 	int getCityHealth() const;
@@ -283,6 +304,16 @@ public:
 	void setCityHealth(int iValue);
 	void changeCityHealth(int iValue);
 	// R&R, ray, Health - END
+
+	// WTP, ray, helper methods for Python Event System - Spawning Units and Barbarians on Plots - START
+	void spawnOwnPlayerUnitOnPlotOfCity(int /*UnitClassTypes*/ iIndex) const;
+	void spawnBarbarianUnitOnPlotOfCity(int /*UnitClassTypes*/ iIndex) const; // careful with this, because will take over City for Barbarians
+	void spawnOwnPlayerUnitOnAdjacentPlotOfCity(int /*UnitClassTypes*/ iIndex) const;
+	void spawnBarbarianUnitOnAdjacentPlotOfCity(int /*UnitClassTypes*/ iIndex) const;
+
+	bool isOwnPlayerUnitOnAdjacentPlotOfCity(int /*UnitClassTypes*/ iIndex) const;
+	bool isBarbarianUnitOnAdjacentPlotOfCity(int /*UnitClassTypes*/ iIndex) const;
+	// WTP, ray, helper methods for Python Event System - Spawning Units and Barbarians on Plots - END
 
 	// WTP, ray, Happiness - START
 	int getCityHappiness() const;
@@ -296,16 +327,34 @@ public:
 	int getHappinessFromBells() const;
 	int getHappinessFromHealth() const;
 	int getHappinessFromCulture() const;
+	int getHappinessFromLaw() const;
 	int getHappinessFromEducation() const;
 	int getHappinessFromDomesticDemandsFulfilled() const;
 	int getHappinessFromTreaties() const;
 
 	int getUnhappinessFromPopulation() const;
+	int getUnhappinessFromCrime() const;
 	int getUnhappinessFromSlavery() const;
 	int getUnhappinessFromWars() const;
 	int getUnhappinessFromMissingDefense() const;
 	int getUnhappinessFromTaxRate() const;
 	// WTP, ray, Happiness - END
+
+	// WTP, ray, Crime and Law - START
+	int getCityLaw() const;
+	void setCityLaw(int iValue);
+	void updateCityLaw();
+	int getCityCrime() const;
+	void setCityCrime(int iValue);
+	void updateCityCrime();
+
+	int getLawFromCityDefenders() const;
+	int getLawFromCrosses() const;
+	int getCrimeFromPopulation() const;
+	int getCrimeFromUnhappiness() const;
+	int getCrimeFromWars() const;
+	int getCrimBonusFactorFromOverflow() const;
+	// WTP, ray, Crime and Law - END
 
 	bool isEuropeAccessable() const; // WTP, ray, fix for SailTo - for the City
 
@@ -324,6 +373,10 @@ public:
 	// transport feeder - end - Nightinggale
 
 	python::tuple isOrderWaitingForYield(int /*YieldTypes*/ eYield);
+
+	// WTP, ray, Center Plot specific Backgrounds - Start
+	int /*TerrainTypes*/ getCenterPlotTerrainType() const;
+	// WTP, ray, Center Plot specific Backgrounds - END
 
 private:
 	CvCity* m_pCity;

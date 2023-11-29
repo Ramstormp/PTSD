@@ -6,9 +6,39 @@
 //
 // Python interface for free enums
 //
+
+template<typename T>
+static void addEnumValues(T value, const char* szName, const char* szNoType, const char* szNumTypes)
+{
+	boost::python::enum_<T> enumTable = python::enum_<T>(szName)
+		.value(szNumTypes, VARINFO<T>::END);
+	if (szNoType != NULL)
+	{
+		enumTable.value(szNoType, static_cast<T>(-1));
+	}
+	for (T eLoopVar = VARINFO<T>::FIRST; eLoopVar < VARINFO<T>::END; ++eLoopVar)
+	{
+		enumTable.value(getTypeStr(eLoopVar), eLoopVar);
+	}
+}
+
 void CyEnumsPythonInterface()
 {
 	OutputDebugString("Python Extension Module - CyEnumsPythonInterface\n");
+
+	// list all the enums, which autogenerate the python interface based on xml
+	// arguments:
+	// 1: any variable of the enum type. Which one doesn't matter as it is only used to set the template type
+	// 2: name of enum in python
+	// 3: name of NO_ type. Skipped if it is set to NULL
+	// 4 name of NUM_
+	addEnumValues(NO_CONCEPT           , "ConceptTypes"       , "NO_CONCEPT"       , "NUM_CONCEPT_TYPES"        );
+	addEnumValues(MAX_NUM_SYMBOLS      , "FontSymbols"        , NULL               , "MAX_NUM_SYMBOLS"          );
+	addEnumValues(NO_TERRAIN           , "TerrainTypes"       , "NO_TERRAIN"       , "NUM_TERRAIN_TYPES"        );
+	addEnumValues(NO_WORLDSIZE         , "WorldSizeTypes"     , "NO_WORLDSIZE"     , "NUM_WORLDSIZE_TYPES"      );
+	addEnumValues(NO_YIELD             , "YieldTypes"         , "NO_YIELD"         , "NUM_YIELD_TYPES"          );
+
+
 	python::enum_<GameStateTypes>("GameStateTypes")
 		.value("GAMESTATE_ON", GAMESTATE_ON)
 		.value("GAMESTATE_OVER", GAMESTATE_OVER)
@@ -123,6 +153,8 @@ void CyEnumsPythonInterface()
 		.value("INTERFACEMODE_ROUTE_TO", INTERFACEMODE_ROUTE_TO)
 		.value("INTERFACEMODE_PYTHON_PICK_PLOT", INTERFACEMODE_PYTHON_PICK_PLOT)
 		.value("INTERFACEMODE_SAVE_PLOT_NIFS", INTERFACEMODE_SAVE_PLOT_NIFS)
+		.value("INTERFACEMODE_ROUTE_TO_ROAD", INTERFACEMODE_ROUTE_TO_ROAD)
+		.value("INTERFACEMODE_ROUTE_TO_COUNTRY_ROAD", INTERFACEMODE_ROUTE_TO_COUNTRY_ROAD)
 		.value("NUM_INTERFACEMODE_TYPES", NUM_INTERFACEMODE_TYPES)
 		;
 	python::enum_<InterfaceMessageTypes>("InterfaceMessageTypes")
@@ -314,6 +346,9 @@ void CyEnumsPythonInterface()
 		.value("WIDGET_NETWORK_DESYNC", WIDGET_NETWORK_DESYNC)
 		.value("WIDGET_JUMP_TO_SETTLEMENT", WIDGET_JUMP_TO_SETTLEMENT)
 		.value("WIDGET_MISSION_CHAR", WIDGET_MISSION_CHAR)
+		.value("WIDGET_HELP_HARBOUR_SYSTEM", WIDGET_HELP_HARBOUR_SYSTEM) // WTP, ray, Widgets for Harbour System and Barracks System - START
+		.value("WIDGET_HELP_BARRACKS_SYSTEM", WIDGET_HELP_BARRACKS_SYSTEM) // WTP, ray, Widgets for Harbour System and Barracks System - START
+		.value("WIDGET_HELP_SHOW_OR_HIDE_YIELDS", WIDGET_HELP_SHOW_OR_HIDE_YIELDS)
 		.value("NUM_WIDGET_TYPES", NUM_WIDGET_TYPES)
 		;
 	python::enum_<ButtonPopupTypes>("ButtonPopupTypes")
@@ -359,6 +394,7 @@ void CyEnumsPythonInterface()
 		.value("BUTTONPOPUP_PROMOTE", BUTTONPOPUP_PROMOTE)
 		.value("BUTTONPOPUP_CHOOSE_GOODY", BUTTONPOPUP_CHOOSE_GOODY)
 		.value("BUTTONPOPUP_SELECT_YIELD_AMOUNT", BUTTONPOPUP_SELECT_YIELD_AMOUNT)
+		.value("BUTTONPOPUP_SELECT_YIELD_TRADE_MAX_AMOUNT", BUTTONPOPUP_SELECT_YIELD_TRADE_MAX_AMOUNT) // Ramstormp, PTSD, Trade in Smaller Chunks
 		.value("BUTTONPOPUP_EUROPE_UNIT", BUTTONPOPUP_EUROPE_UNIT)
 		.value("BUTTONPOPUP_TALK_NATIVES", BUTTONPOPUP_TALK_NATIVES)
 		// PatchMod: Achievements START
@@ -367,7 +403,7 @@ void CyEnumsPythonInterface()
 		.value("BUTTONPOPUP_GOTO_MENU", BUTTONPOPUP_GOTO_MENU)		// TAC - Goto Menu - koma13
 		.value("BUTTONPOPUP_PURCHASE_AFRICA_UNIT", BUTTONPOPUP_PURCHASE_AFRICA_UNIT) /*** TRIANGLETRADE 10/15/08 by DPII ***/
 		.value("BUTTONPOPUP_PURCHASE_PORT_ROYAL_UNIT", BUTTONPOPUP_PURCHASE_PORT_ROYAL_UNIT) // R&R, ray, Port Royal
-		.value("BUTTONPOPUP_SAVE_TRADEGROUP", BUTTONPOPUP_SAVE_TRADEGROUP) //R&R mod, vetiarvind, trade groups 
+		.value("BUTTONPOPUP_SAVE_TRADEGROUP", BUTTONPOPUP_SAVE_TRADEGROUP) //R&R mod, vetiarvind, trade groups
 		.value("NUM_BUTTONPOPUP_TYPES", NUM_BUTTONPOPUP_TYPES)
 		;
 	python::enum_<ClimateTypes>("ClimateTypes")
@@ -379,19 +415,6 @@ void CyEnumsPythonInterface()
 	python::enum_<CustomMapOptionTypes>("CustomMapOptionTypes")
 		.value("NO_CUSTOM_MAPOPTION", NO_CUSTOM_MAPOPTION)
 		;
-	python::enum_<WorldSizeTypes>("WorldSizeTypes")
-		.value("NO_WORLDSIZE", NO_WORLDSIZE)
-		.value("WORLDSIZE_TINY", WORLDSIZE_TINY)
-		.value("WORLDSIZE_SMALL", WORLDSIZE_SMALL)
-		.value("WORLDSIZE_STANDARD", WORLDSIZE_STANDARD)
-		.value("WORLDSIZE_LARGE", WORLDSIZE_LARGE)
-		.value("WORLDSIZE_HUGE", WORLDSIZE_HUGE)
-		.value("WORLDSIZE_GIGANTIC", WORLDSIZE_GIGANTIC)
-		.value("NUM_WORLDSIZE_TYPES", NUM_WORLDSIZE_TYPES)
-		;
-	python::enum_<TerrainTypes>("TerrainTypes")
-		.value("NO_TERRAIN", NO_TERRAIN)
-		;
 	python::enum_<PlotTypes>("PlotTypes")
 		.value("NO_PLOT", NO_PLOT)
 		.value("PLOT_PEAK", PLOT_PEAK)
@@ -399,70 +422,6 @@ void CyEnumsPythonInterface()
 		.value("PLOT_LAND", PLOT_LAND)
 		.value("PLOT_OCEAN", PLOT_OCEAN)
 		.value("NUM_PLOT_TYPES", NUM_PLOT_TYPES)
-		;
-	python::enum_<YieldTypes>("YieldTypes")
-		.value("NO_YIELD", NO_YIELD)
-		.value("YIELD_FOOD", YIELD_FOOD)
-		.value("YIELD_LUMBER", YIELD_LUMBER)
-		.value("YIELD_STONE", YIELD_STONE)
-		.value("YIELD_HEMP", YIELD_HEMP)
-		.value("YIELD_ORE", YIELD_ORE)
-		.value("YIELD_SHEEP", YIELD_SHEEP)
-		.value("YIELD_CATTLE", YIELD_CATTLE)
-		.value("YIELD_HORSES", YIELD_HORSES)
-		.value("YIELD_COCA_LEAVES", YIELD_COCA_LEAVES)
-		.value("YIELD_COCOA_FRUITS", YIELD_COCOA_FRUITS)
-		.value("YIELD_COFFEE_BERRIES", YIELD_COFFEE_BERRIES)
-		.value("YIELD_TOBACCO", YIELD_TOBACCO)
-		.value("YIELD_WOOL", YIELD_WOOL)
-		.value("YIELD_COTTON", YIELD_COTTON)
-		.value("YIELD_INDIGO", YIELD_INDIGO)
-		.value("YIELD_HIDES", YIELD_HIDES)
-		.value("YIELD_FUR", YIELD_FUR)
-		.value("YIELD_PREMIUM_FUR", YIELD_PREMIUM_FUR)
-		.value("YIELD_RAW_SALT", YIELD_RAW_SALT)
-		.value("YIELD_RED_PEPPER", YIELD_RED_PEPPER)
-		.value("YIELD_BARLEY", YIELD_BARLEY)
-		.value("YIELD_SUGAR", YIELD_SUGAR)
-		.value("YIELD_GRAPES", YIELD_GRAPES)
-		.value("YIELD_WHALE_BLUBBER", YIELD_WHALE_BLUBBER)
-		.value("YIELD_VALUABLE_WOOD", YIELD_VALUABLE_WOOD)
-		.value("YIELD_TRADE_GOODS", YIELD_TRADE_GOODS)
-		.value("YIELD_ROPE", YIELD_ROPE)
-		.value("YIELD_SAILCLOTH", YIELD_SAILCLOTH)
-		.value("YIELD_TOOLS", YIELD_TOOLS)
-		.value("YIELD_BLADES", YIELD_BLADES)
-		.value("YIELD_MUSKETS", YIELD_MUSKETS)
-		.value("YIELD_CANNONS", YIELD_CANNONS)
-		.value("YIELD_SILVER", YIELD_SILVER)
-		.value("YIELD_GOLD", YIELD_GOLD)
-		.value("YIELD_GEMS", YIELD_GEMS)
-		.value("YIELD_COCOA", YIELD_COCOA)
-		.value("YIELD_COFFEE", YIELD_COFFEE)
-		.value("YIELD_CIGARS", YIELD_CIGARS)
-		.value("YIELD_WOOL_CLOTH", YIELD_WOOL_CLOTH)
-		.value("YIELD_CLOTH", YIELD_CLOTH)
-		.value("YIELD_COLOURED_CLOTH", YIELD_COLOURED_CLOTH)
-		.value("YIELD_LEATHER", YIELD_LEATHER)
-		.value("YIELD_COATS", YIELD_COATS)
-		.value("YIELD_PREMIUM_COATS", YIELD_PREMIUM_COATS)
-		.value("YIELD_SALT", YIELD_SALT)
-		.value("YIELD_SPICES", YIELD_SPICES)
-		.value("YIELD_BEER", YIELD_BEER)
-		.value("YIELD_RUM", YIELD_RUM)
-		.value("YIELD_WINE", YIELD_WINE)
-		.value("YIELD_WHALE_OIL", YIELD_WHALE_OIL)
-		.value("YIELD_FURNITURE", YIELD_FURNITURE)
-		.value("YIELD_LUXURY_GOODS", YIELD_LUXURY_GOODS)
-		.value("YIELD_HAMMERS", YIELD_HAMMERS)
-		.value("YIELD_BELLS", YIELD_BELLS)
-		.value("YIELD_CROSSES", YIELD_CROSSES)
-		.value("YIELD_CULTURE", YIELD_CULTURE)
-		.value("YIELD_HEALTH", YIELD_HEALTH)
-		.value("YIELD_EDUCATION", YIELD_EDUCATION)
-		.value("YIELD_HAPPINESS", YIELD_HAPPINESS) // WTP, ray, Happiness - START
-		.value("YIELD_UNHAPPINESS", YIELD_UNHAPPINESS) // WTP, ray, Happiness - START
-		.value("NUM_YIELD_TYPES", NUM_YIELD_TYPES)
 		;
 	python::enum_<EmphasizeTypes>("EmphasizeTypes")
 		.value("NO_EMPHASIZE", NO_EMPHASIZE)
@@ -489,8 +448,11 @@ void CyEnumsPythonInterface()
 		.value("GAMEOPTION_NO_WILD_LAND_ANIMALS", GAMEOPTION_NO_WILD_LAND_ANIMALS) // < JAnimals Mod Start >
 		.value("GAMEOPTION_NO_WILD_SEA_ANIMALS", GAMEOPTION_NO_WILD_SEA_ANIMALS) // < JAnimals Mod Start >
 		.value("GAMEOPTION_REDUCED_CITY_DISTANCE", GAMEOPTION_REDUCED_CITY_DISTANCE) /// reduced city distance - Nightinggale
+		.value("GAMEOPTION_DEACTIVATE_HEMISPHERE_RESTRICTIONS", GAMEOPTION_DEACTIVATE_HEMISPHERE_RESTRICTIONS) // ray, deactivate Hemisphere Restrictions
 		.value("GAMEOPTION_ONLY_ONE_COLONIST_PER_VILLAGE", GAMEOPTION_ONLY_ONE_COLONIST_PER_VILLAGE) // WTP, ray, Game Option only 1 Colonist living in Village - START
 		.value("GAMEOPTION_TRIANGLE_TRADE", GAMEOPTION_TRIANGLE_TRADE) // Ramstormp, PTSD, Give me a Triangle option
+		.value("GAMEOPTION_4_PLOT_BORDERS", GAMEOPTION_4_PLOT_BORDERS) // Ramstormp, PTSD, Plus-shaped Borders
+		.value("GAMEOPTION_NO_FATHER_RACE", GAMEOPTION_NO_FATHER_RACE) // Ramstormp, PTSD, Everyone can have every dad
 		.value("NUM_GAMEOPTION_TYPES", NUM_GAMEOPTION_TYPES)
 		;
 	python::enum_<MultiplayerOptionTypes>("MultiplayerOptionTypes")
@@ -527,6 +489,7 @@ void CyEnumsPythonInterface()
 		.value("PLAYEROPTION_NO_UNIT_RECOMMENDATIONS", PLAYEROPTION_NO_UNIT_RECOMMENDATIONS)
 		.value("PLAYEROPTION_RIGHT_CLICK_MENU", PLAYEROPTION_RIGHT_CLICK_MENU)
 		.value("PLAYEROPTION_LEAVE_FORESTS", PLAYEROPTION_LEAVE_FORESTS)
+		.value("PLAYEROPTION_MOVEMENT_NEVER_MEANS_WAR", PLAYEROPTION_MOVEMENT_NEVER_MEANS_WAR)
 		.value("PLAYEROPTION_MODDER_1", PLAYEROPTION_MODDER_1)
 		.value("PLAYEROPTION_MODDER_2", PLAYEROPTION_MODDER_2)
 		.value("PLAYEROPTION_MODDER_3", PLAYEROPTION_MODDER_3)
@@ -562,6 +525,7 @@ void CyEnumsPythonInterface()
 		;
 	python::enum_<FeatureTypes>("FeatureTypes")
 		.value("NO_FEATURE", NO_FEATURE)
+		.value("NUM_FEATURE_TYPES", NUM_FEATURE_TYPES)
 		;
 	python::enum_<BonusTypes>("BonusTypes")
 		.value("NO_BONUS", NO_BONUS)
@@ -577,44 +541,6 @@ void CyEnumsPythonInterface()
 		;
 	python::enum_<BuildTypes>("BuildTypes")
 		.value("NO_BUILD", NO_BUILD)
-		;
-	python::enum_<FontSymbols>("FontSymbols")
-		.value("HAPPY_CHAR", HAPPY_CHAR)
-		.value("UNHAPPY_CHAR", UNHAPPY_CHAR)
-		.value("HEALTHY_CHAR", HEALTHY_CHAR)
-		.value("UNHEALTHY_CHAR", UNHEALTHY_CHAR)
-		.value("BULLET_CHAR", BULLET_CHAR)
-		.value("STRENGTH_CHAR", STRENGTH_CHAR)
-		.value("MOVES_CHAR", MOVES_CHAR)
-		.value("RELIGION_CHAR", RELIGION_CHAR)
-		.value("STAR_CHAR", STAR_CHAR)
-		.value("SILVER_STAR_CHAR", SILVER_STAR_CHAR)
-		.value("TRADE_CHAR", TRADE_CHAR)
-		.value("DEFENSE_CHAR", DEFENSE_CHAR)
-		.value("GREAT_PEOPLE_CHAR", GREAT_PEOPLE_CHAR)
-		.value("BAD_GOLD_CHAR", BAD_GOLD_CHAR)
-		.value("BAD_FOOD_CHAR", BAD_FOOD_CHAR)
-		.value("EATEN_FOOD_CHAR", EATEN_FOOD_CHAR)
-		.value("GOLDEN_AGE_CHAR", GOLDEN_AGE_CHAR)
-		.value("ANGRY_POP_CHAR", ANGRY_POP_CHAR)
-		.value("OPEN_BORDERS_CHAR", OPEN_BORDERS_CHAR)
-		.value("DEFENSIVE_PACT_CHAR", DEFENSIVE_PACT_CHAR)
-		.value("MAP_CHAR", MAP_CHAR)
-		.value("OCCUPATION_CHAR", OCCUPATION_CHAR)
-		.value("REBEL_CHAR", REBEL_CHAR)
-		.value("GOLD_CHAR", GOLD_CHAR)
-		.value("POWER_CHAR", POWER_CHAR)
-		// TAC - Trade Routes Advisor - koma13 - START
-		.value("CHECKBOX_CHAR", CHECKBOX_CHAR)
-		.value("CHECKBOX_SELECTED_CHAR", CHECKBOX_SELECTED_CHAR)
-		.value("ANCHOR_CHAR", ANCHOR_CHAR)
-		.value("ANCHOR_EUROPE_CHAR", ANCHOR_EUROPE_CHAR)
-		.value("EXPORT_CHAR", EXPORT_CHAR)
-		.value("IMPORT_CHAR", IMPORT_CHAR)
-		.value("EXPORT_IMPORT_CHAR", EXPORT_IMPORT_CHAR)
-		.value("NO_ANCHOR_CHAR", NO_ANCHOR_CHAR)
-		// TAC - Trade Routes Advisor - koma13 - END
-		.value("MAX_NUM_SYMBOLS", MAX_NUM_SYMBOLS)
 		;
 	python::enum_<HandicapTypes>("HandicapTypes")
 		.value("NO_HANDICAP", NO_HANDICAP)
@@ -758,6 +684,8 @@ void CyEnumsPythonInterface()
 		;
 	python::enum_<SpecialBuildingTypes>("SpecialBuildingTypes")
 		.value("NO_SPECIALBUILDING", NO_SPECIALBUILDING)
+		// next line looks up an "enum" value at runtime where it is based on xml type strings
+		.value("SPECIALBUILDING_EDUCATION", getIndexForType<SpecialBuildingTypes>("SPECIALBUILDING_EDUCATION", "SPECIALBUILDING_EDUCATION must exist in xml"))
 		;
 	python::enum_<InfoBarTypes>("InfoBarTypes")
 		.value("INFOBAR_STORED", INFOBAR_STORED)
@@ -771,9 +699,6 @@ void CyEnumsPythonInterface()
 		.value("HEALTHBAR_ALIVE_DEFEND", HEALTHBAR_ALIVE_DEFEND)
 		.value("HEALTHBAR_DEAD", HEALTHBAR_DEAD)
 		.value("NUM_HEALTHBAR_TYPES", NUM_HEALTHBAR_TYPES)
-		;
-	python::enum_<ConceptTypes>("ConceptTypes")
-		.value("NO_CONCEPT", NO_CONCEPT)
 		;
 	python::enum_<CalendarTypes>("CalendarTypes")
 		.value("CALENDAR_DEFAULT", CALENDAR_DEFAULT)
@@ -898,6 +823,8 @@ void CyEnumsPythonInterface()
 		.value("NO_MISSION", NO_MISSION)
 		.value("MISSION_MOVE_TO", MISSION_MOVE_TO)
 		.value("MISSION_ROUTE_TO", MISSION_ROUTE_TO)
+		.value("MISSION_ROUTE_TO_ROAD", MISSION_ROUTE_TO)
+		.value("MISSION_ROUTE_TO_COUNTRY_ROAD", MISSION_ROUTE_TO)
 		.value("MISSION_MOVE_TO_UNIT", MISSION_MOVE_TO_UNIT)
 		.value("MISSION_SKIP", MISSION_SKIP)
 		.value("MISSION_SLEEP", MISSION_SLEEP)
@@ -994,6 +921,8 @@ void CyEnumsPythonInterface()
 		.value("COMMAND_SAIL_TO_PORT_ROYAL", COMMAND_SAIL_TO_PORT_ROYAL) // R&R, ray, Port Royal
 		.value("COMMAND_MERGE_TREASURES", COMMAND_MERGE_TREASURES) // WTP, merge Treasures, of Raubwuerger
 		.value("COMMAND_ESTABLISH_TRADE_POST", COMMAND_ESTABLISH_TRADE_POST) // WTP, ray, Native Trade Posts - START
+		.value("COMMAND_USE_CONSTRUCTION_SUPPLIES", COMMAND_USE_CONSTRUCTION_SUPPLIES) // WTP, ray, Construction Supplies - START
+		.value("COMMAND_YIELD_TRADE_MAX_AMOUNT", COMMAND_YIELD_TRADE_MAX_AMOUNT) // Ramstormp, PTSD, Trade in Smaller Chunks
 		.value("NUM_COMMAND_TYPES", NUM_COMMAND_TYPES)
 		;
 	python::enum_<ControlTypes>("ControlTypes")
@@ -1212,10 +1141,15 @@ void CyEnumsPythonInterface()
 		.value("DIPLOEVENT_REFUSE_CHURCH_DEMAND", DIPLOEVENT_REFUSE_CHURCH_DEMAND) // R&R, ray, the Church
 		.value("DIPLOEVENT_CHURCH_FAVOUR", DIPLOEVENT_CHURCH_FAVOUR) // R&R, ray, Church Favours
 		.value("DIPLOEVENT_CHURCH_WAR", DIPLOEVENT_CHURCH_WAR) // R&R, ray, Church War
+		.value("DIPLOEVENT_COLONIAL_INTERVENTION_NATIVE_WAR", DIPLOEVENT_COLONIAL_INTERVENTION_NATIVE_WAR) //WTP, ray, Colonial Intervention In Native War - START
+		.value("DIPLOEVENT_COLONIES_AND_NATIVE_ALLIES_WAR_REFUSE", DIPLOEVENT_COLONIES_AND_NATIVE_ALLIES_WAR_REFUSE) // WTP, ray, Big Colonies and Native Allies War - START
+		.value("DIPLOEVENT_COLONIES_AND_NATIVE_ALLIES_WAR_ACCEPT", DIPLOEVENT_COLONIES_AND_NATIVE_ALLIES_WAR_ACCEPT) // WTP, ray, Big Colonies and Native Allies War - START
 		.value("DIPLOEVENT_ACQUIRE_SMUGGLERS", DIPLOEVENT_ACQUIRE_SMUGGLERS) // R&R, ray, Smuggling
 		.value("DIPLOEVENT_ACQUIRE_RANGERS", DIPLOEVENT_ACQUIRE_RANGERS) // R&R, ray, Rangers
 		.value("DIPLOEVENT_ACQUIRE_CONQUISTADORS", DIPLOEVENT_ACQUIRE_CONQUISTADORS) // // R&R, ray, Conquistadors
 		.value("DIPLOEVENT_ACQUIRE_PIRATES", DIPLOEVENT_ACQUIRE_PIRATES) // R&R, ray, Pirates
+		.value("DIPLOEVENT_ACQUIRE_USED_SHIPS", DIPLOEVENT_ACQUIRE_USED_SHIPS) //WTP, ray Kings Used Ship - START
+		.value("DIPLOEVENT_ACQUIRE_FOREIGN_IMMIGRANTS", DIPLOEVENT_ACQUIRE_FOREIGN_IMMIGRANTS) // WTP, ray, Foreign Kings, buy Immigrants - START
 		.value("DIPLOEVENT_BRIBE_PIRATES", DIPLOEVENT_BRIBE_PIRATES) // R&R, ray, Pirates
 		.value("DIPLOEVENT_CREATE_ENEMY_PIRATES", DIPLOEVENT_CREATE_ENEMY_PIRATES) // R&R, ray, Pirates
 		.value("DIPLOEVENT_ACQUIRE_CONTINENTAL_GUARD", DIPLOEVENT_ACQUIRE_CONTINENTAL_GUARD) // R&R, ray, Continental Guard
@@ -1224,6 +1158,8 @@ void CyEnumsPythonInterface()
 		.value("DIPLOEVENT_EUROPE_WAR", DIPLOEVENT_EUROPE_WAR) //TAC European Wars
 		.value("DIPLOEVENT_STEALING_IMMIGRANT", DIPLOEVENT_STEALING_IMMIGRANT) // R&R, Stealing Immigrant
 		.value("DIPLOEVENT_EUROPE_PEACE", DIPLOEVENT_EUROPE_PEACE) // R&R, ray, European Peace
+		.value("DIPLOEVENT_ROYAL_INTERVENTION", DIPLOEVENT_ROYAL_INTERVENTION) // WTP, ray, Royal Intervention, START
+		.value("DIPLOEVENT_PRIVATEERS_ACCUSATION", DIPLOEVENT_PRIVATEERS_ACCUSATION) // WTP, ray, Privateers DLL Diplo Event - START
 		.value("DIPLOEVENT_NATIVE_TRADE", DIPLOEVENT_NATIVE_TRADE) // R&R, ray, Natives Trading
 		.value("DIPLOEVENT_FOUND_CITY_CHECK_NATIVES", DIPLOEVENT_FOUND_CITY_CHECK_NATIVES)
 		.value("NUM_DIPLOEVENT_TYPES", NUM_DIPLOEVENT_TYPES)
@@ -1774,20 +1710,20 @@ void CyEnumsPythonInterface()
 	python::enum_<JITarrayTypes>("JITarrayTypes")
 		.value("NO_JIT_ARRAY_TYPE", NO_JIT_ARRAY_TYPE)
 		.value("JIT_ARRAY_ACHIEVE", JIT_ARRAY_ACHIEVE)
-		.value("JIT_ARRAY_ART_STYLE", JIT_ARRAY_ART_STYLE)
+		.value("JIT_ARRAY_ART_STYLE", JIT_ARRAY_ARTSTYLE)
 		.value("JIT_ARRAY_BONUS", JIT_ARRAY_BONUS)
 		.value("JIT_ARRAY_BUILD", JIT_ARRAY_BUILD)
 		.value("JIT_ARRAY_BUILDING", JIT_ARRAY_BUILDING)
-		.value("JIT_ARRAY_BUILDING_CLASS", JIT_ARRAY_BUILDING_CLASS)
+		.value("JIT_ARRAY_BUILDING_CLASS", JIT_ARRAY_BUILDINGCLASS)
 		.value("JIT_ARRAY_BUILDING_SPECIAL", JIT_ARRAY_BUILDING_SPECIAL)
 		.value("JIT_ARRAY_CIV_EFFECT", JIT_ARRAY_CIV_EFFECT)
 		.value("JIT_ARRAY_CIVIC", JIT_ARRAY_CIVIC)
-		.value("JIT_ARRAY_CIVIC_OPTION", JIT_ARRAY_CIVIC_OPTION)
+		.value("JIT_ARRAY_CIVIC_OPTION", JIT_ARRAY_CIVICOPTION)
 		.value("JIT_ARRAY_CIVILIZATION", JIT_ARRAY_CIVILIZATION)
 		.value("JIT_ARRAY_CLIMATE", JIT_ARRAY_CLIMATE)
 		.value("JIT_ARRAY_COLOR", JIT_ARRAY_COLOR)
 		.value("JIT_ARRAY_CULTURE", JIT_ARRAY_CULTURE)
-		.value("JIT_ARRAY_DIPLO", JIT_ARRAY_DIPLO)
+		.value("JIT_ARRAY_DIPLO", JIT_ARRAY_DIPLOMACY)
 		.value("JIT_ARRAY_DOMAIN", JIT_ARRAY_DOMAIN)
 		.value("JIT_ARRAY_EMPHASIZE", JIT_ARRAY_EMPHASIZE)
 		.value("JIT_ARRAY_ERA", JIT_ARRAY_ERA)
@@ -1804,7 +1740,7 @@ void CyEnumsPythonInterface()
 		.value("JIT_ARRAY_HURRY", JIT_ARRAY_HURRY)
 		.value("JIT_ARRAY_IMPROVEMENT", JIT_ARRAY_IMPROVEMENT)
 		.value("JIT_ARRAY_INVISIBLE", JIT_ARRAY_INVISIBLE)
-		.value("JIT_ARRAY_LEADER_HEAD", JIT_ARRAY_LEADER_HEAD)
+		.value("JIT_ARRAY_LEADER_HEAD", JIT_ARRAY_LEADER)
 		.value("JIT_ARRAY_MEMORY", JIT_ARRAY_MEMORY)
 		.value("JIT_ARRAY_PLAYER_COLOR", JIT_ARRAY_PLAYER_COLOR)
 		.value("JIT_ARRAY_PLAYER_OPTION", JIT_ARRAY_PLAYER_OPTION)
@@ -1815,9 +1751,9 @@ void CyEnumsPythonInterface()
 		.value("JIT_ARRAY_TERRAIN", JIT_ARRAY_TERRAIN)
 		.value("JIT_ARRAY_TRAIT", JIT_ARRAY_TRAIT)
 		.value("JIT_ARRAY_UNIT", JIT_ARRAY_UNIT)
-		.value("JIT_ARRAY_UNIT_AI", JIT_ARRAY_UNIT_AI)
-		.value("JIT_ARRAY_UNIT_CLASS", JIT_ARRAY_UNIT_CLASS)
-		.value("JIT_ARRAY_UNIT_COMBAT", JIT_ARRAY_UNIT_COMBAT)
+		.value("JIT_ARRAY_UNIT_AI", JIT_ARRAY_UNITAI)
+		.value("JIT_ARRAY_UNIT_CLASS", JIT_ARRAY_UNITCLASS)
+		.value("JIT_ARRAY_UNIT_COMBAT", JIT_ARRAY_UNITCOMBAT)
 		.value("JIT_ARRAY_UNIT_SPECIAL", JIT_ARRAY_UNIT_SPECIAL)
 		.value("JIT_ARRAY_VICTORY", JIT_ARRAY_VICTORY)
 		.value("JIT_ARRAY_WORLD_SIZE", JIT_ARRAY_WORLD_SIZE)

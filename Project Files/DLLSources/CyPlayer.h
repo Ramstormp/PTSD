@@ -103,6 +103,7 @@ public:
 	bool canDoCivics(int /*CivicTypes*/ eCivic);
 	int greatGeneralThreshold();
 	int greatAdmiralThreshold(); // R&R, ray, Great Admirals
+	int getImmigrationThresholdModifierFromUnitsWaitingOnDock(); // WTP, ray, increase threshold if more than X units waiting on the docks - START
 	int immigrationThreshold();
 	int revolutionEuropeUnitThreshold();
 	CyPlot* getStartingPlot();
@@ -134,6 +135,11 @@ public:
 	int getGreatAdmiralsCreated();
 	int getGreatAdmiralsThresholdModifier(); 
 	// R&R, ray, Great Admirals - END
+	// WTP, ray, Lieutenants and Captains - START
+	void createBraveLieutenant(int eBraveLieutenantUnit, int iX, int iY);
+	void createCapableCaptain(int eGreatAdmiralUnit, int iX, int iY);
+	// WTP, ray, Lieutenants and Captains - END
+	int getNumShips(); // WTP, ray, easily counting Ships - START
 	int getGreatGeneralRateModifier();
 	int getDomesticGreatGeneralRateModifier();
 	int getFreeExperience();
@@ -180,10 +186,18 @@ public:
 	int getYieldTradedTotal(YieldTypes eIndex);
 	int getYieldTradedTotalINT(int /*YieldTypes*/ eIndex);
     // R&R, Robert Surcouf, No More Variables Hidden game option END
+	// WTP, ray, Yields Traded Total for Africa and Port Royal - START
+	int getYieldTradedTotalAfrica(YieldTypes eIndex);
+	int getYieldTradedTotalINTAfrica(int /*YieldTypes*/ eIndex);
+	int getYieldTradedTotalPortRoyal(YieldTypes eIndex);
+	int getYieldTradedTotalINTPortRoyal(int /*YieldTypes*/ eIndex);
+	// WTP, ray, Yields Traded Total for Africa and Port Royal - END
 	int getYieldScoreTotalINT(int /*YieldTypes*/ eIndex); // R&R, vetiarvind, Price dependent tax rate change
 	int getYieldRate(YieldTypes eIndex);
 	int getHappinessRate(); // WTP, ray, Happiness - START
 	int getUnHappinessRate(); // WTP, ray, Happiness - START
+	int getLawRate(); // WTP, ray, Crime and Law - START
+	int getCrimeRate(); // WTP, ray, Crime and Law - START
 	int getYieldRateModifier(YieldTypes eIndex);
 	int getCapitalYieldRateModifier(YieldTypes eIndex);
 	int getExtraYieldThreshold(YieldTypes eIndex);
@@ -255,6 +269,7 @@ public:
 	int missionaryThreshold(int /*PlayerTypes*/  ePlayer) const;
 	int getMissionaryRateModifier() const;
 	// R&R, Robert Surcouf, No More Variables Hidden game option END
+
 	int getTaxRate();
 	void changeTaxRate(int iChange);
 	bool canTradeWithEurope();
@@ -263,13 +278,14 @@ public:
 	int getYieldBuyPrice(int /*YieldTypes*/ eYield);
 	void setYieldBuyPrice(int /*YieldTypes*/ eYield, int iPrice, bool bMessage);
 	// PTSD, Ramstormp, Europe Stock - START
-	int getEuropeWarehouseYield(int /*YieldTypes*/ eYield);
-	int getAfricaWarehouseYield(int /*YieldTypes*/ eYield);
-	int getPortRoyalWarehouseYield(int /*YieldTypes*/ eYield);
+	int getEuropeWarehouseStock(int /*YieldTypes*/ eYield);
+	int getAfricaWarehouseStock(int /*YieldTypes*/ eYield);
+	int getPortRoyalWarehouseStock(int /*YieldTypes*/ eYield);
 	// Ramstormp - END
 	// R&R, ray, Africa
 	int getYieldAfricaSellPrice(int /*YieldTypes*/ eYield);
 	int getYieldAfricaBuyPrice(int /*YieldTypes*/ eYield);
+	int getYieldAfricaBuyPriceNoModifier(int /*YieldTypes*/ eYield);
 	void setYieldAfricaBuyPrice(int /*YieldTypes*/ eYield, int iPrice, bool bMessage);
 	CyUnit* buyYieldUnitFromAfrica(int /*YieldTypes*/ eYield, int iAmount, CyUnit* pTransport);
 	// R&R, ray, Africa - END
@@ -277,6 +293,7 @@ public:
 	// R&R, ray, Port Royal
 	int getYieldPortRoyalSellPrice(int /*YieldTypes*/ eYield);
 	int getYieldPortRoyalBuyPrice(int /*YieldTypes*/ eYield);
+	int getYieldPortRoyalBuyPriceNoModifier(int /*YieldTypes*/ eYield);
 	void setYieldPortRoyalBuyPrice(int /*YieldTypes*/ eYield, int iPrice, bool bMessage);
 	CyUnit* buyYieldUnitFromPortRoyal(int /*YieldTypes*/ eYield, int iAmount, CyUnit* pTransport);
 	// R&R, ray, Port Royal - END
@@ -286,7 +303,8 @@ public:
 	int getEuropeUnitBuyPrice(int /*UnitTypes*/ eUnit);
 	CyUnit* buyEuropeUnit(int /*UnitTypes*/ eUnit);
 	int getYieldBoughtTotal(int /*YieldTypes*/ eYield) const;
-
+	int getYieldBoughtTotalAfrica(int /*YieldTypes*/ eYield) const; // WTP, ray, Yields Traded Total for Africa and Port Royal - START
+	int getYieldBoughtTotalPortRoyal(int /*YieldTypes*/ eYield) const; // WTP, ray, Yields Traded Total for Africa and Port Royal - START
 	int getNumRevolutionEuropeUnits() const;
 	int getRevolutionEuropeUnit(int iIndex) const;
 	int getRevolutionEuropeProfession(int iIndex) const;
@@ -337,6 +355,20 @@ public:
 
 	int getChurchFavourPrice() const; // R&R, ray, Church Favours
 
+	// R&R, ray, Church Favours - START
+	int getRandomUsedShipClassTypeID() const;
+	int getUsedShipPrice(int iUsedShipClassType) const;
+	bool isKingWillingToTradeUsedShips() const;
+	void resetCounterForUsedShipDeals();
+	// R&R, ray, Church Favours - START
+
+	// WTP, ray, Foreign Kings, buy Immigrants - START
+	int getRandomForeignImmigrantClassTypeID(int iKingID) const;
+	int getForeignImmigrantPrice(int iForeignImmigrantClassType, int iKingID) const;
+	bool isForeignKingWillingToTradeImmigrants(int iKingID) const;
+	void resetCounterForForeignImmigrantsDeals();
+	// WTP, ray, Foreign Kings, buy Immigrants - END
+
 	int getNumTradeMessages() const;
 	std::wstring getTradeMessage(int i) const;
 	// TAC - Trade Messages - koma13 - START
@@ -363,6 +395,10 @@ public:
 	int getSellToAfricaProfit(int /*YieldTypes*/ eYield, int iAmount);
 	bool isYieldAfricaTradable(int /*YieldTypes*/ eIndex);
 	/*************************************/
+
+	//WTP, ray, Colonial Intervention In Native War - START
+	int getIDSecondPlayerFrenchNativeWar();
+	//WTP, ray, Colonial Intervention In Native War - END
 
 	// R&R, ray, Port Royal
 	int getNumPortRoyalUnits();
@@ -392,6 +428,10 @@ public:
 
 	CyInfoArray* getSpecialBuildingTypes() const;
 	CyInfoArray* getStoredYieldTypes() const;
+	CyInfoArray* getDomesticDemandYieldTypes() const;
+
+	CyInfoArray* getTeachUnitTypes(int iTeachLevel) const;
+	int getMaxTeachLevel() const;
 
 	int getCivEffectCount(CivEffectTypes eCivEffect) const;
 

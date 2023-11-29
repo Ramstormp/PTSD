@@ -27,6 +27,137 @@
 
 #define PASSWORD_DEFAULT (L"*****")
 
+// static class to allow launch and clicked code for a popup to be put together
+// being a static class rather than just two functions allows adding enums, which can only be used inside the class
+// this in turn allows assigning enums to button IDs without risking name clashes between popup windows
+template <int T>
+class PopupButtonContainer
+{
+};
+
+template <>
+class PopupButtonContainer<BUTTONPOPUP_START_GAME_CHECK_FAILED>
+{
+	enum ErrorTypes
+	{
+		TEST_WETLAND,
+		TEST_AI_PLAYER,
+	};
+public:
+	static bool launch(CvPopup* pPopup, CvPopupInfo &info)
+	{
+		CvWString error;
+		error
+			.append(L"<color=255,0,0,0>")
+			.append(gDLL->getText("TXT_KEY_STARTUP_TEST_ERROR"))
+			.append(L"</color>\n")
+			;
+		gDLL->getInterfaceIFace()->popupSetBodyString(pPopup, error);
+		gDLL->getInterfaceIFace()->popupSetBodyString(pPopup, getErrorText((ErrorTypes)info.getData1()));
+
+		gDLL->getInterfaceIFace()->popupLaunch(pPopup, true, POPUPSTATE_IMMEDIATE);
+
+		return true;
+	}
+
+	static void clicked(PopupReturn *pPopupReturn)
+	{
+	}
+
+	// technically this doesn't belong here, but by placing it inside the class it gains access to the enum
+	static void runTest()
+	{
+		if (GC.getMap().getNumPlots(TERRAIN_WETLAND) == 0)
+		{
+			displayError(TEST_WETLAND);
+		}
+		if (CvGame::countCivPlayerEuropeanAI() == 0)
+		{
+			displayError(TEST_AI_PLAYER);
+		}
+	}
+private:
+	static void displayError(ErrorTypes eError)
+	{
+		CvPopupInfo* pInfo = new CvPopupInfo(BUTTONPOPUP_START_GAME_CHECK_FAILED, eError);
+		gDLL->getInterfaceIFace()->addPopup(pInfo, GC.getGameINLINE().getActivePlayer(), false, true);
+	}
+
+	static CvWString getErrorText(ErrorTypes eError)
+	{
+		switch (eError)
+		{
+		case TEST_WETLAND: return gDLL->getText("TXT_KEY_STARTUP_TEST_WETLANDS");
+		case TEST_AI_PLAYER: return gDLL->getText("TXT_KEY_STARTUP_TEST_AI_PLAYERS");
+		default:
+			FAssert(false);
+			return L"error message missing";
+		}
+	}
+};
+void doNewGameErrorTesting()
+{
+	PopupButtonContainer<BUTTONPOPUP_START_GAME_CHECK_FAILED>::runTest();
+}
+
+template <>
+class PopupButtonContainer<BUTTONPOPUP_NETWORK_OOS_MENU>
+{
+	enum
+	{
+		BUTTOM_TEST_canDoEvent,
+		BUTTON_TEST_canDoGoody,
+	};
+public:
+	static bool launch(CvPopup* pPopup, CvPopupInfo &info)
+	{
+		gDLL->getInterfaceIFace()->popupSetBodyString(pPopup, gDLL->getText("TXT_KEY_DEBUG_OOS_MENU"));
+		
+		// TODO: figure out how to simulate EventTriggeredData
+		//gDLL->getInterfaceIFace()->popupAddGenericButton(pPopup, "CvPlayer::canDoEvent", 0, BUTTOM_TEST_canDoEvent);
+
+		if (gDLL->getInterfaceIFace()->getHeadSelectedUnit() != NULL)
+		{
+			gDLL->getInterfaceIFace()->popupAddGenericButton(pPopup, "CvUnit::canDoGoody", 0, BUTTON_TEST_canDoGoody);
+		}
+
+		gDLL->getInterfaceIFace()->popupLaunch(pPopup, true, POPUPSTATE_IMMEDIATE);
+
+		return true;
+	}
+
+	static void clicked(PopupReturn *pPopupReturn)
+	{
+		const PlayerTypes ePlayer = GC.getGameINLINE().getActivePlayer();
+		CvPlayerAI& kPlayer = GET_PLAYER(ePlayer);
+
+		switch (pPopupReturn->getButtonClicked())
+		{
+		case BUTTOM_TEST_canDoEvent:
+			for (EventTypes eEvent = FIRST_EVENT; eEvent < NUM_EVENT_TYPES; ++eEvent)
+			{
+				EventTriggeredData kTriggeredData;
+				bool bSuccess = kPlayer.canDoEvent(eEvent, kTriggeredData);
+				gDLL->sendPlayerAction(ePlayer, PLAYER_ACTION_NETWORK_canDoEvent, eEvent, bSuccess, -1);
+			}
+			break;
+		case BUTTON_TEST_canDoGoody:
+			{
+				CvUnit* pUnit = gDLL->getInterfaceIFace()->getHeadSelectedUnit();
+				if (pUnit != NULL)
+				{
+					FAssert(pUnit->getOwnerINLINE() == ePlayer);
+					for (GoodyTypes eGoody = FIRST_GOODY; eGoody < NUM_GOODY_TYPES; ++eGoody)
+					{
+						bool bSuccess = kPlayer.canReceiveGoody(pUnit->plot(), eGoody, pUnit);
+						gDLL->sendPlayerAction(ePlayer, PLAYER_ACTION_NETWORK_canDoGoody, eGoody, pUnit->getID(), bSuccess);
+					}
+				}
+			}
+		}
+	}
+};
+
 // WTP enums
 // Nake it easier to read windows with a lot of buttons
 // This also allows easy access to changing the order of buttons
@@ -103,6 +234,8 @@ void CvDLLButtonPopup::OnEscape(CvPopup& popup, CvPopupInfo &info)
 	case BUTTONPOPUP_MAIN_MENU:
 	case BUTTONPOPUP_CHOOSE_PROFESSION:
 	case BUTTONPOPUP_PURCHASE_EUROPE_UNIT:
+	case BUTTONPOPUP_PURCHASE_AFRICA_UNIT:
+	case BUTTONPOPUP_PURCHASE_PORT_ROYAL_UNIT:
 	case BUTTONPOPUP_LOADUNIT:
 	case BUTTONPOPUP_LOAD_CARGO:
 	case BUTTONPOPUP_LEADUNIT:
@@ -110,6 +243,7 @@ void CvDLLButtonPopup::OnEscape(CvPopup& popup, CvPopupInfo &info)
 	case BUTTONPOPUP_FREE_COLONY:
 	case BUTTONPOPUP_PROMOTE:
 	case BUTTONPOPUP_SELECT_YIELD_AMOUNT:
+	case BUTTONPOPUP_SELECT_YIELD_TRADE_MAX_AMOUNT:
 	case BUTTONPOPUP_DETAILS:
 	case BUTTONPOPUP_ADMIN_PASSWORD:
 	case BUTTONPOPUP_ADMIN:
@@ -131,6 +265,8 @@ void CvDLLButtonPopup::OnEscape(CvPopup& popup, CvPopupInfo &info)
 void CvDLLButtonPopup::OnOkClicked(CvPopup* pPopup, PopupReturn *pPopupReturn, CvPopupInfo &info)
 {
 	int iExamineCityID;
+	const PlayerTypes ePlayer = GC.getGameINLINE().getActivePlayer();
+	CvPlayerAI& kPlayer = GET_PLAYER(ePlayer);
 
 	switch (info.getButtonPopupType())
 	{
@@ -232,11 +368,12 @@ void CvDLLButtonPopup::OnOkClicked(CvPopup* pPopup, PopupReturn *pPopupReturn, C
 		{	// write network desync log. Has to be done in sync, hence send network traffic
 			gDLL->sendPlayerAction(static_cast<PlayerTypes>(0), PLAYER_ACTION_NETWORK_DESYNC_LOG_WRITE, -1, -1, -1);
 		}
-		
+
 		// 10 - cancel
 		break;
 
 	case BUTTONPOPUP_DECLAREWARMOVE:
+
 		if (pPopupReturn->getButtonClicked() == 0)
 		{
 			gDLL->sendChangeWar((TeamTypes)info.getData1(), true);
@@ -245,6 +382,11 @@ void CvDLLButtonPopup::OnOkClicked(CvPopup* pPopup, PopupReturn *pPopupReturn, C
 		{
 			GC.getGameINLINE().selectionListGameNetMessage(GAMEMESSAGE_PUSH_MISSION, MISSION_MOVE_TO, info.getData2(), info.getData3(), info.getFlags(), false, info.getOption1());
 		}
+		//if (pPopupReturn->getButtonClicked() == 2 && info.getFlags() == 0)
+		//{
+		//	GC.getGameINLINE().selectionListGameNetMessage(GAMEMESSAGE_PUSH_MISSION, MISSION_MOVE_TO, info.getData2(), info.getData3(), info.getFlags(), false, info.getOption1());
+		//	GET_PLAYER(GC.getGameINLINE().getActivePlayer()).doAction(PLAYER_ACTION_SET_OPTION, PLAYEROPTION_MOVEMENT_NEVER_MEANS_WAR, 0, -1);
+		//}
 		break;
 
 	case BUTTONPOPUP_CONFIRMCOMMAND:
@@ -286,7 +428,7 @@ void CvDLLButtonPopup::OnOkClicked(CvPopup* pPopup, PopupReturn *pPopupReturn, C
 					pLoopUnit = ::getUnit(pUnitNode->m_data);
 					pUnitNode = pPlot->nextUnitNode(pUnitNode);
 
-					if (pSelectionGroup->canDoCommand(COMMAND_LOAD_UNIT, pLoopUnit->getOwnerINLINE(), pLoopUnit->getID()))
+					if (pLoopUnit != NULL && pSelectionGroup->canDoCommand(COMMAND_LOAD_UNIT, pLoopUnit->getOwnerINLINE(), pLoopUnit->getID()))
 					{
 						iCount--;
 						if (iCount == 0)
@@ -346,13 +488,17 @@ void CvDLLButtonPopup::OnOkClicked(CvPopup* pPopup, PopupReturn *pPopupReturn, C
 						CvUnit* pLoopUnit = ::getUnit(pUnitNode->m_data);
 						pUnitNode = pPlot->nextUnitNode(pUnitNode);
 
-						if (pLoopUnit->canPromote((PromotionTypes) info.getData1(), info.getData2()))
+						// WTP, fixing Generals and Admirals to lead civilists or small tiny fishing boats - START
+						if (pLoopUnit != NULL && ((pLoopUnit->getDomainType() == DOMAIN_LAND && pLoopUnit->canAttack()) || (pLoopUnit->getDomainType() == DOMAIN_SEA && pLoopUnit->baseCombatStr() >= 20)))
 						{
-							iCount--;
-							if (iCount == 0)
+							if (pLoopUnit->canPromote((PromotionTypes) info.getData1(), info.getData2()))
 							{
-								gDLL->sendPushMission(info.getData2(), MISSION_LEAD, pLoopUnit->getID(), -1, 0, false);
-								break;
+								iCount--;
+								if (iCount == 0)
+								{
+									gDLL->sendPushMission(info.getData2(), MISSION_LEAD, pLoopUnit->getID(), -1, 0, false);
+									break;
+								}
 							}
 						}
 					}
@@ -402,7 +548,22 @@ void CvDLLButtonPopup::OnOkClicked(CvPopup* pPopup, PopupReturn *pPopupReturn, C
 		break;
 
 	case BUTTONPOPUP_CHOOSE_YIELD_BUILD:
-		if (pPopupReturn->getButtonClicked() >= GC.getNumUnitInfos())
+// Ramstormp, WtP, Add Examine Settlement option to the no longer lacking yields for building production popup - START
+		iExamineCityID = 0;
+		iExamineCityID = std::max(iExamineCityID, GC.getNumUnitInfos());
+		iExamineCityID = std::max(iExamineCityID, GC.getNumBuildingInfos());
+
+		if (pPopupReturn->getButtonClicked() == iExamineCityID)
+		{
+			CvCity* pCity = GET_PLAYER(GC.getGameINLINE().getActivePlayer()).getCity(info.getData1());
+			if (pCity != NULL)
+			{
+				gDLL->getInterfaceIFace()->selectCity(pCity, true);
+			}
+		}
+
+		else if (pPopupReturn->getButtonClicked() >= GC.getNumUnitInfos())
+// Ramstormp - END
 		{
 			BuildingTypes eBuilding = (BuildingTypes) (pPopupReturn->getButtonClicked() - GC.getNumUnitInfos());
 			gDLL->sendDoTask(info.getData1(), TASK_PUSH_CONSTRUCT_BUILDING, eBuilding, -1, false, false, false, false);
@@ -751,9 +912,9 @@ void CvDLLButtonPopup::OnOkClicked(CvPopup* pPopup, PopupReturn *pPopupReturn, C
 		{
 			const wchar* szGroupName = pPopupReturn->getEditBoxString(0);
 			CvPlayer& player = GET_PLAYER(GC.getGameINLINE().getActivePlayer());
-			int lastAddedId = player.addTradeRouteGroup(szGroupName);			
+			int lastAddedId = player.addTradeRouteGroup(szGroupName);
 			CvTradeRouteGroup* addedTradeGroup = player.getTradeRouteGroupById(lastAddedId)						;
-			CvString str(info.getText().c_str());			
+			CvString str(info.getText().c_str());
 
 			std::vector<std::string> tradeRoutes = split(str, ',');
 			for(uint i = 0 ; i < tradeRoutes.size(); ++i)
@@ -763,18 +924,18 @@ void CvDLLButtonPopup::OnOkClicked(CvPopup* pPopup, PopupReturn *pPopupReturn, C
 				int srcId = atoi(routeDetails[0].c_str());
 				int destId = atoi(routeDetails[1].c_str());
 				IDInfo europeCity((PlayerTypes)GC.getGameINLINE().getActivePlayer(),CvTradeRoute::EUROPE_CITY_ID);
-				
+
 				addedTradeGroup->addRoute(
 					srcId != CvTradeRoute::EUROPE_CITY_ID ?	player.getCity(srcId)->getIDInfo() : europeCity,
 					destId != CvTradeRoute::EUROPE_CITY_ID ?  player.getCity(destId)->getIDInfo() : europeCity,
-					(YieldTypes) atoi(routeDetails[2].c_str()));				
+					(YieldTypes) atoi(routeDetails[2].c_str()));
 			}
-			
+
 		}
 		break;
 
 	//R&R mod, vetiarvind, trade groups - end
-	
+
 	case BUTTONPOPUP_FOUNDING_FATHER:
 		if (pPopupReturn->getButtonClicked() == -1)
 		{
@@ -856,7 +1017,7 @@ void CvDLLButtonPopup::OnOkClicked(CvPopup* pPopup, PopupReturn *pPopupReturn, C
 								continue;
 						}
 
-						// load yield data and store in human readable variable names						
+						// load yield data and store in human readable variable names
 						const bool bImport          = (pPopupReturn->getCheckboxBitfield(eYield)       & 0x01);
 						const bool bExport          = (pPopupReturn->getCheckboxBitfield(eExportYield) & 0x01);
 						const bool bMaintainImport  = (pPopupReturn->getCheckboxBitfield(eYield)       & 0x02);
@@ -900,7 +1061,7 @@ void CvDLLButtonPopup::OnOkClicked(CvPopup* pPopup, PopupReturn *pPopupReturn, C
 			// auto traderoute - end - Nightinggale
 		}
 		break;
-	
+
 	// Teacher List - start - Nightinggale
 	case BUTTONPOPUP_TEACHER_LIST:
 		{
@@ -966,11 +1127,13 @@ void CvDLLButtonPopup::OnOkClicked(CvPopup* pPopup, PopupReturn *pPopupReturn, C
 				for (int iYield = 0; iYield < NUM_YIELD_TYPES; ++iYield)
 				{
 					YieldTypes eYield = (YieldTypes) iYield;
-					if (GC.getYieldInfo((YieldTypes) iYield).isCargo() && (eYield != YIELD_FOOD) && (eYield != YIELD_LUMBER) && (eYield != YIELD_STONE))
+					// ray, making special storage capacity rules for Yields XML configurable
+					if (GC.getYieldInfo((YieldTypes)iYield).isCargo() && !GC.getYieldInfo((YieldTypes)iYield).isIgnoredForStorageCapacity())
+					// if (GC.getYieldInfo((YieldTypes) iYield).isCargo() && (eYield != YIELD_FOOD) && (eYield != YIELD_LUMBER) && (eYield != YIELD_STONE))
 					{
 						bool bNeverSell = (pPopupReturn->getCheckboxBitfield(iYield) & 0x01);
 						int iLevel = pPopupReturn->getSpinnerWidgetValue(iYield);
-						
+
 						if (bNeverSell != pCity->isCustomHouseNeverSell(eYield) || iLevel != pCity->getCustomHouseSellThreshold(eYield))
 						{
 							gDLL->sendDoTask(info.getData1(), TASK_CHANGE_CUSTOM_HOUSE_SETTINGS, iYield, iLevel, bNeverSell, false, false, false);
@@ -980,13 +1143,13 @@ void CvDLLButtonPopup::OnOkClicked(CvPopup* pPopup, PopupReturn *pPopupReturn, C
 			}
 		}
 		break;
-	
+
 	case BUTTONPOPUP_DOMESTIC_MARKET:
 		{
 		}
 		break;
 	// R&R, Robert Surcouf, Custom House Popup-Screen END
-	
+
 	case BUTTONPOPUP_PROMOTE:
 		{
 			CvPlayer& kPlayer = GET_PLAYER(GC.getGameINLINE().getActivePlayer());
@@ -1037,7 +1200,16 @@ void CvDLLButtonPopup::OnOkClicked(CvPopup* pPopup, PopupReturn *pPopupReturn, C
 			}
 		}
 		break;
-
+// Ramstormp, PTSD, Trade in Smaller Chunks - start
+	case BUTTONPOPUP_SELECT_YIELD_TRADE_MAX_AMOUNT:
+	{
+		CvPlayer& kPlayer = GET_PLAYER(GC.getGameINLINE().getActivePlayer());
+		CvUnit* pUnit = kPlayer.getUnit(info.getData1());
+		//int iAmount = info.getData2();
+		kPlayer.setMaxYieldTradeAmount(pPopupReturn->getCurrentSpinBoxValue(0));
+	}
+	break;
+	// Ramstormp - end
 	case BUTTONPOPUP_TALK_NATIVES:
 		if (pPopupReturn->getButtonClicked() >= 0 && pPopupReturn->getButtonClicked() < NUM_COMMAND_TYPES)
 		{
@@ -1080,7 +1252,7 @@ void CvDLLButtonPopup::OnOkClicked(CvPopup* pPopup, PopupReturn *pPopupReturn, C
 				}
 			}
 		}
-		// R&R, vetiarvind, Goto other screens - START	
+		// R&R, vetiarvind, Goto other screens - START
 		else if (pPopupReturn->getButtonClicked() == -3) //africa
 		{
 			CvUnit* pUnit = GET_PLAYER(GC.getGameINLINE().getActivePlayer()).getUnit(info.getData1());
@@ -1101,7 +1273,7 @@ void CvDLLButtonPopup::OnOkClicked(CvPopup* pPopup, PopupReturn *pPopupReturn, C
 			CvUnit* pUnit = GET_PLAYER(GC.getGameINLINE().getActivePlayer()).getUnit(info.getData1());
 			if (pUnit != NULL)
 			{
-				if (pUnit->canCrossOcean(pUnit->plot(), UNIT_TRAVEL_STATE_TO_PORT_ROYAL))				
+				if (pUnit->canCrossOcean(pUnit->plot(), UNIT_TRAVEL_STATE_TO_PORT_ROYAL))
 				{
 					gDLL->sendDoCommand(info.getData1(), COMMAND_SAIL_TO_PORT_ROYAL, UNIT_TRAVEL_STATE_TO_PORT_ROYAL, -1, false);
 				}
@@ -1131,6 +1303,13 @@ void CvDLLButtonPopup::OnOkClicked(CvPopup* pPopup, PopupReturn *pPopupReturn, C
 		break;
 
 	case BUTTONPOPUP_DESYNC_LOG_COMPLETE:
+		break;
+
+	case BUTTONPOPUP_START_GAME_CHECK_FAILED:
+		PopupButtonContainer<BUTTONPOPUP_START_GAME_CHECK_FAILED>::clicked(pPopupReturn);
+		break;
+	case BUTTONPOPUP_NETWORK_OOS_MENU:
+		PopupButtonContainer<BUTTONPOPUP_NETWORK_OOS_MENU>::clicked(pPopupReturn);
 		break;
 
 	case BUTTONPOPUP_NO_EVENT_ON_OK_CLICKED:
@@ -1381,6 +1560,10 @@ bool CvDLLButtonPopup::launchButtonPopup(CvPopup* pPopup, CvPopupInfo &info)
 	case BUTTONPOPUP_SELECT_YIELD_AMOUNT:
 		bLaunched = launchSelectYieldAmountPopup(pPopup, info);
 		break;
+	// Ramstormp, PTSD, Trade in Smaller Chunks - start
+	case BUTTONPOPUP_SELECT_YIELD_TRADE_MAX_AMOUNT:
+		bLaunched = launchSelectYieldTradeMaxAmountPopup(pPopup, info);
+		break;
 	case BUTTONPOPUP_TALK_NATIVES:
 		bLaunched = launchTalkNativesPopup(pPopup, info);
 		break;
@@ -1399,6 +1582,12 @@ bool CvDLLButtonPopup::launchButtonPopup(CvPopup* pPopup, CvPopupInfo &info)
 		break;
 	case BUTTONPOPUP_DESYNC_LOG_COMPLETE:
 		bLaunched = launchDesyncLogCompletePopup(pPopup, info);
+		break;
+	case BUTTONPOPUP_START_GAME_CHECK_FAILED:
+		bLaunched = PopupButtonContainer<BUTTONPOPUP_START_GAME_CHECK_FAILED>::launch(pPopup, info);
+		break;
+	case BUTTONPOPUP_NETWORK_OOS_MENU:
+		bLaunched = PopupButtonContainer<BUTTONPOPUP_NETWORK_OOS_MENU>::launch(pPopup, info);
 		break;
 
 	default:
@@ -1755,7 +1944,18 @@ bool CvDLLButtonPopup::launchChooseYieldBuildPopup(CvPopup* pPopup, CvPopupInfo 
 	{
 		return false;
 	}
-
+	// Ramstormp, Wtp, Add Examine Settlement option to the 'no longer lacking yields for building production' popup - START
+	CyCity* pyCity = new CyCity(pCity);
+	CyArgsList argsList;
+	argsList.add(gDLL->getPythonIFace()->makePythonObject(pyCity));	// pass in plot class
+	long lResult = 0;
+	gDLL->getPythonIFace()->callFunction(PYGameModule, "skipProductionPopup", argsList.makeFunctionArgs(), &lResult);
+	delete pyCity;	// python fxn must not hold on to this pointer
+	if (lResult == 1)
+	{
+		return (false);
+	}
+	// Ramstormp - END
 	FAssertMsg(pCity->getOwnerINLINE() == GC.getGameINLINE().getActivePlayer(), "City must belong to Active Player");
 
 	YieldTypes eYield = (YieldTypes) info.getData2();
@@ -1767,6 +1967,22 @@ bool CvDLLButtonPopup::launchChooseYieldBuildPopup(CvPopup* pPopup, CvPopupInfo 
 	CvWString szBuffer = gDLL->getText("TXT_KEY_POPUP_CHOOSE_COMLPETED_BUILD", GC.getYieldInfo(eYield).getTextKeyWide(), pCity->getNameKey());
 	gDLL->getInterfaceIFace()->popupSetHeaderString(pPopup, szBuffer, DLL_FONT_LEFT_JUSTIFY);
 
+	// Ramstormp, Wtp, Add Examine Settlement option to the no longer lacking yields for building production popup - START
+	pyCity = new CyCity(pCity);
+	CyArgsList argsList2;
+	argsList2.add(gDLL->getPythonIFace()->makePythonObject(pyCity));	// pass in plot class
+	lResult = 1;
+	gDLL->getPythonIFace()->callFunction(PYGameModule, "showExamineCityButton", argsList2.makeFunctionArgs(), &lResult);
+	delete pyCity;	// python fxn must not hold on to this pointer
+	if (lResult == 1)
+	{
+		int iExamineCityID = 0;
+		iExamineCityID = std::max(iExamineCityID, GC.getNumUnitInfos());
+		iExamineCityID = std::max(iExamineCityID, GC.getNumBuildingInfos());
+
+		gDLL->getInterfaceIFace()->popupAddGenericButton(pPopup, gDLL->getText("TXT_KEY_POPUP_EXAMINE_CITY").c_str(), ARTFILEMGR.getInterfaceArtInfo("INTERFACE_BUTTONS_CITYSELECTION")->getPath(), iExamineCityID, WIDGET_GENERAL, -1, -1, true, POPUP_LAYOUT_STRETCH, DLL_FONT_LEFT_JUSTIFY);
+	}
+	// Ramstormp - END
 
 	std::vector< std::pair<OrderTypes, int> > aOrders;
 	pCity->getOrdersWaitingForYield(aOrders, eYield, true, pCity->getYieldStored(eYield) + pCity->getYieldRushed(eYield));
@@ -1828,7 +2044,7 @@ bool CvDLLButtonPopup::launchEducationPopup(CvPopup* pPopup, CvPopupInfo &info)
 			szText.Format(L"%s", kUnit.getDescription());
 			if (iPrice > 0)
 			{
-				szText += CvWString::format(L" (%d%c)", iPrice, gDLL->getSymbolID(GOLD_CHAR));
+				szText += CvWString::format(L" (%d%c)", iPrice, GC.getSymbolID(GOLD_CHAR));
 			}
 			gDLL->getInterfaceIFace()->popupAddGenericButton(pPopup, szText, kUnit.getButton(), iI, WIDGET_GENERAL, -1, -1, true, POPUP_LAYOUT_STRETCH, DLL_FONT_LEFT_JUSTIFY);
 			++iNumUnits;
@@ -1920,12 +2136,11 @@ bool CvDLLButtonPopup::launchAlarmPopup(CvPopup* pPopup, CvPopupInfo &info)
 bool CvDLLButtonPopup::launchDeclareWarMovePopup(CvPopup* pPopup, CvPopupInfo &info)
 {
 	TeamTypes eRivalTeam = (TeamTypes)info.getData1();
-	int iX = info.getData2();
-	int iY = info.getData3();
+	Coordinates coord(info.getData2(), info.getData3());
 
 	FAssert(eRivalTeam != NO_TEAM);
 
-	CvPlot* pPlot = GC.getMapINLINE().plotINLINE(iX, iY);
+	CvPlot* pPlot = coord.plot();
 	bool bOpenBorders = info.getOption2();
 
 	CvWString szBuffer;
@@ -1945,6 +2160,7 @@ bool CvDLLButtonPopup::launchDeclareWarMovePopup(CvPopup* pPopup, CvPopupInfo &i
 	gDLL->getInterfaceIFace()->popupSetBodyString(pPopup, szBuffer);
 	gDLL->getInterfaceIFace()->popupAddGenericButton(pPopup, gDLL->getText("TXT_KEY_DECLARE_WAR_YES").c_str(), NULL, 0);
 	gDLL->getInterfaceIFace()->popupAddGenericButton(pPopup, gDLL->getText("TXT_KEY_DECLARE_WAR_NO").c_str());
+	//gDLL->getInterfaceIFace()->popupAddGenericButton(pPopup, gDLL->getText("TXT_KEY_DECLARE_WAR_NEVER").c_str()); // Ramstormp, PTSD, No this never means war
 	gDLL->getInterfaceIFace()->popupLaunch(pPopup, false, POPUPSTATE_IMMEDIATE);
 
 	return (true);
@@ -2012,7 +2228,7 @@ bool CvDLLButtonPopup::launchLoadUnitPopup(CvPopup* pPopup, CvPopupInfo &info)
 		pLoopUnit = ::getUnit(pUnitNode->m_data);
 		pUnitNode = pPlot->nextUnitNode(pUnitNode);
 
-		if (pSelectionGroup->canDoCommand(COMMAND_LOAD_UNIT, pLoopUnit->getOwnerINLINE(), pLoopUnit->getID()))
+		if (pLoopUnit != NULL && pSelectionGroup->canDoCommand(COMMAND_LOAD_UNIT, pLoopUnit->getOwnerINLINE(), pLoopUnit->getID()))
 		{
 			if (!pFirstUnit)
 			{
@@ -2144,7 +2360,6 @@ bool CvDLLButtonPopup::launchLeadUnitPopup(CvPopup* pPopup, CvPopupInfo &info)
 
 	gDLL->getInterfaceIFace()->popupSetBodyString(pPopup, gDLL->getText("TXT_KEY_CHOOSE_UNIT_TO_LEAD"));
 
-
 	int iCount = 1;
 	CvUnit* pFirstUnit = NULL;
 	CLLNode<IDInfo>* pUnitNode = pPlot->headUnitNode();
@@ -2153,16 +2368,20 @@ bool CvDLLButtonPopup::launchLeadUnitPopup(CvPopup* pPopup, CvPopupInfo &info)
 		CvUnit* pLoopUnit = ::getUnit(pUnitNode->m_data);
 		pUnitNode = pPlot->nextUnitNode(pUnitNode);
 
-		if (pLoopUnit->canPromote((PromotionTypes)info.getData1(), info.getData2()) && pLoopUnit->baseCombatStr() > 5) // Ramstormp, PTSD, Strong Leaders Only
+		// WTP, fixing Generals and Admirals to lead civilists or small tiny fishing boats - START
+		if (pLoopUnit != NULL && ((pLoopUnit->getDomainType() == DOMAIN_LAND && pLoopUnit->canAttack()) || (pLoopUnit->getDomainType() == DOMAIN_SEA && pLoopUnit->baseCombatStr() >= 20)))
 		{
-			if (!pFirstUnit)
+			if (pLoopUnit->canPromote((PromotionTypes) info.getData1(), info.getData2()))
 			{
-				pFirstUnit = pLoopUnit;
+				if (!pFirstUnit)
+				{
+					pFirstUnit = pLoopUnit;
+				}
+				CvWStringBuffer szBuffer;
+				GAMETEXT.setUnitHelp(szBuffer, pLoopUnit, true);
+				gDLL->getInterfaceIFace()->popupAddGenericButton(pPopup, szBuffer.getCString(), NULL, iCount, WIDGET_GENERAL);
+				iCount++;
 			}
-			CvWStringBuffer szBuffer;
-			GAMETEXT.setUnitHelp(szBuffer, pLoopUnit, true);
-			gDLL->getInterfaceIFace()->popupAddGenericButton(pPopup, szBuffer.getCString(), NULL, iCount, WIDGET_GENERAL);
-			iCount++;
 		}
 	}
 
@@ -2187,7 +2406,7 @@ bool CvDLLButtonPopup::launchMainMenuPopup(CvPopup* pPopup, CvPopupInfo &info)
 	gDLL->getInterfaceIFace()->popupSetStyle( pPopup, "Window_NoTitleBar_Style" );
 
 	// 288,72
-	gDLL->getInterfaceIFace()->popupAddDDS(pPopup, "resource/temp/civ4_title_small.dds", 192, 48);
+	gDLL->getInterfaceIFace()->popupAddDDS(pPopup, "Resource/Temp/civ4_title_small.dds", 192, 48);
 
 	gDLL->getInterfaceIFace()->popupAddSeparator(pPopup);
 
@@ -2226,9 +2445,9 @@ bool CvDLLButtonPopup::launchMainMenuPopup(CvPopup* pPopup, CvPopupInfo &info)
 
 		if (bShow)
 		{
-			for (int i = 0; i < GC.getMapINLINE().numPlots(); ++i)
+			for (int i = 0; i < GC.getMap().numPlots(); ++i)
 			{
-				CvPlot* pPlot = GC.getMapINLINE().plotByIndexINLINE(i);
+				CvPlot* pPlot = GC.getMap().plotByIndexINLINE(i);
 				if (!pPlot->getScriptData().empty())
 				{
 					bShow = false;
@@ -2580,7 +2799,7 @@ bool CvDLLButtonPopup::launchEventPopup(CvPopup* pPopup, CvPopupInfo &info)
 
 	if (kTrigger.isShowPlot())
 	{
-		CvPlot* pPlot = GC.getMapINLINE().plot(pTriggeredData->m_iPlotX, pTriggeredData->m_iPlotY);
+		CvPlot* pPlot = GC.getMap().plot(pTriggeredData->m_iPlotX, pTriggeredData->m_iPlotY);
 		if (NULL != pPlot)
 		{
 			gDLL->getEngineIFace()->addColoredPlot(pPlot->getX_INLINE(), pPlot->getY_INLINE(), GC.getColorInfo((ColorTypes)GC.getInfoTypeForString("COLOR_WARNING_TEXT")).getColor(), PLOT_STYLE_CIRCLE, PLOT_LANDSCAPE_LAYER_RECOMMENDED_PLOTS);
@@ -2663,7 +2882,7 @@ bool CvDLLButtonPopup::launchChooseProfessionPopup(CvPopup* pPopup, CvPopupInfo 
 	bool bShowOnlyBuildingCitizens = (info.getData3() == 2);
 	//Androrc End
 
-	
+
 	if (bShowOnlyNonCitizens && !pUnit->canLeaveCity())
 	{
 		// unrest in city. Show a menu telling nothing can be done.
@@ -2673,7 +2892,7 @@ bool CvDLLButtonPopup::launchChooseProfessionPopup(CvPopup* pPopup, CvPopupInfo 
 		gDLL->getInterfaceIFace()->popupLaunch(pPopup, true, POPUPSTATE_IMMEDIATE);
 		return true;
 	}
-	
+
 
 	CvPlot* pWorkingPlot = NULL;
 	if (pCity != NULL)
@@ -2749,7 +2968,7 @@ bool CvDLLButtonPopup::launchChooseProfessionPopup(CvPopup* pPopup, CvPopupInfo 
 							eProfessionYields.push_back((YieldTypes) eYieldProduced);
 							aiProfessionYieldChar.push_back(GC.getYieldInfo(eYieldProduced).getChar());
 							aiBestYieldAmount.push_back(pCity->getBestYieldsAmountAvailable(eYieldProduced, eLoopProfession, pUnit));
-							
+
 							if (kProfession.isWorkPlot() && NULL != pWorkingPlot)
 							{
 								aiYieldAmount[i] = pWorkingPlot->calculatePotentialProfessionYieldsAmount(eYieldProduced, eLoopProfession, pUnit, false);
@@ -3116,9 +3335,9 @@ bool CvDLLButtonPopup::launchYieldImportExportPopup(CvPopup* pPopup, CvPopupInfo
 					continue;
 			}
 			// R&R mod, vetiarvind, max yield import limit - end
-			
+
 			// transport feeder - start - Nightinggale
-			
+
 
 			// import
 			gDLL->getInterfaceIFace()->popupStartHLayout(pPopup, 0);
@@ -3192,7 +3411,7 @@ bool CvDLLButtonPopup::launchTeacherListPopup(CvPopup* pPopup, CvPopupInfo &info
 			gDLL->getInterfaceIFace()->popupAddGenericButton(pPopup, L"", kUnit.getButton(), -1, WIDGET_HELP_TEACHER_UNIT, eUnit);
 			if (iPrice >= 0)
 			{
-				gDLL->getInterfaceIFace()->popupSetBodyString(pPopup, CvWString::format(L" %d%c", iPrice, gDLL->getSymbolID(GOLD_CHAR)));
+				gDLL->getInterfaceIFace()->popupSetBodyString(pPopup, CvWString::format(L" %d%c", iPrice, GC.getSymbolID(GOLD_CHAR)));
 				gDLL->getInterfaceIFace()->popupCreateCheckBoxes(pPopup, 1, eUnit, WIDGET_GENERAL, POPUP_LAYOUT_TOP);
 				gDLL->getInterfaceIFace()->popupSetCheckBoxText(pPopup, 0, gDLL->getText("TXT_KEY_EDIT_TEACHER_LIST_POPUP_REPEAT_TEXT"), eUnit, gDLL->getText("TXT_KEY_EDIT_TEACHER_LIST_POPUP_REPEAT_HELP").getWithoutFormatting());
 				gDLL->getInterfaceIFace()->popupSetCheckBoxState(pPopup, 0, pCity->getOrderedStudentsRepeat(eUnit), eUnit);
@@ -3229,17 +3448,10 @@ bool CvDLLButtonPopup::launchCustomHousePopup(CvPopup* pPopup, CvPopupInfo &info
 		return false;
 	}
 
-	// R&R, ray, finishing Custom House Screen
-	if(!GC.getNEW_CAPACITY())
-	{
-		gDLL->getInterfaceIFace()->popupSetBodyString(pPopup, gDLL->getText("TXT_KEY_CUSTOM_HOUSE_POPUP_TEXT_NO_NEW_CAPACITY"));
-	}
-
-	else if (!pCity->getHasUnlockedStorageLossTradeSettings())
+	if (!pCity->getHasUnlockedStorageLossTradeSettings())
 	{
 		gDLL->getInterfaceIFace()->popupSetBodyString(pPopup, gDLL->getText("TXT_KEY_CUSTOM_HOUSE_NOT_BUILT_YET_POPUP_TEXT", pCity->getNameKey()));
 	}
-		
 	else
 	{
 		gDLL->getInterfaceIFace()->popupSetBodyString(pPopup, gDLL->getText("TXT_KEY_CUSTOM_HOUSE_POPUP_TEXT", pCity->getNameKey()));
@@ -3252,7 +3464,9 @@ bool CvDLLButtonPopup::launchCustomHousePopup(CvPopup* pPopup, CvPopupInfo &info
 		// R&R, ray, finishing Custom House Screen
 		if (kYield.isCargo())
 		{
-			if (eYield == YIELD_FOOD || eYield == YIELD_LUMBER || eYield == YIELD_STONE)
+			// ray, making special storage capacity rules for Yields XML configurable
+			// if (eYield == YIELD_FOOD || eYield == YIELD_LUMBER || eYield == YIELD_STONE)
+			if (GC.getYieldInfo(eYield).isIgnoredForStorageCapacity())
 			{
 				// Write never sell
 				gDLL->getInterfaceIFace()->popupStartHLayout(pPopup, 0);
@@ -3272,7 +3486,7 @@ bool CvDLLButtonPopup::launchCustomHousePopup(CvPopup* pPopup, CvPopupInfo &info
 				gDLL->getInterfaceIFace()->popupEndLayout(pPopup);
 				*/
 			}
-			else 
+			else
 			{
 				gDLL->getInterfaceIFace()->popupStartHLayout(pPopup, 0);
 				gDLL->getInterfaceIFace()->popupAddGenericButton(pPopup, L"", kYield.getButton(), -1, WIDGET_HELP_YIELD, iYield);
@@ -3307,37 +3521,30 @@ bool CvDLLButtonPopup::launchDomesticMarketPopup(CvPopup* pPopup, CvPopupInfo &i
 	}
 
 	gDLL->getInterfaceIFace()->popupSetBodyString(pPopup, gDLL->getText("TXT_KEY_DOMESTIC_MARKET_POPUP", pCity->getNameKey()));
-	
+
 	gDLL->getInterfaceIFace()->popupStartHLayout(pPopup, 0);
 	gDLL->getInterfaceIFace()->popupSetBodyString(pPopup, gDLL->getText("TXT_KEY_EU_TRADE_LOG_1"));
 	gDLL->getInterfaceIFace()->popupSetBodyString(pPopup, gDLL->getText("TXT_KEY_STORED"));
 	gDLL->getInterfaceIFace()->popupSetBodyString(pPopup, gDLL->getText("TXT_KEY_DOMESTIC_PRICE"));
 	gDLL->getInterfaceIFace()->popupSetBodyString(pPopup, gDLL->getText("TXT_KEY_DOMESTIC_DEMAND"));
 	gDLL->getInterfaceIFace()->popupEndLayout(pPopup);
-	
+
 	// R&R, ray, adjustment to displayed yield list of Domestic Market Screen
 	YieldCargoArray<int> aYields;
 	pCity->getYieldDemands(aYields);
 
-	const YieldTypeArray& kYieldArray = GC.getUnitYieldDemandTypes();
-	for (int i = 0;; ++i)
+	const InfoArray<YieldTypes>& kYieldArray = GC.getDomesticDemandYieldTypes();
+	for (int i = 0; i < kYieldArray.getLength(); ++i)
 	{
 		YieldTypes eYield = kYieldArray.get(i);
-		if (eYield != NO_YIELD)
-		{
-			CvYieldInfo& kYield = GC.getYieldInfo(eYield);
+		const CvYieldInfo& kYield = GC.getYieldInfo(eYield);
 
-			gDLL->getInterfaceIFace()->popupStartHLayout(pPopup, 0);
-			gDLL->getInterfaceIFace()->popupAddGenericButton(pPopup, L"", kYield.getButton(), -1, WIDGET_HELP_YIELD, eYield);
-			gDLL->getInterfaceIFace()->popupSetBodyString(pPopup, gDLL->getText("TXT_KEY_NUMBER", pCity->getYieldStored(eYield)));
-			gDLL->getInterfaceIFace()->popupSetBodyString(pPopup, gDLL->getText("TXT_KEY_NUMBER", pCity->getYieldBuyPrice(eYield)));
-			gDLL->getInterfaceIFace()->popupSetBodyString(pPopup, gDLL->getText("TXT_KEY_NUMBER", aYields.get(eYield)));
-			gDLL->getInterfaceIFace()->popupEndLayout(pPopup);
-		}
-		else
-		{
-			break;
-		}
+		gDLL->getInterfaceIFace()->popupStartHLayout(pPopup, 0);
+		gDLL->getInterfaceIFace()->popupAddGenericButton(pPopup, L"", kYield.getButton(), -1, WIDGET_HELP_YIELD, eYield);
+		gDLL->getInterfaceIFace()->popupSetBodyString(pPopup, gDLL->getText("TXT_KEY_NUMBER", pCity->getYieldStored(eYield)));
+		gDLL->getInterfaceIFace()->popupSetBodyString(pPopup, gDLL->getText("TXT_KEY_NUMBER", pCity->getYieldBuyPrice(eYield)));
+		gDLL->getInterfaceIFace()->popupSetBodyString(pPopup, gDLL->getText("TXT_KEY_NUMBER", aYields.get(eYield)));
+		gDLL->getInterfaceIFace()->popupEndLayout(pPopup);
 	}
 
 	gDLL->getInterfaceIFace()->popupLaunch(pPopup, true, POPUPSTATE_IMMEDIATE);
@@ -3346,7 +3553,7 @@ bool CvDLLButtonPopup::launchDomesticMarketPopup(CvPopup* pPopup, CvPopupInfo &i
 }
 // R&R, Robert Surcouf, Custom House Popup-Screen END
 
-	
+
 bool CvDLLButtonPopup::launchPromotionPopup(CvPopup* pPopup, CvPopupInfo &info)
 {
 	PlayerTypes ePlayer = GC.getGameINLINE().getActivePlayer();
@@ -3377,7 +3584,7 @@ bool CvDLLButtonPopup::launchPromotionPopup(CvPopup* pPopup, CvPopupInfo &info)
 			{
 				CvUnit* pSelectedUnit = ::getUnit(pSelectedUnitNode->m_data);
 				pSelectedUnitNode = gDLL->getInterfaceIFace()->nextSelectionListNode(pSelectedUnitNode);
-				if (pSelectedUnit->canPromote((PromotionTypes) iPromotion, info.getData2()))
+				if (pSelectedUnit != NULL && pSelectedUnit->canPromote((PromotionTypes) iPromotion, info.getData2()))
 				{
 					gDLL->getInterfaceIFace()->popupAddGenericButton(pPopup, gDLL->getText(GC.getPromotionInfo((PromotionTypes) iPromotion).getTextKeyWide()), GC.getPromotionInfo((PromotionTypes)iPromotion).getButton(), iPromotion, WIDGET_HELP_PROMOTION, iPromotion, -1);
 					++iNumPromotions;
@@ -3461,7 +3668,53 @@ bool CvDLLButtonPopup::launchSelectYieldAmountPopup(CvPopup* pPopup, CvPopupInfo
 
 	return true;
 }
+// Ramstormp, PTSD, Trade in Smaller Chunks - start
+bool CvDLLButtonPopup::launchSelectYieldTradeMaxAmountPopup(CvPopup* pPopup, CvPopupInfo& info)
+{
+	PlayerTypes ePlayer = GC.getGameINLINE().getActivePlayer();
+	if (ePlayer == NO_PLAYER)
+	{
+		return false;
+	}
+	CvPlayer& kPlayer = GET_PLAYER(ePlayer);
+	if (!kPlayer.isHuman())
+	{
+		return false;
+	}
+	CvUnit* pUnit = kPlayer.getUnit(info.getData1());
+	if (pUnit == NULL)
+	{
+		return false;
+	}
+	CvPlot* pPlot = pUnit->plot();
+	if (pPlot == NULL)
+	{
+		return false;
+	}
+	CvCity* pCity = pPlot->getPlotCity();
+	if (pCity == NULL)
+	{
+		return false;
+	}
+	if (!pCity->isNative())
+	{
+		return false;
+	}
+	int iMaxAmount = GC.getGameINLINE().getCargoYieldCapacity();
+	int iDefaultAmount = std::min(kPlayer.getMaxYieldTradeAmount(), iMaxAmount);
+	if (iMaxAmount <= 0)
+	{
+		return false;
+	}
 
+	gDLL->getInterfaceIFace()->popupSetBodyString(pPopup, gDLL->getText("TXT_KEY_SELECT_MAX_YIELD_TRADE_POPUP"));
+	gDLL->getInterfaceIFace()->popupAddDDS(pPopup, "Art/Achievements/casks.dds", 64, 61);
+	gDLL->getInterfaceIFace()->popupCreateSpinBox(pPopup, 0, L"", iDefaultAmount, 1, iMaxAmount, 0);
+	gDLL->getInterfaceIFace()->popupLaunch(pPopup, true, POPUPSTATE_IMMEDIATE);
+
+	return true;
+}
+// Ramstormp - end
 bool CvDLLButtonPopup::launchTalkNativesPopup(CvPopup* pPopup, CvPopupInfo& info)
 {
 	PlayerTypes ePlayer = GC.getGameINLINE().getActivePlayer();
@@ -3526,6 +3779,7 @@ bool CvDLLButtonPopup::launchTalkNativesPopup(CvPopup* pPopup, CvPopupInfo& info
 		gDLL->getInterfaceIFace()->popupAddGenericButton(pPopup, gDLL->getText("TXT_KEY_TALK_NATIVES_POPUP_TRADE"), NULL, COMMAND_YIELD_TRADE);
 	}
 
+
 	if (iNumActions == 0)
 	{
 		return false;
@@ -3575,7 +3829,7 @@ bool CvDLLButtonPopup::launchGotoMenuPopup(CvPopup* pPopup, CvPopupInfo &info)
 	{
 		return false;
 	}
-	
+
 	bool bValid = false;
 	int iLoop;
 
@@ -3590,17 +3844,17 @@ bool CvDLLButtonPopup::launchGotoMenuPopup(CvPopup* pPopup, CvPopupInfo &info)
 			gDLL->getInterfaceIFace()->popupAddGenericButton(pPopup, L"  " + gDLL->getText("TXT_KEY_COMMAND_SAIL_TO_EUROPE"), szArtFilename, -2, WIDGET_GENERAL);
 			bValid = true;
 		}
-		// R&R, vetiarvind, Goto other screens - START	
+		// R&R, vetiarvind, Goto other screens - START
 		if (pUnit->canCrossOcean(pUnit->plot(), UNIT_TRAVEL_STATE_TO_AFRICA) || pUnit->canAutoCrossOcean(pUnit->plot()))
-		{		
+		{
 			CvString szArtFilename = (kPlayer.getParent() != NO_PLAYER) ? GC.getCivilizationInfo(GET_PLAYER(kPlayer.getParent()).getCivilizationType()).getButton() : ARTFILEMGR.getInterfaceArtInfo("INTERFACE_BUTTONS_CITYSELECTION")->getPath();
 			gDLL->getInterfaceIFace()->popupAddGenericButton(pPopup, L"  " + gDLL->getText("TXT_KEY_COMMAND_SAIL_TO_AFRICA"), szArtFilename, -3, WIDGET_GENERAL, pUnit->getID(), -1);
 			bValid = true;
 		}
 		// WTP, ray, added a bracket around or before caSailToPortRoyal check to fix changed order a bit - fix for issue 252
 		if (pUnit->canSailToPortRoyal(NULL) && (pUnit->canCrossOcean(pUnit->plot(), UNIT_TRAVEL_STATE_TO_PORT_ROYAL) || (pUnit->canAutoCrossOcean(pUnit->plot())))) //R&R, vetiarvind fix for hidden-nationality units to sail to PR
-		{		
-			const char* portRoyalImage = ARTFILEMGR.getInterfaceArtInfo("INTERFACE_PORT_ROYAL")->getPath();		
+		{
+			const char* portRoyalImage = ARTFILEMGR.getInterfaceArtInfo("INTERFACE_PORT_ROYAL")->getPath();
 			gDLL->getInterfaceIFace()->popupAddGenericButton(pPopup, L"  " + gDLL->getText("TXT_KEY_COMMAND_SAIL_TO_PORT_ROYAL"), portRoyalImage, -4, WIDGET_GENERAL, pUnit->getID(), -1);
 			bValid = true;
 		}
@@ -3620,7 +3874,7 @@ bool CvDLLButtonPopup::launchGotoMenuPopup(CvPopup* pPopup, CvPopupInfo &info)
 			}
 		}
 	}
-	
+
 	if (!bValid)
 	{
 		return false;
@@ -3721,18 +3975,18 @@ bool CvDLLButtonPopup::launchSaveTradeGroupPopup(CvPopup* pPopup, CvPopupInfo &i
 	{
 		return false;
 	}
-	
+
 
 	gDLL->getInterfaceIFace()->popupSetHeaderString(pPopup, gDLL->getText("TXT_KEY_PITBOSS_SAVE"));
 	gDLL->getInterfaceIFace()->popupCreateEditBox(pPopup);
 	gDLL->getInterfaceIFace()->popupAddGenericButton(pPopup, gDLL->getText("TXT_KEY_NEVER_MIND"), ARTFILEMGR.getInterfaceArtInfo("INTERFACE_BUTTONS_CANCEL")->getPath(), -2, WIDGET_GENERAL);
-		
+
 	gDLL->getInterfaceIFace()->popupLaunch(pPopup, true, POPUPSTATE_IMMEDIATE);
 
 	return true;
 }
 
-std::vector<std::string> CvDLLButtonPopup::split(CvString &s, char delim) 
+std::vector<std::string> CvDLLButtonPopup::split(CvString &s, char delim)
 {
 	std::stringstream ss(s);
 	std::string item;
@@ -3771,7 +4025,7 @@ bool CvDLLButtonPopup::launchChooseCityPlotYieldPopup(CvPopup* pPopup, CvPopupIn
 	{
 		return false;
 	}
-	
+
 	PlayerTypes ePlayer = GC.getGameINLINE().getActivePlayer();
 
 	if (ePlayer == NO_PLAYER)

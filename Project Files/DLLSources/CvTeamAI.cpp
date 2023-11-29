@@ -16,6 +16,8 @@
 #include "CvDLLPythonIFaceBase.h"
 
 #include "CvSavegame.h"
+#include "BetterBTSAI.h"
+#include "CvGameTextMgr.h" // GAMETEXT singleton access
 
 // statics
 
@@ -147,7 +149,7 @@ void CvTeamAI::AI_updateAreaStragies(bool bTargets)
 		return;
 	}
 
-	for(pLoopArea = GC.getMapINLINE().firstArea(&iLoop); pLoopArea != NULL; pLoopArea = GC.getMapINLINE().nextArea(&iLoop))
+	for(pLoopArea = GC.getMap().firstArea(&iLoop); pLoopArea != NULL; pLoopArea = GC.getMap().nextArea(&iLoop))
 	{
 		pLoopArea->setAreaAIType(getID(), AI_calculateAreaAIType(pLoopArea));
 	}
@@ -248,7 +250,7 @@ bool CvTeamAI::AI_hasCitiesInPrimaryArea(TeamTypes eTeam) const
 
 	FAssertMsg(eTeam != getID(), "shouldn't call this function on ourselves");
 
-	for(pLoopArea = GC.getMapINLINE().firstArea(&iLoop); pLoopArea != NULL; pLoopArea = GC.getMapINLINE().nextArea(&iLoop))
+	for(pLoopArea = GC.getMap().firstArea(&iLoop); pLoopArea != NULL; pLoopArea = GC.getMap().nextArea(&iLoop))
 	{
 		if (AI_isPrimaryArea(pLoopArea))
 		{
@@ -473,9 +475,9 @@ int CvTeamAI::AI_calculateAdjacentLandPlots(TeamTypes eTeam) const
 
 	iCount = 0;
 
-	for (iI = 0; iI < GC.getMapINLINE().numPlotsINLINE(); iI++)
+	for (iI = 0; iI < GC.getMap().numPlotsINLINE(); iI++)
 	{
-		pLoopPlot = GC.getMapINLINE().plotByIndexINLINE(iI);
+		pLoopPlot = GC.getMap().plotByIndexINLINE(iI);
 
 		if (!(pLoopPlot->isWater()))
 		{
@@ -496,9 +498,9 @@ int CvTeamAI::AI_calculatePlotWarValue(TeamTypes eTeam) const
 
 	int iValue = 0;
 
-	for (int iI = 0; iI < GC.getMapINLINE().numPlotsINLINE(); iI++)
+	for (int iI = 0; iI < GC.getMap().numPlotsINLINE(); iI++)
 	{
-		CvPlot* pLoopPlot = GC.getMapINLINE().plotByIndexINLINE(iI);
+		CvPlot* pLoopPlot = GC.getMap().plotByIndexINLINE(iI);
 
 		if (pLoopPlot->getTeam() == eTeam)
 		{
@@ -574,7 +576,7 @@ int CvTeamAI::AI_calculateCapitalProximity(TeamTypes eTeam) const
 	if (iCount > 0)
 	{
 		FAssert(iMaxDistance > 0);
-		return ((GC.getMapINLINE().maxPlotDistance() * (iMaxDistance - ((iTotalDistance / iCount) - iMinDistance))) / iMaxDistance);
+		return ((GC.getMap().maxPlotDistance() * (iMaxDistance - ((iTotalDistance / iCount) - iMinDistance))) / iMaxDistance);
 	}
 
 	return 0;
@@ -800,7 +802,7 @@ int CvTeamAI::AI_startWarVal(TeamTypes eTeam) const
 	iValue /= 100;
 	
 	//Domination...
-	int iOurLandPercent = getTotalLand() * 100 / GC.getMapINLINE().getLandPlots();
+	int iOurLandPercent = getTotalLand() * 100 / GC.getMap().getLandPlots();
 	int iPercentOfDomination = 0;
 	for (int iI = 0; iI < GC.getNumVictoryInfos(); iI++)
 	{
@@ -924,9 +926,9 @@ int CvTeamAI::AI_mapTradeVal(TeamTypes eTeam) const
 
 	FAssertMsg(eTeam != getID(), "shouldn't call this function on ourselves");
 	
-	for (int iI = 0; iI < GC.getMapINLINE().numPlotsINLINE(); iI++)
+	for (int iI = 0; iI < GC.getMap().numPlotsINLINE(); iI++)
 	{
-		const CvPlot* const pLoopPlot = GC.getMapINLINE().plotByIndexINLINE(iI);
+		const CvPlot* const pLoopPlot = GC.getMap().plotByIndexINLINE(iI);
 
 		// If we haven't revealed the plot and the other team has
 		if (!(pLoopPlot->isRevealed(getID(), false)) && pLoopPlot->isRevealed(eTeam, false))
@@ -1934,12 +1936,38 @@ bool CvTeamAI::AI_isSneakAttackPreparing(TeamTypes eIndex) const
 	return ((AI_getWarPlan(eIndex) == WARPLAN_PREPARING_LIMITED) || (AI_getWarPlan(eIndex) == WARPLAN_PREPARING_TOTAL));
 }
 
-
+/*
 bool CvTeamAI::AI_isSneakAttackReady(TeamTypes eIndex) const
 {
 	return (AI_isChosenWar(eIndex) && !(AI_isSneakAttackPreparing(eIndex)));
 }
+*/
 
+bool CvTeamAI::AI_isSneakAttackReady(TeamTypes eIndex) const
+{
+	//return (AI_isChosenWar(eIndex) && !(AI_isSneakAttackPreparing(eIndex))); // BtS
+	// K-Mod (advc: originally in an overloaded function)
+	if (eIndex != NO_TEAM)
+		return !isAtWar(eIndex) && AI_isChosenWar(eIndex) && !AI_isSneakAttackPreparing(eIndex); // K-Mod
+	/*
+	for (TeamIter<MAJOR_CIV> it; it.hasNext(); ++it)
+	{
+		if (AI_isSneakAttackReady(it->getID()))
+			return true;
+	}
+	*/
+
+	for (int iI = 0; iI < MAX_TEAMS; iI++)
+	{
+		if (AI_isSneakAttackReady((TeamTypes)iI))
+		{
+			return true;
+		}
+	}
+
+	return false;
+	// K-Mod end
+}
 
 void CvTeamAI::AI_setWarPlan(TeamTypes eIndex, WarPlanTypes eNewValue, bool bWar)
 {
@@ -1947,13 +1975,19 @@ void CvTeamAI::AI_setWarPlan(TeamTypes eIndex, WarPlanTypes eNewValue, bool bWar
 
 	FAssertMsg(eIndex >= 0, "eIndex is expected to be non-negative (invalid Index)");
 	FAssertMsg(eIndex < MAX_TEAMS, "eIndex is expected to be within maximum bounds (invalid Index)");
-
+		
 	if (AI_getWarPlan(eIndex) != eNewValue)
 	{
 		if (bWar || !isAtWar(eIndex))
 		{
 			m_em_eWarPlan.set(eIndex, eNewValue);
 
+			if (gTeamLogLevel >= 1)
+			{
+				CvWStringBuffer buf;
+				GAMETEXT.getWarplanString(buf, eNewValue);
+				logBBAI("Team %d (%S) CvTeamAI::AI_setWarPlan (%S) against team %d (%S)", getID(), GET_PLAYER(getLeaderID()).getCivilizationDescription(0), buf.getCString(), eIndex, GET_PLAYER(GET_TEAM(eIndex).getLeaderID()).getCivilizationDescription(0));
+			}
 			AI_setWarPlanStateCounter(eIndex, 0);
 
 			AI_updateAreaStragies();
@@ -2065,6 +2099,24 @@ void CvTeamAI::write(FDataStreamBase* pStream)
 	write(writer);
 	writerbase.WriteFile();
 }
+
+// <advc.012>
+int CvTeamAI::AI_plotDefense(CvPlot const& kPlot, bool bIgnoreBuilding,
+	bool bGarrisonStrength) const // advc.500b
+{
+	TeamTypes eAttacker = NO_TEAM;
+	/*  We could also be attacked in p by a second war enemy that doesn't own the
+	plot; impossible to predict. An attack by the plot owner is far more likely
+	though. */
+	if (kPlot.getOwner() != NO_PLAYER && GET_TEAM(getID()).isAtWar(kPlot.getTeam()))
+		eAttacker = kPlot.getTeam();
+	/* WTP: Not supported yet
+	return kPlot.defenseModifier(getID(), bIgnoreBuilding, eAttacker,
+		bGarrisonStrength); // advc.500b
+	*/
+	return kPlot.defenseModifier(getID(), bIgnoreBuilding);
+
+} // </advc.012>
 
 // Protected Functions...
 int CvTeamAI::AI_maxWarRand() const
@@ -2495,7 +2547,7 @@ void CvTeamAI::AI_doWar()
 						bAreaValid = true;
 						bShareValid = false;
 
-						for(pLoopArea = GC.getMapINLINE().firstArea(&iLoop); pLoopArea != NULL; pLoopArea = GC.getMapINLINE().nextArea(&iLoop))
+						for(pLoopArea = GC.getMap().firstArea(&iLoop); pLoopArea != NULL; pLoopArea = GC.getMap().nextArea(&iLoop))
 						{
 							if (AI_isPrimaryArea(pLoopArea))
 							{
@@ -2966,9 +3018,9 @@ bool CvTeamAI::AI_isExploringNeeded(CvUnit* pUnit) const
 		return false;
 	}
 	
-	for (int iI = 0; iI < GC.getMapINLINE().numPlotsINLINE(); iI++)
+	for (int iI = 0; iI < GC.getMap().numPlotsINLINE(); iI++)
 	{
-		CvPlot* pLoopPlot = GC.getMapINLINE().plotByIndexINLINE(iI);
+		CvPlot* pLoopPlot = GC.getMap().plotByIndexINLINE(iI);
 		if (!pLoopPlot->isWater())
 		{
 			if (pLoopPlot->isAdjacentToArea(pArea))
@@ -3022,10 +3074,10 @@ void CvTeamAI::AI_doTactics()
 		return;
 	}
 	
-	m_aiEnemyCityDistance.resize(GC.getMapINLINE().numPlotsINLINE());
-	m_aiEnemyUnitDistance.resize(GC.getMapINLINE().numPlotsINLINE());
+	m_aiEnemyCityDistance.resize(GC.getMap().numPlotsINLINE());
+	m_aiEnemyUnitDistance.resize(GC.getMap().numPlotsINLINE());
 	
-	CvMap& kMap = GC.getMapINLINE();
+	CvMap& kMap = GC.getMap();
 	std::deque<int> plotQueue;
 	for(int iI = 0; iI < kMap.numPlotsINLINE(); iI++)
 	{
@@ -3133,7 +3185,7 @@ short CvTeamAI::AI_enemyCityDistance(CvPlot* pPlot) const
 	{
 		return -1;
 	}
-	return m_aiEnemyCityDistance[GC.getMapINLINE().plotNumINLINE(pPlot->getX_INLINE(), pPlot->getY_INLINE())];
+	return m_aiEnemyCityDistance[GC.getMap().plotNumINLINE(pPlot->getX_INLINE(), pPlot->getY_INLINE())];
 }
 
 short CvTeamAI::AI_enemyUnitDistance(CvPlot* pPlot) const
@@ -3142,7 +3194,7 @@ short CvTeamAI::AI_enemyUnitDistance(CvPlot* pPlot) const
 	{
 		return -1;
 	}
-	return m_aiEnemyUnitDistance[GC.getMapINLINE().plotNumINLINE(pPlot->getX_INLINE(), pPlot->getY_INLINE())];
+	return m_aiEnemyUnitDistance[GC.getMap().plotNumINLINE(pPlot->getX_INLINE(), pPlot->getY_INLINE())];
 }
 
 //Greed is a function of relative wealth and relative power.

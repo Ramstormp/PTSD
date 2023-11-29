@@ -13,8 +13,10 @@
 #include "FProfiler.h"
 #include "FVariableSystem.h"
 #include "CvGameCoreUtils.h"
+#include"xmlFiles.h"
 
 #include "CvSavegame.h"
+#include "SavegameConstants.h"
 
 // ignore type check for template functions
 // no need to be strict in this file
@@ -556,6 +558,10 @@ bool CvXMLLoadUtility::ReadGlobalDefines(const TCHAR* szXMLFileName, CvCacheObje
 		logMsg("Read GobalDefines from cache");
 	}
 
+	// override vanilla xml and use the version set in SavegameConstants.h
+	// see SavegameConstants.h for more info
+	GC.getDefinesVarSystem()->SetValue("SAVE_VERSION", SAVEGAME_VERSION_EXE);
+
 	return true;
 }
 
@@ -751,6 +757,12 @@ bool CvXMLLoadUtility::SetPostGlobalsGlobalDefines()
 		GC.getDefinesVarSystem()->SetValue("UNITCLASS_NATIVE_MERC", idx);
 		//End TAC Native Mercs
 
+		// WTP, ray, Big Colonies and Native Allies War - START
+		SetGlobalDefine("UNITCLASS_NATIVE_WARRIORS", szVal);
+		idx = FindInInfoClass(szVal);
+		GC.getDefinesVarSystem()->SetValue("UNITCLASS_NATIVE_WARRIORS", idx);
+		// WTP, ray, Big Colonies and Native Allies War - END
+
 		//WTP, Protected Hostile Goodies - START
 		SetGlobalDefine("UNITCLASS_PROTECTOR_HOSTILE_VILLAGE", szVal);
 		idx = FindInInfoClass(szVal);
@@ -779,11 +791,7 @@ bool CvXMLLoadUtility::SetPostGlobalsGlobalDefines()
 		SetGlobalDefine("UNITCLASS_FREED_SLAVE", szVal);
 		idx = FindInInfoClass(szVal);
 		GC.getDefinesVarSystem()->SetValue("UNITCLASS_FREED_SLAVE", idx);
-		// Ramstormp, PTSD, Mestizo Unit - START
-		SetGlobalDefine("UNITCLASS_MESTIZO", szVal);
-		idx = FindInInfoClass(szVal);
-		GC.getDefinesVarSystem()->SetValue("UNITCLASS_MESTIZO", idx);
-		// Ramstormp - END
+
 		SetGlobalDefine("UNITCLASS_CONVERTED_NATIVE", szVal);
 		idx = FindInInfoClass(szVal);
 		GC.getDefinesVarSystem()->SetValue("UNITCLASS_CONVERTED_NATIVE", idx);
@@ -801,11 +809,28 @@ bool CvXMLLoadUtility::SetPostGlobalsGlobalDefines()
 		GC.getDefinesVarSystem()->SetValue("UNITCLASS_REVOLTING_CRIMINAL", idx);
 		// WTP, ray, LbD Slaves Revolt and Free - END
 
+
+		// WTP, ray, Prisoners of War - START
+		SetGlobalDefine("UNITCLASS_PRISONER_OF_WAR", szVal);
+		idx = FindInInfoClass(szVal);
+		GC.getDefinesVarSystem()->SetValue("UNITCLASS_PRISONER_OF_WAR", idx);
+
+		SetGlobalDefine("UNITCLASS_REVOLTING_PRISONER_OF_WAR", szVal);
+		idx = FindInInfoClass(szVal);
+		GC.getDefinesVarSystem()->SetValue("UNITCLASS_REVOLTING_PRISONER_OF_WAR", idx);
+		// WTP, ray, Prisoners of War - END
+
 		//Ramstormp, Disillusioned Missionary - START
 		SetGlobalDefine("UNITCLASS_FAILED_MISSIONARY", szVal);
 		idx = FindInInfoClass(szVal);
 		GC.getDefinesVarSystem()->SetValue("UNITCLASS_FAILED_MISSIONARY", idx);
 		//Ramstormp, Disillusioned missionary - END
+
+		// WTP, ray, Failed Trader - START
+		SetGlobalDefine("UNITCLASS_FAILED_TRADER", szVal);
+		idx = FindInInfoClass(szVal);
+		GC.getDefinesVarSystem()->SetValue("UNITCLASS_FAILED_TRADER", idx);
+		// WTP, ray, Failed Trader - END
 
 		// R&R, ray, Revolutionary Noble - START
 		SetGlobalDefine("UNITCLASS_NOBLE", szVal);
@@ -890,37 +915,64 @@ bool CvXMLLoadUtility::SetPostGlobalsGlobalDefines()
 		idx = FindInInfoClass(szVal);
 		GC.getDefinesVarSystem()->SetValue("UNITCLASS_DIPLOMAT_2", idx);
 		// R&R, ray, European Peace - END
+
+		// WTP, ray, Royal Intervention, START
+		SetGlobalDefine("UNITCLASS_ROYAL_INTERVENTIONS_SHIP", szVal);
+		idx = FindInInfoClass(szVal);
+		GC.getDefinesVarSystem()->SetValue("UNITCLASS_ROYAL_INTERVENTIONS_SHIP", idx);
+
+		SetGlobalDefine("UNITCLASS_ROYAL_INTERVENTIONS_LAND_UNIT_1", szVal);
+		idx = FindInInfoClass(szVal);
+		GC.getDefinesVarSystem()->SetValue("UNITCLASS_ROYAL_INTERVENTIONS_LAND_UNIT_1", idx);
+
+		SetGlobalDefine("UNITCLASS_ROYAL_INTERVENTIONS_LAND_UNIT_2", szVal);
+		idx = FindInInfoClass(szVal);
+		GC.getDefinesVarSystem()->SetValue("UNITCLASS_ROYAL_INTERVENTIONS_LAND_UNIT_2", idx);
+		// WTP, ray, Royal Intervention, END
 		
 		//TAC Whaling, ray
 		SetGlobalDefine("UNITCLASS_WHALING_BOAT", szVal);
 		idx = FindInInfoClass(szVal);
 		GC.getDefinesVarSystem()->SetValue("UNITCLASS_WHALING_BOAT", idx);
-		GC.m_UNITCLASS_WHALING_BOAT = idx;// R&R, ray, write this in CvGlobals because faster
 
 		SetGlobalDefine("PROFESSION_WHALING_BOAT_WORKING", szVal);
 		idx = FindInInfoClass(szVal);
 		GC.getDefinesVarSystem()->SetValue("PROFESSION_WHALING_BOAT_WORKING", idx);
-		GC.m_PROFESSION_WHALING_BOAT_WORKING = idx; // R&R, ray, write this in CvGlobals because faster
 
 		SetGlobalDefine("BONUS_WHALE", szVal);
 		idx = FindInInfoClass(szVal);
 		GC.getDefinesVarSystem()->SetValue("BONUS_WHALE", idx);
+
+		SetGlobalDefine("BONUS_WHALE2", szVal);
+		idx = FindInInfoClass(szVal);
+		GC.getDefinesVarSystem()->SetValue("BONUS_WHALE2", idx);
 		//End TAC Whaling, ray
 
 		// R&R, ray, High Sea Fishing - START
 		SetGlobalDefine("UNITCLASS_FISHING_BOAT", szVal);
 		idx = FindInInfoClass(szVal);
 		GC.getDefinesVarSystem()->SetValue("UNITCLASS_FISHING_BOAT", idx);
-		GC.m_UNITCLASS_FISHING_BOAT = idx;// R&R, ray, write this in CvGlobals because faster
 
 		SetGlobalDefine("PROFESSION_FISHING_BOAT_WORKING", szVal);
 		idx = FindInInfoClass(szVal);
 		GC.getDefinesVarSystem()->SetValue("PROFESSION_FISHING_BOAT_WORKING", idx);
-		GC.m_PROFESSION_FISHING_BOAT_WORKING = idx; // R&R, ray, write this in CvGlobals because faster
 
 		SetGlobalDefine("BONUS_HIGH_SEA_FISH", szVal);
 		idx = FindInInfoClass(szVal);
 		GC.getDefinesVarSystem()->SetValue("BONUS_HIGH_SEA_FISH", idx);
+
+		// Ray, new High Sea Fish for Diversity
+		SetGlobalDefine("BONUS_HIGH_SEA_FISH2", szVal);
+		idx = FindInInfoClass(szVal);
+		GC.getDefinesVarSystem()->SetValue("BONUS_HIGH_SEA_FISH2", idx);
+
+		SetGlobalDefine("BONUS_HIGH_SEA_FISH3", szVal);
+		idx = FindInInfoClass(szVal);
+		GC.getDefinesVarSystem()->SetValue("BONUS_HIGH_SEA_FISH3", idx);
+
+		SetGlobalDefine("BONUS_HIGH_SEA_FISH4", szVal);
+		idx = FindInInfoClass(szVal);
+		GC.getDefinesVarSystem()->SetValue("BONUS_HIGH_SEA_FISH4", idx);
 		// R&R, ray, High Sea Fishing - END
 
 		// R&R, ray, Entertainment Buildings - START
@@ -964,6 +1016,16 @@ bool CvXMLLoadUtility::SetPostGlobalsGlobalDefines()
 		idx = FindInInfoClass(szVal);
 		GC.getDefinesVarSystem()->SetValue("UNITCLASS_GREAT_ADMIRAL", idx);
 		// R&R, ray, Great Admirals - END
+
+		// WTP, ray, Lieutenants and Captains - START
+		SetGlobalDefine("UNITCLASS_BRAVE_LIEUTENANT", szVal);
+		idx = FindInInfoClass(szVal);
+		GC.getDefinesVarSystem()->SetValue("UNITCLASS_BRAVE_LIEUTENANT", idx);
+
+		SetGlobalDefine("UNITCLASS_CAPABLE_CAPTAIN", szVal);
+		idx = FindInInfoClass(szVal);
+		GC.getDefinesVarSystem()->SetValue("UNITCLASS_CAPABLE_CAPTAIN", idx);
+		// WTP, ray, Lieutenants and Captains - END
 
 		SetGlobalDefine("WATER_UNIT_FACING_DIRECTION", szVal);
 		bool bFound = false;
@@ -2001,7 +2063,13 @@ void CvXMLLoadUtility::SetGlobalClassInfo(std::vector<T*>& aInfos, const char* s
 		// loop through each tag
 		do
 		{
-			SkipToNextVal();	// skip to the next non-comment node
+			const bool bValidEntry = SkipToNextVal();	// skip to the next non-comment node
+
+			if (!bValidEntry)
+			{
+				// avoid a crash if last sibling is a comment
+				break;
+			}
 
 			T* pClassInfo = new T;
 
@@ -2027,6 +2095,14 @@ void CvXMLLoadUtility::SetGlobalClassInfo(std::vector<T*>& aInfos, const char* s
 			FAssert(bSuccess);
 			if (!bSuccess)
 			{
+				delete pClassInfo;
+				break;
+			}
+
+			if (aInfos.size() > 0 && aInfos[0]->getType() != NULL && pClassInfo->getType() == NULL)
+			{
+				// for some reason the code reads two main menus despite the xml file only having one
+				// bail out if such an empty extra entry is added
 				delete pClassInfo;
 				break;
 			}
@@ -2208,6 +2284,52 @@ void CvXMLLoadUtility::LoadGlobalClassInfo(std::vector<T*>& aInfos, const char* 
 	}
 }
 
+template <class IndexType, class T, int DEFAULT>
+void CvXMLLoadUtility::LoadGlobalClassInfo(bool bFirst, EnumMap<IndexType, T, DEFAULT>& aInfos)
+{
+	const char * szFileRoot = xmlLocation<IndexType>::file();
+	const char* szFileDirectory = xmlLocation<IndexType>::folder();
+	const char* szXmlPath = xmlLocation<IndexType>::path();
+
+	bool bLoaded = LoadCivXml(m_pFXml, CvString::format("xml\\%s/%s.xml", szFileDirectory, szFileRoot));
+
+	if (!bLoaded)
+	{
+		char szMessage[1024];
+		sprintf(szMessage, "LoadXML call failed for %s.", CvString::format("%s/%s.xml", szFileDirectory, szFileRoot).GetCString());
+		gDLL->MessageBox(szMessage, "XML Load Error");
+		return;
+	}
+
+	if (gDLL->getXMLIFace()->LocateNode(m_pFXml, szXmlPath))
+	{
+		aInfos.allocate();
+
+		for (IndexType eLoopVar = aInfos.FIRST; eLoopVar <= aInfos.LAST; ++eLoopVar)
+		{
+			const bool bValidEntry = SkipToNextVal();	// skip to the next non-comment node
+
+			if (!bValidEntry)
+			{
+				// avoid a crash if last sibling is a comment
+				break;
+			}
+
+			if (bFirst)
+			{
+				aInfos.getFast(eLoopVar).CvInfoBase::read(this);
+			}
+			else
+			{
+				aInfos.getFast(eLoopVar).read(this);
+			}
+			if (!gDLL->getXMLIFace()->NextSibling(m_pFXml))
+			{
+				break;
+			}
+		}
+	}
+}
 
 void CvXMLLoadUtility::LoadDiplomacyInfo(std::vector<CvDiplomacyInfo*>& DiploInfos, const char* szFileRoot, const char* szFileDirectory, const char* szXmlPath, CvCacheObject* (CvDLLUtilityIFaceBase::*pArgFunction) (const TCHAR*))
 {
@@ -2649,6 +2771,10 @@ DllExport bool CvXMLLoadUtility::LoadPlayerOptions()
 	// the speed boost from the cache doesn't matter on modern hardware anyway
 	gDLL->ChangeINIKeyValue("CONFIG", "DisableFileCaching", "1");
 	gDLL->ChangeINIKeyValue("CONFIG", "DisableCaching", "1");
+
+	// make colonization start this mod next time it starts if no mod argument is given
+	// the mod argument still works, hence MSVC can start debugging another mod than was last run, hence the system still support development on multiple local copies
+	gDLL->ChangeINIKeyValue("CONFIG", "Mod", gDLL->getModName(false));
 
 	/// XML type preloading - start - Nightinggale
 	readXMLfiles(true);

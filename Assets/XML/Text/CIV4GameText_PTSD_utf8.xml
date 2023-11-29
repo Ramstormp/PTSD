@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by lcollins (Firaxis Games) -->
+<!-- Sid Meier's Civilization 4 -->
+<!-- Copyright Firaxis Games 2005 -->
+<!-- -->
+<!-- Game Text Infos -->
+<Civ4GameText xmlns="http://www.firaxis.com">
+    <TEXT>
+        <Tag>TXT_KEY_CITY_BAR_HEARTS_GROWTH</Tag>
+        <English>Growth : %d1/%d2[POSITIVE_DOMESTIC_MARKET_EVENT_CHARENAGE] (%d3 [NUM3:turn:turns])</English>
+    </TEXT>
+    <TEXT>
+      <Tag>TXT_KEY_CITY_BAR_NO_GROWTH</Tag>
+      <English>Growth : %d1/%d2[POSITIVE_DOMESTIC_MARKET_EVENT_CHARENAGE])</English>
+    </TEXT>
+  <TEXT>
+    <Tag>TXT_KEY_MISC_HEARTS_HEADER</Tag>
+    <English>[COLOR_HIGHLIGHT_TEXT]Growth[COLOR_REVERT]</English>
+  </TEXT>
+  <TEXT>
+    <Tag>TXT_KEY_MISC_HEARTS_PER_TURN</Tag>
+    <English>%d1[POSITIVE_DOMESTIC_MARKET_EVENT_CHARENAGE] from food consumption</English>
+  </TEXT>
+  <TEXT>
+    <Tag>TXT_KEY_BUILDING_FOOD_STORAGE</Tag>
+    <English>Food Storage: %d1[ICON_FOOD]</English>
+  </TEXT>
+  <TEXT>
+    <Tag>TXT_KEY_CITY_FOOD_STORAGE</Tag>
+    <English>Food Storage</English>
+  </TEXT>
+  <TEXT>
+    <Tag>TXT_KEY_MISC_DOMESTIC_DEMANDS_LACKING</Tag>
+    <English> -%d1 from unfulfilled demands</English>
+  </TEXT>
+  <TEXT>
+    <Tag>TXT_KEY_MISC_HEARTS_GROWTH</Tag>
+    <English>%d1/%d2[POSITIVE_DOMESTIC_MARKET_EVENT_CHARENAGE] (%d3 [NUM3:turn:turns])</English>
+  </TEXT>
+  <TEXT>
+    <Tag>TXT_KEY_PLAYEROPTION_AUTO_LEAVE_YIELDS</Tag>
+    <English>Auto Leave Yields</English>
+  </TEXT>
+  <TEXT>
+    <Tag>TXT_KEY_PLAYEROPTION_AUTO_LEAVE_YIELDS_HELP</Tag>
+    <English>Automatically leave yields demanded by domestic market at the first load</English>
+  </TEXT>
+  <TEXT>
+    <Tag>TXT_KEY_GAMEOPTION_4_PLOT_BORDERS</Tag>
+    <English>Less Initial City Plots</English>
+  </TEXT>
+  <TEXT>
+    <Tag>TXT_KEY_GAMEOPTION_4_PLOT_BORDERS_HELP</Tag>
+    <English>New cities begin with 5 rather than 9 plots (cross shaped borders); and borders grow less expansively</English>
+  </TEXT>
+  <TEXT>
+    <Tag>TXT_KEY_GOODY_EMPTY</Tag>
+    <English>Empty</English>
+  </TEXT>
+  <TEXT>
+    <Tag>>TXT_KEY_GOODY_EMPTY</Tag>
+    <English>After a thourough search, nothing of value was found</English>
+  </TEXT>
+  <TEXT>
+    <Tag>TXT_KEY_CHIEF_GOODY_EMPTY</Tag>
+    <English>All we have to offer as a parting gift is the air that you already have taken for yourself</English>
+  </TEXT>
+  <TEXT>
+    <Tag>TXT_KEY_ARRIVAL_IN_AFRICA</Tag>
+    <English>(Due in Africa in %d2 [NUM2:turn:turns])</English>
+  </TEXT>
+  <TEXT>
+    <Tag>TXT_KEY_STARVED_TO_DEATH</Tag>
+    <English>Famine in %s2_city! A poor %s3_unit has perished from lack of food.</English>
+    <French>Starvation in %s2_city! A poor %s3_unit has perished from lack of food.</French>
+    <German>Starvation in %s2_city! A poor %s3_unit has perished from lack of food.</German>
+    <Italian>Starvation in %s2_city! A poor %s3_unit has perished from lack of food.</Italian>
+    <Spanish>Starvation in %s2_city! A poor %s3_unit has perished from lack of food.</Spanish>
+  </TEXT>
+  <TEXT>
+    <Tag>TXT_KEY_CLAN_HEDGEMONY_EVENT</Tag>
+    <English>[COLOR_POSITIVE_TEXT]%s1_city_name : [COLOR_REVERT]Cultural homogeny has produced a sense of safety with growing curiosity about the surroundings! %d2 [COLOR_HIGHLIGHT_TEXT]%s3_father_points[COLOR_REVERT].</English>
+  </TEXT>
+  <TEXT>
+    <Tag>TXT_KEY_CITY_CLAN_CLASH</Tag>
+    <English>[COLOR_NEGATIVE_TEXT]%s1_city_name : [COLOR_REVERT]Local clans are clashing causing unrest!</English>
+  </TEXT>
+  <TEXT>
+    <Tag>TXT_KEY_CITY_CLAN_ESTRANGEMENT</Tag>
+    <English>[COLOR_NEGATIVE_TEXT]%s1_city_name : [COLOR_REVERT] Some of the recent immigrants do not feel safe or welcome.</English>
+  </TEXT>
+  <TEXT>
+        <Tag>TXT_KEY_EVENT_TRIGGER_HESSIAN_RECALL</Tag>
+        <English>Milord, the aid of the Hesssian unit is suddenly needed back on the European front.</English>
+  </TEXT>
+  <TEXT>
+    <Tag>TXT_KEY_EVENT_HESSIAN_RECALL_1</Tag>
+    <English>Let hime leave - we shall get along well enough with our own soldiers.</English>
+  </TEXT>
+  <TEXT>
+    <Tag>TXT_KEY_EVENT_HESSIAN_RECALL_2</Tag>
+    <English>Pay for him to stay and support our current campaign for 10 more turns.</English>
+  </TEXT>
+  <TEXT>
+    <Tag>TXT_KEY_CITIZEN_HELP_PROFESSION_NAME_AND_REGION_DISPLAY</Tag>
+    <English>[COLOR_UNIT_TEXT]%s1_Profession_Name[COLOR_REVERT] (%s2)</English>
+    <German>[COLOR_UNIT_TEXT]%s1_Profession_Name[COLOR_REVERT]</German>
+  </TEXT>
+   <TEXT>
+        <Tag>TXT_KEY_GAMEOPTION_TRIANGLE_TRADE</Tag>
+        <English>Enable Triangle Trade</English>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_GAMEOPTION_TRIANGLE_TRADE_HELP</Tag>
+        <English>Ships always sail from Europe through Africa, and 30-50% of cargo slots during transatlantic travel can be used for goods and slaves only.</English>
+ </TEXT>
+<TEXT>
+        <Tag>TXT_KEY_GAMEOPTION_NO_UNIQUE_WONDERS</Tag>
+        <English>No Unique National Wonders</English>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_GAMEOPTION_NO_UNIQUE_WONDERS_HELP</Tag>
+        <English>Ships always sail from Europe through Africa, and 30-50% of cargo slots during transatlantic travel can be used for goods and slaves only.</English>
+    </TEXT>
+ <TEXT>
+        <Tag>TXT_KEY_GAMEOPTION_NO_FATHER_RACE</Tag>
+        <English>No Founding Father Race</English>
+    </TEXT>
+    <TEXT>
+        <Tag>TXT_KEY_GAMEOPTION_NO_FATHER_RACE_HELP</Tag>
+        <English>All Founding Fathers will become available to accept or reject.</English>
+ </TEXT>
+  <TEXT>
+    <Tag>TXT_KEY_GAMEOPTION_IRREGULAR_BONUS_PLACEMENT</Tag>
+    <English>Irregular Bonus Placement</English>
+  </TEXT>
+  <TEXT>
+    <Tag>TXT_KEY_GAMEOPTION_IRREGULAR_BONUS_PLACEMENT_HELP</Tag>
+    <English>Bonuses will be scattered across the map, and can be placed next to one another.</English>
+  </TEXT>
+  <TEXT>
+    <Tag>TXT_KEY_UNIT_WAGES1</Tag>
+    <English>[ICON_BULLET]Wages: %d1_Num[ICON_SILVER_STAR]</English>
+    <French>[ICON_BULLET]Salaire: %d1_Num[ICON_SILVER_STAR]</French>
+    <German>[ICON_BULLET]Lohn: %d1_Num[ICON_SILVER_STAR]</German>
+    <Italian>[ICON_BULLET]Salario: %d1_Num[ICON_SILVER_STAR]</Italian>
+    <Spanish>[ICON_BULLET]Salario: %d1_Num[ICON_SILVER_STAR]</Spanish>
+    <Russian>[ICON_BULLET]Wages: %d1_Num[ICON_SILVER_STAR]</Russian>
+  </TEXT>
+  <TEXT>
+    <Tag>TXT_KEY_UNIT_WAGES</Tag>
+    <English>[ICON_BULLET]Wages:[ICON_SILVER_STAR]</English>
+    <French>[ICON_BULLET]Salaire: [ICON_SILVER_STAR]</French>
+    <German>[ICON_BULLET]Lohn: [ICON_SILVER_STAR]</German>
+    <Italian>[ICON_BULLET]Salario:[ICON_SILVER_STAR]</Italian>
+    <Spanish>[ICON_BULLET]Salario:[ICON_SILVER_STAR]</Spanish>
+    <Russian>[ICON_BULLET]Wages: [ICON_SILVER_STAR]</Russian>
+  </TEXT>
+   <TEXT>
+    <Tag>TXT_KEY_COMMAND_YIELD_TRADE_MAX_AMOUNT</Tag>
+    <English>Prepare Trade Containers</English>
+    <French>Prepare Trade</French>
+    <German>Prepare Trade</German>
+    <Italian>Prepare Trade</Italian>
+    <Spanish>Prepare Trade</Spanish>
+    <Russian>Prepare Trade</Russian>
+  </TEXT>
+  <TEXT>
+    <Tag>TXT_KEY_COMMAND_YIELD_TRADE_MAX_AMOUNT_HELP</Tag>
+    <English>Limit the Maximum Amount per Traded Yield</English>
+    <French>Set the Maximum Trade Amount</French>
+    <German>Set the Maximum Trade Amount</German>
+    <Italian>Set the Maximum Trade Amount</Italian>
+    <Spanish>Set the Maximum Trade Amount</Spanish>
+    <Russian>Set the Maximum Trade Amount</Russian>
+  </TEXT>
+  <TEXT>
+    <Tag>TXT_KEY_SELECT_MAX_YIELD_TRADE_POPUP</Tag>
+    <English>Adjust Trade Container Capacity</English>
+    <French>Select Max Trade Container Capacity</French>
+    <German>Select Max Trade Container Capacity</German>
+    <Italian>Select Max Trade Container Capacity</Italian>
+    <Spanish>Select Max Trade Container Capacity</Spanish>
+    <Russian>Select Max Trade Container Capacity</Russian>
+  </TEXT>
+</Civ4GameText>

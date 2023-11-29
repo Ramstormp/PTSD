@@ -83,6 +83,13 @@ FONT_CENTER_JUSTIFY=1<<2
 FONT_RIGHT_JUSTIFY=1<<1
 FONT_LEFT_JUSTIFY=1<<0
 
+# use a workaround to detect vanilla DLL files aswe can't add some "is vanilla" function to vanilla
+bIsVanillaDLL = WidgetTypes.NUM_WIDGET_TYPES == 100
+
+if bIsVanillaDLL:
+	# the number of widget matches vanilla meaning we did not load our own DLL file.
+	sys.stderr.write("CvGameCoreDLL.dll not loaded\n\nTwo likely causes:\n1: File is missing in assets (not compiled)\n2: dll files not installed in the game dir\n\nSee install instructions.txt for more information.")
+
 def convertToUnicode(s):
 	"if the string is non unicode, convert it to unicode by decoding it using 8859-1, latin_1"
 	if (isinstance(s, str)):
@@ -354,7 +361,33 @@ def addIconToMap(infoChar, desc):
 	if (uc>=0):
 		FontIconMap[desc] = u"%c" %(uc,)
 
-OtherFontIcons = { 'happy' : FontSymbols.HAPPY_CHAR,
+
+def sortkey(word_and_number):
+
+	language = localText.getText("TXT_KEY_LANGUAGE_NAME_IN_ENGLISH", ())
+	word,_ = word_and_number
+	if language not in ["English", "German", "French", "Spanish", "Italian"]:
+		return word
+
+	# accents     ="ÁÀÄáâäÉÊÈËéèêëÍÎÌíîìÑñÖÔöôÜÛÙúüûù" in cp1252
+	accents =localText.getText("TXT_KEY_ACCENT_SOUP", ())
+	replacement = localText.getText("TXT_KEY_ACCENT_SOUP_BASE_LOWERCASE_LETTER", ())
+
+	newkey = ""
+	for letter in word:
+		if letter in accents:
+			newkey = newkey + replacement[accents.index(letter)]
+			continue
+		newkey = newkey + letter
+
+	return newkey.lower()
+
+
+OtherFontIcons = {}
+if not bIsVanillaDLL:
+	# placing it inside an if statement fixes a conflict with the "DLL not loaded" error message.
+	# vanilla has 100 widgets. The mod has more. This is used to identify the vanilla DLL file.
+	OtherFontIcons = { 'happy' : FontSymbols.HAPPY_CHAR,
 				'unhappy' : FontSymbols.UNHAPPY_CHAR,
 				'healthy' : FontSymbols.HEALTHY_CHAR,
 				'unhealthy' : FontSymbols.UNHEALTHY_CHAR,
@@ -379,16 +412,27 @@ OtherFontIcons = { 'happy' : FontSymbols.HAPPY_CHAR,
 				'power' : FontSymbols.POWER_CHAR,
 				'gold' : FontSymbols.GOLD_CHAR,
 				'rebel' : FontSymbols.REBEL_CHAR,
+				'attitude furious' : FontSymbols.ATTITUDE_FURIOUS_CHAR,
+				'attitude annoyed' : FontSymbols.ATTITUDE_ANNOYED_CHAR,
+				'attitude cautious' : FontSymbols.ATTITUDE_CAUTIOUS_CHAR,
+				'attitude pleased' : FontSymbols.ATTITUDE_PLEASED_CHAR,
+				'attitude friendly' : FontSymbols.ATTITUDE_FRIENDLY_CHAR,
 				# TAC - Trade Routes Advisor - koma13 - START
 				'checkbox' : FontSymbols.CHECKBOX_CHAR,
 				'checkboxSelected' : FontSymbols.CHECKBOX_SELECTED_CHAR,
-				'anchor' : FontSymbols.ANCHOR_CHAR,
-				'anchorEurope' : FontSymbols.ANCHOR_EUROPE_CHAR,
 				'export' : FontSymbols.EXPORT_CHAR,
 				'import' : FontSymbols.IMPORT_CHAR,
 				'exportImport' : FontSymbols.EXPORT_IMPORT_CHAR,
+				'anchor' : FontSymbols.ANCHOR_CHAR,
 				'noAnchor' : FontSymbols.NO_ANCHOR_CHAR,
+				'anchorEurope' : FontSymbols.ANCHOR_EUROPE_CHAR,
 				# TAC - Trade Routes Advisor - koma13 - END
+				'Barracks' : FontSymbols.BARRACKS_CHAR,
+				'noBarracks' : FontSymbols.NO_BARRACKS_CHAR,
+				'bombard' : FontSymbols.BOMBARD_CHAR,
+				'positive domestic market event' : FontSymbols.POSITIVE_DOMESTIC_MARKET_EVENT_CHAR,
+				'negative domestic market event' : FontSymbols.NEGATIVE_DOMESTIC_MARKET_EVENT_CHAR,
+				'overflow' : FontSymbols.OVERFLOW_CHAR,
 				}
 
 GlobalInfosMap = {	'bonus': {'NUM': gc.getNumBonusInfos, 'GET': gc.getBonusInfo},

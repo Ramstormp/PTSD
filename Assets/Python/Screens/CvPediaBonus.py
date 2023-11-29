@@ -45,9 +45,11 @@ class CvPediaBonus:
 		self.W_BONUS_ANIMATION = (w * 40 / 100)
 		self.H_BONUS_ANIMATION = self.H_ICON_PANE
 
+		# WTP, ray, lowering for scroll bar to look better
 		self.X_STATS_PANE = self.X_ICON + self.W_ICON + (w * 2 / 100)
 		self.Y_STATS_PANE = self.Y_ICON
-		self.W_STATS_PANE = (w * 55 / 100)
+		#self.W_STATS_PANE = (w * 55 / 100)
+		self.W_STATS_PANE = (w * 25 / 100)
 		self.H_STATS_PANE = (h * 30 / 100)
 
 		self.X_HISTORY_PANE = x
@@ -97,20 +99,81 @@ class CvPediaBonus:
 		screen.addListBoxGFC(panelName, "", self.X_STATS_PANE, self.Y_STATS_PANE, self.W_STATS_PANE, self.H_STATS_PANE, TableStyles.TABLE_STYLE_EMPTY)
 		screen.enableSelect(panelName, False)
 
-		for k in range(YieldTypes.NUM_YIELD_TYPES):
-			iYieldChange = gc.getBonusInfo(self.iBonus).getYieldChange(k)
+		for iYield in range(YieldTypes.NUM_YIELD_TYPES):
+			iYieldChange = gc.getBonusInfo(self.iBonus).getYieldChange(iYield)
 			if (iYieldChange != 0):
 				if (iYieldChange > 0):
 					sign = "+"
 				else:
 					sign = ""
 
-				szYield = (u"%s: %s%i " % (gc.getYieldInfo(k).getDescription(), sign, iYieldChange))
+				szYield = (u"%s: %s%i " % (gc.getYieldInfo(iYield).getDescription(), sign, iYieldChange))
 				## R&R, Robert Surcouf,  Pedia - Start
 				#screen.appendListBoxString(panelName, u"<font=4>" + szYield.upper() + (u"%c" % gc.getYieldInfo(k).getChar()) + u"</font>", WidgetTypes.WIDGET_GENERAL, 0, 0, CvUtil.FONT_LEFT_JUSTIFY)
-				screen.appendListBoxString(panelName, u"<font=3>" + szYield + (u"%c" % gc.getYieldInfo(k).getChar()) + u"</font>", WidgetTypes.WIDGET_GENERAL, 0, 0, CvUtil.FONT_LEFT_JUSTIFY)
+				screen.appendListBoxString(panelName, u"<font=3>" + szYield + (u"%c" % gc.getYieldInfo(iYield).getChar()) + u"</font>", WidgetTypes.WIDGET_PEDIA_JUMP_TO_YIELDS, iYield, 1, CvUtil.FONT_LEFT_JUSTIFY)
 				## R&R, Robert Surcouf,  Pedia - End
-				
+
+		## WTP, ray, Health from specific Bonus Ressources if worked
+		iHealthChangeinCityRadius = gc.getBonusInfo(self.iBonus).getHealthEffectFromRessource()
+		if (iHealthChangeinCityRadius > 0):
+			szHealthText = localText.getText("TXT_KEY_HEALTH_FROM_RESSOURCE", (iHealthChangeinCityRadius, gc.getYieldInfo(YieldTypes.YIELD_HEALTH).getChar()))
+			screen.appendListBoxString(panelName, u"<font=3>" + szHealthText + u"</font>", WidgetTypes.WIDGET_GENERAL, 0, 0, CvUtil.FONT_LEFT_JUSTIFY)
+			
+		elif (iHealthChangeinCityRadius < 0):
+			szHealthText = localText.getText("TXT_KEY_HEALTH_FROM_RESSOURCE_NEGATIVE", (iHealthChangeinCityRadius, gc.getYieldInfo(YieldTypes.YIELD_HEALTH).getChar()))
+			screen.appendListBoxString(panelName, u"<font=3>" + szHealthText + u"</font>", WidgetTypes.WIDGET_GENERAL, 0, 0, CvUtil.FONT_LEFT_JUSTIFY)
+		
+		## WTP, ray, we have pedia list the valid Terrains and Features automatically - no need for pointless Strategy texts anymore.
+
+		## WTP, here are the flags for Water, Hills, Flatlands and Peaks
+		bValidWater = false
+		bValidFlatland = gc.getBonusInfo(self.iBonus).isFlatlands()
+		bValidHills = gc.getBonusInfo(self.iBonus).isHills()
+		bValidPeaks = gc.getBonusInfo(self.iBonus).isPeaks()
+
+		## WTP, here are the flags for Water, Hills, Flatlands and Peaks
+		## we need to do a more complicated check for water
+		for iTerrain in range(TerrainTypes.NUM_TERRAIN_TYPES):
+			if (gc.getBonusInfo(self.iBonus).isTerrain(iTerrain) and gc.getTerrainInfo(iTerrain).isWater()):
+				bValidWater = true
+
+		if (bValidWater):
+			sWaterText = localText.getText("TXT_BONUS_RESOURCE_IS_WATER", ())
+			screen.appendListBoxString(panelName, u"<font=3>" + sWaterText + u"</font>", WidgetTypes.WIDGET_GENERAL, 0, 0, CvUtil.FONT_LEFT_JUSTIFY)
+			#sNewline = localText.getText("[NEWLINE]", ())
+			#screen.appendListBoxString(panelName, u"<font=3>" + sNewline + u"</font>", WidgetTypes.WIDGET_GENERAL, 0, 0, CvUtil.FONT_LEFT_JUSTIFY)
+		else:
+			if (bValidFlatland):
+				sFlatlandText = localText.getText("TXT_BONUS_RESOURCE_IS_FLATLAND", ())
+				screen.appendListBoxString(panelName, u"<font=3>" + sFlatlandText + u"</font>", WidgetTypes.WIDGET_GENERAL, 0, 0, CvUtil.FONT_LEFT_JUSTIFY)
+			if (bValidHills):
+				sHillsText = localText.getText("TXT_BONUS_RESOURCE_IS_HILLS", ())
+				screen.appendListBoxString(panelName, u"<font=3>" + sHillsText + u"</font>", WidgetTypes.WIDGET_GENERAL, 0, 0, CvUtil.FONT_LEFT_JUSTIFY)
+			if (bValidPeaks):
+				sPeakText = localText.getText("TXT_BONUS_RESOURCE_IS_PEAKS", ())
+				screen.appendListBoxString(panelName, u"<font=3>" + sPeakText + u"</font>", WidgetTypes.WIDGET_GENERAL, 0, 0, CvUtil.FONT_LEFT_JUSTIFY)
+			#sNewline = localText.getText("[NEWLINE]", ())
+			#screen.appendListBoxString(panelName, u"<font=3>" + sNewline + u"</font>", WidgetTypes.WIDGET_GENERAL, 0, 0, CvUtil.FONT_LEFT_JUSTIFY)
+
+		szIcon = localText.getText("[ICON_BULLET] ", ())
+		
+		# First the List of Terrains
+		szValidTerrainText = localText.getText("TXT_KEY_PEDIA_VALID_TERRAINS", ())
+		screen.appendListBoxString(panelName, szValidTerrainText, WidgetTypes.WIDGET_GENERAL, 0, 0, CvUtil.FONT_LEFT_JUSTIFY)
+		for iTerrain in range(TerrainTypes.NUM_TERRAIN_TYPES):
+			if (gc.getBonusInfo(self.iBonus).isTerrain(iTerrain)):
+				TerrainDescription = gc.getTerrainInfo(iTerrain).getDescription()
+				screen.appendListBoxString(panelName, u"<font=3>" + szIcon + TerrainDescription + u"</font>", WidgetTypes.WIDGET_PEDIA_JUMP_TO_TERRAIN, iTerrain, 1, CvUtil.FONT_LEFT_JUSTIFY)
+		
+		# Then the List of Features
+		szValidFeatureText = localText.getText("TXT_KEY_PEDIA_VALID_FEATURES", ())
+		screen.appendListBoxString(panelName, szValidFeatureText, WidgetTypes.WIDGET_GENERAL, 0, 0, CvUtil.FONT_LEFT_JUSTIFY)
+		for iFeature in range(FeatureTypes.NUM_FEATURE_TYPES):
+			if (gc.getBonusInfo(self.iBonus).isFeature(iFeature)):
+				FeatureDescription = gc.getFeatureInfo(iFeature).getDescription()
+				screen.appendListBoxString(panelName, u"<font=3>"  + szIcon +  FeatureDescription + u"</font>", WidgetTypes.WIDGET_PEDIA_JUMP_TO_FEATURE, iFeature, 1, CvUtil.FONT_LEFT_JUSTIFY)
+		
+		
 	def placeHistory(self):
 
 		screen = self.top.getScreen()
@@ -135,7 +198,7 @@ class CvPediaBonus:
 		rowListName=[(0,0)]*gc.getNumBonusInfos()
 		for j in range(gc.getNumBonusInfos()):
 			rowListName[j] = (gc.getBonusInfo(j).getDescription(), j)
-		rowListName.sort()
+		rowListName.sort(key = CvUtil.sortkey)
 
 		iSelected = 0
 		i = 0

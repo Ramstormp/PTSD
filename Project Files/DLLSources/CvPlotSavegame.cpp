@@ -3,8 +3,8 @@
 #include "CvSavegame.h"
 
 // set the default values
-const short defaultX = 0;
-const short defaultY = 0;
+const int defaultX = 0;
+const int defaultY = 0;
 const int defaultArea = FFreeList::INVALID_INDEX;
 const short defaultFeatureVarity = 0;
 
@@ -47,8 +47,7 @@ const byte defaulteRiverCrossing = 0;
 enum SavegameVariableTypes
 {
 	Save_END,
-	Save_X,
-	Save_Y,
+	Save_Coordinates,
 	Save_Area,
 	Save_FeatureVarity,
 
@@ -91,7 +90,6 @@ enum SavegameVariableTypes
 	Save_workingCity,
 	Save_workingCityOverride,
 
-	Save_aiYield,
 	Save_Revealed,
 	Save_RevealedImprovementRouteSingle,
 	Save_RevealedImprovementRouteArray,
@@ -126,8 +124,7 @@ const char* getSavedEnumNamePlot(SavegameVariableTypes eType)
 	switch (eType)
 	{
 	case Save_END: return "Save_END";
-	case Save_X: return "Save_X";
-	case Save_Y: return "Save_Y";
+	case Save_Coordinates: return "Save_Coordinates";
 	case Save_Area: return "Save_Area";
 	case Save_FeatureVarity: return "Save_FeatureVarity";
 
@@ -141,7 +138,7 @@ const char* getSavedEnumNamePlot(SavegameVariableTypes eType)
 	case Save_RiverCrossingCount: return "Save_RiverCrossingCount";
 	case Save_DistanceToOcean: return "Save_DistanceToOcean";
 	case Save_Crumbs: return "Save_Crumbs";
-	
+
 	case Save_CanalValue: return "Save_CanalValue";
 	case Save_ChokeValue: return "Save_ChokeValue";
 	case Save_DefenseDamage: return "Save_DefenseDamage";
@@ -163,12 +160,12 @@ const char* getSavedEnumNamePlot(SavegameVariableTypes eType)
 	case Save_eRiverNSDirection: return "Save_eRiverNSDirection";
 	case Save_eRiverWEDirection: return "Save_eRiverWEDirection";
 	case Save_eEurope: return "Save_eEurope";
+	case Save_bmRiverCrossing: return "Save_bmRiverCrossing";
 
 	case Save_plotCity: return "Save_plotCity";
 	case Save_workingCity: return "Save_workingCity";
 	case Save_workingCityOverride: return "Save_workingCityOverride";
 
-	case Save_aiYield: return "Save_aiYield";
 	case Save_Revealed: return "Save_Revealed";
 	case Save_RevealedImprovementRouteSingle: return "Save_RevealedImprovementRouteSingle";
 	case Save_RevealedImprovementRouteArray: return "Save_RevealedImprovementRouteArray";
@@ -176,15 +173,29 @@ const char* getSavedEnumNamePlot(SavegameVariableTypes eType)
 	case Save_DangerMap: return "Save_DangerMap";
 	case Save_Culture: return "Save_Culture";
 	case Save_CultureRangeForts: return "Save_CultureRangeForts";
+	case Save_FoundValue: return "Save_FoundValue";
+	case Save_PlayerCityRadiusCount: return "Save_PlayerCityRadiusCount";
+
+	case Save_VisibilityCount: return "Save_VisibilityCount";
+	case Save_RevealedOwner: return "Save_RevealedOwner";
+
+	case Save_CultureRangeCities: return "Save_CultureRangeCities";
+	case Save_InvisibleVisibilityCount: "Save_InvisibleVisibilityCount";
+
+	case Save_ScriptData: return "Save_ScriptData";
+
+	case Save_BuildProgress: return "Save_BuildProgress";
+
+	case Save_Units: return "Save_Units";
 	}
+	FAssertMsg(0, "Missing case");
 	return "";
 }
 
 // assign everything to default values
 void CvPlot::resetSavedData()
 {
-	m_iX = defaultX;
-	m_iY = defaultY;
+	m_coord.set(defaultX, defaultY);
 	m_iArea = defaultArea;
 	m_iFeatureVariety = defaultFeatureVarity;
 
@@ -231,7 +242,7 @@ void CvPlot::resetSavedData()
 	m_workingCity.reset();
 	m_workingCityOverride.reset();
 
-	m_pab_Revealed.reset();
+	m_em_bRevealed.reset();
 	m_aeRevealedImprovementRouteTypes.reset();
 }
 
@@ -264,8 +275,7 @@ void CvPlot::read(CvSavegameReader reader)
 			bContinue = false;
 			break;
 
-		case Save_X:                       reader.Read(m_iX                         ); break;
-		case Save_Y:                       reader.Read(m_iY                         ); break;
+		case Save_Coordinates:             reader.Read(m_coord                      ); break;
 		case Save_Area:                    reader.Read(m_iArea                      ); break;
 		case Save_FeatureVarity:           reader.Read(m_iFeatureVariety            ); break;
 
@@ -302,12 +312,12 @@ void CvPlot::read(CvSavegameReader reader)
 		case Save_eRiverNSDirection:       m_eRiverNSDirection     = reader.ReadBitfield(m_eRiverNSDirection        ); break;
 		case Save_eRiverWEDirection:       m_eRiverWEDirection     = reader.ReadBitfield(m_eRiverWEDirection        ); break;
 		case Save_eEurope:                 m_eEurope               = reader.ReadBitfield(m_eEurope                  ); break;
-		
+
 		case Save_plotCity:                reader.Read(m_plotCity                   ); break;
 		case Save_workingCity:             reader.Read(m_workingCity                ); break;
 		case Save_workingCityOverride:     reader.Read(m_workingCityOverride        ); break;
 
-		case Save_Revealed:                reader.Read(m_pab_Revealed               ); break;
+		case Save_Revealed:                reader.Read(m_em_bRevealed               ); break;
 
 		case Save_RevealedImprovementRouteSingle:
 		{
@@ -329,9 +339,9 @@ void CvPlot::read(CvSavegameReader reader)
 			// note that not being in the array shouldn't alter the memory at all
 			// it's either out of date (set in Save_RevealedImprovementRouteSingle) or no info (default value)
 			// writing something means overwriting what is stored using Save_RevealedImprovementRouteSingle.
-			TeamBoolArray eTeamArray;
-			ImprovementTypes eImprovement = getImprovementType();
-			RouteTypes eRoute = getRouteType();
+			EnumMap<TeamTypes, bool> eTeamArray;
+			const ImprovementTypes eImprovement = getImprovementType();
+			const RouteTypes eRoute = getRouteType();
 			reader.Read(eTeamArray);
 			for (TeamTypes eTeam = FIRST_TEAM; eTeam < NUM_TEAM_TYPES; ++eTeam)
 			{
@@ -342,41 +352,43 @@ void CvPlot::read(CvSavegameReader reader)
 			}
 		} break;
 
-		case Save_aiYield: m_em_iYield.Read(reader); break;
-
 		// PlayerArrays
-		case Save_Culture                  : m_em_iCulture                       .Read(reader); break;
-		case Save_CultureRangeForts        : m_em_iCultureRangeForts             .Read(reader); break;
-		case Save_DangerMap                : m_em_iDangerMap                     .Read(reader); break;
-		case Save_FoundValue               : m_em_iFoundValue                    .Read(reader); break;
-		case Save_PlayerCityRadiusCount    : m_em_iPlayerCityRadiusCount         .Read(reader); break;
-		case Save_VisibilityCount          : m_em_iVisibilityCount               .Read(reader); break;
-		case Save_RevealedOwner            : m_em_eRevealedOwner                 .Read(reader); break;
+		case Save_Culture                  : reader.Read(m_em_iCulture)                       ; break;
+		case Save_CultureRangeForts        : reader.Read(m_em_iCultureRangeForts)             ; break;
+		case Save_DangerMap                : reader.Read(m_em_iDangerMap)                     ; break;
+		case Save_FoundValue               : reader.Read(m_em_iFoundValue)                    ; break;
+		case Save_PlayerCityRadiusCount    : reader.Read(m_em_iPlayerCityRadiusCount)         ; break;
+		case Save_VisibilityCount          : reader.Read(m_em_iVisibilityCount)               ; break;
+		case Save_RevealedOwner            : reader.Read(m_em_eRevealedOwner)                 ; break;
 
-		case Save_CultureRangeCities       : m_em2_iCultureRangeCities           .Read(reader); break;
-		case Save_InvisibleVisibilityCount : m_em2_iInvisibleVisibilityCount     .Read(reader); break;
+		case Save_CultureRangeCities       : reader.Read(m_em2_iCultureRangeCities)           ; break;
+		case Save_InvisibleVisibilityCount : reader.Read(m_em2_iInvisibleVisibilityCount)     ; break;
 
-		case Save_ScriptData               : reader.Read(m_szScriptData); break;
+		case Save_ScriptData               : reader.Read(m_szScriptData)                      ; break;
 
-		case Save_BuildProgress            : m_em_iBuildProgress                 .Read(reader); break;
-			
-		case Save_Units                    : reader.Read(m_units); break;
+		case Save_BuildProgress            : reader.Read(m_em_iBuildProgress)                 ; break;
+
+		case Save_Units                    : reader.Read(m_units)                             ; break;
 
 		default:
 			FAssertMsg(false, "Unhandled savegame enum");
 			break;
 		}
 	}
-	
+
 	// Loading done. Set up the cache (if any).
 	updateImpassable();
 
 	setSeeFromLevelCache();
 	setSeeThroughLevelCache();
+	setPlotVisibilityCache();
+	setUnitVisibilityBonusCache();
 }
 
 void CvPlot::write(CvSavegameWriter writer)
 {
+	LogIntentHelper helper(writer, "CvPlot");
+
 	writer.AssignClassType(SAVEGAME_CLASS_PLOT);
 
 	if (writer.isDebug())
@@ -398,8 +410,7 @@ void CvPlot::write(CvSavegameWriter writer)
 	// m_bLayoutStateWorked not saved
 	// m_bImpassable not saved
 
-	writer.Write(Save_X, m_iX, defaultX);
-	writer.Write(Save_Y, m_iY, defaultY);
+	writer.Write(Save_Coordinates, m_coord);
 	writer.Write(Save_Area, m_iArea, defaultArea);
 	writer.Write(Save_FeatureVarity, m_iFeatureVariety, defaultFeatureVarity);
 
@@ -428,7 +439,7 @@ void CvPlot::write(CvSavegameWriter writer)
 	writer.Write(Save_NOfRiver, m_bNOfRiver, defaultNOfRiver);
 	writer.Write(Save_WOfRiver, m_bWOfRiver, defaultWOfRiver);
 	writer.Write(Save_PotentialCityWork, m_bPotentialCityWork, defaultPotentialCityWork);
-	
+
 	writer.Write(Save_ePlotType, m_ePlotType, defaultePlotType);
 	writer.Write(Save_eTerrainType, m_eTerrainType, defaulteTerrainType);
 	writer.Write(Save_eFeatureType, m_eFeatureType, defaulteFeatureType);
@@ -441,26 +452,26 @@ void CvPlot::write(CvSavegameWriter writer)
 	writer.Write(Save_eEurope, m_eEurope, defaulteEurope);
 
 	writer.Write(Save_bmRiverCrossing, m_bmRiverCrossing, defaulteRiverCrossing);
-	
-	
+
+
 	writer.Write(Save_plotCity, m_plotCity);
 	writer.Write(Save_workingCity, m_workingCity);
 	writer.Write(Save_workingCityOverride, m_workingCityOverride);
 
-	writer.Write(Save_aiYield, m_em_iYield);
+	// m_em_iYield recalculated on load
 
-	writer.Write(Save_Revealed, m_pab_Revealed);
+	writer.Write(Save_Revealed, m_em_bRevealed);
 
 	if (m_aeRevealedImprovementRouteTypes.isAllocated())
 	{
-		TeamBoolArray eTeamArray;
-		ImprovementTypes ePlotImprovement = getImprovementType();
-		RouteTypes ePlotRoute = getRouteType();
+		EnumMap<TeamTypes, bool> eTeamArray;
+		const ImprovementTypes ePlotImprovement = getImprovementType();
+		const RouteTypes ePlotRoute = getRouteType();
 
 		for (TeamTypes eTeam = FIRST_TEAM; eTeam < NUM_TEAM_TYPES; ++eTeam)
 		{
-			ImprovementTypes eImprovement = m_aeRevealedImprovementRouteTypes.getImprovement(eTeam);
-			RouteTypes eRoute = m_aeRevealedImprovementRouteTypes.getRoute(eTeam);
+			const ImprovementTypes eImprovement = m_aeRevealedImprovementRouteTypes.getImprovement(eTeam);
+			const RouteTypes eRoute = m_aeRevealedImprovementRouteTypes.getRoute(eTeam);
 
 			if (eImprovement != NO_IMPROVEMENT || eRoute != NO_ROUTE)
 			{
@@ -497,9 +508,9 @@ void CvPlot::write(CvSavegameWriter writer)
 
 	writer.Write(Save_CultureRangeCities, m_em2_iCultureRangeCities);
 	writer.Write(Save_InvisibleVisibilityCount, m_em2_iInvisibleVisibilityCount);
-		
+
 	writer.Write(Save_ScriptData, m_szScriptData);
-	
+
 	writer.Write(Save_BuildProgress, m_em_iBuildProgress);
 
 	writer.Write(Save_Units, m_units);

@@ -2085,6 +2085,61 @@
                     <Civilizations/>
                     <Leaders>
                         <Leader>
+                            <LeaderType>LEADER_ENGLISH_KING</LeaderType>
+                            <bLeaderType>1</bLeaderType>
+                        </Leader>
+                        <Leader>
+                            <LeaderType>LEADER_FRENCH_KING</LeaderType>
+                            <bLeaderType>1</bLeaderType>
+                        </Leader>
+                        <Leader>
+                            <LeaderType>LEADER_SPANISH_KING</LeaderType>
+                            <bLeaderType>1</bLeaderType>
+                        </Leader>
+                        <Leader>
+                            <LeaderType>LEADER_DUTCH_KING</LeaderType>
+                            <bLeaderType>1</bLeaderType>
+                        </Leader>
+                        <Leader>
+                            <LeaderType>LEADER_PORTUGUESE_KING</LeaderType>
+                            <bLeaderType>1</bLeaderType>
+                        </Leader>
+                        <Leader>
+                            <LeaderType>LEADER_DANISH_KING</LeaderType>
+                            <bLeaderType>1</bLeaderType>
+                        </Leader>
+                        <Leader>
+                            <LeaderType>LEADER_SWEDISH_KING</LeaderType>
+                            <bLeaderType>1</bLeaderType>
+                        </Leader>
+                        <Leader>
+                            <LeaderType>LEADER_RUSSIAN_KING</LeaderType>
+                            <bLeaderType>1</bLeaderType>
+                        </Leader>
+                    </Leaders>
+                    <Attitudes>
+                        <Attitude>
+                            <AttitudeType>ATTITUDE_FRIENDLY</AttitudeType>
+                            <bAttitudeType>1</bAttitudeType>
+                        </Attitude>
+                        <Attitude>
+                            <AttitudeType>ATTITUDE_PLEASED</AttitudeType>
+                            <bAttitudeType>1</bAttitudeType>
+                        </Attitude>
+                        <Attitude>
+                            <AttitudeType>ATTITUDE_CAUTIOUS</AttitudeType>
+                            <bAttitudeType>1</bAttitudeType>
+                        </Attitude>
+                    </Attitudes>
+                    <DiplomacyPowers/>
+                    <DiplomacyText>
+                        <Text>AI_DIPLO_KING_WELCOME_FR</Text>
+                    </DiplomacyText>
+                </Response>
+                <Response>
+                    <Civilizations/>
+                    <Leaders>
+                        <Leader>
                             <LeaderType>LEADER_PENN</LeaderType>
                             <bLeaderType>1</bLeaderType>
                         </Leader>
@@ -3371,6 +3426,57 @@
                     <DiplomacyPowers/>
                     <DiplomacyText>
                         <Text>AI_DIPLO_CHURCH_WELCOME_FUR</Text>
+                    </DiplomacyText>
+                </Response>
+                <Response>
+                    <Civilizations/>
+                    <Leaders>
+                        <Leader>
+                            <LeaderType>LEADER_ENGLISH_KING</LeaderType>
+                            <bLeaderType>1</bLeaderType>
+                        </Leader>
+                        <Leader>
+                            <LeaderType>LEADER_FRENCH_KING</LeaderType>
+                            <bLeaderType>1</bLeaderType>
+                        </Leader>
+                        <Leader>
+                            <LeaderType>LEADER_SPANISH_KING</LeaderType>
+                            <bLeaderType>1</bLeaderType>
+                        </Leader>
+                        <Leader>
+                            <LeaderType>LEADER_DUTCH_KING</LeaderType>
+                            <bLeaderType>1</bLeaderType>
+                        </Leader>
+                        <Leader>
+                            <LeaderType>LEADER_PORTUGUESE_KING</LeaderType>
+                            <bLeaderType>1</bLeaderType>
+                        </Leader>
+                        <Leader>
+                            <LeaderType>LEADER_DANISH_KING</LeaderType>
+                            <bLeaderType>1</bLeaderType>
+                        </Leader>
+                        <Leader>
+                            <LeaderType>LEADER_SWEDISH_KING</LeaderType>
+                            <bLeaderType>1</bLeaderType>
+                        </Leader>
+                        <Leader>
+                            <LeaderType>LEADER_RUSSIAN_KING</LeaderType>
+                            <bLeaderType>1</bLeaderType>
+                        </Leader>
+                    </Leaders>
+                    <Attitudes>
+                        <Attitude>
+                            <AttitudeType>ATTITUDE_ANNOYED</AttitudeType>
+                            <bAttitudeType>1</bAttitudeType>
+                        </Attitude>
+                        <Attitude>
+                            <AttitudeType>ATTITUDE_FURIOUS</AttitudeType>
+                            <bAttitudeType>1</bAttitudeType>
+                        </Attitude>
+                    </Attitudes>
+                    <DiplomacyPowers/>
+                    <DiplomacyText>
+                        <Text>AI_DIPLO_KING_WELCOME_FUR</Text>
                     </DiplomacyText>
                 </Response>
                 <Response>
@@ -5359,29 +5465,6 @@
                 </Response>
             </Responses>
         </DiplomacyInfo>
-<DiplomacyInfo>
-            <Type>AI_DIPLOCOMMENT_KING_ASK_FOR_GOLD_CANT_AFFORD</Type>
-            <Responses>
-                <Response>
-                    <Civilizations/>
-                    <Leaders/>
-                    <Attitudes/>
-                    <DiplomacyPowers/>
-                    <DiplomacyText>
-                        <Text>AI_DIPLO_KING_ASK_FOR_GOLD_1</Text>
-                        <Text>AI_DIPLO_KING_ASK_FOR_GOLD_2</Text>
-                        <Text>AI_DIPLO_KING_ASK_FOR_GOLD_3</Text>
-                        <Text>AI_DIPLO_KING_ASK_FOR_GOLD_4</Text>
-                        <Text>AI_DIPLO_KING_ASK_FOR_GOLD_5</Text>
-                        <Text>AI_DIPLO_KING_ASK_FOR_GOLD_6</Text>
-                        <Text>AI_DIPLO_KING_ASK_FOR_GOLD_7</Text>
-                        <Text>AI_DIPLO_KING_ASK_FOR_GOLD_8</Text>
-                        <Text>AI_DIPLO_KING_ASK_FOR_GOLD_9</Text>
-                        <Text>AI_DIPLO_KING_ASK_FOR_GOLD_10</Text>
-                    </DiplomacyText>
-                </Response>
-            </Responses>
-        </DiplomacyInfo>
         <DiplomacyInfo>
             <Type>USER_DIPLOCOMMENT_KING_GIVE_GOLD</Type>
             <Responses>
@@ -6318,6 +6401,34 @@
             </Responses>
         </DiplomacyInfo>
         <DiplomacyInfo>
+            <Type>AI_DIPLOCOMMENT_COLONIAL_INTERVENTION_NATIVE_WAR</Type>
+            <Responses>
+                <Response>
+                    <Civilizations/>
+                    <Leaders/>
+                    <Attitudes/>
+                    <DiplomacyPowers/>
+                    <DiplomacyText>
+                        <Text>AI_DIPLO_COLONIAL_INTERVENTION_NATIVE_WAR</Text>
+                    </DiplomacyText>
+                </Response>
+            </Responses>
+        </DiplomacyInfo>
+        <DiplomacyInfo>
+            <Type>AI_DIPLOCOMMENT_COLONIES_AND_NATIVE_ALLIES_WAR</Type>
+            <Responses>
+                <Response>
+                    <Civilizations/>
+                    <Leaders/>
+                    <Attitudes/>
+                    <DiplomacyPowers/>
+                    <DiplomacyText>
+                        <Text>AI_DIPLO_COLONIES_AND_NATIVE_ALLIES_WAR</Text>
+                    </DiplomacyText>
+                </Response>
+            </Responses>
+        </DiplomacyInfo>
+        <DiplomacyInfo>
             <Type>AI_DIPLOCOMMENT_FOUND_CITY_CANT_AFFORD</Type>
             <Responses>
                 <Response>
@@ -6934,6 +7045,118 @@
             </Responses>
         </DiplomacyInfo>
         <DiplomacyInfo>
+            <Type>AI_DIPLOCOMMENT_ROYAL_INTERVENTION</Type>
+            <Responses>
+                <Response>
+                    <Civilizations/>
+                    <Leaders/>
+                    <Attitudes/>
+                    <DiplomacyPowers/>
+                    <DiplomacyText>
+                        <Text>AI_DIPLO_ROYAL_INTERVENTION</Text>
+                    </DiplomacyText>
+                </Response>
+            </Responses>
+        </DiplomacyInfo>
+        <DiplomacyInfo>
+            <Type>USER_DIPLOCOMMENT_ROYAL_INTERVENTION_YES_GOLD</Type>
+            <Responses>
+                <Response>
+                    <Civilizations/>
+                    <Leaders/>
+                    <Attitudes/>
+                    <DiplomacyPowers/>
+                    <DiplomacyText>
+                        <Text>USER_DIPLO_ROYAL_INTERVENTION_YES_GOLD</Text>
+                    </DiplomacyText>
+                </Response>
+            </Responses>
+        </DiplomacyInfo>
+        <DiplomacyInfo>
+            <Type>USER_DIPLOCOMMENT_ROYAL_INTERVENTION_YES_TAX_INCREASE</Type>
+            <Responses>
+                <Response>
+                    <Civilizations/>
+                    <Leaders/>
+                    <Attitudes/>
+                    <DiplomacyPowers/>
+                    <DiplomacyText>
+                        <Text>USER_DIPLO_ROYAL_INTERVENTION_YES_TAX_INCREASE</Text>
+                    </DiplomacyText>
+                </Response>
+            </Responses>
+        </DiplomacyInfo>
+        <DiplomacyInfo>
+            <Type>USER_DIPLOCOMMENT_ROYAL_INTERVENTION_NO</Type>
+            <Responses>
+                <Response>
+                    <Civilizations/>
+                    <Leaders/>
+                    <Attitudes/>
+                    <DiplomacyPowers/>
+                    <DiplomacyText>
+                        <Text>USER_DIPLO_ROYAL_INTERVENTION_NO</Text>
+                    </DiplomacyText>
+                </Response>
+            </Responses>
+        </DiplomacyInfo>
+        <DiplomacyInfo>
+            <Type>AI_DIPLOCOMMENT_PRIVATEERS_ACCUSSATION</Type>
+            <Responses>
+                <Response>
+                    <Civilizations/>
+                    <Leaders/>
+                    <Attitudes/>
+                    <DiplomacyPowers/>
+                    <DiplomacyText>
+                        <Text>AI_DIPLO_PRIVATEERS_ACCUSSATION</Text>
+                    </DiplomacyText>
+                </Response>
+            </Responses>
+        </DiplomacyInfo>
+        <DiplomacyInfo>
+            <Type>USER_DIPLOCOMMENT_PRIVATEERS_ADMIT</Type>
+            <Responses>
+                <Response>
+                    <Civilizations/>
+                    <Leaders/>
+                    <Attitudes/>
+                    <DiplomacyPowers/>
+                    <DiplomacyText>
+                        <Text>USER_DIPLO_PRIVATEERS_ADMIT</Text>
+                    </DiplomacyText>
+                </Response>
+            </Responses>
+        </DiplomacyInfo>
+        <DiplomacyInfo>
+            <Type>USER_DIPLOCOMMENT_PRIVATEERS_DENY</Type>
+            <Responses>
+                <Response>
+                    <Civilizations/>
+                    <Leaders/>
+                    <Attitudes/>
+                    <DiplomacyPowers/>
+                    <DiplomacyText>
+                        <Text>USER_DIPLO_PRIVATEERS_DENY</Text>
+                    </DiplomacyText>
+                </Response>
+            </Responses>
+        </DiplomacyInfo>
+        <DiplomacyInfo>
+            <Type>USER_DIPLOCOMMENT_PRIVATEERS_WAR</Type>
+            <Responses>
+                <Response>
+                    <Civilizations/>
+                    <Leaders/>
+                    <Attitudes/>
+                    <DiplomacyPowers/>
+                    <DiplomacyText>
+                        <Text>USER_DIPLO_PRIVATEERS_WAR</Text>
+                    </DiplomacyText>
+                </Response>
+            </Responses>
+        </DiplomacyInfo>
+        <DiplomacyInfo>
             <Type>USER_DIPLOCOMMENT_STEALING_IMMIGRANT_YES</Type>
             <Responses>
                 <Response>
@@ -6999,6 +7222,62 @@
                     <DiplomacyPowers/>
                     <DiplomacyText>
                         <Text>USER_DIPLO_CHURCH_WAR_NO</Text>
+                    </DiplomacyText>
+                </Response>
+            </Responses>
+        </DiplomacyInfo>
+        <DiplomacyInfo>
+            <Type>USER_DIPLOCOMMENT_COLONIAL_INTERVENTION_NATIVE_WAR_END</Type>
+            <Responses>
+                <Response>
+                    <Civilizations/>
+                    <Leaders/>
+                    <Attitudes/>
+                    <DiplomacyPowers/>
+                    <DiplomacyText>
+                        <Text>USER_DIPLO_COLONIAL_INTERVENTION_NATIVE_WAR_END</Text>
+                    </DiplomacyText>
+                </Response>
+            </Responses>
+        </DiplomacyInfo>
+        <DiplomacyInfo>
+            <Type>USER_DIPLOCOMMENT_COLONIAL_INTERVENTION_NATIVE_WAR_CONTINUE</Type>
+            <Responses>
+                <Response>
+                    <Civilizations/>
+                    <Leaders/>
+                    <Attitudes/>
+                    <DiplomacyPowers/>
+                    <DiplomacyText>
+                        <Text>USER_DIPLO_COLONIAL_INTERVENTION_NATIVE_WAR_CONTINUE</Text>
+                    </DiplomacyText>
+                </Response>
+            </Responses>
+        </DiplomacyInfo>
+        <DiplomacyInfo>
+            <Type>USER_DIPLOCOMMENT_COLONIES_AND_NATIVE_ALLIES_WAR_REFUSE</Type>
+            <Responses>
+                <Response>
+                    <Civilizations/>
+                    <Leaders/>
+                    <Attitudes/>
+                    <DiplomacyPowers/>
+                    <DiplomacyText>
+                        <Text>USER_DIPLO_COLONIES_AND_NATIVE_ALLIES_WAR_REFUSE</Text>
+                    </DiplomacyText>
+                </Response>
+            </Responses>
+        </DiplomacyInfo>
+        <DiplomacyInfo>
+            <Type>USER_DIPLOCOMMENT_COLONIES_AND_NATIVE_ALLIES_WAR_ACCEPT</Type>
+            <Responses>
+                <Response>
+                    <Civilizations/>
+                    <Leaders/>
+                    <Attitudes/>
+                    <DiplomacyPowers/>
+                    <DiplomacyText>
+                        <Text>USER_DIPLO_COLONIES_AND_NATIVE_ALLIES_WAR_ACCEPT</Text>
                     </DiplomacyText>
                 </Response>
             </Responses>
@@ -9768,6 +10047,48 @@
             <Responses>
                 <Response>
                     <Civilizations/>
+                    <Leaders>
+                        <Leader>
+                            <LeaderType>LEADER_ENGLISH_KING</LeaderType>
+                            <bLeaderType>1</bLeaderType>
+                        </Leader>
+                        <Leader>
+                            <LeaderType>LEADER_FRENCH_KING</LeaderType>
+                            <bLeaderType>1</bLeaderType>
+                        </Leader>
+                        <Leader>
+                            <LeaderType>LEADER_SPANISH_KING</LeaderType>
+                            <bLeaderType>1</bLeaderType>
+                        </Leader>
+                        <Leader>
+                            <LeaderType>LEADER_DUTCH_KING</LeaderType>
+                            <bLeaderType>1</bLeaderType>
+                        </Leader>
+                        <Leader>
+                            <LeaderType>LEADER_PORTUGUESE_KING</LeaderType>
+                            <bLeaderType>1</bLeaderType>
+                        </Leader>
+                        <Leader>
+                            <LeaderType>LEADER_DANISH_KING</LeaderType>
+                            <bLeaderType>1</bLeaderType>
+                        </Leader>
+                        <Leader>
+                            <LeaderType>LEADER_SWEDISH_KING</LeaderType>
+                            <bLeaderType>1</bLeaderType>
+                        </Leader>
+                        <Leader>
+                            <LeaderType>LEADER_RUSSIAN_KING</LeaderType>
+                            <bLeaderType>1</bLeaderType>
+                        </Leader>
+                    </Leaders>
+                    <Attitudes/>
+                    <DiplomacyPowers/>
+                    <DiplomacyText>
+                        <Text>AI_DIPLO_JOIN_WAR_KING_VS_COLONY</Text>
+                    </DiplomacyText>
+                </Response>
+                <Response>
+                    <Civilizations/>
                     <Leaders/>
                     <Attitudes/>
                     <DiplomacyPowers/>
@@ -10145,6 +10466,118 @@
                     <DiplomacyPowers/>
                     <DiplomacyText>
                         <Text>USER_DIPLO_ACCEPT_BUY_UNITS_1</Text>
+                    </DiplomacyText>
+                </Response>
+            </Responses>
+        </DiplomacyInfo>
+        <DiplomacyInfo>
+            <Type>USER_DIPLOCOMMENT_KING_ASK_FOR_USED_SHIP</Type>
+            <Responses>
+                <Response>
+                    <Civilizations/>
+                    <Leaders/>
+                    <Attitudes/>
+                    <DiplomacyPowers/>
+                    <DiplomacyText>
+                        <Text>USER_DIPLO_ASK_TO_BUY_USED_SHIP</Text>
+                    </DiplomacyText>
+                </Response>
+            </Responses>
+        </DiplomacyInfo>
+        <DiplomacyInfo>
+            <Type>AI_DIPLOCOMMENT_KING_OFFERS_USED_SHIP</Type>
+            <Responses>
+                <Response>
+                    <Civilizations/>
+                    <Leaders/>
+                    <Attitudes/>
+                    <DiplomacyPowers/>
+                    <DiplomacyText>
+                        <Text>AI_DIPLO_KING_OFFERS_USED_SHIP</Text>
+                    </DiplomacyText>
+                </Response>
+            </Responses>
+        </DiplomacyInfo>
+        <DiplomacyInfo>
+            <Type>AI_DIPLOCOMMENT_KING_REFUSES_TO_OFFER_USED_SHIP</Type>
+            <Responses>
+                <Response>
+                    <Civilizations/>
+                    <Leaders/>
+                    <Attitudes/>
+                    <DiplomacyPowers/>
+                    <DiplomacyText>
+                        <Text>AI_DIPLO_KING_REFUSES_TO_OFFER_USED_SHIP</Text>
+                    </DiplomacyText>
+                </Response>
+            </Responses>
+        </DiplomacyInfo>
+        <DiplomacyInfo>
+            <Type>USER_DIPLOCOMMENT_ACCEPT_BUY_USED_SHIP</Type>
+            <Responses>
+                <Response>
+                    <Civilizations/>
+                    <Leaders/>
+                    <Attitudes/>
+                    <DiplomacyPowers/>
+                    <DiplomacyText>
+                        <Text>USER_DIPLO_ACCEPT_BUY_USED_SHIP</Text>
+                    </DiplomacyText>
+                </Response>
+            </Responses>
+        </DiplomacyInfo>
+        <DiplomacyInfo>
+            <Type>USER_DIPLOCOMMENT_ASK_FOREIGN_KING_BUY_IMMIGRANTS</Type>
+            <Responses>
+                <Response>
+                    <Civilizations/>
+                    <Leaders/>
+                    <Attitudes/>
+                    <DiplomacyPowers/>
+                    <DiplomacyText>
+                        <Text>USER_DIPLO_ASK_FOREIGN_KING_BUY_IMMIGRANTS</Text>
+                    </DiplomacyText>
+                </Response>
+            </Responses>
+        </DiplomacyInfo>
+        <DiplomacyInfo>
+            <Type>AI_DIPLOCOMMENT_FOREIGN_KING_OFFERS_IMMIGRANTS</Type>
+            <Responses>
+                <Response>
+                    <Civilizations/>
+                    <Leaders/>
+                    <Attitudes/>
+                    <DiplomacyPowers/>
+                    <DiplomacyText>
+                        <Text>AI_DIPLO_FOREIGN_KING_OFFERS_IMMIGRANTS</Text>
+                    </DiplomacyText>
+                </Response>
+            </Responses>
+        </DiplomacyInfo>
+        <DiplomacyInfo>
+            <Type>AI_DIPLOCOMMENT_FOREIGN_KING_REFUSES_IMMIGRANTS</Type>
+            <Responses>
+                <Response>
+                    <Civilizations/>
+                    <Leaders/>
+                    <Attitudes/>
+                    <DiplomacyPowers/>
+                    <DiplomacyText>
+                        <Text>AI_DIPLO_FOREIGN_KING_REFUSES_IMMIGRANTS</Text>
+                    </DiplomacyText>
+                </Response>
+            </Responses>
+        </DiplomacyInfo>
+        <DiplomacyInfo>
+            <Type>USER_DIPLOCOMMENT_ACCEPT_FOREIGN_IMMIGRANTS</Type>
+            <Responses>
+                <Response>
+                    <Civilizations/>
+                    <Leaders/>
+                    <Attitudes/>
+                    <DiplomacyPowers/>
+                    <DiplomacyText>
+                        <Text>USER_DIPLO_ACCEPT_FOREIGN_IMMIGRANTS</Text>
                     </DiplomacyText>
                 </Response>
             </Responses>

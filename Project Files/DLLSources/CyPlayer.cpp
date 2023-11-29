@@ -36,7 +36,7 @@ CyPlot* CyPlayer::findStartingPlot(bool bRandomize)
 }
 CyCity* CyPlayer::initCity(int x, int y)
 {
-	return m_pPlayer ? new CyCity(m_pPlayer->initCity(x, y, true)) : NULL;
+	return m_pPlayer ? new CyCity(m_pPlayer->initCity(Coordinates(x, y), true)) : NULL;
 }
 void CyPlayer::acquireCity(CyCity* pCity, bool bConquest, bool bTrade)
 {
@@ -227,12 +227,12 @@ void CyPlayer::doGoody(CyPlot* pPlot, CyUnit* pUnit)
 }
 bool CyPlayer::canFound(int iX, int iY)
 {
-	return m_pPlayer ? m_pPlayer->canFound(iX, iY) : false;
+	return m_pPlayer ? m_pPlayer->canFound(Coordinates(iX, iY)) : false;
 }
 void CyPlayer::found(int x, int y)
 {
 	if (m_pPlayer)
-		m_pPlayer->found(x,y);
+		m_pPlayer->found(Coordinates(x,y));
 }
 bool CyPlayer::canTrain(int /*UnitTypes*/ eUnit, bool bContinue, bool bTestVisible)
 {
@@ -293,6 +293,14 @@ int CyPlayer::greatAdmiralThreshold()
 	return m_pPlayer ? m_pPlayer->greatAdmiralThreshold() : -1;
 }
 // R&R, ray, Great Admirals - END
+
+// WTP, ray, increase threshold if more than X units waiting on the docks - START
+int CyPlayer::getImmigrationThresholdModifierFromUnitsWaitingOnDock()
+{
+	return m_pPlayer ? m_pPlayer->getImmigrationThresholdModifierFromUnitsWaitingOnDock() : -1;
+}
+// WTP, ray, increase threshold if more than X units waiting on the docks - END
+
 int CyPlayer::immigrationThreshold()
 {
 	return m_pPlayer ? m_pPlayer->immigrationThreshold() : -1;
@@ -349,7 +357,10 @@ void CyPlayer::setGold(int iNewValue)
 void CyPlayer::changeGold(int iChange)
 {
 	if (m_pPlayer)
+	{
+		OOS_LOG_3("Python change gold", m_pPlayer->getID(), iChange);
 		m_pPlayer->changeGold(iChange);
+	}
 }
 int CyPlayer::getAdvancedStartPoints()
 {
@@ -401,7 +412,7 @@ void CyPlayer::createGreatGeneral(int eGreatGeneralUnit, bool bIncrementExperien
 {
 	if (m_pPlayer)
 	{
-		m_pPlayer->createGreatGeneral((UnitTypes)eGreatGeneralUnit, bIncrementExperience, iX, iY);
+		m_pPlayer->createGreatGeneral((UnitTypes)eGreatGeneralUnit, bIncrementExperience, Coordinates(iX, iY));
 	}
 }
 int CyPlayer::getGreatGeneralsCreated()
@@ -418,7 +429,7 @@ void CyPlayer::createGreatAdmiral(int eGreatAdmiralUnit, bool bIncrementExperien
 {
 	if (m_pPlayer)
 	{
-		m_pPlayer->createGreatAdmiral((UnitTypes)eGreatAdmiralUnit, bIncrementExperience, iX, iY);
+		m_pPlayer->createGreatAdmiral((UnitTypes)eGreatAdmiralUnit, bIncrementExperience, Coordinates(iX, iY));
 	}
 }
 int CyPlayer::getGreatAdmiralsCreated()
@@ -430,6 +441,23 @@ int CyPlayer::getGreatAdmiralsThresholdModifier()
 	return m_pPlayer ? m_pPlayer->getGreatAdmiralsThresholdModifier() : -1;
 }
 // R&R, ray, Great Admirals -END
+
+// WTP, ray, Lieutenants and Captains - START
+void CyPlayer::createBraveLieutenant(int eBraveLieutenantUnit, int iX, int iY)
+{
+	if (m_pPlayer)
+	{
+		m_pPlayer->createBraveLieutenant((UnitTypes)eBraveLieutenantUnit, Coordinates(iX, iY));
+	}
+}
+void CyPlayer::createCapableCaptain(int eCapableCaptainUnit, int iX, int iY)
+{
+	if (m_pPlayer)
+	{
+		m_pPlayer->createCapableCaptain((UnitTypes)eCapableCaptainUnit, Coordinates(iX, iY));
+	}
+}
+// WTP, ray, Lieutenants and Captains - END
 
 int CyPlayer::getGreatGeneralRateModifier()
 {
@@ -486,7 +514,10 @@ int CyPlayer::getAssets()
 void CyPlayer::changeAssets(int iChange)
 {
 	if (m_pPlayer)
+	{
+		OOS_LOG("python change assets", iChange);
 		m_pPlayer->changeAssets(iChange);
+	}
 }
 int CyPlayer::getPower()
 {
@@ -609,6 +640,27 @@ int CyPlayer::getYieldTradedTotalINT(int /*YieldTypes*/ eIndex)
 	return m_pPlayer ? m_pPlayer->getYieldTradedTotal((YieldTypes)eIndex) : -1;
 }
 // R&R, Robert Surcouf, No More Variables Hidden game option END
+
+// WTP, ray, Yields Traded Total for Africa and Port Royal - START
+int CyPlayer::getYieldTradedTotalAfrica(YieldTypes eIndex)
+{
+	return m_pPlayer ? m_pPlayer->getYieldTradedTotalAfrica(eIndex) : -1;
+}
+int CyPlayer::getYieldTradedTotalINTAfrica(int /*YieldTypes*/ eIndex)
+{
+	return m_pPlayer ? m_pPlayer->getYieldTradedTotalAfrica((YieldTypes)eIndex) : -1;
+}
+
+int CyPlayer::getYieldTradedTotalPortRoyal(YieldTypes eIndex)
+{
+	return m_pPlayer ? m_pPlayer->getYieldTradedTotalPortRoyal(eIndex) : -1;
+}
+int CyPlayer::getYieldTradedTotalINTPortRoyal(int /*YieldTypes*/ eIndex)
+{
+	return m_pPlayer ? m_pPlayer->getYieldTradedTotalPortRoyal((YieldTypes)eIndex) : -1;
+}
+// WTP, ray, Yields Traded Total for Africa and Port Royal - END
+
 // R&R, vetiarvind, Price dependent tax rate change - START
 int CyPlayer::getYieldScoreTotalINT(int /*YieldTypes*/ eIndex)
 {
@@ -630,6 +682,18 @@ int CyPlayer::getUnHappinessRate()
 	return m_pPlayer ? m_pPlayer->getUnHappinessRate() : -1;
 }
 // WTP, ray, Happiness - END
+
+// WTP, ray, Crime and Law - START
+int CyPlayer::getLawRate()
+{
+	return m_pPlayer ? m_pPlayer->getLawRate() : -1;
+}
+int CyPlayer::getCrimeRate()
+{
+	return m_pPlayer ? m_pPlayer->getCrimeRate() : -1;
+}
+// WTP, ray, Crime and Law - END
+
 int CyPlayer::getYieldRateModifier(YieldTypes eIndex)
 {
 	return m_pPlayer ? m_pPlayer->getYieldRateModifier(eIndex) : 0;
@@ -854,6 +918,14 @@ int CyPlayer::getNumUnits()
 {
 	return m_pPlayer ? m_pPlayer->getNumUnits() : -1;
 }
+
+// WTP, ray, easily counting Ships - START
+int CyPlayer::getNumShips()
+{
+	return m_pPlayer ? m_pPlayer->getNumShips() : -1;
+}
+// WTP, ray, easily counting Ships - END
+
 CyUnit* CyPlayer::getUnit(int iID)
 {
 	return m_pPlayer ? new CyUnit(m_pPlayer->getUnit(iID)) : NULL;
@@ -1149,17 +1221,67 @@ int CyPlayer::missionaryThreshold(int /*PlayerTypes*/ ePlayer) const
 }
 int CyPlayer::getMissionaryRateModifier() const
 {
-	return m_pPlayer ? m_pPlayer->getMissionaryRateModifier() : -1; 
+	return m_pPlayer ? m_pPlayer->getMissionaryRateModifier() : -1;
 }
 // R&R, Robert Surcouf, No More Variables Hidden game option END
+
+//WTP, ray Kings Used Ship - START
+int CyPlayer::getRandomUsedShipClassTypeID() const
+{
+	return m_pPlayer ? m_pPlayer->getRandomUsedShipClassTypeID() : -1;
+}
+
+int CyPlayer::getUsedShipPrice(int /*UnitClassTypes*/ iUsedShipClassType) const
+{
+	return m_pPlayer ? m_pPlayer->getUsedShipPrice((UnitClassTypes)iUsedShipClassType) : -1;
+}
+
+bool CyPlayer::isKingWillingToTradeUsedShips() const
+{
+	return m_pPlayer ? m_pPlayer->isKingWillingToTradeUsedShips() : false;
+}
+
+void CyPlayer::resetCounterForUsedShipDeals()
+{
+	if (m_pPlayer)
+	{
+		m_pPlayer->resetCounterForUsedShipDeals();
+	}
+}
+//WTP, ray Kings Used Ship - END
+
+
+// WTP, ray, Foreign Kings, buy Immigrants - START
+int CyPlayer::getRandomForeignImmigrantClassTypeID(int iKingID) const
+{
+	return m_pPlayer ? m_pPlayer->getRandomForeignImmigrantClassTypeID(iKingID) : -1;
+}
+
+int CyPlayer::getForeignImmigrantPrice(int /*UnitClassTypes*/ iForeignImmigrantClassType, int iEuropeKingID) const
+{
+	return m_pPlayer ? m_pPlayer->getForeignImmigrantPrice((UnitClassTypes)iForeignImmigrantClassType, iEuropeKingID) : -1;
+}
+
+bool CyPlayer::isForeignKingWillingToTradeImmigrants(int iEuropeKingID) const
+{
+	return m_pPlayer ? m_pPlayer->isForeignKingWillingToTradeImmigrants(iEuropeKingID) : false;
+}
+
+void CyPlayer::resetCounterForForeignImmigrantsDeals()
+{
+	if (m_pPlayer)
+	{
+		m_pPlayer->resetCounterForForeignImmigrantsDeals();
+	}
+}
+// WTP, ray, Foreign Kings, buy Immigrants - END
 
 // R&R, ray, Church Favours - START
 int CyPlayer::getChurchFavourPrice() const
 {
-	return m_pPlayer ? m_pPlayer->getChurchFavourPrice() : -1; 
+	return m_pPlayer ? m_pPlayer->getChurchFavourPrice() : -1;
 }
 // R&R, ray, Church Favours - END
-
 
 /** NBMOD TAX **/
 int CyPlayer::NBMOD_GetMaxTaxRate() const
@@ -1225,22 +1347,21 @@ void CyPlayer::setYieldBuyPrice(int /*YieldTypes*/ eYield, int iPrice, bool bMes
 	if (m_pPlayer)
 		m_pPlayer->setYieldBuyPrice((YieldTypes)eYield, iPrice, bMessage);
 }
+// R&R, ray, Africa
 // PTSD, Ramstormp, Europe Stock - START
-int CyPlayer::getEuropeWarehouseYield(int /*YieldTypes*/ eYield)
+int CyPlayer::getEuropeWarehouseStock(int /*YieldTypes*/ eYield)
 {
-	return m_pPlayer ? m_pPlayer->getEuropeWarehouseYield((YieldTypes)eYield) : -1;
+	return m_pPlayer ? m_pPlayer->getEuropeWarehouseStock((YieldTypes)eYield) : -1;
 }
-int CyPlayer::getAfricaWarehouseYield(int /*YieldTypes*/ eYield)
+int CyPlayer::getAfricaWarehouseStock(int /*YieldTypes*/ eYield)
 {
-	return m_pPlayer ? m_pPlayer->getAfricaWarehouseYield((YieldTypes)eYield) : -1;
+	return m_pPlayer ? m_pPlayer->getAfricaWarehouseStock((YieldTypes)eYield) : -1;
 }
-int CyPlayer::getPortRoyalWarehouseYield(int /*YieldTypes*/ eYield)
+int CyPlayer::getPortRoyalWarehouseStock(int /*YieldTypes*/ eYield)
 {
-	return m_pPlayer ? m_pPlayer->getPortRoyalWarehouseYield((YieldTypes)eYield) : -1;
+	return m_pPlayer ? m_pPlayer->getPortRoyalWarehouseStock((YieldTypes)eYield) : -1;
 }
 // Ramstormp END
-
-// R&R, ray, Africa
 int CyPlayer::getYieldAfricaSellPrice(int /*YieldTypes*/ eYield)
 {
 	return m_pPlayer ? m_pPlayer->getYieldAfricaSellPrice((YieldTypes) eYield) : -1;
@@ -1249,6 +1370,11 @@ int CyPlayer::getYieldAfricaBuyPrice(int /*YieldTypes*/ eYield)
 {
 	return m_pPlayer ? m_pPlayer->getYieldAfricaBuyPrice((YieldTypes) eYield) : -1;
 }
+int CyPlayer::getYieldAfricaBuyPriceNoModifier(int /*YieldTypes*/ eYield)
+{
+	return m_pPlayer ? m_pPlayer->getYieldAfricaBuyPriceNoModifier((YieldTypes) eYield) : -1;
+}
+
 void CyPlayer::setYieldAfricaBuyPrice(int /*YieldTypes*/ eYield, int iPrice, bool bMessage)
 {
 	if (m_pPlayer)
@@ -1267,6 +1393,10 @@ int CyPlayer::getYieldPortRoyalSellPrice(int /*YieldTypes*/ eYield)
 int CyPlayer::getYieldPortRoyalBuyPrice(int /*YieldTypes*/ eYield)
 {
 	return m_pPlayer ? m_pPlayer->getYieldPortRoyalBuyPrice((YieldTypes) eYield) : -1;
+}
+int CyPlayer::getYieldPortRoyalBuyPriceNoModifier(int /*YieldTypes*/ eYield)
+{
+	return m_pPlayer ? m_pPlayer->getYieldPortRoyalBuyPriceNoModifier((YieldTypes) eYield) : -1;
 }
 void CyPlayer::setYieldPortRoyalBuyPrice(int /*YieldTypes*/ eYield, int iPrice, bool bMessage)
 {
@@ -1299,6 +1429,18 @@ int CyPlayer::getYieldBoughtTotal(int /*YieldTypes*/ eYield) const
 {
 	return m_pPlayer ? m_pPlayer->getYieldBoughtTotal((YieldTypes) eYield) : 0;
 }
+
+// WTP, ray, Yields Traded Total for Africa and Port Royal - START
+int CyPlayer::getYieldBoughtTotalAfrica(int /*YieldTypes*/ eYield) const
+{
+	return m_pPlayer ? m_pPlayer->getYieldBoughtTotalAfrica((YieldTypes) eYield) : 0;
+}
+int CyPlayer::getYieldBoughtTotalPortRoyal(int /*YieldTypes*/ eYield) const
+{
+	return m_pPlayer ? m_pPlayer->getYieldBoughtTotalPortRoyal((YieldTypes) eYield) : 0;
+}
+// WTP, ray, Yields Traded Total for Africa and Port Royal - END
+
 int CyPlayer::getNumRevolutionEuropeUnits() const
 {
 	return m_pPlayer ? m_pPlayer->getNumRevolutionEuropeUnits() : -1;
@@ -1323,13 +1465,13 @@ int CyPlayer::getDocksNextUnit(int iIndex) const
 {
 	if (m_pPlayer)
 	{
-		if (iIndex >= 0 && iIndex < static_cast<int>(m_pPlayer->CivEffect()->getNumUnitsOnDock()))
+		if (iIndex >= 0 && iIndex < static_cast<int>(m_pPlayer->CivEffect().getNumUnitsOnDock()))
 		{
 			return m_pPlayer->getDocksNextUnit(iIndex);
 		}
 	}
 	return NO_UNIT;
-	
+
 }
 void CyPlayer::addRevolutionEuropeUnit(int /*UnitTypes*/ eUnit, int /*ProfessionTypes*/ eProfession)
 {
@@ -1432,6 +1574,14 @@ bool CyPlayer::isYieldAfricaTradable(int /*YieldTypes*/ eIndex)
 {
 	return m_pPlayer ? m_pPlayer->isYieldAfricaTradable((YieldTypes)eIndex) : false;
 }
+
+//WTP, ray, Colonial Intervention In Native War - START
+int CyPlayer::getIDSecondPlayerFrenchNativeWar()
+{
+	return m_pPlayer ? m_pPlayer->getIDSecondPlayerFrenchNativeWar() : -1;
+}
+//WTP, ray, Colonial Intervention In Native War - END
+
 /**************************************/
 
 // R&R, ray, Port Royal
@@ -1526,35 +1676,95 @@ CyInfoArray* CyPlayer::getSpecialBuildingTypes() const
 {
 	// Currently a bit pointless, but here there is a single location to alter all of the python code using this should we need to update.
 
-	BoolArray BA(JIT_ARRAY_BUILDING_SPECIAL, true);
+	EnumMap<SpecialBuildingTypes, bool, true> em;
 
-	return new CyInfoArray(BA);
+	return new CyInfoArray(em);
 }
 
 CyInfoArray* CyPlayer::getStoredYieldTypes() const
 {
 	// Currently a bit pointless, but here there is a single location to alter all of the python code using this should we need to update.
 
-	BoolArray BA(JIT_ARRAY_YIELD);
+	EnumMap<YieldTypes, bool, true> em;
 
-	for (YieldTypes eYield = FIRST_YIELD; eYield < NUM_CARGO_YIELD_TYPES; ++eYield)
+	for (YieldTypes eYield = em.FIRST; eYield <= em.LAST; ++eYield)
 	{
-		BA.set(true, eYield);
+		if (eYield >= NUM_CARGO_YIELD_TYPES // only show cargo yields
+			|| (m_pPlayer && !m_pPlayer->CivEffect().canUseYield(eYield))) // remove yields not used by the player
+		{
+			em.set(eYield, false);
+		}
 	}
-	return new CyInfoArray(BA);
+
+	return new CyInfoArray(em);
+}
+
+CyInfoArray* CyPlayer::getDomesticDemandYieldTypes() const
+{
+	EnumMap<YieldTypes, bool> em;
+
+	const InfoArray<YieldTypes>& array = GC.getDomesticDemandYieldTypes();
+
+	for (int i = 0; i < array.getLength(); ++i)
+	{
+		const YieldTypes eYield = array.get(i);
+		if (!m_pPlayer || m_pPlayer->CivEffect().canUseYield(eYield))
+		{
+			em.set(eYield, true);
+		}
+	}
+
+	return new CyInfoArray(em);
+}
+
+CyInfoArray* CyPlayer::getTeachUnitTypes(int iTeachLevel) const
+{
+	EnumMap<UnitTypes, bool> em;
+
+	if (m_pPlayer != NULL)
+	{
+		const CvPlayerCivEffect& kPlayer = m_pPlayer->CivEffect();
+		for (UnitTypes eUnit = em.FIRST; eUnit <= em.LAST; ++eUnit)
+		{
+			if (kPlayer.canUseUnit(eUnit) && GC.getUnitInfo(eUnit).NBMOD_GetTeachLevel() == iTeachLevel)
+			{
+				em.set(eUnit, true);
+			}
+
+		}
+	}
+	return new CyInfoArray(em);
+}
+
+int CyPlayer::getMaxTeachLevel() const
+{
+	int iLevel = 0;
+	if (m_pPlayer != NULL)
+	{
+		const CvPlayerCivEffect& kPlayer = m_pPlayer->CivEffect();
+		for (UnitTypes eUnit = FIRST_UNIT; eUnit < NUM_UNIT_TYPES; ++eUnit)
+		{
+			if (kPlayer.canUseUnit(eUnit))
+			{
+				const int iUnitLevel = GC.getUnitInfo(eUnit).NBMOD_GetTeachLevel();
+				if (iUnitLevel > iLevel && iUnitLevel < 100)
+				{
+					iLevel = iUnitLevel;
+				}
+			}
+		}
+	}
+	return iLevel;
 }
 
 // CivEffect
 int CyPlayer::getCivEffectCount(CivEffectTypes eCivEffect) const
 {
-	return m_pPlayer ? m_pPlayer->CivEffect()->getCivEffectCount(eCivEffect) : 0;
+	return m_pPlayer ? m_pPlayer->CivEffect().getCivEffectCount(eCivEffect) : 0;
 }
 
 
 unsigned int CyPlayer::getNumUnitsOnDock() const
 {
-	return m_pPlayer ? m_pPlayer->CivEffect()->getNumUnitsOnDock() : 0;
+	return m_pPlayer ? m_pPlayer->CivEffect().getNumUnitsOnDock() : 0;
 }
-
-
-

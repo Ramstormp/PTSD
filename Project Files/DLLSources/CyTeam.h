@@ -54,6 +54,10 @@ public:
 	int countEnemyDangerByArea(CyArea* pArea);
 	int getFatherPointCost(int /*FatherTypes*/ eFather, int /*FatherPointTypes*/ ePointType);
 	int getFatherPoints(int /*FatherPointTypes*/ ePointType);
+	// Ramstormp, PTSD, Everone can have a dad - start
+	bool isFatherConvinced(int /*FatherTypes*/ eFather) const;
+	void setFatherConvinced(int /*TeamTypes*/ eTeam, bool bValue) const;
+	// Ramstormp - end
 	// TAC - Python Export - koma13 - START
 	bool isFatherIgnore(int /*FatherTypes*/ eFather) const;
 	// TAC - Python Export - koma13 - END

@@ -7,6 +7,7 @@
 
 //#include "CvStructs.h"
 #include "LinkedList.h"
+#include "KmodPathFinder.h"
 
 class CvPlot;
 class CvArea;
@@ -71,7 +72,8 @@ public:
 	bool canEnterArea(PlayerTypes ePlayer, const CvArea* pArea, bool bIgnoreRightOfPassage = false) const;
 	DllExport bool canMoveInto(CvPlot* pPlot, bool bAttack = false);
 	DllExport bool canMoveOrAttackInto(CvPlot* pPlot, bool bDeclareWar = false);
-	bool canMoveThrough(CvPlot* pPlot);
+	bool canMoveOrAttackInto(CvPlot const& kPlot, bool bDeclareWar = false, bool bCheckMoves = false, bool bAssumeVisible = true) const;
+	bool canMoveThrough(CvPlot const& kPlot, bool bDeclareWar = false, bool bAssumeVisible = true) const; // Exposed to Python, K-Mod added bDeclareWar and bAssumeVisible; advc: CvPlot const&
 	bool canFight();
 	bool canDefend();
 	bool canBombard(const CvPlot* pPlot);
@@ -97,13 +99,15 @@ public:
 	int getArea() const;
 	CvArea* area() const;
 	DomainTypes getDomainType() const;
-	RouteTypes getBestBuildRoute(CvPlot* pPlot, BuildTypes* peBestBuild = NULL) const;
+	bool canBuildRoute(CvPlot* pPlot, RouteTypes ePreferredRoute = NO_ROUTE) const;
+	BuildTypes getBestBuildRouteBuild(CvPlot *pPlot, RouteTypes ePreferredRoute) const;
+	RouteTypes getBestBuildRoute(CvPlot* pPlot, BuildTypes* peBestBuild = NULL, RouteTypes ePreferredRoute = NO_ROUTE) const;
 
 	bool groupDeclareWar(CvPlot* pPlot, bool bForce = false);
 	bool groupAttack(int iX, int iY, int iFlags, bool& bFailedAlreadyFighting);
 	void groupMove(CvPlot* pPlot, bool bCombat, CvUnit* pCombatUnit = NULL, bool bEndMove = false);
 	bool groupPathTo(int iX, int iY, int iFlags);
-	bool groupRoadTo(int iX, int iY, int iFlags);
+	bool groupRouteTo(int iX, int iY, int iFlags, RouteTypes ePreferredRoute = ROUTE_PLASTERED_ROAD);
 	bool groupBuild(BuildTypes eBuild);
 	void setTransportUnit(CvUnit* pTransportUnit);
 	bool isAmphibPlot(const CvPlot* pPlot) const;
@@ -138,20 +142,20 @@ public:
 	bool isAutomated();
 	void setAutomateType(AutomateTypes eNewValue);
 
-	FAStarNode* getPathLastNode() const;
+	// FAStarNode* getPathLastNode() const; // disabled by K-Mod. Use path_finder methods instead.
 	CvPlot* getPathFirstPlot() const;
 	CvPlot* getPathEndTurnPlot() const;
 	CvPlot* getPathSecondLastPlot() const;
 	int getPathCost() const;
-	
+
 	// TAC - AI Improved Naval AI - koma13 - START
 	CvPlot* getPathPlotByIndex(int iIndex) const;
 	int getPathLength() const;
 	//bool generatePath(const CvPlot* pFromPlot, const CvPlot* pToPlot, int iFlags = 0, bool bReuse = false, int* piPathTurns = NULL) const;
-	bool generatePath(const CvPlot* pFromPlot, const CvPlot* pToPlot, int iFlags = 0, bool bReuse = false, int* piPathTurns = NULL, bool bIgnoreDanger = true) const;
+	//bool generatePath(const CvPlot* pFromPlot, const CvPlot* pToPlot, int iFlags = 0, bool bReuse = false, int* piPathTurns = NULL, bool bIgnoreDanger = true) const;
 	// TAC - AI Improved Naval AI - koma13 - END
-
-	void resetPath();
+	bool generatePath(const CvPlot* pFromPlot, const CvPlot* pToPlot, int iFlags = 0, bool bReuse = false, int* piPathTurns = NULL, int iMaxPath = -1) const; // Exposed to Python (K-mod added iMaxPath)
+	// void resetPath() const; // disabled by K-mod. Use path_finder.Reset instead. (was exposed to Python)
 
 	DllExport void clearUnits();
 	DllExport bool addUnit(CvUnit* pUnit, bool bMinimalChange);
@@ -160,7 +164,14 @@ public:
 	CvSelectionGroup* splitGroup(int iSplitSize, CvUnit* pNewHeadUnit = NULL);
 
 	DllExport CLLNode<IDInfo>* deleteUnitNode(CLLNode<IDInfo>* pNode);
-	DllExport CLLNode<IDInfo>* nextUnitNode(CLLNode<IDInfo>* pNode) const;
+	DllExport inline CLLNode<IDInfo>* nextUnitNode(CLLNode<IDInfo>* pNode) const
+	{
+		return m_units.next(pNode); // advc.inl
+	} // <advc.003s> Safer in 'for' loops
+	inline CLLNode<IDInfo> const* nextUnitNode(CLLNode<IDInfo> const* pNode) const
+	{
+		return m_units.next(pNode);
+	} // </advc.003s>
 	DllExport int getNumUnits() const;
 	DllExport int getUnitIndex(CvUnit* pUnit, int maxIndex = -1) const;
 	DllExport CLLNode<IDInfo>* headUnitNode() const;
@@ -189,10 +200,13 @@ public:
 
 	void speakWithChief();
 
+	int maxMoves() const; // K-Mod
+	int movesLeft() const; // K-Mod
+
 	// for serialization
 	virtual void read(FDataStreamBase* pStream);
 	virtual void write(FDataStreamBase* pStream);
-	
+
 	void read(CvSavegameReader reader);
 	void write(CvSavegameWriter writer);
 
@@ -254,6 +268,10 @@ protected:
 	void deactivateHeadMission();
 
 	bool sentryAlert() const;
+
+public:
+	static KmodPathFinder path_finder; // K-Mod! I'd rather this not be static, but I can't do that here.
+
 };
 
 #endif

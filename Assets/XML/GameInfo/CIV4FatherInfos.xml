@@ -25,16 +25,38 @@
                     <FatherPointType>FATHER_POINT_EXPLORATION</FatherPointType>
                     <iCost>250</iCost>
                 </FatherPointCost>
-                <FatherPointCost>
-                    <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
-                    <iCost>150</iCost>
-                </FatherPointCost>
             </FatherPointCosts>
             <Trait>TRAIT_JACQUES_MARQUETTE</Trait>
             <Quote>TXT_KEY_FUTURE_QUOTE</Quote>
             <Sound>AS2D_FUTURE</Sound>
             <SoundMP>AS2D_MP_FUTURE</SoundMP>
             <Button>,Art/Interface/Screens/Founding_Fathers/Founding_Fathers_Atlas.dds,8,5</Button>
+        </FatherInfo>
+        <FatherInfo>
+            <Type>FATHER_LOUIS_JOLLIET</Type>
+            <Portrait>Art/Interface/Screens/Founding_Fathers/Louis_Jolliet.dds</Portrait>
+            <Description>TXT_KEY_FATHER_LOUIS_JOLLIET</Description>
+            <Civilopedia>TXT_KEY_FATHER_LOUIS_JOLLIET_PEDIA</Civilopedia>
+            <Strategy>TXT_KEY_FATHER_LOUIS_JOLLIET_STRATEGY</Strategy>
+            <FatherCategory>FATHERCATEGORY_EXPLORATION</FatherCategory>
+            <RevealImprovements/>
+            <FreeUnits>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_RANGER</UnitClass>
+                    <iFreeUnits>1</iFreeUnits>
+                </FreeUnit>
+            </FreeUnits>
+            <FatherPointCosts>
+                <FatherPointCost>
+                    <FatherPointType>FATHER_POINT_EXPLORATION</FatherPointType>
+                    <iCost>340</iCost>
+                </FatherPointCost>
+            </FatherPointCosts>
+            <Trait>TRAIT_LOUIS_JOLLIET</Trait>
+            <Quote>TXT_KEY_FUTURE_QUOTE</Quote>
+            <Sound>AS2D_FUTURE</Sound>
+            <SoundMP>AS2D_MP_FUTURE</SoundMP>
+            <Button>,Art/Interface/Screens/Founding_Fathers/Founding_Fathers_Atlas.dds,2,13</Button>
         </FatherInfo>
         <FatherInfo>
             <Type>FATHER_MALINCHE</Type>
@@ -62,11 +84,7 @@
             <FatherPointCosts>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_EXPLORATION</FatherPointType>
-                    <iCost>340</iCost>
-                </FatherPointCost>
-                <FatherPointCost>
-                    <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
-                    <iCost>230</iCost>
+                    <iCost>450</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
             <Trait/>
@@ -86,17 +104,13 @@
             <FreeUnits>
                 <FreeUnit>
                     <UnitClass>UNITCLASS_PIONEER</UnitClass>
-                    <iFreeUnits>2</iFreeUnits>
+                    <iFreeUnits>1</iFreeUnits>
                 </FreeUnit>
             </FreeUnits>
             <FatherPointCosts>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_EXPLORATION</FatherPointType>
-                    <iCost>450</iCost>
-                </FatherPointCost>
-                <FatherPointCost>
-                    <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
-                    <iCost>350</iCost>
+                    <iCost>600</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
             <Trait>TRAIT_PETER_MINUIT</Trait>
@@ -122,11 +136,7 @@
             <FatherPointCosts>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_EXPLORATION</FatherPointType>
-                    <iCost>600</iCost>
-                </FatherPointCost>
-                <FatherPointCost>
-                    <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
-                    <iCost>525</iCost>
+                    <iCost>850</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
             <Trait/>
@@ -134,6 +144,36 @@
             <Sound>AS2D_FUTURE</Sound>
             <SoundMP>AS2D_MP_FUTURE</SoundMP>
             <Button>,Art/Interface/Screens/Founding_Fathers/Founding_Fathers_Atlas.dds,4,2</Button>
+        </FatherInfo>
+        <FatherInfo>
+            <Type>FATHER_HUMPHREY_GILBERT</Type>
+            <Portrait>Art/Interface/Screens/Founding_Fathers/Humphrey_Gilbert.dds</Portrait>
+            <Description>TXT_KEY_FATHER_HUMPHREY_GILBERT</Description>
+            <Civilopedia>TXT_KEY_FATHER_HUMPHREY_GILBERT_PEDIA</Civilopedia>
+            <Strategy>TXT_KEY_FATHER_HUMPHREY_GILBERT_STRATEGY</Strategy>
+            <FatherCategory>FATHERCATEGORY_EXPLORATION</FatherCategory>
+            <RevealImprovements/>
+            <FreeUnits>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_RAPE_PLANTER</UnitClass>
+                    <iFreeUnits>1</iFreeUnits>
+                </FreeUnit>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_OIL_TRADER</UnitClass>
+                    <iFreeUnits>1</iFreeUnits>
+                </FreeUnit>
+            </FreeUnits>
+            <FatherPointCosts>
+                <FatherPointCost>
+                    <FatherPointType>FATHER_POINT_EXPLORATION</FatherPointType>
+                    <iCost>950</iCost>
+                </FatherPointCost>
+            </FatherPointCosts>
+            <Trait>TRAIT_HUMPHREY_GILBERT</Trait>
+            <Quote>TXT_KEY_FUTURE_QUOTE</Quote>
+            <Sound>AS2D_FUTURE</Sound>
+            <SoundMP>AS2D_MP_FUTURE</SoundMP>
+            <Button>,Art/Interface/Screens/Founding_Fathers/Founding_Fathers_Atlas.dds,4,14</Button>
         </FatherInfo>
         <FatherInfo>
             <Type>FATHER_JUAN_PONCE_DE_LEON</Type>
@@ -145,25 +185,25 @@
             <RevealImprovements/>
             <FreeUnits>
                 <FreeUnit>
+                    <UnitClass>UNITCLASS_EXPERT_SETTLER</UnitClass>
+                    <iFreeUnits>1</iFreeUnits>
+                </FreeUnit>
+                <FreeUnit>
                     <UnitClass>UNITCLASS_COLONIST</UnitClass>
-                    <iFreeUnits>7</iFreeUnits>
+                    <iFreeUnits>5</iFreeUnits>
                 </FreeUnit>
                 <FreeUnit>
                     <UnitClass>UNITCLASS_INDENTURED_SERVANT</UnitClass>
-                    <iFreeUnits>5</iFreeUnits>
+                    <iFreeUnits>3</iFreeUnits>
                 </FreeUnit>
             </FreeUnits>
             <FatherPointCosts>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_EXPLORATION</FatherPointType>
-                    <iCost>850</iCost>
-                </FatherPointCost>
-                <FatherPointCost>
-                    <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
-                    <iCost>790</iCost>
+                    <iCost>1100</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
-            <Trait/>
+            <Trait>TRAIT_JUAN_PONCE_DE_LEON</Trait>
             <Quote>TXT_KEY_FUTURE_QUOTE</Quote>
             <Sound>AS2D_FUTURE</Sound>
             <SoundMP>AS2D_MP_FUTURE</SoundMP>
@@ -180,21 +220,17 @@
             <FreeUnits>
                 <FreeUnit>
                     <UnitClass>UNITCLASS_PROSPECTOR</UnitClass>
-                    <iFreeUnits>2</iFreeUnits>
+                    <iFreeUnits>1</iFreeUnits>
                 </FreeUnit>
                 <FreeUnit>
                     <UnitClass>UNITCLASS_PIONEER</UnitClass>
-                    <iFreeUnits>2</iFreeUnits>
+                    <iFreeUnits>1</iFreeUnits>
                 </FreeUnit>
             </FreeUnits>
             <FatherPointCosts>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_EXPLORATION</FatherPointType>
-                    <iCost>1000</iCost>
-                </FatherPointCost>
-                <FatherPointCost>
-                    <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
-                    <iCost>950</iCost>
+                    <iCost>1250</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
             <Trait>TRAIT_GONZALO_JIMENEZ_DE_QUESADA</Trait>
@@ -215,11 +251,7 @@
             <FatherPointCosts>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_EXPLORATION</FatherPointType>
-                    <iCost>1200</iCost>
-                </FatherPointCost>
-                <FatherPointCost>
-                    <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
-                    <iCost>1050</iCost>
+                    <iCost>1500</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
             <Trait>TRAIT_JUAN_DE_BERMUDEZ</Trait>
@@ -236,15 +268,16 @@
             <Strategy>TXT_KEY_FATHER_PEDRO_ALVARES_CABRAL_STRATEGY</Strategy>
             <FatherCategory>FATHERCATEGORY_EXPLORATION</FatherCategory>
             <RevealImprovements/>
-            <FreeUnits/>
+            <FreeUnits>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_CARRACK</UnitClass>
+                    <iFreeUnits>1</iFreeUnits>
+                </FreeUnit>
+            </FreeUnits>
             <FatherPointCosts>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_EXPLORATION</FatherPointType>
-                    <iCost>1500</iCost>
-                </FatherPointCost>
-                <FatherPointCost>
-                    <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
-                    <iCost>1250</iCost>
+                    <iCost>1750</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
             <Trait>TRAIT_PEDRO_ALVARES_CABRAL</Trait>
@@ -265,11 +298,7 @@
             <FatherPointCosts>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_EXPLORATION</FatherPointType>
-                    <iCost>1750</iCost>
-                </FatherPointCost>
-                <FatherPointCost>
-                    <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
-                    <iCost>1450</iCost>
+                    <iCost>2250</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
             <Trait>TRAIT_LEWIS_AND_CLARK</Trait>
@@ -277,6 +306,66 @@
             <Sound>AS2D_FUTURE</Sound>
             <SoundMP>AS2D_MP_FUTURE</SoundMP>
             <Button>,Art/Interface/Screens/Founding_Fathers/Founding_Fathers_Atlas.dds,6,5</Button>
+        </FatherInfo>
+        <FatherInfo>
+            <Type>FATHER_CARL_VON_LINNES</Type>
+            <Portrait>Art/Interface/Screens/Founding_Fathers/Carl_von_Linnes.dds</Portrait>
+            <Description>TXT_KEY_FATHER_CARL_VON_LINNES</Description>
+            <Civilopedia>TXT_KEY_FATHER_CARL_VON_LINNES_PEDIA</Civilopedia>
+            <Strategy>TXT_KEY_FATHER_CARL_VON_LINNES_STRATEGY</Strategy>
+            <FatherCategory>FATHERCATEGORY_EXPLORATION</FatherCategory>
+            <RevealImprovements/>
+            <FreeUnits>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_PEANUT_PLANTER</UnitClass>
+                    <iFreeUnits>1</iFreeUnits>
+                </FreeUnit>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_ROASTER</UnitClass>
+                    <iFreeUnits>1</iFreeUnits>
+                </FreeUnit>
+            </FreeUnits>
+            <FatherPointCosts>
+                <FatherPointCost>
+                    <FatherPointType>FATHER_POINT_EXPLORATION</FatherPointType>
+                    <iCost>2500</iCost>
+                </FatherPointCost>
+            </FatherPointCosts>
+            <Trait>TRAIT_CARL_VON_LINNES</Trait>
+            <Quote>TXT_KEY_FUTURE_QUOTE</Quote>
+            <Sound>AS2D_FUTURE</Sound>
+            <SoundMP>AS2D_MP_FUTURE</SoundMP>
+            <Button>,Art/Interface/Screens/Founding_Fathers/Founding_Fathers_Atlas.dds,1,14</Button>
+        </FatherInfo>
+        <FatherInfo>
+            <Type>FATHER_JAMES_COOK</Type>
+            <Portrait>Art/Interface/Screens/Founding_Fathers/James_Cook.dds</Portrait>
+            <Description>TXT_KEY_FATHER_JAMES_COOK</Description>
+            <Civilopedia>TXT_KEY_FATHER_JAMES_COOK_PEDIA</Civilopedia>
+            <Strategy>TXT_KEY_FATHER_JAMES_COOK_STRATEGY</Strategy>
+            <FatherCategory>FATHERCATEGORY_EXPLORATION</FatherCategory>
+            <RevealImprovements/>
+            <FreeUnits>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_CAPABLE_CAPTAIN</UnitClass>
+                    <iFreeUnits>1</iFreeUnits>
+                </FreeUnit>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_NAVAL_BRIG</UnitClass>
+                    <iFreeUnits>1</iFreeUnits>
+                </FreeUnit>
+            </FreeUnits>
+            <FatherPointCosts>
+                <FatherPointCost>
+                    <FatherPointType>FATHER_POINT_EXPLORATION</FatherPointType>
+                    <iCost>2800</iCost>
+                </FatherPointCost>
+            </FatherPointCosts>
+            <Trait>TRAIT_JAMES_COOK</Trait>
+            <Quote>TXT_KEY_FUTURE_QUOTE</Quote>
+            <Sound>AS2D_FUTURE</Sound>
+            <SoundMP>AS2D_MP_FUTURE</SoundMP>
+            <Button>,Art/Interface/Screens/Founding_Fathers/Founding_Fathers_Atlas.dds,1,13</Button>
         </FatherInfo>
         <FatherInfo>
             <Type>FATHER_ALEXANDER_VON_HUMBOLDT</Type>
@@ -289,17 +378,13 @@
             <FreeUnits>
                 <FreeUnit>
                     <UnitClass>UNITCLASS_EMIGRANT</UnitClass>
-                    <iFreeUnits>2</iFreeUnits>
+                    <iFreeUnits>3</iFreeUnits>
                 </FreeUnit>
             </FreeUnits>
             <FatherPointCosts>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_EXPLORATION</FatherPointType>
-                    <iCost>2250</iCost>
-                </FatherPointCost>
-                <FatherPointCost>
-                    <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
-                    <iCost>1700</iCost>
+                    <iCost>3500</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
             <Trait>TRAIT_ALEXANDER_VON_HUMBOLDT</Trait>
@@ -320,11 +405,7 @@
             <FatherPointCosts>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_EXPLORATION</FatherPointType>
-                    <iCost>2800</iCost>
-                </FatherPointCost>
-                <FatherPointCost>
-                    <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
-                    <iCost>2500</iCost>
+                    <iCost>4000</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
             <Trait>TRAIT_VACO_NUNEZ_DE_BALBOA</Trait>
@@ -350,11 +431,7 @@
             <FatherPointCosts>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_EXPLORATION</FatherPointType>
-                    <iCost>4000</iCost>
-                </FatherPointCost>
-                <FatherPointCost>
-                    <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
-                    <iCost>3500</iCost>
+                    <iCost>4500</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
             <Trait>TRAIT_FRANCIS_DRAKE</Trait>
@@ -362,6 +439,36 @@
             <Sound>AS2D_FUTURE</Sound>
             <SoundMP>AS2D_MP_FUTURE</SoundMP>
             <Button>,Art/Interface/Screens/Founding_Fathers/Founding_Fathers_Atlas.dds,8,7</Button>
+        </FatherInfo>
+        <FatherInfo>
+            <Type>FATHER_WILLIAM_DAMPIER</Type>
+            <Portrait>Art/Interface/Screens/Founding_Fathers/William_Dampier.dds</Portrait>
+            <Description>TXT_KEY_FATHER_WILLIAM_DAMPIER</Description>
+            <Civilopedia>TXT_KEY_FATHER_WILLIAM_DAMPIER_PEDIA</Civilopedia>
+            <Strategy>TXT_KEY_FATHER_WILLIAM_DAMPIER_STRATEGY</Strategy>
+            <FatherCategory>FATHERCATEGORY_EXPLORATION</FatherCategory>
+            <RevealImprovements/>
+            <FreeUnits>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_BUCCANNEER</UnitClass>
+                    <iFreeUnits>1</iFreeUnits>
+                </FreeUnit>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_SMUGGLING_SHIP</UnitClass>
+                    <iFreeUnits>1</iFreeUnits>
+                </FreeUnit>
+            </FreeUnits>
+            <FatherPointCosts>
+                <FatherPointCost>
+                    <FatherPointType>FATHER_POINT_EXPLORATION</FatherPointType>
+                    <iCost>5000</iCost>
+                </FatherPointCost>
+            </FatherPointCosts>
+            <Trait>TRAIT_WILLIAM_DAMPIER</Trait>
+            <Quote>TXT_KEY_FUTURE_QUOTE</Quote>
+            <Sound>AS2D_FUTURE</Sound>
+            <SoundMP>AS2D_MP_FUTURE</SoundMP>
+            <Button>,Art/Interface/Screens/Founding_Fathers/Founding_Fathers_Atlas.dds,5,13</Button>
         </FatherInfo>
         <FatherInfo>
             <Type>FATHER_WILLEM_BARENTS</Type>
@@ -374,17 +481,13 @@
             <FreeUnits>
                 <FreeUnit>
                     <UnitClass>UNITCLASS_WHALING_BOAT</UnitClass>
-                    <iFreeUnits>2</iFreeUnits>
+                    <iFreeUnits>1</iFreeUnits>
                 </FreeUnit>
             </FreeUnits>
             <FatherPointCosts>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_EXPLORATION</FatherPointType>
-                    <iCost>4500</iCost>
-                </FatherPointCost>
-                <FatherPointCost>
-                    <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
-                    <iCost>4000</iCost>
+                    <iCost>5500</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
             <Trait>TRAIT_WILLEM_BARENTS</Trait>
@@ -412,10 +515,6 @@
                     <FatherPointType>FATHER_POINT_EXPLORATION</FatherPointType>
                     <iCost>6000</iCost>
                 </FatherPointCost>
-                <FatherPointCost>
-                    <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
-                    <iCost>5000</iCost>
-                </FatherPointCost>
             </FatherPointCosts>
             <Trait>TRAIT_JACQUES_CARTIER</Trait>
             <Quote>TXT_KEY_FUTURE_QUOTE</Quote>
@@ -430,28 +529,29 @@
             <Civilopedia>TXT_KEY_FATHER_PIET_HEYN_PEDIA</Civilopedia>
             <Strategy>TXT_KEY_FATHER_PIET_HEYN_STRATEGY</Strategy>
             <FatherCategory>FATHERCATEGORY_EXPLORATION</FatherCategory>
-            <RevealImprovements/>
+            <RevealImprovements>
+                <RevealImprovement>
+                    <ImprovementType>IMPROVEMENT_GOODY_HUT4</ImprovementType>
+                    <bReveal>1</bReveal>
+                </RevealImprovement>
+            </RevealImprovements>
             <FreeUnits>
                 <FreeUnit>
                     <UnitClass>UNITCLASS_WEST_INDIAMAN</UnitClass>
-                    <iFreeUnits>2</iFreeUnits>
+                    <iFreeUnits>1</iFreeUnits>
                 </FreeUnit>
                 <FreeUnit>
-                    <UnitClass>UNITCLASS_PIRATE_FRIGATE</UnitClass>
+                    <UnitClass>UNITCLASS_PIRATE_CUTTER</UnitClass>
                     <iFreeUnits>1</iFreeUnits>
                 </FreeUnit>
             </FreeUnits>
             <FatherPointCosts>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_EXPLORATION</FatherPointType>
-                    <iCost>6550</iCost>
-                </FatherPointCost>
-                <FatherPointCost>
-                    <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
-                    <iCost>5500</iCost>
+                    <iCost>6500</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
-            <Trait/>
+            <Trait>TRAIT_PIET_HEYN</Trait>
             <Quote>TXT_KEY_FUTURE_QUOTE</Quote>
             <Sound>AS2D_FUTURE</Sound>
             <SoundMP>AS2D_MP_FUTURE</SoundMP>
@@ -474,11 +574,7 @@
             <FatherPointCosts>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_EXPLORATION</FatherPointType>
-                    <iCost>7500</iCost>
-                </FatherPointCost>
-                <FatherPointCost>
-                    <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
-                    <iCost>6500</iCost>
+                    <iCost>7000</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
             <Trait>TRAIT_FERDINAND_MAGELLAN</Trait>
@@ -499,11 +595,7 @@
             <FatherPointCosts>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_EXPLORATION</FatherPointType>
-                    <iCost>8000</iCost>
-                </FatherPointCost>
-                <FatherPointCost>
-                    <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
-                    <iCost>7000</iCost>
+                    <iCost>7500</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
             <Trait>TRAIT_PEDRO_MENENDEZ_DE_AVILES</Trait>
@@ -523,17 +615,17 @@
             <FreeUnits>
                 <FreeUnit>
                     <UnitClass>UNITCLASS_PIRATE_FRIGATE</UnitClass>
-                    <iFreeUnits>2</iFreeUnits>
+                    <iFreeUnits>1</iFreeUnits>
+                </FreeUnit>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_BUCCANNEER</UnitClass>
+                    <iFreeUnits>1</iFreeUnits>
                 </FreeUnit>
             </FreeUnits>
             <FatherPointCosts>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_EXPLORATION</FatherPointType>
-                    <iCost>8500</iCost>
-                </FatherPointCost>
-                <FatherPointCost>
-                    <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
-                    <iCost>7500</iCost>
+                    <iCost>8000</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
             <Trait>TRAIT_BLACKBEARD</Trait>
@@ -578,7 +670,7 @@
             <FreeUnits>
                 <FreeUnit>
                     <UnitClass>UNITCLASS_EXPERT_TRADER</UnitClass>
-                    <iFreeUnits>2</iFreeUnits>
+                    <iFreeUnits>1</iFreeUnits>
                 </FreeUnit>
             </FreeUnits>
             <FatherPointCosts>
@@ -612,7 +704,7 @@
                 </FreeUnit>
                 <FreeUnit>
                     <UnitClass>UNITCLASS_FISHING_BOAT</UnitClass>
-                    <iFreeUnits>2</iFreeUnits>
+                    <iFreeUnits>1</iFreeUnits>
                 </FreeUnit>
             </FreeUnits>
             <FatherPointCosts>
@@ -625,7 +717,7 @@
                     <iCost>630</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
-            <Trait/>
+            <Trait>TRAIT_JEAN_TALON</Trait>
             <Quote>TXT_KEY_FUTURE_QUOTE</Quote>
             <Sound>AS2D_FUTURE</Sound>
             <SoundMP>AS2D_MP_FUTURE</SoundMP>
@@ -647,7 +739,7 @@
                 </FatherPointCost>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
-                    <iCost>814</iCost>
+                    <iCost>850</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
             <Trait>TRAIT_JOHN_SMITH</Trait>
@@ -655,6 +747,70 @@
             <Sound>AS2D_FUTURE</Sound>
             <SoundMP>AS2D_MP_FUTURE</SoundMP>
             <Button>,Art/Interface/Screens/Founding_Fathers/Founding_Fathers_Atlas.dds,8,6</Button>
+        </FatherInfo>
+        <FatherInfo>
+            <Type>FATHER_ROBERT_KING_CARTER_I</Type>
+            <Portrait>Art/Interface/Screens/Founding_Fathers/Robert_Carter_I.dds</Portrait>
+            <Description>TXT_KEY_FATHER_ROBERT_KING_CARTER_I</Description>
+            <Civilopedia>TXT_KEY_FATHER_ROBERT_KING_CARTER_I_PEDIA</Civilopedia>
+            <Strategy>TXT_KEY_FATHER_ROBERT_KING_CARTER_I_STRATEGY</Strategy>
+            <FatherCategory>FATHERCATEGORY_TRADE</FatherCategory>
+            <RevealImprovements/>
+            <FreeUnits>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_PIONEER</UnitClass>
+                    <iFreeUnits>1</iFreeUnits>
+                </FreeUnit>
+            </FreeUnits>
+            <FatherPointCosts>
+                <FatherPointCost>
+                    <FatherPointType>FATHER_POINT_TRADE</FatherPointType>
+                    <iCost>1300</iCost>
+                </FatherPointCost>
+                <FatherPointCost>
+                    <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
+                    <iCost>950</iCost>
+                </FatherPointCost>
+            </FatherPointCosts>
+            <Trait>TRAIT_ROBERT_KING_CARTER_I</Trait>
+            <Quote>TXT_KEY_FUTURE_QUOTE</Quote>
+            <Sound>AS2D_FUTURE</Sound>
+            <SoundMP>AS2D_MP_FUTURE</SoundMP>
+            <Button>,Art/Interface/Screens/Founding_Fathers/Founding_Fathers_Atlas.dds,8,12</Button>
+        </FatherInfo>
+        <FatherInfo>
+            <Type>FATHER_ROBERT_VASCO_DA_GAMA</Type>
+            <Portrait>Art/Interface/Screens/Founding_Fathers/Vasco_da_Gama.dds</Portrait>
+            <Description>TXT_KEY_FATHER_VASCO_DA_GAMA</Description>
+            <Civilopedia>TXT_KEY_FATHER_VASCO_DA_GAMA_PEDIA</Civilopedia>
+            <Strategy>TXT_KEY_FATHER_VASCO_DA_GAMA_STRATEGY</Strategy>
+            <FatherCategory>FATHERCATEGORY_TRADE</FatherCategory>
+            <RevealImprovements/>
+            <FreeUnits>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_CARRACK</UnitClass>
+                    <iFreeUnits>1</iFreeUnits>
+                </FreeUnit>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_CARAVEL</UnitClass>
+                    <iFreeUnits>1</iFreeUnits>
+                </FreeUnit>
+            </FreeUnits>
+            <FatherPointCosts>
+                <FatherPointCost>
+                    <FatherPointType>FATHER_POINT_TRADE</FatherPointType>
+                    <iCost>1500</iCost>
+                </FatherPointCost>
+                <FatherPointCost>
+                    <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
+                    <iCost>1200</iCost>
+                </FatherPointCost>
+            </FatherPointCosts>
+            <Trait>TRAIT_VASCO_DA_GAMA</Trait>
+            <Quote>TXT_KEY_FUTURE_QUOTE</Quote>
+            <Sound>AS2D_FUTURE</Sound>
+            <SoundMP>AS2D_MP_FUTURE</SoundMP>
+            <Button>,Art/Interface/Screens/Founding_Fathers/Founding_Fathers_Atlas.dds,3,13</Button>
         </FatherInfo>
         <FatherInfo>
             <Type>FATHER_JOHN_JACOB_ASTOR</Type>
@@ -677,11 +833,11 @@
             <FatherPointCosts>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_TRADE</FatherPointType>
-                    <iCost>1300</iCost>
+                    <iCost>1800</iCost>
                 </FatherPointCost>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
-                    <iCost>950</iCost>
+                    <iCost>1400</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
             <Trait>TRAIT_JOHN_JACOB_ASTOR</Trait>
@@ -703,15 +859,19 @@
                     <UnitClass>UNITCLASS_TOBACCO_PLANTER</UnitClass>
                     <iFreeUnits>1</iFreeUnits>
                 </FreeUnit>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_TOBACCONIST</UnitClass>
+                    <iFreeUnits>1</iFreeUnits>
+                </FreeUnit>
             </FreeUnits>
             <FatherPointCosts>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_TRADE</FatherPointType>
-                    <iCost>1825</iCost>
+                    <iCost>2200</iCost>
                 </FatherPointCost>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
-                    <iCost>1320</iCost>
+                    <iCost>1600</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
             <Trait>TRAIT_JOHN_ROLFE</Trait>
@@ -719,6 +879,40 @@
             <Sound>AS2D_FUTURE</Sound>
             <SoundMP>AS2D_MP_FUTURE</SoundMP>
             <Button>,Art/Interface/Screens/Founding_Fathers/Founding_Fathers_Atlas.dds,7,6</Button>
+        </FatherInfo>
+        <FatherInfo>
+            <Type>FATHER_ROBERT_BAKEWELL</Type>
+            <Portrait>Art/Interface/Screens/Founding_Fathers/Robert_Bakewell.dds</Portrait>
+            <Description>TXT_KEY_FATHER_ROBERT_BAKEWELL</Description>
+            <Civilopedia>TXT_KEY_FATHER_ROBERT_BAKEWELL_PEDIA</Civilopedia>
+            <Strategy>TXT_KEY_FATHER_ROBERT_BAKEWELL_STRATEGY</Strategy>
+            <FatherCategory>FATHERCATEGORY_TRADE</FatherCategory>
+            <RevealImprovements/>
+            <FreeUnits>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_RANCHER</UnitClass>
+                    <iFreeUnits>1</iFreeUnits>
+                </FreeUnit>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_BUTCHER</UnitClass>
+                    <iFreeUnits>1</iFreeUnits>
+                </FreeUnit>
+            </FreeUnits>
+            <FatherPointCosts>
+                <FatherPointCost>
+                    <FatherPointType>FATHER_POINT_TRADE</FatherPointType>
+                    <iCost>2500</iCost>
+                </FatherPointCost>
+                <FatherPointCost>
+                    <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
+                    <iCost>1800</iCost>
+                </FatherPointCost>
+            </FatherPointCosts>
+            <Trait>TRAIT_ROBERT_BAKEWELL</Trait>
+            <Quote>TXT_KEY_FUTURE_QUOTE</Quote>
+            <Sound>AS2D_FUTURE</Sound>
+            <SoundMP>AS2D_MP_FUTURE</SoundMP>
+            <Button>,Art/Interface/Screens/Founding_Fathers/Founding_Fathers_Atlas.dds,6,14</Button>
         </FatherInfo>
         <FatherInfo>
             <Type>FATHER_WILLIAM_BREWSTER</Type>
@@ -733,15 +927,19 @@
                     <UnitClass>UNITCLASS_SUGAR_PLANTER</UnitClass>
                     <iFreeUnits>1</iFreeUnits>
                 </FreeUnit>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_DISTILLER</UnitClass>
+                    <iFreeUnits>1</iFreeUnits>
+                </FreeUnit>
             </FreeUnits>
             <FatherPointCosts>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_TRADE</FatherPointType>
-                    <iCost>2225</iCost>
+                    <iCost>2750</iCost>
                 </FatherPointCost>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
-                    <iCost>1800</iCost>
+                    <iCost>2000</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
             <Trait>TRAIT_WILLIAM_BREWSTER</Trait>
@@ -750,6 +948,40 @@
             <SoundMP>AS2D_MP_FUTURE</SoundMP>
             <Button>,Art/Interface/Screens/Founding_Fathers/Founding_Fathers_Atlas.dds,8,1</Button>
         </FatherInfo>
+        <FatherInfo>
+            <Type>FATHER_WILLIAM_STRACHEY</Type>
+            <Portrait>Art/Interface/Screens/Founding_Fathers/William_Strachey.dds</Portrait>
+            <Description>TXT_KEY_FATHER_WILLIAM_STRACHEY</Description>
+            <Civilopedia>TXT_KEY_FATHER_WILLIAM_STRACHEY_PEDIA</Civilopedia>
+            <Strategy>TXT_KEY_FATHER_WILLIAM_STRACHEY_STRATEGY</Strategy>
+            <FatherCategory>FATHERCATEGORY_TRADE</FatherCategory>
+            <RevealImprovements/>
+            <FreeUnits>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_BUTCHER</UnitClass>
+                    <iFreeUnits>1</iFreeUnits>
+                </FreeUnit>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_TANNER</UnitClass>
+                    <iFreeUnits>1</iFreeUnits>
+                </FreeUnit>
+            </FreeUnits>
+            <FatherPointCosts>
+                <FatherPointCost>
+                    <FatherPointType>FATHER_POINT_TRADE</FatherPointType>
+                    <iCost>2750</iCost>
+                </FatherPointCost>
+                <FatherPointCost>
+                    <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
+                    <iCost>2000</iCost>
+                </FatherPointCost>
+            </FatherPointCosts>
+            <Trait>TRAIT_WILLIAM_STRACHEY</Trait>
+            <Quote>TXT_KEY_FUTURE_QUOTE</Quote>
+            <Sound>AS2D_FUTURE</Sound>
+            <SoundMP>AS2D_MP_FUTURE</SoundMP>
+            <Button>,Art/Interface/Screens/Founding_Fathers/Founding_Fathers_Atlas.dds,1,15</Button>
+        </FatherInfo>		
         <FatherInfo>
             <Type>FATHER_ELI_WHITNEY</Type>
             <Portrait>Art/Interface/Screens/Founding_Fathers/Eli_Whitney.dds</Portrait>
@@ -763,15 +995,19 @@
                     <UnitClass>UNITCLASS_COTTON_PLANTER</UnitClass>
                     <iFreeUnits>1</iFreeUnits>
                 </FreeUnit>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_WEAVER</UnitClass>
+                    <iFreeUnits>1</iFreeUnits>
+                </FreeUnit>
             </FreeUnits>
             <FatherPointCosts>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_TRADE</FatherPointType>
-                    <iCost>2880</iCost>
+                    <iCost>3000</iCost>
                 </FatherPointCost>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
-                    <iCost>2020</iCost>
+                    <iCost>2200</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
             <Trait>TRAIT_ELI_WHITNEY</Trait>
@@ -791,21 +1027,21 @@
             <FreeUnits>
                 <FreeUnit>
                     <UnitClass>UNITCLASS_COCA_COLLECTOR</UnitClass>
-                    <iFreeUnits>2</iFreeUnits>
+                    <iFreeUnits>1</iFreeUnits>
                 </FreeUnit>
                 <FreeUnit>
                     <UnitClass>UNITCLASS_NATIVE_SLAVE</UnitClass>
-                    <iFreeUnits>2</iFreeUnits>
+                    <iFreeUnits>1</iFreeUnits>
                 </FreeUnit>
             </FreeUnits>
             <FatherPointCosts>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_TRADE</FatherPointType>
-                    <iCost>3665</iCost>
+                    <iCost>4000</iCost>
                 </FatherPointCost>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
-                    <iCost>2800</iCost>
+                    <iCost>2500</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
             <Trait>TRAIT_NICOLAS_MONARDES</Trait>
@@ -822,15 +1058,20 @@
             <Strategy>TXT_KEY_FATHER_CYRUS_MCCORMICK_STRATEGY</Strategy>
             <FatherCategory>FATHERCATEGORY_TRADE</FatherCategory>
             <RevealImprovements/>
-            <FreeUnits/>
+            <FreeUnits>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_FARMER</UnitClass>
+                    <iFreeUnits>1</iFreeUnits>
+                </FreeUnit>
+            </FreeUnits>
             <FatherPointCosts>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_TRADE</FatherPointType>
-                    <iCost>4200</iCost>
+                    <iCost>4500</iCost>
                 </FatherPointCost>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
-                    <iCost>3200</iCost>
+                    <iCost>3000</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
             <Trait>TRAIT_CYRUS_MCCORMICK</Trait>
@@ -853,7 +1094,7 @@
                     <iFreeUnits>1</iFreeUnits>
                 </FreeUnit>
                 <FreeUnit>
-                    <UnitClass>UNITCLASS_FERMENTATOR</UnitClass>
+                    <UnitClass>UNITCLASS_ROASTER</UnitClass>
                     <iFreeUnits>1</iFreeUnits>
                 </FreeUnit>
             </FreeUnits>
@@ -864,7 +1105,7 @@
                 </FatherPointCost>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
-                    <iCost>4000</iCost>
+                    <iCost>3500</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
             <Trait>TRAIT_GABRIEL_DE_CLIEU</Trait>
@@ -898,7 +1139,7 @@
                 </FatherPointCost>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
-                    <iCost>4300</iCost>
+                    <iCost>4000</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
             <Trait>TRAIT_JAKOB_FUGGER</Trait>
@@ -918,7 +1159,11 @@
             <FreeUnits>
                 <FreeUnit>
                     <UnitClass>UNITCLASS_INDIGO_PLANTER</UnitClass>
-                    <iFreeUnits>2</iFreeUnits>
+                    <iFreeUnits>1</iFreeUnits>
+                </FreeUnit>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_DYER</UnitClass>
+                    <iFreeUnits>1</iFreeUnits>
                 </FreeUnit>
             </FreeUnits>
             <FatherPointCosts>
@@ -928,7 +1173,7 @@
                 </FatherPointCost>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
-                    <iCost>4800</iCost>
+                    <iCost>4500</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
             <Trait>TRAIT_SAMUEL_BLOMMAERT</Trait>
@@ -936,6 +1181,108 @@
             <Sound>AS2D_FUTURE</Sound>
             <SoundMP>AS2D_MP_FUTURE</SoundMP>
             <Button>,Art/Interface/Screens/Founding_Fathers/Founding_Fathers_Atlas.dds,6,10</Button>
+        </FatherInfo>
+        <FatherInfo>
+            <Type>FATHER_JAMES_BAKER</Type>
+            <Portrait>Art/Interface/Screens/Founding_Fathers/James_Baker.dds</Portrait>
+            <Description>TXT_KEY_FATHER_JAMES_BAKER</Description>
+            <Civilopedia>TXT_KEY_FATHER_JAMES_BAKER_PEDIA</Civilopedia>
+            <Strategy>TXT_KEY_FATHER_JAMES_BAKER_STRATEGY</Strategy>
+            <FatherCategory>FATHERCATEGORY_TRADE</FatherCategory>
+            <RevealImprovements/>
+            <FreeUnits>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_VANILLA_COLLECTOR</UnitClass>
+                    <iFreeUnits>1</iFreeUnits>
+                </FreeUnit>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_CONFECTIONER</UnitClass>
+                    <iFreeUnits>1</iFreeUnits>
+                </FreeUnit>
+            </FreeUnits>
+            <FatherPointCosts>
+                <FatherPointCost>
+                    <FatherPointType>FATHER_POINT_TRADE</FatherPointType>
+                    <iCost>6250</iCost>
+                </FatherPointCost>
+                <FatherPointCost>
+                    <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
+                    <iCost>4750</iCost>
+                </FatherPointCost>
+            </FatherPointCosts>
+            <Trait>TRAIT_JAMES_BAKER</Trait>
+            <Quote>TXT_KEY_FUTURE_QUOTE</Quote>
+            <Sound>AS2D_FUTURE</Sound>
+            <SoundMP>AS2D_MP_FUTURE</SoundMP>
+            <Button>,Art/Interface/Screens/Founding_Fathers/Founding_Fathers_Atlas.dds,3,15</Button>
+        </FatherInfo>
+       <FatherInfo>
+            <Type>FATHER_JOHN_WINTHROP_THE_YOUNGER</Type>
+            <Portrait>Art/Interface/Screens/Founding_Fathers/John_Winthrop_Younger.dds</Portrait>
+            <Description>TXT_KEY_FATHER_JOHN_WINTHROP_THE_YOUNGER</Description>
+            <Civilopedia>TXT_KEY_FATHER_JOHN_WINTHROP_THE_YOUNGER_PEDIA</Civilopedia>
+            <Strategy>TXT_KEY_FATHER_JOHN_WINTHROP_THE_YOUNGER_STRATEGY</Strategy>
+            <FatherCategory>FATHERCATEGORY_TRADE</FatherCategory>
+            <RevealImprovements/>
+            <FreeUnits>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_FIREWORKER</UnitClass>
+                    <iFreeUnits>1</iFreeUnits>
+                </FreeUnit>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_CHARCOAL_BURNER</UnitClass>
+                    <iFreeUnits>1</iFreeUnits>
+                </FreeUnit>
+            </FreeUnits>
+            <FatherPointCosts>
+                <FatherPointCost>
+                    <FatherPointType>FATHER_POINT_TRADE</FatherPointType>
+                    <iCost>6500</iCost>
+                </FatherPointCost>
+                <FatherPointCost>
+                    <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
+                    <iCost>5000</iCost>
+                </FatherPointCost>
+            </FatherPointCosts>
+            <Trait>TRAIT_JOHN_WINTHROP_THE_YOUNGER</Trait>
+            <Quote>TXT_KEY_FUTURE_QUOTE</Quote>
+            <Sound>AS2D_FUTURE</Sound>
+            <SoundMP>AS2D_MP_FUTURE</SoundMP>
+            <Button>,Art/Interface/Screens/Founding_Fathers/Founding_Fathers_Atlas.dds,6,15</Button>
+        </FatherInfo>
+        <FatherInfo>
+            <Type>FATHER_JUAN_DE_PAREJA</Type>
+            <Portrait>Art/Interface/Screens/Founding_Fathers/Juan_De_Pareja.dds</Portrait>
+            <Description>TXT_KEY_FATHER_JUAN_DE_PAREJA</Description>
+            <Civilopedia>TXT_KEY_FATHER_JUAN_DE_PAREJA_PEDIA</Civilopedia>
+            <Strategy>TXT_KEY_FATHER_JUAN_DE_PAREJA_STRATEGY</Strategy>
+            <FatherCategory>FATHERCATEGORY_TRADE</FatherCategory>
+            <RevealImprovements/>
+            <FreeUnits>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_MESTIZZO</UnitClass>
+                    <iFreeUnits>2</iFreeUnits>
+                </FreeUnit>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_MULATTO</UnitClass>
+                    <iFreeUnits>2</iFreeUnits>
+                </FreeUnit>
+            </FreeUnits>
+            <FatherPointCosts>
+                <FatherPointCost>
+                    <FatherPointType>FATHER_POINT_TRADE</FatherPointType>
+                    <iCost>6750</iCost>
+                </FatherPointCost>
+                <FatherPointCost>
+                    <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
+                    <iCost>5250</iCost>
+                </FatherPointCost>
+            </FatherPointCosts>
+            <Trait>TRAIT_JUAN_DE_PAREJA</Trait>
+            <Quote>TXT_KEY_FUTURE_QUOTE</Quote>
+            <Sound>AS2D_FUTURE</Sound>
+            <SoundMP>AS2D_MP_FUTURE</SoundMP>
+            <Button>,Art/Interface/Screens/Founding_Fathers/Founding_Fathers_Atlas.dds,8,15</Button>
         </FatherInfo>
         <FatherInfo>
             <Type>FATHER_ALEXANDER_HAMILTON</Type>
@@ -949,11 +1296,11 @@
             <FatherPointCosts>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_TRADE</FatherPointType>
-                    <iCost>6500</iCost>
+                    <iCost>7000</iCost>
                 </FatherPointCost>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
-                    <iCost>5200</iCost>
+                    <iCost>5500</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
             <Trait>TRAIT_ALEXANDER_HAMILTON</Trait>
@@ -979,11 +1326,11 @@
             <FatherPointCosts>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_TRADE</FatherPointType>
-                    <iCost>7500</iCost>
+                    <iCost>7250</iCost>
                 </FatherPointCost>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
-                    <iCost>6000</iCost>
+                    <iCost>5750</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
             <Trait>TRAIT_JOHN_AUGUST_SUTTER</Trait>
@@ -991,6 +1338,40 @@
             <Sound>AS2D_FUTURE</Sound>
             <SoundMP>AS2D_MP_FUTURE</SoundMP>
             <Button>,Art/Interface/Screens/Founding_Fathers/Founding_Fathers_Atlas.dds,7,10</Button>
+        </FatherInfo>
+        <FatherInfo>
+            <Type>FATHER_JAMES_LANCASTER</Type>
+            <Portrait>Art/Interface/Screens/Founding_Fathers/James_Lancaster.dds</Portrait>
+            <Description>TXT_KEY_FATHER_JAMES_LANCASTER</Description>
+            <Civilopedia>TXT_KEY_FATHER_JAMES_LANCASTER_PEDIA</Civilopedia>
+            <Strategy>TXT_KEY_FATHER_JAMES_LANCASTER_STRATEGY</Strategy>
+            <FatherCategory>FATHERCATEGORY_TRADE</FatherCategory>
+            <RevealImprovements/>
+            <FreeUnits>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_STAGECOACH</UnitClass>
+                    <iFreeUnits>1</iFreeUnits>
+                </FreeUnit>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_TREK</UnitClass>
+                    <iFreeUnits>1</iFreeUnits>
+                </FreeUnit>
+            </FreeUnits>
+            <FatherPointCosts>
+                <FatherPointCost>
+                    <FatherPointType>FATHER_POINT_TRADE</FatherPointType>
+                    <iCost>7500</iCost>
+                </FatherPointCost>
+                <FatherPointCost>
+                    <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
+                    <iCost>6000</iCost>
+                </FatherPointCost>
+            </FatherPointCosts>
+            <Trait>TRAIT_JAMES_LANCASTER</Trait>
+            <Quote>TXT_KEY_FUTURE_QUOTE</Quote>
+            <Sound>AS2D_FUTURE</Sound>
+            <SoundMP>AS2D_MP_FUTURE</SoundMP>
+            <Button>,Art/Interface/Screens/Founding_Fathers/Founding_Fathers_Atlas.dds,7,13</Button>
         </FatherInfo>
         <FatherInfo>
             <Type>FATHER_MICHIEL_DE_RUYTER</Type>
@@ -1003,17 +1384,21 @@
             <FreeUnits>
                 <FreeUnit>
                     <UnitClass>UNITCLASS_MERCHANTMAN</UnitClass>
-                    <iFreeUnits>2</iFreeUnits>
+                    <iFreeUnits>1</iFreeUnits>
+                </FreeUnit>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_ROYAL_FRIGATE</UnitClass>
+                    <iFreeUnits>1</iFreeUnits>
                 </FreeUnit>
             </FreeUnits>
             <FatherPointCosts>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_TRADE</FatherPointType>
-                    <iCost>8500</iCost>
+                    <iCost>8000</iCost>
                 </FatherPointCost>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
-                    <iCost>7000</iCost>
+                    <iCost>6500</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
             <Trait>TRAIT_MICHIEL_DE_RUYTER</Trait>
@@ -1030,15 +1415,28 @@
             <Strategy>TXT_KEY_FATHER_ADAM_SMITH_STRATEGY</Strategy>
             <FatherCategory>FATHERCATEGORY_TRADE</FatherCategory>
             <RevealImprovements/>
-            <FreeUnits/>
+            <FreeUnits>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_BLACKSMITH</UnitClass>
+                    <iFreeUnits>1</iFreeUnits>
+                </FreeUnit>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_GUNSMITH</UnitClass>
+                    <iFreeUnits>1</iFreeUnits>
+                </FreeUnit>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_HOUSEHOLD_TRADER</UnitClass>
+                    <iFreeUnits>1</iFreeUnits>
+                </FreeUnit>
+            </FreeUnits>
             <FatherPointCosts>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_TRADE</FatherPointType>
-                    <iCost>9500</iCost>
+                    <iCost>8500</iCost>
                 </FatherPointCost>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
-                    <iCost>8000</iCost>
+                    <iCost>7000</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
             <Trait>TRAIT_ADAM_SMITH</Trait>
@@ -1059,11 +1457,11 @@
             <FatherPointCosts>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_TRADE</FatherPointType>
-                    <iCost>11000</iCost>
+                    <iCost>9000</iCost>
                 </FatherPointCost>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
-                    <iCost>9000</iCost>
+                    <iCost>7500</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
             <Trait>TRAIT_SAMUEL_ADAMS</Trait>
@@ -1113,7 +1511,7 @@
             <FreeUnits>
                 <FreeUnit>
                     <UnitClass>UNITCLASS_PREACHER</UnitClass>
-                    <iFreeUnits>3</iFreeUnits>
+                    <iFreeUnits>1</iFreeUnits>
                 </FreeUnit>
             </FreeUnits>
             <FatherPointCosts>
@@ -1126,7 +1524,7 @@
                     <iCost>450</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
-            <Trait/>
+            <Trait>TRAIT_THOMAS_HOOKER</Trait>
             <Quote>TXT_KEY_FUTURE_QUOTE</Quote>
             <Sound>AS2D_FUTURE</Sound>
             <SoundMP>AS2D_MP_FUTURE</SoundMP>
@@ -1167,16 +1565,28 @@
             <Button>,Art/Interface/Screens/Founding_Fathers/Founding_Fathers_Atlas.dds,8,9</Button>
         </FatherInfo>
         <FatherInfo>
-            <Type>FATHER_HERMAN_OF_ALASKA</Type>
-            <Portrait>Art/Interface/Screens/Founding_Fathers/HermanofAlaska.dds</Portrait>
-            <Description>TXT_KEY_FATHER_HERMAN_OF_ALASKA</Description>
-            <Civilopedia>TXT_KEY_FATHER_HERMAN_OF_ALASKA_PEDIA</Civilopedia>
-            <Strategy>TXT_KEY_FATHER_HERMAN_OF_ALASKA_STRATEGY</Strategy>
+            <Type>FATHER_TOME_DE_SOUSA</Type>
+            <Portrait>Art/Interface/Screens/Founding_Fathers/Tome_de_Sousa.dds</Portrait>
+            <Description>TXT_KEY_FATHER_TOME_DE_SOUSA</Description>
+            <Civilopedia>TXT_KEY_FATHER_TOME_DE_SOUSA_PEDIA</Civilopedia>
+            <Strategy>TXT_KEY_FATHER_TOME_DE_SOUSA_STRATEGY</Strategy>
             <FatherCategory>FATHERCATEGORY_RELIGION</FatherCategory>
             <RevealImprovements/>
             <FreeUnits>
                 <FreeUnit>
                     <UnitClass>UNITCLASS_CHRISTIAN_MISSIONARY</UnitClass>
+                    <iFreeUnits>1</iFreeUnits>
+                </FreeUnit>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_INDENTURED_SERVANT</UnitClass>
+                    <iFreeUnits>1</iFreeUnits>
+                </FreeUnit>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_COLONIST</UnitClass>
+                    <iFreeUnits>1</iFreeUnits>
+                </FreeUnit>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_VETERAN</UnitClass>
                     <iFreeUnits>1</iFreeUnits>
                 </FreeUnit>
             </FreeUnits>
@@ -1187,14 +1597,14 @@
                 </FatherPointCost>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
-                    <iCost>1005</iCost>
+                    <iCost>1000</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
-            <Trait>TRAIT_HERMAN_OF_ALASKA</Trait>
+            <Trait>TRAIT_TOME_DE_SOUSA</Trait>
             <Quote>TXT_KEY_FUTURE_QUOTE</Quote>
             <Sound>AS2D_FUTURE</Sound>
             <SoundMP>AS2D_MP_FUTURE</SoundMP>
-            <Button>,Art/Interface/Screens/Founding_Fathers/Founding_Fathers_Atlas.dds,7,12</Button>
+            <Button>,Art/Interface/Screens/Founding_Fathers/Founding_Fathers_Atlas.dds,2,10</Button>
         </FatherInfo>
         <FatherInfo>
             <Type>FATHER_BARTOLOME_DE_LAS_CASAS</Type>
@@ -1217,7 +1627,7 @@
                 </FatherPointCost>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
-                    <iCost>1255</iCost>
+                    <iCost>1250</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
             <Trait>TRAIT_BARTOLOME_DE_LAS_CASAS</Trait>
@@ -1238,11 +1648,11 @@
             <FatherPointCosts>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_RELIGION</FatherPointType>
-                    <iCost>1170</iCost>
+                    <iCost>1200</iCost>
                 </FatherPointCost>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
-                    <iCost>1510</iCost>
+                    <iCost>1500</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
             <Trait>TRAIT_SOR_JUANA</Trait>
@@ -1250,6 +1660,40 @@
             <Sound>AS2D_FUTURE</Sound>
             <SoundMP>AS2D_MP_FUTURE</SoundMP>
             <Button>,Art/Interface/Screens/Founding_Fathers/Founding_Fathers_Atlas.dds,1,7</Button>
+        </FatherInfo>
+        <FatherInfo>
+            <Type>FATHER_EUSEBIO_FRANCISO_KINO</Type>
+            <Portrait>Art/Interface/Screens/Founding_Fathers/Eusebio_Francisco_Kino.dds</Portrait>
+            <Description>TXT_KEY_FATHER_EUSEBIO_FRANCISO_KINO</Description>
+            <Civilopedia>TXT_KEY_FATHER_EUSEBIO_FRANCISO_KINO_PEDIA</Civilopedia>
+            <Strategy>TXT_KEY_FATHER_EUSEBIO_FRANCISO_KINO_STRATEGY</Strategy>
+            <FatherCategory>FATHERCATEGORY_RELIGION</FatherCategory>
+            <RevealImprovements/>
+            <FreeUnits>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_OLIVES_PLANTER</UnitClass>
+                    <iFreeUnits>1</iFreeUnits>
+                </FreeUnit>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_OIL_TRADER</UnitClass>
+                    <iFreeUnits>1</iFreeUnits>
+                </FreeUnit>
+            </FreeUnits>
+            <FatherPointCosts>
+                <FatherPointCost>
+                    <FatherPointType>FATHER_POINT_RELIGION</FatherPointType>
+                    <iCost>1400</iCost>
+                </FatherPointCost>
+                <FatherPointCost>
+                    <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
+                    <iCost>1750</iCost>
+                </FatherPointCost>
+            </FatherPointCosts>
+            <Trait>TRAIT_EUSEBIO_FRANCISO_KINO</Trait>
+            <Quote>TXT_KEY_FUTURE_QUOTE</Quote>
+            <Sound>AS2D_FUTURE</Sound>
+            <SoundMP>AS2D_MP_FUTURE</SoundMP>
+            <Button>,Art/Interface/Screens/Founding_Fathers/Founding_Fathers_Atlas.dds,3,14</Button>
         </FatherInfo>
         <FatherInfo>
             <Type>FATHER_ROGER_WILLIAMS</Type>
@@ -1263,11 +1707,11 @@
             <FatherPointCosts>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_RELIGION</FatherPointType>
-                    <iCost>1570</iCost>
+                    <iCost>1600</iCost>
                 </FatherPointCost>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
-                    <iCost>2070</iCost>
+                    <iCost>2000</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
             <Trait>TRAIT_ROGER_WILLIAMS</Trait>
@@ -1292,7 +1736,7 @@
                 </FatherPointCost>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
-                    <iCost>2475</iCost>
+                    <iCost>2500</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
             <Trait>TRAIT_JOHN_ADAMS</Trait>
@@ -1355,7 +1799,7 @@
                 </FatherPointCost>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
-                    <iCost>3500</iCost>
+                    <iCost>3400</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
             <Trait>TRAIT_JUNIPERO_SERRA</Trait>
@@ -1376,7 +1820,7 @@
             <FatherPointCosts>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_RELIGION</FatherPointType>
-                    <iCost>3500</iCost>
+                    <iCost>3200</iCost>
                 </FatherPointCost>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
@@ -1400,7 +1844,7 @@
             <FreeUnits>
                 <FreeUnit>
                     <UnitClass>UNITCLASS_CHRISTIAN_MISSIONARY</UnitClass>
-                    <iFreeUnits>2</iFreeUnits>
+                    <iFreeUnits>1</iFreeUnits>
                 </FreeUnit>
                 <FreeUnit>
                     <UnitClass>UNITCLASS_WINE_MAKER</UnitClass>
@@ -1414,7 +1858,7 @@
             <FatherPointCosts>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_RELIGION</FatherPointType>
-                    <iCost>4000</iCost>
+                    <iCost>3800</iCost>
                 </FatherPointCost>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
@@ -1438,10 +1882,10 @@
             <FreeUnits>
                 <FreeUnit>
                     <UnitClass>UNITCLASS_NATIVE_SLAVE</UnitClass>
-                    <iFreeUnits>2</iFreeUnits>
+                    <iFreeUnits>1</iFreeUnits>
                 </FreeUnit>
                 <FreeUnit>
-                    <UnitClass>UNITCLASS_FERMENTATOR</UnitClass>
+                    <UnitClass>UNITCLASS_ROASTER</UnitClass>
                     <iFreeUnits>1</iFreeUnits>
                 </FreeUnit>
             </FreeUnits>
@@ -1472,7 +1916,11 @@
             <FreeUnits>
                 <FreeUnit>
                     <UnitClass>UNITCLASS_STATESMAN</UnitClass>
-                    <iFreeUnits>5</iFreeUnits>
+                    <iFreeUnits>1</iFreeUnits>
+                </FreeUnit>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_CLOTH_TAYLOR</UnitClass>
+                    <iFreeUnits>1</iFreeUnits>
                 </FreeUnit>
             </FreeUnits>
             <FatherPointCosts>
@@ -1485,7 +1933,7 @@
                     <iCost>5500</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
-            <Trait/>
+            <Trait>TRAIT_NATHANIAL_HAWTHORNE</Trait>
             <Quote>TXT_KEY_FUTURE_QUOTE</Quote>
             <Sound>AS2D_FUTURE</Sound>
             <SoundMP>AS2D_MP_FUTURE</SoundMP>
@@ -1502,7 +1950,7 @@
             <FreeUnits>
                 <FreeUnit>
                     <UnitClass>UNITCLASS_BISHOP</UnitClass>
-                    <iFreeUnits>2</iFreeUnits>
+                    <iFreeUnits>1</iFreeUnits>
                 </FreeUnit>
             </FreeUnits>
             <FatherPointCosts>
@@ -1522,28 +1970,16 @@
             <Button>,Art/Interface/Screens/Founding_Fathers/Founding_Fathers_Atlas.dds,1,9</Button>
         </FatherInfo>
         <FatherInfo>
-            <Type>FATHER_TOME_DE_SOUSA</Type>
-            <Portrait>Art/Interface/Screens/Founding_Fathers/Tome_de_Sousa.dds</Portrait>
-            <Description>TXT_KEY_FATHER_TOME_DE_SOUSA</Description>
-            <Civilopedia>TXT_KEY_FATHER_TOME_DE_SOUSA_PEDIA</Civilopedia>
-            <Strategy>TXT_KEY_FATHER_TOME_DE_SOUSA_STRATEGY</Strategy>
+            <Type>FATHER_HERMAN_OF_ALASKA</Type>
+            <Portrait>Art/Interface/Screens/Founding_Fathers/HermanofAlaska.dds</Portrait>
+            <Description>TXT_KEY_FATHER_HERMAN_OF_ALASKA</Description>
+            <Civilopedia>TXT_KEY_FATHER_HERMAN_OF_ALASKA_PEDIA</Civilopedia>
+            <Strategy>TXT_KEY_FATHER_HERMAN_OF_ALASKA_STRATEGY</Strategy>
             <FatherCategory>FATHERCATEGORY_RELIGION</FatherCategory>
             <RevealImprovements/>
             <FreeUnits>
                 <FreeUnit>
                     <UnitClass>UNITCLASS_CHRISTIAN_MISSIONARY</UnitClass>
-                    <iFreeUnits>1</iFreeUnits>
-                </FreeUnit>
-                <FreeUnit>
-                    <UnitClass>UNITCLASS_INDENTURED_SERVANT</UnitClass>
-                    <iFreeUnits>2</iFreeUnits>
-                </FreeUnit>
-                <FreeUnit>
-                    <UnitClass>UNITCLASS_COLONIST</UnitClass>
-                    <iFreeUnits>2</iFreeUnits>
-                </FreeUnit>
-                <FreeUnit>
-                    <UnitClass>UNITCLASS_VETERAN</UnitClass>
                     <iFreeUnits>1</iFreeUnits>
                 </FreeUnit>
             </FreeUnits>
@@ -1557,11 +1993,11 @@
                     <iCost>7000</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
-            <Trait/>
+            <Trait>TRAIT_HERMAN_OF_ALASKA</Trait>
             <Quote>TXT_KEY_FUTURE_QUOTE</Quote>
             <Sound>AS2D_FUTURE</Sound>
             <SoundMP>AS2D_MP_FUTURE</SoundMP>
-            <Button>,Art/Interface/Screens/Founding_Fathers/Founding_Fathers_Atlas.dds,2,10</Button>
+            <Button>,Art/Interface/Screens/Founding_Fathers/Founding_Fathers_Atlas.dds,7,12</Button>
         </FatherInfo>
         <FatherInfo>
             <Type>FATHER_MIGUEL_HIDALGO</Type>
@@ -1575,11 +2011,11 @@
             <FatherPointCosts>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_RELIGION</FatherPointType>
-                    <iCost>7500</iCost>
+                    <iCost>7000</iCost>
                 </FatherPointCost>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
-                    <iCost>8000</iCost>
+                    <iCost>7500</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
             <Trait>TRAIT_MIGUEL_HIDALGO</Trait>
@@ -1624,17 +2060,17 @@
             <FreeUnits>
                 <FreeUnit>
                     <UnitClass>UNITCLASS_MOUNTED_CONQUISTADOR</UnitClass>
-                    <iFreeUnits>1</iFreeUnits>
+                    <iFreeUnits>2</iFreeUnits>
                 </FreeUnit>
             </FreeUnits>
             <FatherPointCosts>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_MILITARY</FatherPointType>
-                    <iCost>270</iCost>
+                    <iCost>250</iCost>
                 </FatherPointCost>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
-                    <iCost>435</iCost>
+                    <iCost>400</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
             <Trait>TRAIT_FRANCISCO_PIZARRO</Trait>
@@ -1650,11 +2086,16 @@
             <Civilopedia>TXT_KEY_FATHER_PEDRO_DE_VALDIVIA_PEDIA</Civilopedia>
             <Strategy>TXT_KEY_FATHER_PEDRO_DE_VALDIVIA_STRATEGY</Strategy>
             <FatherCategory>FATHERCATEGORY_MILITARY</FatherCategory>
-            <RevealImprovements/>
+            <RevealImprovements>
+                <RevealImprovement>
+                    <ImprovementType>IMPROVEMENT_GOODY_HUT6</ImprovementType>
+                    <bReveal>1</bReveal>
+                </RevealImprovement>
+            </RevealImprovements>
             <FreeUnits>
                 <FreeUnit>
                     <UnitClass>UNITCLASS_CONQUISTADOR</UnitClass>
-                    <iFreeUnits>1</iFreeUnits>
+                    <iFreeUnits>2</iFreeUnits>
                 </FreeUnit>
             </FreeUnits>
             <FatherPointCosts>
@@ -1690,11 +2131,11 @@
             <FatherPointCosts>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_MILITARY</FatherPointType>
-                    <iCost>500</iCost>
+                    <iCost>350</iCost>
                 </FatherPointCost>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
-                    <iCost>715</iCost>
+                    <iCost>600</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
             <Trait>TRAIT_FRANCISCO_DE_CORONADO</Trait>
@@ -1702,6 +2143,40 @@
             <Sound>AS2D_FUTURE</Sound>
             <SoundMP>AS2D_MP_FUTURE</SoundMP>
             <Button>,Art/Interface/Screens/Founding_Fathers/Founding_Fathers_Atlas.dds,7,2</Button>
+        </FatherInfo>
+        <FatherInfo>
+            <Type>FATHER_SIR_JOHN_HARVEY</Type>
+            <Portrait>Art/Interface/Screens/Founding_Fathers/Sir_John_Harvey.dds</Portrait>
+            <Description>TXT_KEY_FATHER_SIR_JOHN_HARVEY</Description>
+            <Civilopedia>TXT_KEY_FATHER_SIR_JOHN_HARVEY_PEDIA</Civilopedia>
+            <Strategy>TXT_KEY_FATHER_SIR_JOHN_HARVEY_STRATEGY</Strategy>
+            <FatherCategory>FATHERCATEGORY_MILITARY</FatherCategory>
+            <RevealImprovements/>
+            <FreeUnits>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_VETERAN_TOWN_GUARD</UnitClass>
+                    <iFreeUnits>1</iFreeUnits>
+                </FreeUnit>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_LEATHER_TAYLOR</UnitClass>
+                    <iFreeUnits>1</iFreeUnits>
+                </FreeUnit>
+            </FreeUnits>
+            <FatherPointCosts>
+                <FatherPointCost>
+                    <FatherPointType>FATHER_POINT_MILITARY</FatherPointType>
+                    <iCost>400</iCost>
+                </FatherPointCost>
+                <FatherPointCost>
+                    <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
+                    <iCost>650</iCost>
+                </FatherPointCost>
+            </FatherPointCosts>
+            <Trait>TRAIT_SIR_JOHN_HARVEY</Trait>
+            <Quote>TXT_KEY_FUTURE_QUOTE</Quote>
+            <Sound>AS2D_FUTURE</Sound>
+            <SoundMP>AS2D_MP_FUTURE</SoundMP>
+            <Button>,Art/Interface/Screens/Founding_Fathers/Founding_Fathers_Atlas.dds,2,15</Button>
         </FatherInfo>
         <FatherInfo>
             <Type>FATHER_HERNADO_DE_SOTO</Type>
@@ -1720,11 +2195,11 @@
             <FatherPointCosts>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_MILITARY</FatherPointType>
-                    <iCost>665</iCost>
+                    <iCost>450</iCost>
                 </FatherPointCost>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
-                    <iCost>1025</iCost>
+                    <iCost>700</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
             <Trait>TRAIT_HERNADO_DE_SOTO</Trait>
@@ -1734,13 +2209,52 @@
             <Button>,Art/Interface/Screens/Founding_Fathers/Founding_Fathers_Atlas.dds,6,3</Button>
         </FatherInfo>
         <FatherInfo>
+            <Type>FATHER_JOHN_MAURICE</Type>
+            <Portrait>Art/Interface/Screens/Founding_Fathers/John_Maurice_Prince_of_Nassau_Siegen.dds</Portrait>
+            <Description>TXT_KEY_FATHER_JOHN_MAURICE</Description>
+            <Civilopedia>TXT_KEY_FATHER_JOHN_MAURICE_PEDIA</Civilopedia>
+            <Strategy>TXT_KEY_FATHER_JOHN_MAURICE_STRATEGY</Strategy>
+            <FatherCategory>FATHERCATEGORY_MILITARY</FatherCategory>
+            <RevealImprovements/>
+            <FreeUnits>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_MILITIA</UnitClass>
+                    <iFreeUnits>1</iFreeUnits>
+                </FreeUnit>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_MILK_MAID</UnitClass>
+                    <iFreeUnits>1</iFreeUnits>
+                </FreeUnit>
+            </FreeUnits>
+            <FatherPointCosts>
+                <FatherPointCost>
+                    <FatherPointType>FATHER_POINT_MILITARY</FatherPointType>
+                    <iCost>500</iCost>
+                </FatherPointCost>
+                <FatherPointCost>
+                    <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
+                    <iCost>750</iCost>
+                </FatherPointCost>
+            </FatherPointCosts>
+            <Trait>TRAIT_JOHN_MAURICE</Trait>
+            <Quote>TXT_KEY_FUTURE_QUOTE</Quote>
+            <Sound>AS2D_FUTURE</Sound>
+            <SoundMP>AS2D_MP_FUTURE</SoundMP>
+            <Button>,Art/Interface/Screens/Founding_Fathers/Founding_Fathers_Atlas.dds,7,14</Button>
+        </FatherInfo>
+        <FatherInfo>
             <Type>FATHER_CHIEF_POWHATAN</Type>
             <Portrait>Art/Interface/Screens/Founding_Fathers/Powhatan.dds</Portrait>
             <Description>TXT_KEY_FATHER_CHIEF_POWHATAN</Description>
             <Civilopedia>TXT_KEY_FATHER_CHIEF_POWHATAN_PEDIA</Civilopedia>
             <Strategy>TXT_KEY_FATHER_CHIEF_POWHATAN_STRATEGY</Strategy>
             <FatherCategory>FATHERCATEGORY_MILITARY</FatherCategory>
-            <RevealImprovements/>
+            <RevealImprovements>
+                <RevealImprovement>
+                    <ImprovementType>IMPROVEMENT_GOODY_HUT7</ImprovementType>
+                    <bReveal>1</bReveal>
+                </RevealImprovement>
+            </RevealImprovements>
             <FreeUnits>
                 <FreeUnit>
                     <UnitClass>UNITCLASS_CONVERTED_NATIVE</UnitClass>
@@ -1750,11 +2264,11 @@
             <FatherPointCosts>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_MILITARY</FatherPointType>
-                    <iCost>900</iCost>
+                    <iCost>550</iCost>
                 </FatherPointCost>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
-                    <iCost>1520</iCost>
+                    <iCost>800</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
             <Trait>TRAIT_CHIEF_POWHATAN</Trait>
@@ -1773,8 +2287,12 @@
             <RevealImprovements/>
             <FreeUnits>
                 <FreeUnit>
+                    <UnitClass>UNITCLASS_GREAT_ADMIRAL</UnitClass>
+                    <iFreeUnits>1</iFreeUnits>
+                </FreeUnit>
+                <FreeUnit>
                     <UnitClass>UNITCLASS_FRIGATE</UnitClass>
-                    <iFreeUnits>2</iFreeUnits>
+                    <iFreeUnits>1</iFreeUnits>
                 </FreeUnit>
                 <FreeUnit>
                     <UnitClass>UNITCLASS_CORVETTE</UnitClass>
@@ -1784,11 +2302,11 @@
             <FatherPointCosts>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_MILITARY</FatherPointType>
-                    <iCost>1110</iCost>
+                    <iCost>600</iCost>
                 </FatherPointCost>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
-                    <iCost>1990</iCost>
+                    <iCost>900</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
             <Trait/>
@@ -1814,11 +2332,11 @@
             <FatherPointCosts>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_MILITARY</FatherPointType>
-                    <iCost>1635</iCost>
+                    <iCost>700</iCost>
                 </FatherPointCost>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
-                    <iCost>2540</iCost>
+                    <iCost>1000</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
             <Trait>TRAIT_FRANCISCO_DE_ORELLANA</Trait>
@@ -1826,6 +2344,78 @@
             <Sound>AS2D_FUTURE</Sound>
             <SoundMP>AS2D_MP_FUTURE</SoundMP>
             <Button>,Art/Interface/Screens/Founding_Fathers/Founding_Fathers_Atlas.dds,5,10</Button>
+        </FatherInfo>
+        <FatherInfo>
+            <Type>FATHER_ADMIRAL_WILLIAM_PENN</Type>
+            <Portrait>Art/Interface/Screens/Founding_Fathers/Admiral_William_Penn.dds</Portrait>
+            <Description>TXT_KEY_FATHER_ADMIRAL_WILLIAM_PENN</Description>
+            <Civilopedia>TXT_KEY_FATHER_ADMIRAL_WILLIAM_PENN_PEDIA</Civilopedia>
+            <Strategy>TXT_KEY_FATHER_ADMIRAL_WILLIAM_PENN_STRATEGY</Strategy>
+            <FatherCategory>FATHERCATEGORY_MILITARY</FatherCategory>
+            <RevealImprovements/>
+            <FreeUnits>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_COLONIAL_MAN_O_WAR</UnitClass>
+                    <iFreeUnits>1</iFreeUnits>
+                </FreeUnit>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_FRIGATE</UnitClass>
+                    <iFreeUnits>1</iFreeUnits>
+                </FreeUnit>
+            </FreeUnits>
+            <FatherPointCosts>
+                <FatherPointCost>
+                    <FatherPointType>FATHER_POINT_MILITARY</FatherPointType>
+                    <iCost>1200</iCost>
+                </FatherPointCost>
+                <FatherPointCost>
+                    <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
+                    <iCost>1500</iCost>
+                </FatherPointCost>
+            </FatherPointCosts>
+            <Trait>TRAIT_ADMIRAL_WILLIAM_PENN</Trait>
+            <Quote>TXT_KEY_FUTURE_QUOTE</Quote>
+            <Sound>AS2D_FUTURE</Sound>
+            <SoundMP>AS2D_MP_FUTURE</SoundMP>
+            <Button>,Art/Interface/Screens/Founding_Fathers/Founding_Fathers_Atlas.dds,4,13</Button>
+        </FatherInfo>
+        <FatherInfo>
+            <Type>FATHER_OTTO_FRIEDRICH_VON_DER_GROEBEN</Type>
+            <Portrait>Art/Interface/Screens/Founding_Fathers/Otto_Friedrich_von_der_Groeben.dds</Portrait>
+            <Description>TXT_KEY_FATHER_OTTO_FRIEDRICH_VON_DER_GROEBEN</Description>
+            <Civilopedia>TXT_KEY_FATHER_OTTO_FRIEDRICH_VON_DER_GROEBEN_PEDIA</Civilopedia>
+            <Strategy>TXT_KEY_FATHER_OTTO_FRIEDRICH_VON_DER_GROEBEN_STRATEGY</Strategy>
+            <FatherCategory>FATHERCATEGORY_MILITARY</FatherCategory>
+            <RevealImprovements/>
+            <FreeUnits>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_SLAVE_HUNTER</UnitClass>
+                    <iFreeUnits>1</iFreeUnits>
+                </FreeUnit>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_SLAVE_MASTER</UnitClass>
+                    <iFreeUnits>1</iFreeUnits>
+                </FreeUnit>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_SLAVE_BARQUE</UnitClass>
+                    <iFreeUnits>1</iFreeUnits>
+                </FreeUnit>
+            </FreeUnits>
+            <FatherPointCosts>
+                <FatherPointCost>
+                    <FatherPointType>FATHER_POINT_MILITARY</FatherPointType>
+                    <iCost>1500</iCost>
+                </FatherPointCost>
+                <FatherPointCost>
+                    <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
+                    <iCost>2000</iCost>
+                </FatherPointCost>
+            </FatherPointCosts>
+            <Trait>TRAIT_OTTO_FRIEDRICH_VON_DER_GROEBEN</Trait>
+            <Quote>TXT_KEY_FUTURE_QUOTE</Quote>
+            <Sound>AS2D_FUTURE</Sound>
+            <SoundMP>AS2D_MP_FUTURE</SoundMP>
+            <Button>,Art/Interface/Screens/Founding_Fathers/Founding_Fathers_Atlas.dds,6,13</Button>
         </FatherInfo>
         <FatherInfo>
             <Type>FATHER_PAUL_REVERE</Type>
@@ -1844,11 +2434,11 @@
             <FatherPointCosts>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_MILITARY</FatherPointType>
-                    <iCost>2210</iCost>
+                    <iCost>2000</iCost>
                 </FatherPointCost>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
-                    <iCost>3000</iCost>
+                    <iCost>2500</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
             <Trait>TRAIT_PAUL_REVERE</Trait>
@@ -1874,11 +2464,11 @@
             <FatherPointCosts>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_MILITARY</FatherPointType>
-                    <iCost>2880</iCost>
+                    <iCost>2500</iCost>
                 </FatherPointCost>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
-                    <iCost>3500</iCost>
+                    <iCost>3000</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
             <Trait>TRAIT_ETHAN_ALLEN</Trait>
@@ -1899,11 +2489,11 @@
             <FatherPointCosts>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_MILITARY</FatherPointType>
-                    <iCost>3520</iCost>
+                    <iCost>3000</iCost>
                 </FatherPointCost>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
-                    <iCost>4000</iCost>
+                    <iCost>3500</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
             <Trait>TRAIT_MAQUIS_DE_LA_FAYETTE</Trait>
@@ -1911,6 +2501,40 @@
             <Sound>AS2D_FUTURE</Sound>
             <SoundMP>AS2D_MP_FUTURE</SoundMP>
             <Button>,Art/Interface/Screens/Founding_Fathers/Founding_Fathers_Atlas.dds,4,5</Button>
+        </FatherInfo>
+       <FatherInfo>
+            <Type>FATHER_SAMUEL_NICHOLAS</Type>
+            <Portrait>Art/Interface/Screens/Founding_Fathers/Samuel_Nicholas.dds</Portrait>
+            <Description>TXT_KEY_FATHER_SAMUEL_NICHOLAS</Description>
+            <Civilopedia>TXT_KEY_FATHER_SAMUEL_NICHOLAS_PEDIA</Civilopedia>
+            <Strategy>TXT_KEY_FATHER_SAMUEL_NICHOLAS_STRATEGY</Strategy>
+            <FatherCategory>FATHERCATEGORY_MILITARY</FatherCategory>
+            <RevealImprovements/>
+            <FreeUnits>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_BRAVE_LIEUTENANT</UnitClass>
+                    <iFreeUnits>1</iFreeUnits>
+                </FreeUnit>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_CAPABLE_CAPTAIN</UnitClass>
+                    <iFreeUnits>1</iFreeUnits>
+                </FreeUnit>
+            </FreeUnits>
+            <FatherPointCosts>
+                <FatherPointCost>
+                    <FatherPointType>FATHER_POINT_MILITARY</FatherPointType>
+                    <iCost>3200</iCost>
+                </FatherPointCost>
+                <FatherPointCost>
+                    <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
+                    <iCost>3700</iCost>
+                </FatherPointCost>
+            </FatherPointCosts>
+            <Trait>TRAIT_SAMUEL_NICHOLAS</Trait>
+            <Quote>TXT_KEY_FUTURE_QUOTE</Quote>
+            <Sound>AS2D_FUTURE</Sound>
+            <SoundMP>AS2D_MP_FUTURE</SoundMP>
+            <Button>,Art/Interface/Screens/Founding_Fathers/Founding_Fathers_Atlas.dds,5,15</Button>
         </FatherInfo>
         <FatherInfo>
             <Type>FATHER_DE_GRASSE</Type>
@@ -1920,15 +2544,20 @@
             <Strategy>TXT_KEY_FATHER_DE_GRASSE_STRATEGY</Strategy>
             <FatherCategory>FATHERCATEGORY_MILITARY</FatherCategory>
             <RevealImprovements/>
-            <FreeUnits/>
+            <FreeUnits>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_SHIP_OF_THE_LINE</UnitClass>
+                    <iFreeUnits>1</iFreeUnits>
+                </FreeUnit>
+            </FreeUnits>
             <FatherPointCosts>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_MILITARY</FatherPointType>
-                    <iCost>4030</iCost>
+                    <iCost>3500</iCost>
                 </FatherPointCost>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
-                    <iCost>4500</iCost>
+                    <iCost>4000</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
             <Trait>TRAIT_DE_GRASSE</Trait>
@@ -1945,15 +2574,20 @@
             <Strategy>TXT_KEY_FATHER_DOM_PEDRO_I_STRATEGY</Strategy>
             <FatherCategory>FATHERCATEGORY_MILITARY</FatherCategory>
             <RevealImprovements/>
-            <FreeUnits/>
+            <FreeUnits>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_GREAT_GENERAL</UnitClass>
+                    <iFreeUnits>1</iFreeUnits>
+                </FreeUnit>
+            </FreeUnits>
             <FatherPointCosts>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_MILITARY</FatherPointType>
-                    <iCost>4830</iCost>
+                    <iCost>4000</iCost>
                 </FatherPointCost>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
-                    <iCost>5200</iCost>
+                    <iCost>4500</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
             <Trait>TRAIT_DOM_PEDRO_I</Trait>
@@ -1979,11 +2613,11 @@
             <FatherPointCosts>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_MILITARY</FatherPointType>
-                    <iCost>5200</iCost>
+                    <iCost>4500</iCost>
                 </FatherPointCost>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
-                    <iCost>6000</iCost>
+                    <iCost>5000</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
             <Trait>TRAIT_PAUL_CHOMEDEY_DE_MAISONNEUVE</Trait>
@@ -2011,17 +2645,17 @@
                 </FreeUnit>
                 <FreeUnit>
                     <UnitClass>UNITCLASS_VETERAN_TOWN_GUARD</UnitClass>
-                    <iFreeUnits>2</iFreeUnits>
+                    <iFreeUnits>1</iFreeUnits>
                 </FreeUnit>
             </FreeUnits>
             <FatherPointCosts>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_MILITARY</FatherPointType>
-                    <iCost>5800</iCost>
+                    <iCost>5000</iCost>
                 </FatherPointCost>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
-                    <iCost>6700</iCost>
+                    <iCost>5500</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
             <Trait>TRAIT_VELAZQUEZ_DE_CUELLAR</Trait>
@@ -2038,15 +2672,24 @@
             <Strategy>TXT_KEY_FATHER_HENRY_SHRAPNEL_STRATEGY</Strategy>
             <FatherCategory>FATHERCATEGORY_MILITARY</FatherCategory>
             <RevealImprovements/>
-            <FreeUnits/>
+            <FreeUnits>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_LIGHT_ARTILLERY</UnitClass>
+                    <iFreeUnits>1</iFreeUnits>
+                </FreeUnit>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_HEAVY_ARTILLERY</UnitClass>
+                    <iFreeUnits>1</iFreeUnits>
+                </FreeUnit>
+            </FreeUnits>
             <FatherPointCosts>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_MILITARY</FatherPointType>
-                    <iCost>6200</iCost>
+                    <iCost>5500</iCost>
                 </FatherPointCost>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
-                    <iCost>7550</iCost>
+                    <iCost>6000</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
             <Trait>TRAIT_HENRY_SHRAPNEL</Trait>
@@ -2066,17 +2709,17 @@
             <FreeUnits>
                 <FreeUnit>
                     <UnitClass>UNITCLASS_SHIP_OF_THE_LINE</UnitClass>
-                    <iFreeUnits>2</iFreeUnits>
+                    <iFreeUnits>1</iFreeUnits>
                 </FreeUnit>
             </FreeUnits>
             <FatherPointCosts>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_MILITARY</FatherPointType>
-                    <iCost>6600</iCost>
+                    <iCost>6000</iCost>
                 </FatherPointCost>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
-                    <iCost>8000</iCost>
+                    <iCost>6500</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
             <Trait>TRAIT_WALTER_RALEIGH</Trait>
@@ -2096,7 +2739,15 @@
             <FreeUnits>
                 <FreeUnit>
                     <UnitClass>UNITCLASS_VETERAN</UnitClass>
-                    <iFreeUnits>5</iFreeUnits>
+                    <iFreeUnits>1</iFreeUnits>
+                </FreeUnit>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_VETERAN_CAVALRY</UnitClass>
+                    <iFreeUnits>1</iFreeUnits>
+                </FreeUnit>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_VETERAN_DRAGOON</UnitClass>
+                    <iFreeUnits>1</iFreeUnits>
                 </FreeUnit>
                 <FreeUnit>
                     <UnitClass>UNITCLASS_CONTINENTAL_GUARD</UnitClass>
@@ -2106,11 +2757,11 @@
             <FatherPointCosts>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_MILITARY</FatherPointType>
-                    <iCost>7200</iCost>
+                    <iCost>7000</iCost>
                 </FatherPointCost>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
-                    <iCost>8600</iCost>
+                    <iCost>7500</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
             <Trait>TRAIT_BENJAMIN_LINCOLN</Trait>
@@ -2130,21 +2781,21 @@
             <FreeUnits>
                 <FreeUnit>
                     <UnitClass>UNITCLASS_HESSIAN</UnitClass>
-                    <iFreeUnits>3</iFreeUnits>
+                    <iFreeUnits>1</iFreeUnits>
                 </FreeUnit>
                 <FreeUnit>
                     <UnitClass>UNITCLASS_EUROPEAN_LINE_INFANTRY</UnitClass>
-                    <iFreeUnits>4</iFreeUnits>
+                    <iFreeUnits>2</iFreeUnits>
                 </FreeUnit>
             </FreeUnits>
             <FatherPointCosts>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_MILITARY</FatherPointType>
-                    <iCost>7500</iCost>
+                    <iCost>8000</iCost>
                 </FatherPointCost>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
-                    <iCost>9000</iCost>
+                    <iCost>8500</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
             <Trait>TRAIT_FRIEDRICH_WILHELM_VON_STEUBEN</Trait>
@@ -2164,21 +2815,25 @@
             <FreeUnits>
                 <FreeUnit>
                     <UnitClass>UNITCLASS_VETERAN</UnitClass>
-                    <iFreeUnits>5</iFreeUnits>
+                    <iFreeUnits>1</iFreeUnits>
+                </FreeUnit>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_VETERAN_CAVALRY</UnitClass>
+                    <iFreeUnits>1</iFreeUnits>
                 </FreeUnit>
                 <FreeUnit>
                     <UnitClass>UNITCLASS_VETERAN_DRAGOON</UnitClass>
-                    <iFreeUnits>2</iFreeUnits>
+                    <iFreeUnits>1</iFreeUnits>
                 </FreeUnit>
             </FreeUnits>
             <FatherPointCosts>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_MILITARY</FatherPointType>
-                    <iCost>8500</iCost>
+                    <iCost>9000</iCost>
                 </FatherPointCost>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
-                    <iCost>10000</iCost>
+                    <iCost>9500</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
             <Trait>TRAIT_JOSE_DE_SAN_MARTIN</Trait>
@@ -2194,7 +2849,12 @@
             <Civilopedia>TXT_KEY_FATHER_POCAHONTAS_PEDIA</Civilopedia>
             <Strategy>TXT_KEY_FATHER_POCAHONTAS_STRATEGY</Strategy>
             <FatherCategory>FATHERCATEGORY_POLITICS</FatherCategory>
-            <RevealImprovements/>
+            <RevealImprovements>
+                <RevealImprovement>
+                    <ImprovementType>IMPROVEMENT_GOODY_HUT8</ImprovementType>
+                    <bReveal>1</bReveal>
+                </RevealImprovement>
+            </RevealImprovements>
             <FreeUnits/>
             <FatherPointCosts>
                 <FatherPointCost>
@@ -2270,12 +2930,8 @@
             <RevealImprovements/>
             <FreeUnits>
                 <FreeUnit>
-                    <UnitClass>UNITCLASS_STATESMAN</UnitClass>
-                    <iFreeUnits>2</iFreeUnits>
-                </FreeUnit>
-                <FreeUnit>
                     <UnitClass>UNITCLASS_FREED_SLAVE</UnitClass>
-                    <iFreeUnits>2</iFreeUnits>
+                    <iFreeUnits>3</iFreeUnits>
                 </FreeUnit>
             </FreeUnits>
             <FatherPointCosts>
@@ -2291,6 +2947,36 @@
             <Button>,Art/Interface/Screens/Founding_Fathers/Founding_Fathers_Atlas.dds,4,3</Button>
         </FatherInfo>
         <FatherInfo>
+            <Type>FATHER_SIR_THOMAS_GATES</Type>
+            <Portrait>Art/Interface/Screens/Founding_Fathers/Sir_Thomas_Gates.dds</Portrait>
+            <Description>TXT_KEY_FATHER_SIR_THOMAS_GATES</Description>
+            <Civilopedia>TXT_KEY_FATHER_SIR_THOMAS_GATES_PEDIA</Civilopedia>
+            <Strategy>TXT_KEY_FATHER_SIR_THOMAS_GATES_STRATEGY</Strategy>
+            <FatherCategory>FATHERCATEGORY_POLITICS</FatherCategory>
+            <RevealImprovements/>
+            <FreeUnits>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_HERDER</UnitClass>
+                    <iFreeUnits>1</iFreeUnits>
+                </FreeUnit>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_BUTCHER</UnitClass>
+                    <iFreeUnits>1</iFreeUnits>
+                </FreeUnit>
+            </FreeUnits>
+            <FatherPointCosts>
+                <FatherPointCost>
+                    <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
+                    <iCost>1600</iCost>
+                </FatherPointCost>
+            </FatherPointCosts>
+            <Trait>TRAIT_SIR_THOMAS_GATES</Trait>
+            <Quote>TXT_KEY_FUTURE_QUOTE</Quote>
+            <Sound>AS2D_FUTURE</Sound>
+            <SoundMP>AS2D_MP_FUTURE</SoundMP>
+            <Button>,Art/Interface/Screens/Founding_Fathers/Founding_Fathers_Atlas.dds,2,14</Button>
+        </FatherInfo>
+        <FatherInfo>
             <Type>FATHER_BETSY_ROSS</Type>
             <Portrait>Art/Interface/Screens/Founding_Fathers/Betsy_Ross.dds</Portrait>
             <Description>TXT_KEY_FATHER_BETSY_ROSS</Description>
@@ -2298,11 +2984,20 @@
             <Strategy>TXT_KEY_FATHER_BETSY_ROSS_STRATEGY</Strategy>
             <FatherCategory>FATHERCATEGORY_POLITICS</FatherCategory>
             <RevealImprovements/>
-            <FreeUnits/>
+            <FreeUnits>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_BUTCHER</UnitClass>
+                    <iFreeUnits>1</iFreeUnits>
+                </FreeUnit>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_WEAVER</UnitClass>
+                    <iFreeUnits>1</iFreeUnits>
+                </FreeUnit>
+            </FreeUnits>
             <FatherPointCosts>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
-                    <iCost>2000</iCost>
+                    <iCost>1800</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
             <Trait>TRAIT_BETSY_ROSS</Trait>
@@ -2310,6 +3005,36 @@
             <Sound>AS2D_FUTURE</Sound>
             <SoundMP>AS2D_MP_FUTURE</SoundMP>
             <Button>,Art/Interface/Screens/Founding_Fathers/Founding_Fathers_Atlas.dds,7,1</Button>
+        </FatherInfo>
+        <FatherInfo>
+            <Type>FATHER_THOMAS_WEST_DE_LA_WARR</Type>
+            <Portrait>Art/Interface/Screens/Founding_Fathers/Thomas_West_de_la_Warr.dds</Portrait>
+            <Description>TXT_KEY_FATHER_THOMAS_WEST_DE_LA_WARR</Description>
+            <Civilopedia>TXT_KEY_FATHER_THOMAS_WEST_DE_LA_WARR_PEDIA</Civilopedia>
+            <Strategy>TXT_KEY_FATHER_THOMAS_WEST_DE_LA_WARR_STRATEGY</Strategy>
+            <FatherCategory>FATHERCATEGORY_POLITICS</FatherCategory>
+            <RevealImprovements/>
+            <FreeUnits>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_BREEDER</UnitClass>
+                    <iFreeUnits>1</iFreeUnits>
+                </FreeUnit>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_POULTRY_BUTCHER</UnitClass>
+                    <iFreeUnits>1</iFreeUnits>
+                </FreeUnit>
+            </FreeUnits>
+            <FatherPointCosts>
+                <FatherPointCost>
+                    <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
+                    <iCost>2000</iCost>
+                </FatherPointCost>
+            </FatherPointCosts>
+            <Trait>TRAIT_THOMAS_WEST_DE_LA_WARR</Trait>
+            <Quote>TXT_KEY_FUTURE_QUOTE</Quote>
+            <Sound>AS2D_FUTURE</Sound>
+            <SoundMP>AS2D_MP_FUTURE</SoundMP>
+            <Button>,Art/Interface/Screens/Founding_Fathers/Founding_Fathers_Atlas.dds,5,14</Button>
         </FatherInfo>
         <FatherInfo>
             <Type>FATHER_IVAN_KRUZENSHTERN</Type>
@@ -2325,7 +3050,7 @@
                     <iFreeUnits>1</iFreeUnits>
                 </FreeUnit>
                 <FreeUnit>
-                    <UnitClass>UNITCLASS_BRIGANTINE</UnitClass>
+                    <UnitClass>UNITCLASS_SCHOONER</UnitClass>
                     <iFreeUnits>1</iFreeUnits>
                 </FreeUnit>
                 <FreeUnit>
@@ -2367,6 +3092,62 @@
             <Button>,Art/Interface/Screens/Founding_Fathers/Founding_Fathers_Atlas.dds,5,9</Button>
         </FatherInfo>
         <FatherInfo>
+            <Type>FATHER_WILLIAM_TAILER</Type>
+            <Portrait>Art/Interface/Screens/Founding_Fathers/William_Tailer.dds</Portrait>
+            <Description>TXT_KEY_FATHER_WILLIAM_TAILER</Description>
+            <Civilopedia>TXT_KEY_FATHER_WILLIAM_TAILER_PEDIA</Civilopedia>
+            <Strategy>TXT_KEY_FATHER_WILLIAM_TAILER_STRATEGY</Strategy>
+            <FatherCategory>FATHERCATEGORY_POLITICS</FatherCategory>
+            <RevealImprovements/>
+            <FreeUnits>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_FARMER</UnitClass>
+                    <iFreeUnits>1</iFreeUnits>
+                </FreeUnit>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_BAKER</UnitClass>
+                    <iFreeUnits>1</iFreeUnits>
+                </FreeUnit>
+            </FreeUnits>
+            <FatherPointCosts>
+                <FatherPointCost>
+                    <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
+                    <iCost>2900</iCost>
+                </FatherPointCost>
+            </FatherPointCosts>
+            <Trait>TRAIT_WILLIAM_TAILER</Trait>
+            <Quote>TXT_KEY_FUTURE_QUOTE</Quote>
+            <Sound>AS2D_FUTURE</Sound>
+            <SoundMP>AS2D_MP_FUTURE</SoundMP>
+            <Button>,Art/Interface/Screens/Founding_Fathers/Founding_Fathers_Atlas.dds,4,15</Button>
+        </FatherInfo>
+        <FatherInfo>
+            <Type>FATHER_BENJAMIN_KISSAM</Type>
+            <Portrait>Art/Interface/Screens/Founding_Fathers/Benjamin_Kissam.dds</Portrait>
+            <Description>TXT_KEY_FATHER_BENJAMIN_KISSAM</Description>
+            <Civilopedia>TXT_KEY_FATHER_BENJAMIN_KISSAM_PEDIA</Civilopedia>
+            <Strategy>TXT_KEY_FATHER_BENJAMIN_KISSAM_STRATEGY</Strategy>
+            <FatherCategory>FATHERCATEGORY_POLITICS</FatherCategory>
+            <RevealImprovements/>
+            <FreeUnits>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_JUDGE</UnitClass>
+                    <iFreeUnits>2</iFreeUnits>
+                </FreeUnit>
+            </FreeUnits>
+            <FatherPointCosts>
+                <FatherPointCost>
+                    <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
+                    <iCost>3200</iCost>
+                </FatherPointCost>
+            </FatherPointCosts>
+            <Trait>TRAIT_BENJAMIN_KISSAM</Trait>
+            <Quote>TXT_KEY_FUTURE_QUOTE</Quote>
+            <Sound>AS2D_FUTURE</Sound>
+            <SoundMP>AS2D_MP_FUTURE</SoundMP>
+            <Button>,Art/Interface/Screens/Founding_Fathers/Founding_Fathers_Atlas.dds,7,15</Button>
+        </FatherInfo>
+        <FatherInfo>
             <Type>FATHER_LORD_BALTIMORE</Type>
             <Portrait>Art/Interface/Screens/Founding_Fathers/Baltimore.dds</Portrait>
             <Description>TXT_KEY_FATHER_LORD_BALTIMORE</Description>
@@ -2378,7 +3159,7 @@
             <FatherPointCosts>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
-                    <iCost>3000</iCost>
+                    <iCost>3500</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
             <Trait>TRAIT_LORD_BALTIMORE</Trait>
@@ -2386,6 +3167,36 @@
             <Sound>AS2D_FUTURE</Sound>
             <SoundMP>AS2D_MP_FUTURE</SoundMP>
             <Button>,Art/Interface/Screens/Founding_Fathers/Founding_Fathers_Atlas.dds,5,1</Button>
+        </FatherInfo>
+        <FatherInfo>
+            <Type>FATHER_THOMAS_CHIPPENDALE</Type>
+            <Portrait>Art/Interface/Screens/Founding_Fathers/Thomas_Chippendale.dds</Portrait>
+            <Description>TXT_KEY_FATHER_THOMAS_CHIPPENDALE</Description>
+            <Civilopedia>TXT_KEY_FATHER_THOMAS_CHIPPENDALE_PEDIA</Civilopedia>
+            <Strategy>TXT_KEY_FATHER_THOMAS_CHIPPENDALE_STRATEGY</Strategy>
+            <FatherCategory>FATHERCATEGORY_POLITICS</FatherCategory>
+            <RevealImprovements/>
+            <FreeUnits>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_FURNITURE_MAKER</UnitClass>
+                    <iFreeUnits>1</iFreeUnits>
+                </FreeUnit>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_LUMBERJACK</UnitClass>
+                    <iFreeUnits>1</iFreeUnits>
+                </FreeUnit>
+            </FreeUnits>
+            <FatherPointCosts>
+                <FatherPointCost>
+                    <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
+                    <iCost>3800</iCost>
+                </FatherPointCost>
+            </FatherPointCosts>
+            <Trait>TRAIT_THOMAS_CHIPPENDALE</Trait>
+            <Quote>TXT_KEY_FUTURE_QUOTE</Quote>
+            <Sound>AS2D_FUTURE</Sound>
+            <SoundMP>AS2D_MP_FUTURE</SoundMP>
+            <Button>,Art/Interface/Screens/Founding_Fathers/Founding_Fathers_Atlas.dds,8,13</Button>
         </FatherInfo>
         <FatherInfo>
             <Type>FATHER_JOHN_JAY</Type>
@@ -2399,7 +3210,7 @@
             <FatherPointCosts>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
-                    <iCost>4000</iCost>
+                    <iCost>4200</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
             <Trait>TRAIT_JOHN_JAY</Trait>
@@ -2419,13 +3230,13 @@
             <FreeUnits>
                 <FreeUnit>
                     <UnitClass>UNITCLASS_NOBLE</UnitClass>
-                    <iFreeUnits>2</iFreeUnits>
+                    <iFreeUnits>1</iFreeUnits>
                 </FreeUnit>
             </FreeUnits>
             <FatherPointCosts>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
-                    <iCost>5000</iCost>
+                    <iCost>4500</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
             <Trait>TRAIT_COMTE_DE_VERGENNES</Trait>
@@ -2442,11 +3253,16 @@
             <Strategy>TXT_KEY_FATHER_BENJAMIN_RUSH_STRATEGY</Strategy>
             <FatherCategory>FATHERCATEGORY_POLITICS</FatherCategory>
             <RevealImprovements/>
-            <FreeUnits/>
+            <FreeUnits>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_DOCTOR</UnitClass>
+                    <iFreeUnits>1</iFreeUnits>
+                </FreeUnit>
+            </FreeUnits>
             <FatherPointCosts>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
-                    <iCost>6000</iCost>
+                    <iCost>5000</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
             <Trait>TRAIT_BENJAMIN_RUSH</Trait>
@@ -2467,7 +3283,7 @@
             <FatherPointCosts>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
-                    <iCost>7000</iCost>
+                    <iCost>5500</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
             <Trait>TRAIT_JAMES_WILSON</Trait>
@@ -2487,13 +3303,13 @@
             <FreeUnits>
                 <FreeUnit>
                     <UnitClass>UNITCLASS_NOBLE</UnitClass>
-                    <iFreeUnits>2</iFreeUnits>
+                    <iFreeUnits>1</iFreeUnits>
                 </FreeUnit>
             </FreeUnits>
             <FatherPointCosts>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
-                    <iCost>8000</iCost>
+                    <iCost>6000</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
             <Trait>TRAIT_ALEXIS_DE_TOCQUEVILLE</Trait>
@@ -2514,7 +3330,7 @@
             <FatherPointCosts>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
-                    <iCost>9000</iCost>
+                    <iCost>7000</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
             <Trait>TRAIT_THOMAS_PAINE</Trait>
@@ -2535,7 +3351,7 @@
             <FatherPointCosts>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
-                    <iCost>10000</iCost>
+                    <iCost>8000</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
             <Trait>TRAIT_JAMES_MADISON</Trait>
@@ -2556,7 +3372,7 @@
             <FatherPointCosts>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
-                    <iCost>12000</iCost>
+                    <iCost>9000</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
             <Trait>TRAIT_PATRICK_HENRY</Trait>
@@ -2573,11 +3389,16 @@
             <Strategy>TXT_KEY_FATHER_BEN_FRANKLIN_STRATEGY</Strategy>
             <FatherCategory>FATHERCATEGORY_POLITICS</FatherCategory>
             <RevealImprovements/>
-            <FreeUnits/>
+            <FreeUnits>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_STATESMAN</UnitClass>
+                    <iFreeUnits>2</iFreeUnits>
+                </FreeUnit>
+            </FreeUnits>
             <FatherPointCosts>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
-                    <iCost>13000</iCost>
+                    <iCost>10000</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
             <Trait>TRAIT_BEN_FRANKLIN</Trait>
@@ -2598,7 +3419,7 @@
             <FatherPointCosts>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
-                    <iCost>15000</iCost>
+                    <iCost>11000</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
             <Trait>TRAIT_WASHINGTON_IRVING</Trait>
@@ -2615,11 +3436,16 @@
             <Strategy>TXT_KEY_FATHER_THOMAS_JEFFERSON_STRATEGY</Strategy>
             <FatherCategory>FATHERCATEGORY_POLITICS</FatherCategory>
             <RevealImprovements/>
-            <FreeUnits/>
+            <FreeUnits>
+                <FreeUnit>
+                    <UnitClass>UNITCLASS_STATESMAN</UnitClass>
+                    <iFreeUnits>1</iFreeUnits>
+                </FreeUnit>
+            </FreeUnits>
             <FatherPointCosts>
                 <FatherPointCost>
                     <FatherPointType>FATHER_POINT_POLITICAL</FatherPointType>
-                    <iCost>17000</iCost>
+                    <iCost>12000</iCost>
                 </FatherPointCost>
             </FatherPointCosts>
             <Trait>TRAIT_THOMAS_JEFFERSON</Trait>
